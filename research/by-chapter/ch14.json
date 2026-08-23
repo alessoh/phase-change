@@ -1,0 +1,300 @@
+{
+ "chapter": 14,
+ "title": "Instruments That Decide Where to Look",
+ "outline": "Between roughly 2017 and 2023 the job of deciding what phase a sample is in moved, in several experimental communities simultaneously, from a human reading a curve to a network reading raw detector output, and then from a human choosing the next measurement to an algorithm choosing it. Diffraction came first. Autonomy came second, with Gaussian-process surrogate models steering synchrotron and neutron instruments toward the regions of parameter space where a phase boundary actually lives. A parallel thread runs through electron microscopy, where atomically resolved imaging became a stream of machine-readable phase labels and the microscope itself began choosing its targets. Ultracold atoms complete the picture, with transitions extracted from single-shot momentum images.\n\nBuilt on Park and Sohn on convolutional networks for powder diffraction, Oviedo and Buonassisi on physics-informed augmentation for thin films, Szymanski and Ceder on probabilistic ensembles for multi-phase mixtures, Maffettone and Olds on uncertainty-aware companion agents at a beamline, Noack with Yager, Fukuto and Sethian on Gaussian-process autonomous experimentation with the gpCAM attribution corrected, Kusne's CAMEO, Kalinin and Ziatdinov on scanning transmission electron microscopy, Rem, Köming, Tarnowski and Weitenberg in Nature Physics 15, 917 to 920, and Bohrdt and Demler on quantum gas microscope snapshots.\n\nLeaves open: an instrument that chooses its own measurements is also choosing what will never be measured.",
+ "domains": [
+  "experiment-characterization"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "A convolutional neural network trained on approximately 150,000 simulated powder X-ray diffraction patterns, treating each pattern as an image rather than as a list of fitted peaks, classified crystal system with 94.99% accuracy, extinction group with 83.83% accuracy and space group with 81.14% accuracy.",
+   "people": "Woon Bae Park, Jiyong Chung, Jaeyoung Jung, Keemin Sohn, Satendra Pal Singh, Myoungho Pyo, Namsoo Shin, Kee-Sun Sohn",
+   "affiliation": "Sejong University and Sunchon National University, Republic of Korea",
+   "year": "2017",
+   "venue": "IUCrJ 4(4), 486-494",
+   "url": "https://doi.org/10.1107/S205225251700714X",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Physics-informed data augmentation of simulated ICSD patterns allowed an all-convolutional neural network to classify 115 experimentally synthesized thin-film metal-halide samples spanning three crystallographic dimensionalities and seven space groups, with cross-validated accuracies of 93% for dimensionality and 89% for space group — demonstrating that XRD phase classification works even when experimental training data is scarce.",
+   "people": "Felipe Oviedo, Zekun Ren, Shijing Sun, Charles Settens, Zhe Liu, Noor Titan Putri Hartono, Savitha Ramasamy, Brian L. DeCost, Siyu I. P. Tian, Giuseppe Romano, Aaron Gilad Kusne, Tonio Buonassisi",
+   "affiliation": "Massachusetts Institute of Technology, with NIST and Singapore-MIT Alliance for Research and Technology",
+   "year": "2018 (arXiv:1811.08425); 2019 (journal)",
+   "venue": "npj Computational Materials 5, article 60",
+   "url": "https://doi.org/10.1038/s41524-019-0196-x",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "An ensemble convolutional neural network trained on simulated spectra augmented with physics-informed perturbations, combined with a branching algorithm that exploits the network's probabilistic output, automatically identified the set of phases present in multi-phase diffraction spectra — the analysis bottleneck that had blocked fully autonomous inorganic synthesis.",
+   "people": "Nathan J. Szymanski, Christopher J. Bartel, Yan Zeng, Qingsong Tu, Gerbrand Ceder",
+   "affiliation": "University of California, Berkeley and Lawrence Berkeley National Laboratory",
+   "year": "2021 (arXiv:2103.16664 and journal)",
+   "venue": "Chemistry of Materials 33(11), 4204-4215",
+   "url": "https://doi.org/10.1021/acs.chemmater.1c01071",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "The 'crystallography companion agent' (xca) was trained on a physically accurate synthetic dataset and returns probabilistic rather than absolute phase classifications, deliberately avoiding the overconfidence of conventional neural networks so that it can work as a real-time assistant to a beamline scientist rather than as a black-box oracle.",
+   "people": "Phillip M. Maffettone, Lars Banko, Peng Cui, Yury Lysogorskiy, Marc A. Little, Daniel Olds, Alfred Ludwig, Andrew I. Cooper",
+   "affiliation": "National Synchrotron Light Source II, Brookhaven National Laboratory; University of Liverpool; Ruhr University Bochum",
+   "year": "2020 (arXiv:2008.00283); 2021 (journal)",
+   "venue": "Nature Computational Science 1(4), 290-297",
+   "url": "https://doi.org/10.1038/s43588-021-00059-2",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Deep representation learning applied to large combinatorial X-ray diffraction datasets enabled both low-dimensional visualization of composition-structure space and novelty detection — flagging diffraction patterns that do not correspond to any known phase, which is the practical signature of an undiscovered phase region.",
+   "people": "Lars Banko, Phillip M. Maffettone, Dennis Naujoks, Daniel Olds, Alfred Ludwig",
+   "affiliation": "Ruhr University Bochum and Brookhaven National Laboratory",
+   "year": "2021",
+   "venue": "npj Computational Materials 7, article 104",
+   "url": "https://doi.org/10.1038/s41524-021-00575-9",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "The A-Lab, an autonomous solid-state synthesis laboratory combining robotics, ab initio phase-stability data from the Materials Project, and machine-learned interpretation of X-ray diffraction, produced 41 novel compounds from 58 targets over 17 days of continuous operation; automated XRD phase analysis was the feedback signal that let active learning revise failed synthesis recipes.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "Lawrence Berkeley National Laboratory and University of California, Berkeley; Google DeepMind",
+   "year": "2023",
+   "venue": "Nature 624(7990), 86-91",
+   "url": "https://doi.org/10.1038/s41586-023-06734-w",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "CAMEO (Closed-Loop Autonomous Materials Exploration and Optimization) used Bayesian active learning over synchrotron X-ray diffraction measurements to map a composition-phase diagram on the fly and locate a phase-change memory material with an optimized figure of merit, demonstrating closed-loop autonomous identification of phase boundaries at a light source.",
+   "people": "A. Gilad Kusne, Heshan Yu, Changming Wu, Huairuo Zhang, Jason Hattrick-Simpers, Brian DeCost, Suchismita Sarker, Corey Oses, Cormac Toher, Stefano Curtarolo, Albert V. Davydov, Ritesh Agarwal, Leonid A. Bendersky, Mo Li, Apurva Mehta, Ichiro Takeuchi",
+   "affiliation": "National Institute of Standards and Technology, with University of Maryland and SLAC/SSRL",
+   "year": "2020",
+   "venue": "Nature Communications 11, article 5966",
+   "url": "https://doi.org/10.1038/s41467-020-19597-w",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A Kriging (Gaussian process) surrogate model was used to autonomously choose the next measurement point in a synchrotron X-ray scattering experiment, replacing a pre-programmed raster scan with a policy that concentrates measurements where the model is most uncertain — the founding demonstration of autonomous experimentation at NSLS-II.",
+   "people": "Marcus M. Noack, Kevin G. Yager, Masafumi Fukuto, Gregory S. Doerk, Ruipeng Li, James A. Sethian",
+   "affiliation": "Lawrence Berkeley National Laboratory (CAMERA) and Brookhaven National Laboratory (NSLS-II, Center for Functional Nanomaterials)",
+   "year": "2019",
+   "venue": "Scientific Reports 9, article 11809",
+   "url": "https://doi.org/10.1038/s41598-019-48114-3",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Extending Gaussian process autonomous experimentation with inhomogeneous measurement noise and anisotropic kernels made the method robust to the real signal-to-noise structure of synchrotron data, and this machinery was released as the open-source gpCAM package so other facilities could run their own autonomous experiments.",
+   "people": "Marcus M. Noack, Gregory S. Doerk, Ruipeng Li, Jason K. Streit, Richard A. Vaia, Kevin G. Yager, Masafumi Fukuto",
+   "affiliation": "Lawrence Berkeley National Laboratory and Brookhaven National Laboratory; Air Force Research Laboratory",
+   "year": "2020",
+   "venue": "Scientific Reports 10, article 17663",
+   "url": "https://doi.org/10.1038/s41598-020-74394-1",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A cross-facility review established Gaussian process regression as the common decision-making engine for autonomous data acquisition, documenting deployments spanning X-ray scattering at NSLS-II, infrared and angle-resolved photoemission spectroscopy at the Advanced Light Source, and neutron scattering at the Institut Laue-Langevin.",
+   "people": "Marcus M. Noack, Petrus H. Zwart, Daniela M. Ushizima, Masafumi Fukuto, Kevin G. Yager, Katherine C. Elbert, Christopher B. Murray, Aaron Stein, Gregory S. Doerk, Esther H. R. Tsai, Ruipeng Li, Guillaume Freychet, Mikhail Zhernenkov, Hoi-Ying N. Holman, Steven Lee, Liang Chen, Eli Rotenberg, Tobias Weber, Yannick Le Goc, Martin Boehm, Paul Steffens, Paolo Mutti, James A. Sethian",
+   "affiliation": "Lawrence Berkeley National Laboratory, Brookhaven National Laboratory, University of Pennsylvania, Institut Laue-Langevin",
+   "year": "2021",
+   "venue": "Nature Reviews Physics 3(10), 685-697",
+   "url": "https://doi.org/10.1038/s42254-021-00345-y",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "An autonomous X-ray scattering campaign at NSLS-II discovered previously unknown coexisting and hybrid morphologies in directed self-assembly of block copolymer blends, showing that machine-driven exploration finds structural regimes a human-designed grid scan would have stepped over.",
+   "people": "Gregory S. Doerk, Aaron Stein, Suwon Bae, Marcus M. Noack, Masafumi Fukuto, Kevin G. Yager",
+   "affiliation": "Center for Functional Nanomaterials and NSLS-II, Brookhaven National Laboratory; Lawrence Berkeley National Laboratory",
+   "year": "2023",
+   "venue": "Science Advances 9(2), eadd3687",
+   "url": "https://doi.org/10.1126/sciadv.add3687",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "K-means clustering combined with Gaussian process regression steered angle-resolved photoemission spectroscopy data collection at the Advanced Light Source, autonomously concentrating measurement time on the regions of momentum space where electronic structure features — and therefore electronic phase information — actually vary.",
+   "people": "Charles N. Melton, Marcus M. Noack, Taisuke Ohta, Thomas E. Beechem, Jeremy Robinson, Xiaotian Zhang, Aaron Bostwick, Chris Jozwiak, Roland J. Koch, Petrus H. Zwart, Alexander Hexemer, Eli Rotenberg",
+   "affiliation": "Advanced Light Source, Lawrence Berkeley National Laboratory; Sandia National Laboratories; U.S. Naval Research Laboratory",
+   "year": "2020",
+   "venue": "Machine Learning: Science and Technology 1(4), 045015",
+   "url": "https://doi.org/10.1088/2632-2153/abab61",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A twenty-one-author community perspective from academia, industry, national laboratories and funding agencies set out the shared architecture of closed-loop autonomous experimentation for materials — synthesis robot, automated characterization, and a decision-making agent — and named the interoperability and data-standard problems that block it.",
+   "people": "Eric Stach, Brian DeCost, A. Gilad Kusne, Jason Hattrick-Simpers, Keith A. Brown, Kristofer G. Reyes, Joshua Schrier, Simon Billinge",
+   "affiliation": "University of Pennsylvania; National Institute of Standards and Technology; Boston University; University at Buffalo; Fordham University; Columbia University and Brookhaven National Laboratory",
+   "year": "2021",
+   "venue": "Matter 4(9), 2702-2726",
+   "url": "https://doi.org/10.1016/j.matt.2021.06.036",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A weakly supervised deep learning pipeline applied to atomically resolved scanning transmission electron microscopy images identified individual atoms by chemical species and tracked their local transformations frame by frame, including switching of silicon dopants between coordination states in graphene and the formation of mixed-coordination silicon dimers.",
+   "people": "Maxim Ziatdinov, Ondrej Dyck, Artem Maksov, Xufan Li, Xiahan Sang, Kai Xiao, Raymond R. Unocic, Rama Vasudevan, Stephen Jesse, Sergei V. Kalinin",
+   "affiliation": "Oak Ridge National Laboratory",
+   "year": "2017",
+   "venue": "ACS Nano 11(12), 12742-12752",
+   "url": "https://doi.org/10.1021/acsnano.7b07504",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Deep learning analysis of an in situ STEM image sequence resolved the trajectory of defect populations and the local phase evolution during electron-beam-induced transformation of WS2, converting a movie of a phase transformation into quantitative statistics over individual defect types.",
+   "people": "Artem Maksov, Ondrej Dyck, Kai Wang, Kai Xiao, David B. Geohegan, Bobby G. Sumpter, Rama K. Vasudevan, Stephen Jesse, Sergei V. Kalinin, Maxim Ziatdinov",
+   "affiliation": "Oak Ridge National Laboratory",
+   "year": "2019",
+   "venue": "npj Computational Materials 5, article 12",
+   "url": "https://doi.org/10.1038/s41524-019-0152-9",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Deep kernel learning was run inside a live 4D-STEM experiment so that the microscope itself selected which probe positions to measure next, targeting regions whose diffraction signatures indicated emergent structural behavior — a working automated experiment rather than post-hoc analysis.",
+   "people": "Kevin M. Roccapriore, Ondrej Dyck, Mark P. Oxley, Maxim Ziatdinov, Sergei V. Kalinin",
+   "affiliation": "Oak Ridge National Laboratory",
+   "year": "2022",
+   "venue": "ACS Nano 16(5), 7605-7614",
+   "url": "https://doi.org/10.1021/acsnano.1c11118",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A sixteen-author Primer codified machine learning practice across the main STEM modalities — structural imaging, electron energy loss spectroscopy, and 4D-STEM — establishing the field's shared vocabulary for automated microscopy.",
+   "people": "Sergei V. Kalinin, Colin Ophus, Paul M. Voyles, Rolf Erni, Demie Kepaptsoglou, Vincenzo Grillo, Andrew R. Lupini, Mark P. Oxley, Eric Schwenker, Maria K. Y. Chan, Joanne Etheridge, Xiang Li, Grace G. D. Han, Maxim Ziatdinov, Naoya Shibata, Stephen J. Pennycook",
+   "affiliation": "Oak Ridge National Laboratory and University of Tennessee, Knoxville; Lawrence Berkeley National Laboratory; University of Wisconsin-Madison; Argonne National Laboratory",
+   "year": "2022",
+   "venue": "Nature Reviews Methods Primers 2, article 11",
+   "url": "https://doi.org/10.1038/s43586-022-00095-w",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Active learning driven by deep kernel learning ran inside a piezoresponse force microscope and discovered, during the experiment itself, which local ferroelectric domain-structure motifs produce the largest polarization-voltage hysteresis loops — locating the behavior of interest from a very small number of spectroscopic measurements.",
+   "people": "Yongtao Liu, Kyle P. Kelley, Rama K. Vasudevan, Hiroshi Funakubo, Maxim A. Ziatdinov, Sergei V. Kalinin",
+   "affiliation": "Oak Ridge National Laboratory; Tokyo Institute of Technology",
+   "year": "2022",
+   "venue": "Nature Machine Intelligence 4(4), 341-350",
+   "url": "https://doi.org/10.1038/s42256-022-00460-0",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "'Hypothesis learning' had an autonomous scanning probe microscope maintain competing physical models of bias-induced ferroelectric domain switching and select measurements that discriminate between them, so the instrument was testing hypotheses rather than merely optimizing a scalar objective.",
+   "people": "Yongtao Liu, Anna N. Morozovska, Eugene A. Eliseev, Kyle P. Kelley, Rama Vasudevan, Maxim Ziatdinov, Sergei V. Kalinin",
+   "affiliation": "Oak Ridge National Laboratory; Institute of Physics and Institute for Problems of Materials Science, National Academy of Sciences of Ukraine",
+   "year": "2023",
+   "venue": "Patterns 4(3), 100704",
+   "url": "https://doi.org/10.1016/j.patter.2023.100704",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "PtychoNN, a two-headed encoder-decoder convolutional network, predicted both real-space amplitude and phase directly from far-field diffraction data at each scan point, reconstructing ptychographic images hundreds of times faster than iterative phase retrieval and from sparsely sampled data.",
+   "people": "Mathew J. Cherukara, Tao Zhou, Youssef Nashed, Pablo Enfedaque, Alex Hexemer, Ross J. Harder, Martin V. Holt",
+   "affiliation": "Advanced Photon Source and Center for Nanoscale Materials, Argonne National Laboratory; Lawrence Berkeley National Laboratory",
+   "year": "2020 (arXiv:2004.08247 and journal)",
+   "venue": "Applied Physics Letters 117(4), 044103",
+   "url": "https://doi.org/10.1063/5.0013065",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Deploying a trained ptychography network on edge hardware at the beamline turned reconstruction into a streaming operation, delivering real-time images while the scan was still running and closing the latency gap that had prevented ptychography from guiding an experiment in progress.",
+   "people": "Anakha V. Babu, Tao Zhou, Saugat Kandel, Tekin Bicer, Zhengchun Liu, William Judge, Daniel J. Ching, Yi Jiang, Sinisa Veseli, Steven Henke, Ryan Chard, Yudong Yao, Ekaterina Sirazitdinova, Geetika Gupta, Martin V. Holt, Ian T. Foster, Antonino Miceli, Mathew J. Cherukara",
+   "affiliation": "Argonne National Laboratory (Advanced Photon Source, Center for Nanoscale Materials, Data Science and Learning Division); NVIDIA",
+   "year": "2023",
+   "venue": "Nature Communications 14, article 7059",
+   "url": "https://doi.org/10.1038/s41467-023-41496-z",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "An autoencoder trained on simulated three-dimensional diffuse neutron scattering across a wide family of spin Hamiltonians was used to invert time-of-flight measurements of the spin ice Dy2Ti2O7 taken on the CORELLI instrument at the Spallation Neutron Source, yielding the effective spin Hamiltonian with confidence intervals rather than a single fitted point.",
+   "people": "Anjana M. Samarakoon, Kipton Barros, Ying Wai Li, Markus Eisenbach, Qiang Zhang, Feng Ye, V. Sharma, Z. L. Dun, Haidong Zhou, Santiago A. Grigera, Cristian D. Batista, D. Alan Tennant",
+   "affiliation": "Oak Ridge National Laboratory; Los Alamos National Laboratory; University of Tennessee, Knoxville",
+   "year": "2020",
+   "venue": "Nature Communications 11, article 892",
+   "url": "https://doi.org/10.1038/s41467-020-14660-y",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Implicit neural representations were trained to model the dynamical spin structure factor, allowing continuous reconstruction of dynamical correlations from sparse and noisy inelastic neutron scattering measurements instead of binned histograms.",
+   "people": "Sathya R. Chitturi, Zhurun Ji, Alexander N. Petsch, Cheng Peng, Zhantao Chen, Rajan Plumley, Mike Dunne, Sougata Mardanya, Sugata Chowdhury, Hongwei Chen, Arun Bansil, Adrian Feiguin, Alexander I. Kolesnikov, Dharmalingam Prabhakaran, Stephen M. Hayden, Daniel Ratner, Chunjing Jia, Youssef Nashed, Joshua J. Turner",
+   "affiliation": "SLAC National Accelerator Laboratory and Stanford University; Oak Ridge National Laboratory; University of Oxford; University of Bristol",
+   "year": "2023",
+   "venue": "Nature Communications 14, article 5852",
+   "url": "https://doi.org/10.1038/s41467-023-41378-4",
+   "confidence": "probable",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Artificial neural networks applied to single-shot momentum-space density images from ultracold quantum gases mapped the full two-dimensional topological phase diagram of the Haldane model and gave an improved characterization of the superfluid-to-Mott-insulator transition in an inhomogeneous Bose-Hubbard system — results the authors state were not obtainable with conventional analysis of the same data.",
+   "people": "Benno S. Rem, Niklas Käming, Matthias Tarnowski, Luca Asteria, Nick Fläschner, Christoph Becker, Klaus Sengstock, Christof Weitenberg",
+   "affiliation": "Institut für Laserphysik, Universität Hamburg",
+   "year": "2018 (arXiv:1809.05519); 2019 (journal)",
+   "venue": "Nature Physics 15, 917-920",
+   "url": "https://doi.org/10.1038/s41567-019-0554-0",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "A machine learning classifier trained on snapshots from two competing theories was applied to quantum gas microscope images of the two-dimensional Fermi-Hubbard model, and up to intermediate doping it assigned the experimental snapshots to geometric-string theory — a state with hidden spin order — rather than to a doped resonating-valence-bond spin liquid; the network read structure in single-shot data that conventional correlators had missed.",
+   "people": "Annabelle Bohrdt, Christie S. Chiu, Geoffrey Ji, Muqing Xu, Daniel Greif, Markus Greiner, Eugene Demler, Fabian Grusdt, Michael Knap",
+   "affiliation": "Technical University of Munich; Harvard University",
+   "year": "2018 (arXiv:1811.12425); 2019 (journal)",
+   "venue": "Nature Physics 15, 921-924",
+   "url": "https://doi.org/10.1038/s41567-019-0565-x",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Unsupervised methods — anomaly detection and influence functions — recovered the topological phase diagram of the Haldane model from noisy, imperfect ultracold-atom data without being told the order parameter, showing that phase boundaries can be localized from experimental measurements in a fully unbiased fashion.",
+   "people": "Niklas Käming, Anna Dawid, Korbinian Kottmann, Maciej Lewenstein, Klaus Sengstock, Alexandre Dauphin, Christof Weitenberg",
+   "affiliation": "Universität Hamburg; ICFO - Institut de Ciències Fotòniques, Barcelona; University of Warsaw",
+   "year": "2021 (arXiv:2101.05712 and journal)",
+   "venue": "Machine Learning: Science and Technology 2(3), 035037",
+   "url": "https://doi.org/10.1088/2632-2153/abffe7",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "claim": "Machine learning applied to snapshots from a programmable Rydberg-atom quantum simulator identified phases and phase boundaries directly from projective measurement data, including regions of the phase diagram not anticipated from conventional order-parameter analysis.",
+   "people": "Cole Miles, Rhine Samajdar, Sepehr Ebadi, Tout T. Wang, Hannes Pichler, Subir Sachdev, Mikhail D. Lukin, Markus Greiner, Kilian Q. Weinberger, Eun-Ah Kim",
+   "affiliation": "Cornell University; Harvard University; University of Innsbruck",
+   "year": "2023",
+   "venue": "Physical Review Research 5(1), 013026",
+   "url": "https://doi.org/10.1103/PhysRevResearch.5.013026",
+   "confidence": "verified",
+   "_domain": "experiment-characterization"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "The A-Lab produced 41 novel compounds from 58 targets over 17 days of continuous operation, with automated XRD phase analysis as the active-learning feedback signal (Szymanski et al., Nature 624(7990), 86-91, 2023)",
+   "correction": "Citation, venue, DOI and all 16 author names verified correct (https://doi.org/10.1038/s41586-023-06734-w). The problem is stating the novelty count as established fact. Recommended text: 'The A-Lab, an autonomous solid-state synthesis laboratory combining robotics, ab initio phase-stability data from the Materials Project, and machine-learned interpretation of X-ray diffraction, reported 41 successful syntheses from 58 targets over 17 days of continuous operation; automated XRD phase analysis was the feedback signal that let active learning revise failed synthesis recipes. The novelty of those compounds was subsequently disputed: Leeman, Liu, Stiles, Lee, Bhatt, Schoop and Palgrave argued that roughly two-thirds of the claimed successes are likely known, compositionally disordered variants of the predicted ordered compounds (PRX Energy 3(1), 011002, 2024, https://doi.org/10.1103/PRXEnergy.3.011002).' Any book text should attribute the 41-of-58 figure to the authors rather than assert it.",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Extending GP autonomous experimentation with inhomogeneous measurement noise and anisotropic kernels made the method robust to real synchrotron signal-to-noise, and this machinery was released as the open-source gpCAM package (Noack, Doerk, Li, Streit, Vaia, Yager, Fukuto; Sci. Rep. 10, 17663, 2020)",
+   "correction": "Bibliographic data all verified correct (https://doi.org/10.1038/s41598-020-74394-1), and the first half of the claim matches the abstract. But gpCAM is never named anywhere in this paper — the software attribution is grafted on from elsewhere. Recommended text: 'Extending Gaussian process autonomous experimentation with inhomogeneous measurement noise and anisotropic kernels made the method robust to the real signal-to-noise structure of synchrotron data (Noack et al., Scientific Reports 10, 17663, 2020, https://doi.org/10.1038/s41598-020-74394-1). Noack later packaged this class of decision-making machinery as the open-source gpCAM library (https://github.com/lbl-camera/gpCAM), described in Noack et al., Nature Reviews Physics 3, 685-697 (2021), https://doi.org/10.1038/s42254-021-00345-y, so other facilities could run their own autonomous experiments.'",
+   "_domain": "experiment-characterization"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Implicit neural representations were trained to model the dynamical spin structure factor, allowing continuous reconstruction of dynamical correlations from sparse and noisy inelastic neutron scattering measurements instead of binned histograms (Chitturi et al., Nat. Commun. 14, 5852, 2023)",
+   "correction": "The citation itself is sound — Nature Communications 14, 5852 (2023), https://doi.org/10.1038/s41467-023-41378-4, all 19 authors correct and in order (arXiv:2304.03949). The CLAIM misdescribes the paper. It does not perform 'continuous reconstruction of dynamical correlations ... instead of binned histograms'; that contribution appears nowhere in the paper. What the paper actually does is train a neural implicit representation to mimic simulated S(Q,omega) from a model Hamiltonian, then use automatic differentiation through that network to recover unknown Hamiltonian parameters from experimental data. Recommended text: 'A neural implicit representation was trained to reproduce the dynamical structure factor S(Q, omega) computed from a model Hamiltonian, and automatic differentiation through the trained network was used to recover unknown exchange parameters directly from inelastic neutron scattering data on the square-lattice antiferromagnet La2NiO4 — matching conventional analytical fitting without manual peak-finding, and fast enough for near-real-time analysis of multidimensional scattering data.' The affiliation line should also add Howard University (Mardanya, Chowdhury) and Northeastern University (Bansil, Feiguin).",
+   "_domain": "experiment-characterization"
+  }
+ ]
+}

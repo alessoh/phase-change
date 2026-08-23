@@ -1,0 +1,986 @@
+{
+ "chapter": 4,
+ "title": "The Barrier",
+ "outline": "First-order transitions do not happen when thermodynamics says they should. They wait. This chapter covers the kinetics that the rest of the book depends on and that most treatments of machine learning in physics skip. Max Volmer and Alfred Weber, then Richard Becker and Werner Döring, then David Turnbull and John Fisher built classical nucleation theory around a free energy barrier arising from competition between a favorable volume term and a costly interfacial term. Ostwald's step rule predicts that the phase which forms first is often not the stable one. John Cahn and John Hilliard treated the opposite limit, spinodal decomposition, where no barrier exists. The chapter also introduces the glass and jamming transitions, where a system falls out of equilibrium entirely and whether a true thermodynamic transition underlies the kinetic arrest remains contested. That material is placed here deliberately, because Chapter 20 argues that neural networks jam, and a reader who has never met the physical jamming transition cannot judge whether the analogy is load-bearing. The chapter ends by quantifying the problem that motivates four later chapters, which is that barriers many times the thermal energy make the transition a rare event that brute-force molecular dynamics will essentially never observe.\n\nBuilt on Volmer and Weber 1926, Becker and Döring, Turnbull and Fisher 1949, Ostwald's step rule, supercooling and metastability, Cahn and Hilliard on spinodal decomposition, and the glass and jamming transitions as the case where equilibrium thermodynamics stops applying.\n\nLeaves open: if the event never happens on a timescale we can simulate, how can any amount of data teach a machine what it looks like?",
+ "domains": [
+  "foundations",
+  "glass-jamming",
+  "ml-potentials-nucleation"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Josiah Willard Gibbs established the thermodynamic framework for phase equilibria and coexistence in \"On the equilibrium of heterogeneous substances,\" the work that defines chemical potential, the phase rule, surface (interfacial) free energy, and the reversible work of forming a new phase — the thermodynamic ancestor of the nucleation barrier. The full memoir appeared in the Transactions of the Connecticut Academy of Arts and Sciences (vol. 3, 108-248 in 1876 and 343-524 in 1878); Gibbs published a long abstract in the American Journal of Science in 1878.",
+   "people": "Josiah Willard Gibbs",
+   "affiliation": "Yale College",
+   "year": "1878",
+   "venue": "American Journal of Science, ser. 3, vol. 16, no. 96, pp. 441-458 (abstract of the Transactions of the Connecticut Academy memoir, 1876-1878)",
+   "url": "https://doi.org/10.2475/ajs.s3-16.96.441",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Paul Ehrenfest proposed classifying phase transitions by the order of the lowest derivative of the thermodynamic potential that is discontinuous: a first-order transition has a discontinuity in the first derivative (hence latent heat and a jump in entropy and volume), a second-order transition has continuous first derivatives but a discontinuous second derivative (specific heat, compressibility, thermal expansion). The paper is \"Phasenumwandlungen im ueblichen und erweiterten Sinn, classifiziert nach den entsprechenden Singularitaeten des thermodynamischen Potentiales,\" Proceedings of the Royal Academy of Sciences at Amsterdam 36, 153-157 (1933), issued simultaneously as Communications from the Kamerlingh Onnes Laboratory, Leiden, Supplement No. 75b. An English translation with historical commentary by Tilman Sauer appeared in 2016. Books must note that Ehrenfest's higher-order categories are now obsolete: continuous transitions generically show power-law divergences, not finite jumps, so modern usage is \"first-order\" versus \"continuous.\"",
+   "people": "Paul Ehrenfest; Tilman Sauer (translator and commentator)",
+   "affiliation": "Leiden University (Ehrenfest)",
+   "year": "1933 (original); 2016 (translation and commentary)",
+   "venue": "Proc. Royal Acad. Amsterdam 36, 153-157 (1933), Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b; translation in European Physical Journal Special Topics (2016), doi:10.1140/epjst/e2016-60344-y",
+   "url": "https://arxiv.org/abs/1612.03062",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Lev Davidovich Landau introduced the order parameter and the expansion of the free energy in powers of it near a continuous transition, deriving mean-field critical exponents (beta = 1/2, gamma = 1, delta = 3, alpha = 0 with a jump in specific heat) and the rule that a continuous transition requires the low-symmetry phase's symmetry group to be a subgroup of the high-symmetry phase's. Originally published in Russian as \"K teorii fazovykh perekhodov,\" Zhurnal Eksperimental'noi i Teoreticheskoi Fiziki 7, 19-32 (1937), with a German version in Physikalische Zeitschrift der Sowjetunion 11, 26 (1937). The standard English text is in Collected Papers of L. D. Landau, edited by D. ter Haar (Pergamon, 1965), pp. 193-216.",
+   "people": "Lev Davidovich Landau",
+   "affiliation": "",
+   "year": "1937 (original); 1965 (English collected papers)",
+   "venue": "Zh. Eksp. Teor. Fiz. 7, 19-32 (1937); English translation in Collected Papers of L. D. Landau (Pergamon, 1965), pp. 193-216",
+   "url": "https://doi.org/10.1016/B978-0-08-010586-4.50034-1",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Ernst Ising solved the one-dimensional version of the model his doctoral supervisor Wilhelm Lenz had proposed and found no phase transition at any nonzero temperature; Ising incorrectly extrapolated this conclusion to higher dimensions. The paper is \"Beitrag zur Theorie des Ferromagnetismus,\" Zeitschrift fuer Physik 31, 253-258 (1925). A book should credit Lenz with the model and Ising with the one-dimensional solution, and should not repeat the myth that Ising proved there is no transition in two dimensions.",
+   "people": "Ernst Ising",
+   "affiliation": "University of Hamburg",
+   "year": "1925",
+   "venue": "Zeitschrift fuer Physik 31, 253-258",
+   "url": "https://doi.org/10.1007/BF02980577",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Rudolf Peierls gave the first argument that the two-dimensional Ising model does order at low temperature, by bounding the entropy versus energy cost of domain-wall contours — the \"Peierls argument,\" still the standard textbook proof that a transition exists. Published as \"On Ising's model of ferromagnetism,\" Mathematical Proceedings of the Cambridge Philosophical Society 32, 477-481 (1936).",
+   "people": "Rudolf Peierls",
+   "affiliation": "",
+   "year": "1936",
+   "venue": "Mathematical Proceedings of the Cambridge Philosophical Society 32(3), 477-481",
+   "url": "https://doi.org/10.1017/S0305004100019174",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Lars Onsager obtained the exact partition function of the two-dimensional square-lattice Ising model in zero field, demonstrating a genuine continuous phase transition with a logarithmically divergent specific heat (alpha = 0, log) and the exact critical temperature given by sinh(2J/kT_c) = 1, i.e. kT_c/J = 2/ln(1 + sqrt(2)) ~ 2.269. This was the first exact demonstration that a microscopic model produces non-mean-field critical behaviour, and it killed the assumption that critical exponents are classical. Published as \"Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition,\" Physical Review 65, 117-149 (1 February 1944).",
+   "people": "Lars Onsager",
+   "affiliation": "Yale University",
+   "year": "1944",
+   "venue": "Physical Review 65, 117-149",
+   "url": "https://doi.org/10.1103/PhysRev.65.117",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Chen Ning Yang published the first derivation of the spontaneous magnetization of the two-dimensional Ising model, giving the order-parameter exponent beta = 1/8. Onsager had announced the result in 1948 without publishing a proof, so the exponent should be attributed to Yang's 1952 paper (with Onsager's priority acknowledged), not to the 1944 Onsager paper. Published as \"The Spontaneous Magnetization of a Two-Dimensional Ising Model,\" Physical Review 85, 808-816 (1952).",
+   "people": "Chen Ning Yang",
+   "affiliation": "Institute for Advanced Study, Princeton",
+   "year": "1952",
+   "venue": "Physical Review 85(5), 808-816",
+   "url": "https://doi.org/10.1103/PhysRev.85.808",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Edward Armand Guggenheim showed that the liquid-gas coexistence curves of eight different substances (neon, argon, krypton, xenon, nitrogen, oxygen, carbon monoxide, methane) collapse onto a single curve when scaled by critical parameters, and that the curve is fitted by an exponent near 1/3 rather than the van der Waals mean-field value 1/2. This is the classic experimental evidence for universality and for non-classical exponents, predating the renormalization group by a quarter century. Published as \"The Principle of Corresponding States,\" Journal of Chemical Physics 13(7), 253-261 (1945).",
+   "people": "Edward Armand Guggenheim",
+   "affiliation": "",
+   "year": "1945",
+   "venue": "The Journal of Chemical Physics 13(7), 253-261",
+   "url": "https://doi.org/10.1063/1.1724033",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Benjamin Widom proposed the scaling hypothesis for the equation of state near a critical point — that the singular part of the free energy is a generalized homogeneous function of temperature and field — from which the scaling relations among critical exponents (including alpha + 2*beta + gamma = 2, later called the Rushbrooke relation, and gamma = beta*(delta - 1), the Widom relation) follow. Published as \"Equation of State in the Neighborhood of the Critical Point,\" Journal of Chemical Physics 43(11), 3898-3905 (1965). Scaling here is phenomenological; it is Wilson's renormalization group that later explains why it holds.",
+   "people": "Benjamin Widom",
+   "affiliation": "",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3898-3905",
+   "url": "https://doi.org/10.1063/1.1696618",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Leo Philip Kadanoff introduced the block-spin construction: divide an Ising lattice into cells large compared with the lattice spacing but small compared with the correlation length, replace each cell by a single effective spin, and argue that the coarse-grained system is again an Ising model with rescaled coupling and field. This gave a physical rationale for Widom scaling and is the conceptual seed of the renormalization group. Published as \"Scaling laws for Ising models near T_c,\" Physics Physique Fizika 2, 263-272 (1966) — note the unusual short-lived journal name, often miscited simply as \"Physics.\"",
+   "people": "Leo Philip Kadanoff",
+   "affiliation": "University of Illinois, Urbana",
+   "year": "1966",
+   "venue": "Physics Physique Fizika 2(6), 263-272",
+   "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.2.263",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Kenneth Geddes Wilson turned Kadanoff's block-spin picture into a systematic calculational method by casting coarse-graining as a differential flow in the space of coupling constants, with critical points appearing as fixed points of the flow and critical exponents as eigenvalues of the linearized flow about the fixed point. Universality follows because distinct microscopic Hamiltonians flow to the same fixed point. Published as a pair of companion papers: \"Renormalization Group and Critical Phenomena. I. Renormalization Group and the Kadanoff Scaling Picture,\" Physical Review B 4, 3174-3183, and \"II. Phase-Space Cell Analysis of Critical Behavior,\" Physical Review B 4, 3184-3205, both 1971.",
+   "people": "Kenneth Geddes Wilson",
+   "affiliation": "Cornell University",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3174-3183 and 3184-3205",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3174",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Kenneth G. Wilson and Michael E. Fisher introduced the epsilon expansion, computing critical exponents in d = 4 - epsilon dimensions as a controlled perturbative series about the upper critical dimension four, where mean-field theory becomes exact. Setting epsilon = 1 gives usable three-dimensional exponents. Published as \"Critical Exponents in 3.99 Dimensions,\" Physical Review Letters 28(4), 240-243, issue dated 24 January 1972.",
+   "people": "Kenneth G. Wilson, Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(4), 240-243",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.240",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Michael Ellis Fisher wrote the standard introductory review of the renormalization group approach to critical behaviour, covering the dependence of exponents on dimensionality d, on the number of order-parameter components n, and on the range and anisotropy of interactions — that is, the precise content of a universality class. Published as \"The renormalization group in the theory of critical behavior,\" Reviews of Modern Physics 46, 597-616 (1 October 1974). Note a common citation error: Reviews of Modern Physics 47, 543 (1975) is the erratum, not the article.",
+   "people": "Michael Ellis Fisher",
+   "affiliation": "Cornell University",
+   "year": "1974",
+   "venue": "Reviews of Modern Physics 46(4), 597-616",
+   "url": "https://doi.org/10.1103/RevModPhys.46.597",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 1982 was awarded to Kenneth G. Wilson alone, \"for his theory for critical phenomena in connection with phase transitions.\" Wilson was a professor of physics at Cornell University, where he did the prizewinning work. Michael E. Fisher and Leo P. Kadanoff, whose work was essential to the development, did not share the prize — a point books frequently get wrong; the three were, however, jointly awarded the Wolf Prize in Physics in 1980.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University",
+   "year": "1982",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/1982/summary/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Norman David Mermin and Herbert Wagner proved that continuous symmetries cannot be spontaneously broken at any nonzero temperature in one- or two-dimensional systems with sufficiently short-range interactions, ruling out conventional long-range order in the 2D Heisenberg and XY models. This theorem is the obstacle that the Berezinskii-Kosterlitz-Thouless mechanism circumvents, since BKT order is topological rather than conventional. Published as \"Absence of Ferromagnetism or Antiferromagnetism in One- or Two-Dimensional Isotropic Heisenberg Models,\" Physical Review Letters 17(22), 1133-1136 (1966).",
+   "people": "Norman David Mermin, Herbert Wagner",
+   "affiliation": "",
+   "year": "1966",
+   "venue": "Physical Review Letters 17(22), 1133-1136",
+   "url": "https://doi.org/10.1103/PhysRevLett.17.1133",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Vadim Lvovich Berezinskii independently identified the destruction of long-range order by topological excitations in two-dimensional systems with continuous symmetry, publishing before Kosterlitz and Thouless. The paper is \"Destruction of Long-range Order in One-dimensional and Two-dimensional Systems having a Continuous Symmetry Group. I. Classical Systems,\" Soviet Physics JETP 32(3), 493 (March 1971); Russian original ZhETF 59(3), 907 (1971). This is why the transition is properly called the Berezinskii-Kosterlitz-Thouless (BKT) transition; Berezinskii died in 1980 and was therefore ineligible for the 2016 Nobel Prize.",
+   "people": "Vadim Lvovich Berezinskii",
+   "affiliation": "",
+   "year": "1971",
+   "venue": "Soviet Physics JETP 32(3), 493-500 (Russian original: Zhurnal Eksperimental'noi i Teoreticheskoi Fiziki 59(3), 907)",
+   "url": "http://jetp.ras.ru/cgi-bin/e/index/e/32/3/p493?a=list",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Michael Kosterlitz and David James Thouless defined topological order for two-dimensional systems that have no conventional long-range order, and described a transition driven by the unbinding of vortex-antivortex pairs: below the transition vortices are bound in neutral pairs, above it they are free, destroying superfluid stiffness. The transition is infinite-order in the Ehrenfest sense — the free energy is non-analytic but all derivatives are continuous, and the correlation length diverges exponentially rather than as a power law. Published as \"Ordering, metastability and phase transitions in two-dimensional systems,\" Journal of Physics C: Solid State Physics 6(7), 1181-1203 (1973). Kosterlitz supplied the renormalization-group treatment the following year in J. Phys. C 7, 1046-1060 (1974).",
+   "people": "John Michael Kosterlitz, David James Thouless",
+   "affiliation": "University of Birmingham",
+   "year": "1973",
+   "venue": "Journal of Physics C: Solid State Physics 6(7), 1181-1203",
+   "url": "https://doi.org/10.1088/0022-3719/6/7/010",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 2016 was awarded \"for theoretical discoveries of topological phase transitions and topological phases of matter,\" with one half to David J. Thouless (University of Washington, Seattle) and the other half jointly to F. Duncan M. Haldane (Princeton University) and J. Michael Kosterlitz (Brown University). Books must get the split right: it was one-half / one-quarter / one-quarter, not an equal three-way division.",
+   "people": "David J. Thouless, F. Duncan M. Haldane, J. Michael Kosterlitz",
+   "affiliation": "University of Washington (Thouless); Princeton University (Haldane); Brown University (Kosterlitz)",
+   "year": "2016",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/2016/summary/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John A. Hertz formulated the theory of zero-temperature (quantum) critical points by using Hubbard-Stratonovich functional integral transformations to build a quantum generalization of the Landau-Ginzburg-Wilson functional in which the order-parameter field depends on imaginary time as well as space. This introduces the dynamical critical exponent z and the effective dimension d + z, so that quantum critical points in three dimensions can sit at or above the upper critical dimension. Published as \"Quantum critical phenomena,\" Physical Review B 14(3), 1165-1184 (1 August 1976). The framework, extended by A. J. Millis in 1993, is standard as \"Hertz-Millis theory.\"",
+   "people": "John A. Hertz",
+   "affiliation": "The James Franck Institute and Department of Physics, University of Chicago",
+   "year": "1976",
+   "venue": "Physical Review B 14(3), 1165-1184",
+   "url": "https://doi.org/10.1103/PhysRevB.14.1165",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Subir Sachdev wrote the standard monograph on quantum phase transitions — transitions at absolute zero driven by a non-thermal control parameter such as pressure, magnetic field, or doping, where quantum rather than thermal fluctuations drive the change, and where the quantum critical point governs a fan-shaped finite-temperature region of anomalous behaviour. The book is Quantum Phase Transitions, Cambridge University Press; first edition 1999 (written while Sachdev was at Yale University), second edition 2011 (Harvard University), ISBN 978-0-521-51468-2. An accessible companion is Sachdev and Bernhard Keimer, \"Quantum criticality,\" Physics Today 64(2), 29-35 (2011), doi:10.1063/1.3554314.",
+   "people": "Subir Sachdev",
+   "affiliation": "Harvard University (2nd edition); Yale University (1st edition)",
+   "year": "1999 (1st ed.); 2011 (2nd ed.)",
+   "venue": "Cambridge University Press, 2nd edition (2011)",
+   "url": "https://doi.org/10.1017/CBO9780511973765",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Simon Ralph Broadbent and John Michael Hammersley founded percolation theory, introducing the distinction between a random \"medium\" and a deterministic \"fluid\" and establishing the existence of a sharp critical probability p_c above which an infinite connected cluster appears. Percolation is the canonical purely geometric continuous phase transition, with its own critical exponents and universality classes and no Hamiltonian or temperature. Published as \"Percolation processes. I. Crystals and mazes,\" Mathematical Proceedings of the Cambridge Philosophical Society 53(3), 629-641 (July 1957).",
+   "people": "Simon Ralph Broadbent, John Michael Hammersley",
+   "affiliation": "",
+   "year": "1957",
+   "venue": "Mathematical Proceedings of the Cambridge Philosophical Society 53(3), 629-641",
+   "url": "https://doi.org/10.1017/S0305004100032680",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Samuel Frederick Edwards and Philip Warren Anderson introduced the first theory of spin glasses, proposing that in dilute magnetic alloys the RKKY interaction oscillates in sign with distance so that there is no net ferro- or antiferromagnetic order, yet below a freezing temperature the spins lock into definite random directions. Their order parameter q — the time-averaged local magnetization squared, averaged over sites — is the Edwards-Anderson order parameter, and it explains the cusp observed experimentally in the susceptibility. Published as \"Theory of spin glasses,\" Journal of Physics F: Metal Physics 5(5), 965-974 (May 1975); a second part appeared in J. Phys. F 6, 1927 (1976).",
+   "people": "Samuel Frederick Edwards, Philip Warren Anderson",
+   "affiliation": "Cavendish Laboratory, University of Cambridge",
+   "year": "1975",
+   "venue": "Journal of Physics F: Metal Physics 5(5), 965-974",
+   "url": "https://doi.org/10.1088/0305-4608/5/5/017",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "David Sherrington and Scott Kirkpatrick introduced the infinite-range (mean-field) spin glass: an Ising model in which every pair of spins is coupled by an independent Gaussian random interaction. Solving it by the replica trick with a replica-symmetric ansatz, they found both spin-glass and ferromagnetic phases — but the solution gives a negative entropy at zero temperature, an unphysical result that signalled the breakdown of replica symmetry and set the problem Parisi later solved. Published as \"Solvable Model of a Spin-Glass,\" Physical Review Letters 35(26), 1792-1796 (1975).",
+   "people": "David Sherrington, Scott Kirkpatrick",
+   "affiliation": "",
+   "year": "1975",
+   "venue": "Physical Review Letters 35(26), 1792-1796",
+   "url": "https://doi.org/10.1103/PhysRevLett.35.1792",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Giorgio Parisi showed that the mean-field spin glass requires an infinite number of order parameters — a full function q(x) on the interval [0,1] rather than a single number — obtained by breaking the permutation symmetry among replicas in a nested, hierarchical (ultrametric) way. This is replica symmetry breaking, and it describes a rugged free-energy landscape with many pure states organized in a hierarchy. Published as \"Infinite Number of Order Parameters for Spin-Glasses,\" Physical Review Letters 43(23), 1754-1756 (received 22 June 1979, published 3 December 1979), with the explicit scheme in \"A sequence of approximated solutions to the S-K model for spin glasses,\" Journal of Physics A: Mathematical and General 13(4), L115-L121 (1980). The solution's correctness was proved rigorously by Michel Talagrand in 2006, building on Francesco Guerra's 2003 interpolation bound.",
+   "people": "Giorgio Parisi",
+   "affiliation": "",
+   "year": "1979 (PRL); 1980 (J. Phys. A)",
+   "venue": "Physical Review Letters 43(23), 1754-1756; Journal of Physics A 13(4), L115-L121",
+   "url": "https://doi.org/10.1103/PhysRevLett.43.1754",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 2021 was awarded \"for groundbreaking contributions to our understanding of complex systems,\" divided with one half jointly to Syukuro Manabe and Klaus Hasselmann for physical modelling of Earth's climate, and the other half to Giorgio Parisi (Sapienza University of Rome) \"for the discovery of the interplay of disorder and fluctuations in physical systems from atomic to planetary scales.\" Parisi's citation dates the key discovery to around 1980. Books should not describe this as a prize shared equally three ways, nor as a prize for spin glasses alone.",
+   "people": "Giorgio Parisi, Syukuro Manabe, Klaus Hasselmann",
+   "affiliation": "Sapienza University of Rome (Parisi)",
+   "year": "2021",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/2021/parisi/facts/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Philip Warren Anderson argued that the reductionist hypothesis does not imply a constructionist one: at each level of complexity entirely new properties appear, and the science of one level is not simply applied science of the level below. Broken symmetry — exactly the phenomenon that defines a phase transition — is his central example of how new organizing principles emerge at larger scales. Published as \"More Is Different: Broken symmetry and the nature of the hierarchical structure of science,\" Science 177(4047), 393-396, 4 August 1972. This is the canonical citation for emergence in phase-transition writing.",
+   "people": "Philip Warren Anderson",
+   "affiliation": "Bell Telephone Laboratories, Murray Hill, New Jersey",
+   "year": "1972",
+   "venue": "Science 177(4047), 393-396",
+   "url": "https://doi.org/10.1126/science.177.4047.393",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Max Volmer and Alfred Weber laid the foundation of classical nucleation theory, treating the formation of a nucleus in a supersaturated phase as a competition between a favourable bulk free-energy term proportional to volume and an unfavourable interfacial term proportional to surface area, producing a free-energy barrier at a critical nucleus size and a nucleation rate exponential in that barrier. Published as \"Keimbildung in uebersaettigten Gebilden,\" Zeitschrift fuer Physikalische Chemie 119U(1), 277-301 (1926).",
+   "people": "Max Volmer, Alfred Weber",
+   "affiliation": "",
+   "year": "1926",
+   "venue": "Zeitschrift fuer Physikalische Chemie 119U(1), 277-301",
+   "url": "https://doi.org/10.1515/zpch-1926-11927",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Richard Becker and Werner Doering gave the kinetic formulation of classical nucleation theory, treating nucleation as a birth-and-death process in cluster size space and deriving the steady-state nucleation rate including the Zeldovich non-equilibrium correction factor. The resulting Becker-Doering equations remain the standard kinetic model of nucleation. Published as \"Kinetische Behandlung der Keimbildung in uebersaettigten Daempfen,\" Annalen der Physik 416(8), 719-752 (1935).",
+   "people": "Richard Becker, Werner Doering (Döring)",
+   "affiliation": "",
+   "year": "1935",
+   "venue": "Annalen der Physik 416(8), 719-752",
+   "url": "https://doi.org/10.1002/andp.19354160806",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "David Turnbull and John Chipman Fisher adapted classical nucleation theory to condensed systems, supplying the rate expression with an activation term for the transport of atoms across the nucleus-matrix interface — the form used for crystallization from melts and solutions, and the basis for Turnbull's later experiments showing that liquid metals can be supercooled to roughly 0.8 of their melting temperature before nucleating. Published as \"Rate of Nucleation in Condensed Systems,\" Journal of Chemical Physics 17(1), 71-73 (1949).",
+   "people": "David Turnbull, John Chipman Fisher",
+   "affiliation": "",
+   "year": "1949",
+   "venue": "The Journal of Chemical Physics 17(1), 71-73",
+   "url": "https://doi.org/10.1063/1.1747055",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Wilhelm Ostwald formulated the rule of stages (Ostwald's Stufenregel): a supersaturated or supercooled system does not necessarily transform directly into the thermodynamically most stable phase, but tends first to form the least stable phase whose free energy is nearest to that of the parent phase, then transforms stepwise toward stability. This is a kinetic, not a thermodynamic, principle, and it underlies polymorph selection in crystallization. Published as \"Studien ueber die Bildung und Umwandlung fester Koerper. 1. Abhandlung: Uebersaettigung und Ueberkaltung,\" Zeitschrift fuer Physikalische Chemie 22U(1), 289-330 (1897).",
+   "people": "Wilhelm Ostwald",
+   "affiliation": "University of Leipzig",
+   "year": "1897",
+   "venue": "Zeitschrift fuer Physikalische Chemie 22U(1), 289-330",
+   "url": "https://doi.org/10.1515/zpch-1897-2233",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Werner Cahn and John Edward Hilliard introduced the square-gradient free-energy functional for a system of nonuniform composition, F = N_V * integral over V of [f_0(c) + kappa*(grad c)^2] dV, where f_0 is the homogeneous free energy per molecule and kappa the gradient-energy coefficient. This is the basis of all diffuse-interface and phase-field modelling of transitions. Published as \"Free Energy of a Nonuniform System. I. Interfacial Free Energy,\" Journal of Chemical Physics 28(2), 258-267 (1958). Part III of the series, \"Nucleation in a Two-Component Incompressible Fluid,\" J. Chem. Phys. 31(3), 688-699 (1959), doi:10.1063/1.1730447, derives the critical nucleus as a saddle point of this functional and shows the classical sharp-interface nucleus fails near the spinodal.",
+   "people": "John Werner Cahn, John Edward Hilliard",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1958",
+   "venue": "The Journal of Chemical Physics 28(2), 258-267",
+   "url": "https://doi.org/10.1063/1.1744102",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Werner Cahn established the theory of spinodal decomposition: inside the spinodal region, where the second derivative of free energy with respect to composition is negative, a homogeneous solution is unstable to infinitesimal composition fluctuations, so phase separation proceeds by spontaneous continuous amplification of long-wavelength fluctuations with no nucleation barrier and no critical nucleus — in sharp contrast to nucleation and growth in the metastable region between the binodal and the spinodal. Cahn derived the fastest-growing wavelength that sets the characteristic microstructural scale, and showed that elastic energy from composition-dependent molar volume shifts the true limit of metastability away from the chemical spinodal. Published as \"On spinodal decomposition,\" Acta Metallurgica 9(9), 795-801 (1961); the cubic-crystal extension is Acta Metallurgica 10(3), 179-183 (1962).",
+   "people": "John Werner Cahn",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1961",
+   "venue": "Acta Metallurgica 9(9), 795-801",
+   "url": "https://doi.org/10.1016/0001-6160(61)90182-1",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Kauzmann observed that extrapolating the excess entropy of a supercooled liquid below its glass transition would make it fall below the crystal's entropy at a finite temperature — the 'Kauzmann paradox' / entropy crisis that motivates the idea of an underlying ideal glass transition.",
+   "people": "Walter Kauzmann",
+   "affiliation": "Princeton University (affiliation not verified against the primary article in this search)",
+   "year": "1948",
+   "venue": "Chemical Reviews 43, 219-256",
+   "url": "https://pubs.acs.org/doi/10.1021/cr60135a002",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The Adam-Gibbs relation ties relaxation time to configurational entropy via a 'cooperatively rearranging region' whose size grows as configurational entropy shrinks, yielding a form close to the empirical WLF/VFT law and predicting divergence where configurational entropy vanishes.",
+   "people": "Gerald Adam; Julian H. Gibbs",
+   "affiliation": "affiliation not verified in this search",
+   "year": "1965",
+   "venue": "Journal of Chemical Physics 43, 139-146",
+   "url": "https://doi.org/10.1063/1.1696442",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Mode-coupling theory: closed nonlinear self-consistent equations for density correlations in a simple liquid produce an ergodic-to-nonergodic (glass) bifurcation; for hard spheres the transition appears at packing fraction 0.516. MCT's sharp transition is not observed experimentally and is now read as a crossover.",
+   "people": "Ulf Bengtzelius; Wolfgang Götze; Arne Sjölander",
+   "affiliation": "Technische Universität München (Götze); Chalmers University of Technology, Göteborg (Bengtzelius, Sjölander) — affiliations not verified against the primary article in this search",
+   "year": "1984",
+   "venue": "Journal of Physics C: Solid State Physics 17, 5915-5934",
+   "url": "https://iopscience.iop.org/article/10.1088/0022-3719/17/33/005",
+   "confidence": "probable",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Gardner analysed Ising spin glasses with p-spin interactions in mean field and found TWO transitions: a discontinuous one at T1 with a jump in the order parameter but no latent heat, and a lower T2 where that one-step replica-symmetry-broken phase becomes unstable to full RSB — the instability now called the Gardner transition.",
+   "people": "Elizabeth Gardner",
+   "affiliation": "Department of Physics, University of Edinburgh",
+   "year": "1985",
+   "venue": "Nuclear Physics B 257, 747-765",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/0550321385903748",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Gardner computed the typical volume of the space of couplings that store p random patterns in an N-spin network — the 'Gardner volume' — establishing the statistical-mechanics theory of neural-network storage capacity. This is the direct historical bridge between the physics of disordered systems and learning theory, and the same author's name attaches to both the neural-capacity calculation and the glass transition.",
+   "people": "Elizabeth Gardner",
+   "affiliation": "Department of Physics, University of Edinburgh",
+   "year": "1988",
+   "venue": "Journal of Physics A: Mathematical and General 21, 257-270",
+   "url": "https://iopscience.iop.org/article/10.1088/0305-4470/21/1/030",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Kirkpatrick and Thirumalai identified the dynamics of the p-spin-interaction spin-glass model with the structural glass transition, showing the mean-field p-spin model reproduces mode-coupling-like dynamical arrest — the seed of RFOT theory.",
+   "people": "Theodore R. Kirkpatrick; Devarajan Thirumalai",
+   "affiliation": "University of Maryland",
+   "year": "1987",
+   "venue": "Physical Review Letters 58, 2091",
+   "url": "https://link.aps.org/doi/10.1103/PhysRevLett.58.2091",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Random first-order transition (RFOT) theory: a scaling and droplet ('mosaic') picture of an ideal structural glass transition in which the supercooled liquid is made of glassy clusters separated by domain walls; as the ideal transition temperature is approached the entropic driving force vanishes and the cluster size diverges with exponent nu = 2/d.",
+   "people": "Theodore R. Kirkpatrick; Devarajan Thirumalai; Peter G. Wolynes",
+   "affiliation": "University of Maryland (Kirkpatrick, Thirumalai); University of Illinois at Urbana-Champaign (Wolynes, at the time; later Rice University)",
+   "year": "1989",
+   "venue": "Physical Review A 40, 1045-1054",
+   "url": "https://link.aps.org/doi/10.1103/PhysRevA.40.1045",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The original jamming phase diagram. Liu and Nagel proposed that granular materials, foams, emulsions and supercooled liquids all sit on one phase diagram whose axes are temperature, applied load/stress and inverse density, so that thermal glass formation and athermal granular jamming are the same unjamming-to-jamming transition seen along different axes. NOTE: this one-page Nature article IS titled 'Jamming is not just cool any more' — it is not a separate later framing.",
+   "people": "Andrea J. Liu; Sidney R. Nagel",
+   "affiliation": "University of California, Los Angeles (Liu, at the time; later University of Pennsylvania); James Franck Institute, University of Chicago (Nagel)",
+   "year": "1998",
+   "venue": "Nature 396, 21-22",
+   "url": "https://doi.org/10.1038/23819",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Point J. For frictionless spheres with finite-range repulsion at zero temperature and zero applied stress, each configuration jams at its own threshold packing fraction; the distribution narrows with system size and converges to random close packing. Point J behaves like a critical point with power-law scaling of contact number, pressure and elastic moduli; the exponents do not depend on dimension but do depend on the interparticle potential, and low-frequency vibrational modes proliferate near the transition.",
+   "people": "Corey S. O'Hern; Leonardo E. Silbert; Andrea J. Liu; Sidney R. Nagel",
+   "affiliation": "Andrea J. Liu then at UCLA; Sidney R. Nagel at the James Franck Institute, University of Chicago; O'Hern later Yale University and Silbert later Southern Illinois University Carbondale (per-author affiliations at time of publication not verified in this search)",
+   "year": "2003",
+   "venue": "Physical Review E 68, 011306 (preprint arXiv:cond-mat/0304421)",
+   "url": "https://doi.org/10.1103/PhysRevE.68.011306",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Review of the jamming transition and the marginally jammed solid: when a system jams it goes from flowing to rigid while its structure stays disordered on both sides, and the marginally jammed solid near point J has anomalous vibrational and elastic properties (excess low-frequency modes, diverging length scales, non-affine response).",
+   "people": "Andrea J. Liu; Sidney R. Nagel",
+   "affiliation": "University of Pennsylvania (Liu); James Franck Institute, University of Chicago (Nagel)",
+   "year": "2010",
+   "venue": "Annual Review of Condensed Matter Physics 1, 347-369",
+   "url": "https://www.annualreviews.org/content/journals/10.1146/annurev-co-1-101613-200001",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Twenty-five-year retrospective on the jamming phase diagram by its authors, arguing that linking jammed granular materials with glasses has been productive for understanding a wide class of systems. This is the 'later framing' piece, distinct from the 1998 Nature original.",
+   "people": "Andrea J. Liu; Sidney R. Nagel",
+   "affiliation": "University of Pennsylvania (Liu); University of Chicago (Nagel)",
+   "year": "2023",
+   "venue": "Nature Reviews Physics 5, 630-631",
+   "url": "https://www.nature.com/articles/s42254-023-00661-5",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The standard modern review of glass-transition theory: lays out MCT, RFOT, dynamic facilitation and free-volume/kinetically-constrained pictures side by side on a microscopic statistical-mechanics footing, plus dynamic heterogeneity, aging and soft-glassy rheology. Useful as the neutral source when a book needs to say the field has several live theories rather than one.",
+   "people": "Ludovic Berthier; Giulio Biroli",
+   "affiliation": "Laboratoire Charles Coulomb, Université de Montpellier and CNRS (Berthier); Institut de Physique Théorique, CEA Saclay / later Laboratoire de Physique de l'École Normale Supérieure, Paris (Biroli)",
+   "year": "2011",
+   "venue": "Reviews of Modern Physics 83, 587-645 (preprint arXiv:1011.2578)",
+   "url": "https://arxiv.org/pdf/1011.2578",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Fractal free-energy landscapes: deep in the glass phase the landscape undergoes a 'roughness transition' in which each glass basin shatters into a fractal hierarchy of marginally stable sub-basins — the Gardner transition, carried over from spin glasses into structural glasses. This marginality is what produces isostaticity and the critical exponents (basin width, weak-force distribution, quasi-contact spread) observed at jamming, folding granular jamming into glass theory.",
+   "people": "Patrick Charbonneau; Jorge Kurchan; Giorgio Parisi; Pierfrancesco Urbani; Francesco Zamponi",
+   "affiliation": "Duke University (Charbonneau); École Normale Supérieure / ESPCI, Paris (Kurchan); Sapienza Università di Roma (Parisi); Institut de Physique Théorique, CEA Saclay (Urbani); École Normale Supérieure, Paris (Zamponi)",
+   "year": "2014",
+   "venue": "Nature Communications 5, 3725 (preprint arXiv:1404.6809)",
+   "url": "https://arxiv.org/pdf/1404.6809",
+   "confidence": "probable",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "First numerical detection of the Gardner transition, in the infinite-range Mari-Kurchan model, located consistently by three independent signatures: divergence of the characteristic relaxation time, divergence of the caging susceptibility, and an anomalous tail in the distribution of cage order parameters.",
+   "people": "Patrick Charbonneau; Yuliang Jin; Giorgio Parisi; Corrado Rainone; Beatriz Seoane; Francesco Zamponi",
+   "affiliation": "Duke University (Charbonneau); Sapienza Università di Roma (Jin, Parisi, Rainone); École Normale Supérieure, Paris (Zamponi) — per-author affiliations not verified in this search",
+   "year": "2015",
+   "venue": "Physical Review E 92, 012316 (preprint arXiv:1501.07244)",
+   "url": "https://doi.org/10.1103/PhysRevE.92.012316",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Experimental evidence of a Gardner phase in a real granular system: in a vibrated bidisperse 2D disk packing, repeated compression cycles on the same glass make particles pick different average vibrational positions each cycle while the neighbour structure is unchanged; the inter-cycle cage separation plateaus with increasing packing fraction while the mean-square displacement keeps falling.",
+   "people": "Alexandre Seguin; Olivier Dauchot",
+   "affiliation": "ESPCI Paris (Dauchot, EC2M/Gulliver); Seguin's affiliation at the time not verified in this search",
+   "year": "2016",
+   "venue": "Physical Review Letters 117, 228001 (preprint arXiv:1605.00827)",
+   "url": "https://link.aps.org/doi/10.1103/PhysRevLett.117.228001",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Authoritative review of the exact mean-field (infinite-dimensional) solution of hard spheres and what survives in finite dimensions: the dynamical (MCT-like) transition, the Gardner transition, and the jamming transition, with an explicit accounting of which predictions numerical simulations confirm and which are dimension-sensitive.",
+   "people": "Patrick Charbonneau; Jorge Kurchan; Giorgio Parisi; Pierfrancesco Urbani; Francesco Zamponi",
+   "affiliation": "Duke University; ENS/ESPCI Paris; Sapienza Università di Roma; CEA Saclay",
+   "year": "2017",
+   "venue": "Annual Review of Condensed Matter Physics 8, 265-288 (preprint arXiv:1605.03008)",
+   "url": "https://doi.org/10.1146/annurev-conmatphys-031016-025334",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The swap Monte Carlo algorithm equilibrates realistic glass-forming liquid models beyond experimental timescales, closing an eight-order-of-magnitude gap between simulation and experiment and letting configurational entropy be measured below the experimental glass transition; the measured steep entropy decrease continues, supporting an entropy-crisis scenario.",
+   "people": "Ludovic Berthier; Patrick Charbonneau; Daniele Coslovich; Andrea Ninarello; Misaki Ozawa; Sho Yaida",
+   "affiliation": "Université de Montpellier and CNRS (Berthier, Coslovich, Ninarello, Ozawa); Duke University (Charbonneau, Yaida)",
+   "year": "2017",
+   "venue": "PNAS 114, 11356-11361 (preprint arXiv:1704.08257)",
+   "url": "https://www.pnas.org/doi/10.1073/pnas.1706860114",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "In two dimensions the liquid state terminates at a thermodynamic glass transition that occurs at ZERO temperature, with an entropy crisis and a diverging static correlation length — i.e. the ideal glass transition exists but is pushed to T=0 in 2D, unlike the finite-temperature transition inferred in 3D. A key data point in the still-open dimensional-dependence question.",
+   "people": "Ludovic Berthier; Patrick Charbonneau; Andrea Ninarello; Misaki Ozawa; Sho Yaida",
+   "affiliation": "Université de Montpellier and CNRS; Duke University",
+   "year": "2019",
+   "venue": "Nature Communications (2019), DOI 10.1038/s41467-019-09512-3",
+   "url": "https://www.nature.com/articles/s41467-019-09512-3",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Survey of the ideal-glass question from the sceptical side: reviews the competing positions — an ideal amorphous state of exceptionally low entropy versus a purely dynamic, no-transition account — and assesses how close the deepest experimental and simulated glasses actually get to any putative ideal state.",
+   "people": "C. Patrick Royall; Francesco Turci; Soichi Tatsumi; John Russo; Joshua Robinson",
+   "affiliation": "University of Bristol (Royall, Turci, Russo, Robinson; Royall later ESPCI Paris) — Tatsumi's affiliation not verified in this search",
+   "year": "2018",
+   "venue": "Journal of Physics: Condensed Matter 30, 363001 (preprint arXiv:1711.04739)",
+   "url": "https://iopscience.iop.org/article/10.1088/1361-648X/aad10a",
+   "confidence": "probable",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Recent stock-taking of RFOT: the theory reproduces the salient experimental facts of supercooled liquids remarkably well and its static/thermodynamic side has gained support, but direct experimental validation remains elusive and the dynamical extension struggles with facilitation effects. Good source for stating honestly that the ideal glass transition is unresolved.",
+   "people": "Giulio Biroli; Jean-Philippe Bouchaud",
+   "affiliation": "Laboratoire de Physique de l'École Normale Supérieure, Paris (Biroli); Capital Fund Management and Académie des Sciences, Paris (Bouchaud) — affiliations not verified against the primary article in this search",
+   "year": "2023",
+   "venue": "Comptes Rendus. Physique 24 (S1), 9-23 (preprint arXiv:2208.05866, 2022)",
+   "url": "https://comptes-rendus.academie-sciences.fr/physique/articles/10.5802/crphys.136/",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "First 'softness' paper. Support vector machines trained on local structural descriptors (radial and angular symmetry functions) identify 'flow defects' — particles susceptible to rearrangement — in both a 2D granular pillar experiment under compression and Lennard-Jones glasses in 2D and 3D, above and below the glass transition. This is where the ML-order-parameter programme starts.",
+   "people": "Ekin D. Cubuk; Samuel S. Schoenholz; Jennifer M. Rieser; Brad D. Malone; Joerg Rottler; Douglas J. Durian; Efthimios Kaxiras; Andrea J. Liu",
+   "affiliation": "Harvard University (Cubuk, Malone, Kaxiras); University of Pennsylvania (Schoenholz, Rieser, Durian, Liu); University of British Columbia (Rottler)",
+   "year": "2015",
+   "venue": "Physical Review Letters 114, 108001",
+   "url": "https://doi.org/10.1103/PhysRevLett.114.108001",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "'Softness' as a machine-learned structural order parameter for glassy liquids: a scalar field learned from local structure that correlates strongly with subsequent rearrangement, and whose onset of correlation with dynamics coincides with the onset temperature T0 of glassy dynamics. A simple two-state model driven by softness reproduces the simulated relaxation. This is the canonical 'ML finds order in the amorphous' result.",
+   "people": "Samuel S. Schoenholz; Ekin D. Cubuk; Daniel M. Sussman; Efthimios Kaxiras; Andrea J. Liu",
+   "affiliation": "University of Pennsylvania (Schoenholz, Sussman, Liu); Harvard University (Cubuk, Kaxiras)",
+   "year": "2016",
+   "venue": "Nature Physics 12, 469-471 (preprint arXiv:1506.07772, 2015)",
+   "url": "https://www.nature.com/articles/nphys3644",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Softness generalises across materials: combining experiments and simulations, the machine-learned softness field predicts plasticity in disordered solids spanning roughly seven orders of magnitude in particle size, from atomic metallic glasses to granular pillars, giving a universal structure-property relation for amorphous plasticity.",
+   "people": "Ekin D. Cubuk; Robert J. S. Ivancic; Samuel S. Schoenholz; Douglas J. Durian; Efthimios Kaxiras; Andrea J. Liu and additional coauthors (a large multi-group author list)",
+   "affiliation": "University of Pennsylvania; Harvard University; Google Brain; and collaborating groups (full per-author affiliation list not retrieved in this search)",
+   "year": "2017",
+   "venue": "Science 358, 1033-1037",
+   "url": "https://www.science.org/doi/10.1126/science.aai8830",
+   "confidence": "probable",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The DeepMind graph-neural-network result: a GNN predicts the long-time evolution of a glassy system from the initial particle positions alone, with no hand-crafted features, outperforming prior structural indicators and generalising across temperature, pressure and density; under shear it also predicts where rearrangements occur. Author list order matters — Bapst first, Kohli last, and Demis Hassabis (not Peter Battaglia) appears in the published author list. An Author Correction was issued in 2020 (Nature Physics, DOI 10.1038/s41567-020-0901-1). Code released at github.com/google-deepmind/deepmind-research (glassy_dynamics).",
+   "people": "Victor Bapst; Thomas Keck; Agnieszka Grabska-Barwińska; Craig Donner; Ekin D. Cubuk; Samuel S. Schoenholz; Annette Obika; Alexander W. R. Nelson; Trevor Back; Demis Hassabis; Pushmeet Kohli",
+   "affiliation": "DeepMind, London (Bapst, Keck, Grabska-Barwińska, Donner, Obika, Nelson, Back, Hassabis, Kohli); Google Brain (Cubuk, Schoenholz)",
+   "year": "2020",
+   "venue": "Nature Physics 16, 448-454",
+   "url": "https://doi.org/10.1038/s41567-020-0842-8",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Unsupervised counterpoint to supervised softness/GNN work: an autoencoder-based method autonomously designs a purely structural order parameter from a single snapshot of three archetypal glass formers, using no dynamical information at all, and still correlates strongly with dynamic heterogeneity — while showing the structural signature of slow particles fades away from the glass transition.",
+   "people": "Emanuele Boattini; Susana Marín-Aguilar; Saheli Mitra; Giuseppe Foffi; Frank Smallenburg; Laura Filion",
+   "affiliation": "Debye Institute for Nanomaterials Science, Utrecht University (Boattini, Marín-Aguilar, Mitra, Filion); Université Paris-Saclay, CNRS, Laboratoire de Physique des Solides (Foffi, Smallenburg)",
+   "year": "2020",
+   "venue": "Nature Communications 11, 5479",
+   "url": "https://doi.org/10.1038/s41467-020-19286-8",
+   "confidence": "probable",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The central deflation of the GNN result. Boattini, Smallenburg and Filion argue the key structural ingredient the GNN supplies is simply the ability to use structural descriptors AVERAGED over nearby particles, not the network's expressiveness. Verbatim from the abstract: the best GNN predictions come 'at a cost of models that involve on the order of 10^5 fit parameters,' whereas their neighbour-averaged model 'provides essentially the same predictive power at a fraction of the computational complexity (approximately 1000 fit parameters).' Demonstrated on Kob-Andersen and binary hard-sphere mixtures. A companion comparison (Alkemade, Boattini, Filion, Smallenburg, J. Chem. Phys. 156, 204503 (2022), arXiv:2202.09173) found linear regression, neural networks and GNNs nearly equally accurate once advanced descriptors are used, with linear regression orders of magnitude faster to train.",
+   "people": "Emanuele Boattini; Frank Smallenburg; Laura Filion",
+   "affiliation": "Soft Condensed Matter, Debye Institute for Nanomaterials Science, Utrecht University (Boattini, Filion); Université Paris-Saclay, CNRS, Laboratoire de Physique des Solides (Smallenburg)",
+   "year": "2021",
+   "venue": "Physical Review Letters 127, 088007 (preprint arXiv:2105.05921)",
+   "url": "https://arxiv.org/abs/2105.05921",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "GlassMLP: a physics-inspired deep network whose inputs are chosen from glass physics rather than learned from raw coordinates. It beats the state of the art (including the GNN) on 2D and 3D atomistic models while being more parsimonious in both training data and fitting parameters, and it quantitatively predicts four-point dynamic correlations and the geometry of dynamic heterogeneity. Its transferability across system sizes was later used to push predictions of dynamic heterogeneity down to the experimental glass transition temperature (Jung, Biroli, Berthier, Phys. Rev. B 109, 064205 (2024), arXiv:2310.20252).",
+   "people": "Gerhard Jung; Giulio Biroli; Ludovic Berthier",
+   "affiliation": "Laboratoire Charles Coulomb, Université de Montpellier and CNRS (Jung, Berthier); Laboratoire de Physique de l'École Normale Supérieure, Paris (Biroli); Yusuf Hamied Department of Chemistry, University of Cambridge (Berthier)",
+   "year": "2023",
+   "venue": "Physical Review Letters 130, 238202 (preprint arXiv:2210.16623, 2022)",
+   "url": "https://arxiv.org/abs/2210.16623",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "The interpretability critique. Studying SVMs trained to predict dynamics from structure (the softness construction), the authors find that reading the distance from the separating hyperplane as an activation energy is valid only under very restricted conditions, and that the usual sanity checks — apparent Arrhenius temperature dependence and high cross-validation accuracy — do NOT guarantee the model has inferred the correct energy barriers. Predicting well is not the same as learning the physics. Note that Sean A. Ridout is himself a practitioner of ML-for-glasses, so this is an internal critique, not an outsider's.",
+   "people": "Arabind Swain; Sean Alexander Ridout; Ilya Nemenman",
+   "affiliation": "Department of Physics, Emory University (affiliation not verified line-by-line in this search)",
+   "year": "2024",
+   "venue": "Physical Review Research 6, 033091 (preprint arXiv:2403.00751)",
+   "url": "https://arxiv.org/abs/2403.00751",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Community roadmap for ML applied to glassy dynamics, co-authored by principals from both camps (Bapst from the DeepMind paper, Liu from the softness papers, Filion and Berthier from the critiques). Surveys successes and names the open problems explicitly — transferability and interpretability of ML approaches — and introduces GlassBench, a shared 2D and 3D glass-former simulation dataset and benchmark. This is the best single citation for 'the field has not settled what the ML result means.'",
+   "people": "Gerhard Jung; Rinske M. Alkemade; Victor Bapst; Daniele Coslovich; Laura Filion; François P. Landes; Andrea J. Liu; Francesco Saverio Pezzicoli; Hayato Shiba; Giovanni Volpe; Francesco Zamponi; Ludovic Berthier; Giulio Biroli",
+   "affiliation": "Université de Montpellier; Utrecht University; DeepMind; Università di Trieste; Université Paris-Saclay/LISN; University of Pennsylvania; University of Hyogo; University of Gothenburg; Sapienza Università di Roma; École Normale Supérieure, Paris (mapping of authors to institutions not verified individually in this search)",
+   "year": "2025",
+   "venue": "Nature Reviews Physics 7, 91-104 (preprint arXiv:2311.14752, 2023)",
+   "url": "https://www.nature.com/articles/s42254-024-00791-4",
+   "confidence": "verified",
+   "_domain": "glass-jamming"
+  },
+  {
+   "claim": "Joerg Behler and Michele Parrinello introduced the high-dimensional neural network potential, in which the total energy is decomposed into atomic contributions each predicted by an identical feed-forward network fed with symmetry-invariant functions of the local environment, demonstrating it on bulk silicon at a cost several orders of magnitude below DFT.",
+   "people": "Jörg Behler, Michele Parrinello",
+   "affiliation": "",
+   "year": "2007",
+   "venue": "Physical Review Letters 98, 146401",
+   "url": "https://doi.org/10.1103/PhysRevLett.98.146401",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert P. Bartok, Mike C. Payne, Risi Kondor and Gabor Csanyi introduced Gaussian Approximation Potentials, applying Gaussian process regression to quantum-mechanical energies and forces so that the interatomic potential has no fixed functional form and can represent complex energy landscapes.",
+   "people": "Albert P. Bartók, Mike C. Payne, Risi Kondor, Gábor Csányi",
+   "affiliation": "Cavendish Laboratory, University of Cambridge",
+   "year": "2010",
+   "venue": "Physical Review Letters 104, 136403",
+   "url": "https://doi.org/10.1103/PhysRevLett.104.136403",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert P. Bartok, James R. Kermode, Noam Bernstein and Gabor Csanyi built a general-purpose Gaussian Approximation Potential for silicon that reproduces DFT reference results simultaneously for crystalline, liquid and amorphous bulk phases as well as point, line and planar defects — a prerequisite for treating melting and crystallization within one model.",
+   "people": "Albert P. Bartók, James Kermode, Noam Bernstein, Gábor Csányi",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Physical Review X 8, 041048",
+   "url": "https://doi.org/10.1103/PhysRevX.8.041048",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Linfeng Zhang, Jiequn Han, Han Wang, Roberto Car and Weinan E introduced Deep Potential Molecular Dynamics (DeePMD), a deep neural network many-body potential that preserves the natural symmetries of the problem and scales linearly with system size while reproducing the ab initio training data essentially exactly.",
+   "people": "Linfeng Zhang, Jiequn Han, Han Wang, Roberto Car, Weinan E",
+   "affiliation": "",
+   "year": "2018 (arXiv preprint 1707.09571 posted 2017)",
+   "venue": "Physical Review Letters 120, 143001",
+   "url": "https://arxiv.org/abs/1707.09571",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Linfeng Zhang, Han Wang, Roberto Car and Weinan E computed the phase diagram of a Deep Potential water model trained on the SCAN density functional from low temperature and pressure up to roughly 2400 K and 50 GPa, correctly predicting the molecular and ionic fluid phases and all stable ice polymorphs, ordered and disordered, with the exception of ices III and XV which are stable in experiment but metastable in the model.",
+   "people": "Linfeng Zhang, Han Wang, Roberto Car, Weinan E",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Physical Review Letters 126, 236001",
+   "url": "https://doi.org/10.1103/PhysRevLett.126.236001",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Bingqing Cheng, Edgar A. Engel, Joerg Behler, Christoph Dellago and Michele Ceriotti used a neural network potential together with free-energy methods to compute the ab initio thermodynamics of liquid water and ice, obtaining melting properties and the relative stability of the two phases at first-principles accuracy including nuclear quantum effects.",
+   "people": "Bingqing Cheng, Edgar A. Engel, Jörg Behler, Christoph Dellago, Michele Ceriotti",
+   "affiliation": "",
+   "year": "2019 (arXiv preprint 1811.08630 posted 2018)",
+   "venue": "Proceedings of the National Academy of Sciences 116, 1110-1115",
+   "url": "https://doi.org/10.1073/pnas.1815117116",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Aleks Reinhardt and Bingqing Cheng computed the phase diagram of water at three hybrid density-functional levels of approximation, combining machine-learning potentials with advanced free-energy techniques and accounting for thermal fluctuations, nuclear quantum fluctuations and proton disorder; agreement with experiment is qualitative and best at pressures below roughly 8000 bar.",
+   "people": "Aleks Reinhardt, Bingqing Cheng",
+   "affiliation": "",
+   "year": "2021 (arXiv preprint 2010.13729 posted 2020)",
+   "venue": "Nature Communications 12, 588",
+   "url": "https://doi.org/10.1038/s41467-020-20821-w",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Bingqing Cheng, Guglielmo Mazzola, Chris J. Pickard and Michele Ceriotti used machine-learning interatomic potentials to overcome the system-size and timescale limits of ab initio molecular dynamics in dense hydrogen, finding evidence that the molecular-to-atomic transition in high-pressure liquid hydrogen is supercritical rather than a sharp first-order liquid-liquid transition over the range studied.",
+   "people": "Bingqing Cheng, Guglielmo Mazzola, Chris J. Pickard, Michele Ceriotti",
+   "affiliation": "",
+   "year": "2020 (arXiv preprint 1906.03341 posted 2019)",
+   "venue": "Nature 585, 217-220",
+   "url": "https://doi.org/10.1038/s41586-020-2677-y",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo G. Debenedetti, Francesco Sciortino and Gul H. Zerze presented computational evidence for a second, liquid-liquid critical point in deeply supercooled water in the TIP4P/2005 and TIP4P/Ice models, using histogram reweighting and large-system scattering calculations, with critical behaviour consistent with the three-dimensional Ising universality class.",
+   "people": "Pablo G. Debenedetti, Francesco Sciortino, Gül H. Zerze",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Science 369, 289-292",
+   "url": "https://doi.org/10.1126/science.abb9796",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Thomas E. Gartner III, Linfeng Zhang, Pablo M. Piaggi, Roberto Car, Athanassios Z. Panagiotopoulos and Pablo G. Debenedetti found signatures of a metastable liquid-liquid transition, with coexisting high-density and low-density liquid phases, in an ab initio deep neural network model of water trained on SCAN DFT data.",
+   "people": "Thomas E. Gartner III, Linfeng Zhang, Pablo M. Piaggi, Roberto Car, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Proceedings of the National Academy of Sciences 117, 26040-26046",
+   "url": "https://doi.org/10.1073/pnas.2015440117",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Jack Weis, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti and Roberto Car computed homogeneous ice nucleation rates at atmospheric pressure across a broad range of supercoolings using the seeding technique with a machine-learning model trained on DFT energies and forces, running systems of up to hundreds of thousands of atoms at ab initio accuracy.",
+   "people": "Pablo M. Piaggi, Jack Weis, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti, Roberto Car",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Proceedings of the National Academy of Sciences 119, e2207294119",
+   "url": "https://doi.org/10.1073/pnas.2207294119",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti and Roberto Car determined the phase equilibrium between liquid water and both hexagonal ice Ih and cubic ice Ic using a machine-learning potential trained on the SCAN functional, quantifying the small free-energy difference between the two ice polymorphs.",
+   "people": "Pablo M. Piaggi, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti, Roberto Car",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Journal of Chemical Theory and Computation 17, 3065-3077",
+   "url": "https://doi.org/10.1021/acs.jctc.1c00041",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Sigbjorn Loland Bore and Francesco Paesani combined the MB-pol data-driven many-body water potential with enhanced-sampling algorithms to compute water's phase diagram, obtaining close agreement with experiment for the stability fields of the ice polymorphs.",
+   "people": "Sigbjørn Løland Bore, Francesco Paesani",
+   "affiliation": "Department of Chemistry and Biochemistry, University of California, San Diego",
+   "year": "2023",
+   "venue": "Nature Communications 14, 3349",
+   "url": "https://doi.org/10.1038/s41467-023-38855-1",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Simon Batzner, Albert Musaelian, Lixin Sun, Mario Geiger, Jonathan P. Mailoa, Mordechai Kornbluth, Nicola Molinari, Tess E. Smidt and Boris Kozinsky introduced NequIP, an E(3)-equivariant graph neural network interatomic potential that matches or exceeds prior models while using up to three orders of magnitude less training data.",
+   "people": "Simon Batzner, Albert Musaelian, Lixin Sun, Mario Geiger, Jonathan P. Mailoa, Mordechai Kornbluth, Nicola Molinari, Tess E. Smidt, Boris Kozinsky",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Nature Communications 13 (2022), article 2453",
+   "url": "https://doi.org/10.1038/s41467-022-29939-5",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert Musaelian, Simon Batzner, Anders Johansson, Lixin Sun, Cameron J. Owen, Mordechai Kornbluth and Boris Kozinsky introduced Allegro, a strictly local equivariant deep neural network potential that represents many-body interactions through iterated tensor products of learned equivariant features without atom-centred message passing, enabling accurate simulations at very large scale.",
+   "people": "Albert Musaelian, Simon Batzner, Anders Johansson, Lixin Sun, Cameron J. Owen, Mordechai Kornbluth, Boris Kozinsky",
+   "affiliation": "",
+   "year": "2023 (arXiv preprint 2204.05249 posted 2022)",
+   "venue": "Nature Communications 14, 579",
+   "url": "https://doi.org/10.1038/s41467-023-36329-y",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Ilyes Batatia, David Peter Kovacs, Gregor N. C. Simm, Christoph Ortner and Gabor Csanyi introduced MACE, an equivariant message-passing architecture that carries higher body-order messages, overcoming the two-body limitation of conventional message-passing networks and yielding fast, accurate force fields.",
+   "people": "Ilyes Batatia, Dávid Péter Kovács, Gregor N. C. Simm, Christoph Ortner, Gábor Csányi",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Advances in Neural Information Processing Systems (NeurIPS) 2022; arXiv:2206.07697",
+   "url": "https://arxiv.org/abs/2206.07697",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Ilyes Batatia and a large collaboration released MACE-MP-0, a single general-purpose MACE model trained on roughly 150,000 inorganic crystal structures from the Materials Project, which runs stable molecular dynamics across solids, liquids, gases, reactions and interfaces out of the box and can be fine-tuned on a handful of application-specific points.",
+   "people": "Ilyes Batatia, Philipp Benner, Yuan Chiang, Alin M. Elena, Dávid P. Kovács, Janosh Riebesell, Xavier R. Advincula, Mark Asta, Matthew Avaylon, William J. Baldwin, Fabian Berger, Noam Bernstein, Arghya Bhowmik, Filippo Bigi, Samuel M. Blau, and others",
+   "affiliation": "",
+   "year": "2023 (arXiv v1 29 December 2023; revised 2024 and 2025)",
+   "venue": "arXiv:2401.00096 [physics.chem-ph]",
+   "url": "https://arxiv.org/abs/2401.00096",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Alessandro Laio and Michele Parrinello introduced metadynamics, a coarse-grained non-Markovian dynamics in which a history-dependent bias potential progressively fills the free-energy minima of selected collective variables, allowing escape from metastable states and reconstruction of multidimensional free-energy surfaces — the enabling technique for simulating nucleation as a rare event.",
+   "people": "Alessandro Laio, Michele Parrinello",
+   "affiliation": "",
+   "year": "2002",
+   "venue": "Proceedings of the National Academy of Sciences 99, 12562-12566",
+   "url": "https://doi.org/10.1073/pnas.202427399",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Alessandro Barducci, Giovanni Bussi and Michele Parrinello introduced well-tempered metadynamics, in which the deposited bias is rescaled so that the history-dependent potential converges smoothly to a tunable fraction of the free energy rather than diffusing indefinitely.",
+   "people": "Alessandro Barducci, Giovanni Bussi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2008",
+   "venue": "Physical Review Letters 100, 020603",
+   "url": "https://doi.org/10.1103/PhysRevLett.100.020603",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Omar Valsson and Michele Parrinello showed that enhancing fluctuations of entropy and enthalpy — used as collective variables — drives crystallization in atomistic simulations, providing a general order parameter pair for first-order freezing transitions.",
+   "people": "Pablo M. Piaggi, Omar Valsson, Michele Parrinello",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Physical Review Letters 119, 015701",
+   "url": "https://doi.org/10.1103/PhysRevLett.119.015701",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi and Michele Parrinello introduced multithermal-multibaric molecular simulations derived from a variational principle, in which a single simulation samples uniformly in energy and volume across a chosen region of the temperature-pressure plane, so that static properties and phase boundaries can be extracted for the whole region at once.",
+   "people": "Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2019 (arXiv preprint 1811.08253 posted 2018)",
+   "venue": "Physical Review Letters 122, 050601",
+   "url": "https://doi.org/10.1103/PhysRevLett.122.050601",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework — that reformulates metadynamics-style and generalized-ensemble methods as targeted probability-distribution reweighting.",
+   "people": "Michele Invernizzi, Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Physical Review X 10, 041034",
+   "url": "https://doi.org/10.1103/PhysRevX.10.041034",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Luigi Bonati and Michele Parrinello trained a deep neural network potential on SCAN-functional data, seeded by metadynamics sampling with a classical potential, and used a collective variable derived from the Debye structure factor to drive silicon crystallization, recovering the free-energy surface at DFT accuracy and probing the early stages of nucleation in a material whose liquid is metallic and whose solid is semiconducting.",
+   "people": "Luigi Bonati, Michele Parrinello",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Physical Review Letters 121, 265701",
+   "url": "https://doi.org/10.1103/PhysRevLett.121.265701",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Haiyang Niu, Luigi Bonati, Pablo M. Piaggi and Michele Parrinello trained a neural network potential on DFT data drawn from multithermal-multibaric simulations to compute the ab initio phase diagram of gallium, reproducing the equilibria among liquid Ga, alpha-Ga, beta-Ga and Ga-II, and showed that formation of the metastable beta-Ga phase is kinetically favoured over the thermodynamically stable alpha-Ga.",
+   "people": "Haiyang Niu, Luigi Bonati, Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Nature Communications 11, 2654",
+   "url": "https://doi.org/10.1038/s41467-020-16372-9",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Haiyang Niu, Pablo M. Piaggi, Michele Invernizzi and Michele Parrinello simulated the crystallization of liquid silica with enhanced-sampling molecular dynamics, resolving the nucleation pathway of a network-forming glass former.",
+   "people": "Haiyang Niu, Pablo M. Piaggi, Michele Invernizzi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Proceedings of the National Academy of Sciences 115, 5348-5352",
+   "url": "https://doi.org/10.1073/pnas.1803919115",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Joerg Behler and Marco Bernasconi built the first neural network interatomic potential for the phase-change memory material GeTe, reproducing DFT-quality descriptions of the liquid, crystalline and amorphous phases and opening large-scale simulation of technologically relevant crystallization.",
+   "people": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Jörg Behler, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2012",
+   "venue": "Physical Review B 85, 174103",
+   "url": "https://doi.org/10.1103/PhysRevB.85.174103",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Federico Giberti, Joerg Behler and Marco Bernasconi used the neural network potential to run large-scale molecular dynamics of GeTe crystallization, quantifying the fast crystal growth that underlies phase-change memory operation.",
+   "people": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Federico Giberti, Jörg Behler, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2013",
+   "venue": "The Journal of Physical Chemistry Letters 4, 4241-4246",
+   "url": "https://doi.org/10.1021/jz402268v",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Omar Abou El Kheir, Luigi Bonati, Michele Parrinello and Marco Bernasconi fitted a deep neural network potential to a large DFT database for Ge2Sb2Te5 and ran molecular dynamics on systems of over 10,000 atoms for more than 100 ns to resolve the crystallization kinetics of the compound across the range of temperatures relevant to memory devices.",
+   "people": "Omar Abou El Kheir, Luigi Bonati, Michele Parrinello, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2024 (arXiv preprint 2304.03109 posted 2023)",
+   "venue": "npj Computational Materials 10 (2024), article 33",
+   "url": "https://doi.org/10.1038/s41524-024-01217-6",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Volker L. Deringer, Noam Bernstein, Gabor Csanyi, Chiheb Ben Mahmoud, Michele Ceriotti, Mark Wilson, David A. Drabold and Stephen R. Elliott used a machine-learning potential to simulate transitions between disordered phases of silicon, predicting their electronic fingerprints and showing that pressure-induced crystallization of amorphous silicon proceeds through three distinct stages.",
+   "people": "Volker L. Deringer, Noam Bernstein, Gábor Csányi, Chiheb Ben Mahmoud, Michele Ceriotti, Mark Wilson, David A. Drabold, Stephen R. Elliott",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Nature 589, 59-64",
+   "url": "https://doi.org/10.1038/s41586-020-03072-z",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Ehrenfest 1933, 'Phasenumwandlungen im ueblichen und erweiterten Sinn...', Proc. Royal Acad. Amsterdam 36, 153-157, Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b; English translation and commentary by Tilman Sauer, EPJ Special Topics (2016), doi:10.1140/epjst/e2016-60344-y",
+   "correction": "The Ehrenfest original is exactly right (Proc. Royal Acad. Amsterdam 36, 153-157, 1933; Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b), and arXiv:1612.03062 resolves to Sauer's translation. But the Sauer translation year and volume are wrong. Correct text: 'An English translation with historical commentary by Tilman Sauer, \"A look back at the Ehrenfest classification,\" European Physical Journal Special Topics 226, 539-549 (2017), doi:10.1140/epjst/e2016-60344-y (posted as arXiv:1612.03062 in December 2016).' Correct URL: https://doi.org/10.1140/epjst/e2016-60344-y (preprint: https://arxiv.org/abs/1612.03062). Separately, a caution on the editorial gloss: the dossier asserts books 'must note that Ehrenfest's higher-order categories are now obsolete.' Sauer's own commentary does not say this — it notes the He I / He II lambda-point logarithmic divergence forced modification but argues the framework 'remains important' and proved fruitful. Safer wording: Ehrenfest's higher-order categories do not describe real continuous transitions, which show power-law divergences rather than finite jumps, so modern usage is 'first-order' versus 'continuous.'",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Widom 1965, 'Equation of State in the Neighborhood of the Critical Point,' Journal of Chemical Physics 43(11), 3898-3905; scaling relations including 'alpha + 2*beta + gamma = 2, later called the Rushbrooke relation' and gamma = beta*(delta-1)",
+   "correction": "The citation is exactly right (Widom, J. Chem. Phys. 43(11), 3898-3905, published 1 December 1965; doi 10.1063/1.1696618; Widom was at the Department of Chemistry, Cornell University). The word 'later' is chronologically wrong: Rushbrooke's inequality predates Widom's paper. Correct text: 'from which the scaling relations among critical exponents follow as equalities — including alpha + 2*beta + gamma = 2, which G. S. Rushbrooke had already established in 1963 as the inequality alpha + 2*beta + gamma >= 2 (\"On the Thermodynamics of the Critical Region for the Ising Problem,\" Journal of Chemical Physics 39(3), 842-843, doi:10.1063/1.1734338), and gamma = beta*(delta - 1), the Widom relation.'",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Berezinskii, Soviet Physics JETP 32(3), 493-500 (March 1971); 'Russian original ZhETF 59(3), 907 (1971)'; Berezinskii died in 1980 and was ineligible for the 2016 Nobel",
+   "correction": "The English translation, page range, title, and the 1980 death (23 June 1980, Moscow; born 15 July 1935, Kiev) are all correct, and the JETP URL resolves to the right article. The Russian original year is wrong: ZhETF volume 59 is a 1970 volume. Correct text: 'The paper is \"Destruction of Long-range Order in One-dimensional and Two-dimensional Systems having a Continuous Symmetry Group. I. Classical Systems,\" Soviet Physics JETP 32(3), 493-500 (March 1971); Russian original Zh. Eksp. Teor. Fiz. 59(3), 907-920 (1970), received 31 March 1970.' Correct URL: http://jetp.ras.ru/cgi-bin/e/index/e/32/3/p493?a=list. Note for the author: the jetp.ras.ru database and INSPIRE both stamp the Russian line '1971' by propagating the translation date, so a book citing 1970 should not be 'corrected' back by a copyeditor consulting those two sources; Wikipedia and the paper's own submission date give 1970.",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "2021 Nobel Prize in Physics awarded 'for groundbreaking contributions to our understanding of complex systems,' one half jointly to Manabe and Hasselmann, other half to Parisi (Sapienza University of Rome)",
+   "correction": "The division, laureates, Parisi's individual motivation, affiliation, and the 'around 1980' dating are all correct, but the overall prize citation is misquoted — the official wording contains 'physical.' Correct text: 'The Nobel Prize in Physics 2021 was awarded \"for groundbreaking contributions to our understanding of complex physical systems,\" divided with one half jointly to Syukuro Manabe and Klaus Hasselmann \"for the physical modelling of Earth's climate, quantifying variability and reliably predicting global warming,\" and the other half to Giorgio Parisi (Sapienza University of Rome) \"for the discovery of the interplay of disorder and fluctuations in physical systems from atomic to planetary scales.\"' Correct URL for the full citation: https://www.nobelprize.org/prizes/physics/2021/summary/ (Parisi-specific page: https://www.nobelprize.org/prizes/physics/2021/parisi/facts/).",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Turnbull and 'John Chipman Fisher' 1949, 'Rate of Nucleation in Condensed Systems,' Journal of Chemical Physics 17(1), 71-73",
+   "correction": "The author's name is fabricated. The co-author is John Crocker Fisher (born 19 December 1919, Ithaca NY; died 2 May 2018), Sc.D. MIT 1947, of General Electric Research Laboratory, who managed GE's physical metallurgy section. 'John Chipman' is an entirely different person — the MIT metallurgist and steelmaking chemist — and conflating the two would put a wrong name for a real man in print. Correct text: 'David Turnbull and John Crocker Fisher adapted classical nucleation theory to condensed systems... Published as \"Rate of Nucleation in Condensed Systems,\" Journal of Chemical Physics 17(1), 71-73 (1949).' Everything else in the item checks out: the paper exists with that exact title, JCP volume 17, issue 1, pages 71-73, 1949, authors ordered Turnbull then Fisher, and the URL https://doi.org/10.1063/1.1747055 resolves to it. Note for the author: a stray erratum, JCP 17(4), 429 (1949), also exists, and some secondary databases circulate a wrong DOI (10.1063/1.1747279) and a wrong issue number (No. 4) for this paper — cite 10.1063/1.1747055 and issue 1. The supercooling figure (liquid metals to roughly 0.8 T_m) is accurate.",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Liu and Nagel 2010, Annual Review of Condensed Matter Physics 1, 347-369, review of the jamming transition and the marginally jammed solid. URL https://www.annualreviews.org/content/journals/10.1146/annurev-co-1-101613-200001",
+   "correction": "The article is real and correctly cited, but THE URL IS GARBLED AND DOES NOT RESOLVE TO IT. The string 'annurev-co-1-101613-200001' is not this article's identifier; that URL returns 403 and belongs to no such work. Correct citation: Andrea J. Liu and Sidney R. Nagel, 'The Jamming Transition and the Marginally Jammed Solid', Annual Review of Condensed Matter Physics 1, 347-369 (2010), DOI 10.1146/annurev-conmatphys-070909-104045. Correct URL: https://doi.org/10.1146/annurev-conmatphys-070909-104045 (publisher page: https://www.annualreviews.org/content/journals/10.1146/annurev-conmatphys-070909-104045). Authors, year, volume, pages and affiliations (Penn for Liu by 2010; James Franck Institute, Chicago for Nagel) are all correct as given. The substantive claim (rigidity without normal-solid elastic properties, excess low-frequency modes, diverging length scales, non-affine response) is an accurate summary.",
+   "_domain": "glass-jamming"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Berthier, Charbonneau, Ninarello, Ozawa and Yaida 2019, Nature Communications, DOI 10.1038/s41467-019-09512-3 — zero-temperature ideal glass transition in two dimensions. Affiliations: Université de Montpellier and CNRS; Duke University.",
+   "correction": "The work and DOI are correct, but the citation is incomplete and the affiliation lump is wrong. Complete citation: Ludovic Berthier, Patrick Charbonneau, Andrea Ninarello, Misaki Ozawa and Sho Yaida, 'Zero-temperature glass transition in two dimensions', Nature Communications 10, 1508 (2019), DOI 10.1038/s41467-019-09512-3, published 3 April 2019; PMID 30944330; preprint arXiv:1805.09035. Supply the volume (10) and article number (1508) — the dossier left them blank. Affiliation correction: at publication Berthier and Ozawa were at Laboratoire Charles Coulomb, University of Montpellier; Charbonneau at Duke (Chemistry and Physics); Ninarello at CNR-ISC, UOS Sapienza, Rome — NOT Montpellier; and Yaida at Facebook AI Research — NOT Duke. Correct URL: https://www.nature.com/articles/s41467-019-09512-3 (note nature.com redirects through an IdP for automated fetches; the DOI is the stable citation). The substantive claim (liquid state terminates at a thermodynamic glass transition at zero temperature, with an entropy crisis and a diverging static correlation length) is accurate.",
+   "_domain": "glass-jamming"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Cubuk et al. 2017, Science 358, 1033-1037 — softness generalises across ~seven orders of magnitude in particle size. People listed: 'Ekin D. Cubuk; Robert J. S. Ivancic; Samuel S. Schoenholz; Douglas J. Durian; Efthimios Kaxiras; Andrea J. Liu and additional coauthors'.",
+   "correction": "The article is real and correctly located, but the author list is WRONG in a way that must be fixed: EFTHIMIOS KAXIRAS IS NOT AN AUTHOR of this paper. Confirmed independently against the PubMed Central full text (PMC6047528), PubMed 29170231 and the Semantic Scholar record, none of which list him; Kaxiras appears only in the reference list (refs 19-21). Douglas Durian is also not the fourth author — he sits deep in the list, not adjacent to Schoenholz. Correct opening of the author list: E. D. Cubuk, R. J. S. Ivancic, S. S. Schoenholz, D. J. Strickland, A. Basu, Z. S. Davidson, J. Fontaine, J. L. Hor, Y.-R. Huang, Y. Jiang, N. C. Keim, K. D. Koshigan, J. A. Lefever, T. Liu, X.-G. Ma, D. J. Magagnosc, E. Morrow, C. P. Ortiz, J. M. Rieser, A. Shavit, T. Still, Y. Xu, Y. Zhang, K. N. Nordstrom, P. E. Arratia, R. W. Carpick, D. J. Durian, Z. Fakhraai, D. J. Jerolmack, D. Lee, J. Li, R. Riggleman, K. T. Turner, A. G. Yodh, D. S. Gianola, A. J. Liu. Because the list runs to ~36 names, cite as 'E. D. Cubuk et al., Science 358, 1033-1037 (2017)' and do not print a partial list as if complete. Full citation: 'Structure-property relationships from universal signatures of plasticity in disordered solids', Science 358, 1033-1037 (2017), DOI 10.1126/science.aai8830; URL https://www.science.org/doi/10.1126/science.aai8830 resolves; open text at https://pmc.ncbi.nlm.nih.gov/articles/6047528/. The scientific claim is CORRECT and verbatim supportable: the abstract says the four quantities held 'for disordered packings of objects ranging from atoms to grains, spanning seven orders of magnitude in diameter and 13 orders of magnitude in elastic modulus'. If the book quantifies the span, quote 'seven orders of magnitude in diameter', not 'in particle size'.",
+   "_domain": "glass-jamming"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Bartók, Payne, Kondor & Csányi (2010), PRL 104, 136403 — Gaussian Approximation Potentials via Gaussian process regression on QM energies and forces. Dossier lists affiliation as 'Cavendish Laboratory, University of Cambridge' for all four authors.",
+   "correction": "Citation, authors, order, year, venue, and DOI are all correct. The affiliation field is wrong for two of the four authors. Accurate text: 'Albert P. Bartók and Mike C. Payne (Cavendish Laboratory, University of Cambridge); Risi Kondor (Center for the Mathematics of Information, California Institute of Technology); Gábor Csányi (Engineering Laboratory, University of Cambridge).' Correct URL: https://doi.org/10.1103/PhysRevLett.104.136403",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Invernizzi, Piaggi & Parrinello (2020), PRX 10, 041034 — 'presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework — that reformulates metadynamics-style and generalized-ensemble methods as targeted probability-distribution reweighting.'",
+   "correction": "The citation (authors, order, year, venue, article number, DOI) is correct, but the claim misattributes the introduction of OPES. The PRX paper's own abstract states that it adapts 'the recently developed on-the-fly probability enhanced sampling method [Invernizzi and Parrinello, J. Phys. Chem. Lett. 11.7 (2020)], which was originally introduced for metadynamics-like sampling.' Accurate replacement text: 'Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified perspective on enhanced sampling, focusing on the target probability distribution rather than the bias potential, and introduced a class of collective-variable-based bias potentials able to sample any expanded ensemble normally reached by replica exchange (OPES-expanded). Their practical implementation adapts the on-the-fly probability enhanced sampling (OPES) method, which had been introduced earlier that year by Michele Invernizzi and Michele Parrinello, \"Rethinking Metadynamics: From Bias Potentials to Probability Distributions\", Journal of Physical Chemistry Letters 11, 2731-2736 (2020).' URL for the PRX paper: https://doi.org/10.1103/PhysRevX.10.041034 ; URL for the paper that actually introduced OPES: https://doi.org/10.1021/acs.jpclett.0c00497",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "MACE-MP-0 is a general-purpose MACE model 'trained on roughly 150,000 inorganic crystal structures from the Materials Project'; cited only as arXiv:2401.00096.",
+   "correction": "Two defects. (1) The training-set figure is garbled: MACE-MP-0 was trained on the Materials Project Trajectory (MPtrj) dataset, which contains 1,580,395 DFT structures drawn from roughly 146,000 inorganic materials covering 89 elements. The ~150,000 figure is the number of MATERIALS, not structures; the number of training structures is ~1.6 million (an order of magnitude larger). The paper's own abstract says only 'a public dataset of moderate size' and gives no such count. (2) The work is no longer preprint-only. Accurate replacement text: 'Ilyes Batatia and a large collaboration released MACE-MP-0, a single general-purpose MACE model trained on the Materials Project Trajectory (MPtrj) dataset — about 1.6 million DFT structures drawn from roughly 146,000 inorganic materials — which runs stable molecular dynamics across solids, liquids, gases, chemical reactions and interfaces out of the box and can be fine-tuned on a handful of application-specific data points to reach ab initio accuracy.' Correct citation: Ilyes Batatia, Philipp Benner, Yuan Chiang, Alin M. Elena, Dávid P. Kovács et al., 'A foundation model for atomistic materials chemistry', Journal of Chemical Physics 163(18), 184110 (2025), https://doi.org/10.1063/5.0297006 — preprint arXiv:2401.00096 (v1 29 December 2023), https://arxiv.org/abs/2401.00096",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Invernizzi, Piaggi & Parrinello (2020) 'presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework'. PRX 10, 041034.",
+   "correction": "The venue, authors, year and URL are correct, but the attribution overstates: the PRX paper did NOT introduce OPES. Its abstract explicitly states that it provides a practical implementation 'by properly adapting the iterative scheme of the recently developed on-the-fly probability enhanced sampling method [Invernizzi and Parrinello, J. Phys. Chem. Lett. 11.7 (2020)], which was originally introduced for metadynamics-like sampling.' Accurate replacement text: 'Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified approach to enhanced sampling, recasting collective-variable bias methods (umbrella sampling, metadynamics) and tempering/expanded-ensemble methods such as replica exchange within one perspective focused on the target probability distribution, and implemented it by adapting the iterative scheme of the on-the-fly probability enhanced sampling (OPES) method.' Cite as: Michele Invernizzi, Pablo M. Piaggi, Michele Parrinello, 'Unified Approach to Enhanced Sampling', Physical Review X 10, 041034 (2020), https://doi.org/10.1103/PhysRevX.10.041034. OPES itself must be credited to: Michele Invernizzi and Michele Parrinello, 'Rethinking Metadynamics: From Bias Potentials to Probability Distributions', Journal of Physical Chemistry Letters 11, 2731-2736 (2020), https://doi.org/10.1021/acs.jpclett.0c00497",
+   "_domain": "ml-potentials-nucleation"
+  }
+ ]
+}

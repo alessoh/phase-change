@@ -1,0 +1,739 @@
+{
+ "chapter": 18,
+ "title": "What Did Not Replicate",
+ "outline": "A dedicated accounting, placed where it can be read against everything preceding it. Sayash Kapoor and Arvind Narayanan documented data leakage as a reproducibility crisis spanning dozens of fields and proposed reporting standards in response. Materials machine learning has its own version, in which benchmark performance rises while discovery does not. Superconductivity supplies the sharpest cautionary tales, in the Ranga Dias retractions and the 2023 LK-99 episode, both of which were claims about phase transitions and both of which collapsed under replication. The chapter's argument is not that the field is unsound. It is that a smooth interpolator asked to extrapolate into a phase it has never seen is being asked to do the one thing it is structurally worst at, and that most documented failures reduce to some version of that.\n\nBuilt on Kapoor and Narayanan in Patterns 2023 together with the REFORMS checklist, the Dias retractions and the University of Rochester investigations, LK-99 and its resolution, benchmark overfitting and distribution shift, and the GNoME and A-Lab critiques revisited in a methodological rather than a domain frame.\n\nLeaves open: Chapter 15 said stability is not discovery. This chapter suggests the problem is more general.",
+ "domains": [
+  "critique-limits",
+  "materials-discovery"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Sayash Kapoor and Arvind Narayanan surveyed literature across fields adopting machine learning and found data leakage documented in 17 fields, collectively affecting 294 papers; they introduced a taxonomy of eight types of leakage (from lack of clean train/test separation, through illegitimate features, to test sets not drawn from the distribution of scientific interest) and proposed 'model info sheets' as a mitigation.",
+   "people": "Sayash Kapoor, Arvind Narayanan",
+   "affiliation": "Department of Computer Science and Center for Information Technology Policy, Princeton University",
+   "year": "2023",
+   "venue": "Patterns 4(9), article 100804",
+   "url": "https://doi.org/10.1016/j.patter.2023.100804",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "In their reproducibility case study of civil war prediction, Kapoor and Narayanan found that every paper claiming complex machine learning models outperform logistic regression failed to reproduce once data leakage was corrected; the decades-old logistic regression models performed comparably.",
+   "people": "Sayash Kapoor, Arvind Narayanan",
+   "affiliation": "Princeton University",
+   "year": "2023",
+   "venue": "Patterns 4(9), article 100804",
+   "url": "https://doi.org/10.1016/j.patter.2023.100804",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The public catalogue accompanying the Kapoor–Narayanan leakage survey lists fields such as medicine, molecular biology, neuroimaging, bioinformatics, clinical epidemiology, satellite imaging, computer security and software engineering; physics, chemistry and materials science do not appear among the fields where leakage had been systematically audited at that time.",
+   "people": "Sayash Kapoor, Arvind Narayanan",
+   "affiliation": "Princeton University",
+   "year": "2023",
+   "venue": "Project website accompanying the Patterns paper",
+   "url": "https://reproducible.cs.princeton.edu/",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The REFORMS checklist — 32 questions organised into eight modules covering study goals, computational reproducibility, data quality, data preprocessing, modeling, data leakage, metrics and uncertainty, and generalizability — was developed by consensus among 19 researchers spanning computer science, data science, mathematics, social sciences and biomedical sciences.",
+   "people": "Sayash Kapoor, Emily M. Cantrell, Kenny Peng, Thanh Hien Pham, Christopher A. Bail, Odd Erik Gundersen, Jake M. Hofman, Jessica Hullman, Michael A. Lones, Momin M. Malik, Priyanka Nanayakkara, Russell A. Poldrack, Inioluwa Deborah Raji, Michael Roberts, Matthew J. Salganik, Marta Serra-Garcia, Brandon M. Stewart, Gilles Vandewiele, Arvind Narayanan",
+   "affiliation": "Princeton University (lead authors), with coauthors across 19 institutions",
+   "year": "2024",
+   "venue": "Science Advances 10(18), eadk3452",
+   "url": "https://doi.org/10.1126/sciadv.adk3452",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "A systematic review of machine learning models for COVID-19 diagnosis and prognosis from chest radiographs and CT screened 2,212 studies, included 61 after quality screening, and concluded that none of the models identified were of potential clinical use because of methodological flaws and underlying biases.",
+   "people": "Michael Roberts, Derek Driggs, Matthew Thorpe, Julian Gilbey, Michael Yeung, Stephan Ursprung, Angelica I. Aviles-Rivero, Christian Etmann, and colleagues (AIX-COVNET collaboration)",
+   "affiliation": "University of Cambridge",
+   "year": "2021",
+   "venue": "Nature Machine Intelligence 3, 199–217",
+   "url": "https://doi.org/10.1038/s42256-021-00307-0",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "A set of community guidelines for training reliable, repeatable and reproducible machine learning models in chemistry was published as a comment in Nature Chemistry, covering data provenance, model validation and reporting.",
+   "people": "Nongnuch Artrith, Keith T. Butler, François-Xavier Coudert, Seungwu Han, Olexandr Isayev, Anubhav Jain, Aron Walsh",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Nature Chemistry 13(6), 505–508",
+   "url": "https://doi.org/10.1038/s41557-021-00716-z",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The preprint 'Artificial Intelligence, Scientific Discovery, and Product Innovation', submitted to arXiv on 21 December 2024, was withdrawn by arXiv administrators with the stated comment: 'Withdrawn by arXiv administrators due to concerns about the validity of the data and incomplete Institutional Review Board requirements.'",
+   "people": "Aidan Toner-Rodgers",
+   "affiliation": "Massachusetts Institute of Technology (former PhD student, Department of Economics; no longer affiliated)",
+   "year": "2024",
+   "venue": "arXiv preprint 2412.17866 (withdrawn)",
+   "url": "https://arxiv.org/abs/2412.17866",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "On 16 May 2025 MIT stated publicly that its Committee on Discipline had reviewed the paper and that MIT has 'no confidence in the provenance, reliability or validity of the data and in the veracity of the research'; MIT asked arXiv to withdraw the preprint and contacted the Quarterly Journal of Economics, where the paper had been submitted, and stated the author is no longer affiliated with MIT.",
+   "people": "Daron Acemoglu, David Autor",
+   "affiliation": "Department of Economics, Massachusetts Institute of Technology",
+   "year": "2025",
+   "venue": "MIT Department of Economics public statement, 'Assuring an accurate research record'",
+   "url": "https://economics.mit.edu/news/assuring-accurate-research-record",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The paper had claimed that an AI materials-discovery tool deployed in a large unnamed corporate lab increased materials discovered by 44 percent, patent filings by 39 percent and downstream product innovation by 17 percent, while reducing researcher job satisfaction; the concerns that triggered MIT's review were raised by a computer scientist with materials science experience who approached Daron Acemoglu and David Autor in January 2025.",
+   "people": "Aidan Toner-Rodgers",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2025",
+   "venue": "Contemporaneous reporting on MIT's disavowal",
+   "url": "https://techcrunch.com/2025/05/17/mit-disavows-doctoral-students-paper-on-ai-productivity-benefits/",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The A-Lab paper reported that an autonomous solid-state synthesis platform combining computation, literature-trained natural-language models, active learning and robotics 'realized 41 novel compounds from a set of 58 targets' over 17 days of continuous operation.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "Lawrence Berkeley National Laboratory and University of California, Berkeley",
+   "year": "2023",
+   "venue": "Nature 624(7990), 86–91",
+   "url": "https://doi.org/10.1038/s41586-023-06734-w",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "A detailed reanalysis of the A-Lab results, first posted to ChemRxiv on 7 January 2024 and published in PRX Energy, argued that none of the reported compounds were genuinely novel and that errors ran through both the computational predictions and the experimental phase identification, in particular the neglect of compositional disorder and low-quality automated Rietveld refinement.",
+   "people": "Josh Leeman, Yuhan Liu, Joseph Stiles, Scott B. Lee, Prajna Bhatt, Leslie M. Schoop, Robert G. Palgrave",
+   "affiliation": "Department of Chemistry, Princeton University; Princeton Materials Institute; Department of Chemistry, University College London",
+   "year": "2024",
+   "venue": "PRX Energy 3, 011002",
+   "url": "https://doi.org/10.1103/PRXEnergy.3.011002",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Robert Palgrave characterised the A-Lab's automated Rietveld refinement as 'very bad, very beginner, completely novice human level' and stated that 'two thirds of their entire predictions were just ordered versions of compounds that were already known to be disordered'; Gerbrand Ceder responded in December 2023 that a human could perform a higher-quality refinement but that the objective was to demonstrate what an autonomous lab could achieve.",
+   "people": "Robert G. Palgrave, Gerbrand Ceder",
+   "affiliation": "University College London (Palgrave); University of California, Berkeley and Lawrence Berkeley National Laboratory (Ceder)",
+   "year": "2024",
+   "venue": "Chemistry World news report",
+   "url": "https://www.chemistryworld.com/news/new-analysis-raises-doubts-over-autonomous-labs-materials-discoveries/4018791.article",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Nature published an Author Correction to the A-Lab paper on 19 January 2026 stating that concerns had been raised about unambiguous structure identification by diffraction and about the original novelty claims; the authors clarified that they had meant the materials were new to the prediction platform rather than new to science, reported that manual reanalysis confirmed the platform reached the correct conclusion in 36 of 40 reported successes with 4 inconclusive, and removed one compound that had mistakenly been included in training data.",
+   "people": "Nathan J. Szymanski, Gerbrand Ceder, and coauthors",
+   "affiliation": "Lawrence Berkeley National Laboratory and University of California, Berkeley",
+   "year": "2026",
+   "venue": "Nature 650(8100), E1 (Author Correction)",
+   "url": "https://doi.org/10.1038/s41586-025-09992-y",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Auditing Google DeepMind's GNoME results, Anthony K. Cheetham and Ram Seshadri examined samples of the released structures and reported 'scant evidence for compounds that fulfill the trifecta of novelty, credibility, and utility', arguing that the outputs should be called crystalline inorganic compounds rather than 'materials' and that domain expertise in synthesis and crystallography is needed.",
+   "people": "Anthony K. Cheetham, Ram Seshadri",
+   "affiliation": "Materials Department and Materials Research Laboratory, University of California, Santa Barbara; Department of Materials Science and Engineering, National University of Singapore (Cheetham)",
+   "year": "2024",
+   "venue": "Chemistry of Materials 36(8), 3490–3495",
+   "url": "https://doi.org/10.1021/acs.chemmater.4c00643",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The GNoME work being critiqued reported that graph networks trained at scale discovered 2.2 million crystal structures, of which 381,000 were characterised as newly discovered stable materials.",
+   "people": "Amil Merchant, Simon Batzner, Samuel S. Schoenholz, Muratahan Aykol, Gowoon Cheon, Ekin Dogus Cubuk",
+   "affiliation": "Google DeepMind",
+   "year": "2023",
+   "venue": "Nature 624, 80–85",
+   "url": "https://doi.org/10.1038/s41586-023-06018-3",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Nature retracted 'Room-temperature superconductivity in a carbonaceous sulfur hydride' on 26 September 2022, stating that the background-subtraction procedure used to generate the magnetic susceptibility plots was non-standard, user-defined, unspecified in the paper, and of questioned validity, undermining confidence in the published susceptibility data as a whole.",
+   "people": "Elliot Snider, Nathan Dasenbrock-Gammon, Raymond McBride, Mathew Debessai, Hiranya Vindana, Kevin Vencatasamy, Keith V. Lawler, Ashkan Salamat, Ranga P. Dias",
+   "affiliation": "University of Rochester (Dias)",
+   "year": "2022",
+   "venue": "Nature 610(7933), 804 (Retraction Note; original paper Nature 586, 373–377, 2020)",
+   "url": "https://doi.org/10.1038/s41586-022-05294-9",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "An independent forensic reanalysis concluded that the reported background-corrected susceptibility data in the carbonaceous sulfur hydride paper were 'pathological', were not obtained by the method described nor by three alternative methods later supplied by the authors, and that the reported 'measured voltage' data were not raw data.",
+   "people": "Dirk van der Marel, Jorge E. Hirsch",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "International Journal of Modern Physics B 36, 2375001 (preprint arXiv:2201.07686, January 2022)",
+   "url": "https://arxiv.org/abs/2201.07686",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Nature retracted 'Evidence of near-ambient superconductivity in a N-doped lutetium hydride' on 7 November 2023 at the request of eight of the eleven authors, who stated that the published paper did not accurately reflect the provenance of the investigated materials, the experimental measurements undertaken, or the data-processing protocols applied; Ranga P. Dias was among the authors who did not state agreement with the retraction.",
+   "people": "Nathan Dasenbrock-Gammon, Elliot Snider, Raymond McBride, Hiranya Pasan, Dylan Durkee, Nugzari Khalvashi-Sutter, Sasanka Munasinghe, Sachith E. Dissanayake, Keith V. Lawler, Ashkan Salamat, Ranga P. Dias",
+   "affiliation": "University of Rochester (Dias)",
+   "year": "2023",
+   "venue": "Nature 624(7991), 460 (Retraction Note; original paper Nature 615, 244–250, 2023)",
+   "url": "https://doi.org/10.1038/s41586-023-06774-2",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "A confidential 124-page report from an independent investigation commissioned by the University of Rochester at the National Science Foundation's request, concluded on 8 February 2024 after a ten-month inquiry, examined 16 allegations against Ranga Dias and found it more likely than not that he had committed research misconduct in each case, including data fabrication, falsification and plagiarism; the report surfaced through court documents in a lawsuit Dias filed against the university.",
+   "people": "Ranga P. Dias",
+   "affiliation": "University of Rochester",
+   "year": "2024",
+   "venue": "Nature news feature by Dan Garisto, April 2024",
+   "url": "https://doi.org/10.1038/d41586-024-00976-y",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The University of Rochester confirmed in November 2024 that Ranga Dias is no longer employed by the university.",
+   "people": "Ranga P. Dias",
+   "affiliation": "University of Rochester",
+   "year": "2024",
+   "venue": "Nature news, 'Superconductivity researcher who committed misconduct exits university'",
+   "url": "https://www.nature.com/articles/d41586-024-03796-2",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Physicists interviewed after the Dias retractions described concrete institutional lessons: Lilia Boeri said the behaviour 'has harmed the reputation of the field and it may take a few years to repair the damage'; James Hamlin warned it is 'damaging to science in general, and superconductivity research more so' and urged journals to contact all coauthors about misconduct allegations; David Ceperley noted referees were provided only the accepted manuscript, not data files or referee comments.",
+   "people": "Lilia Boeri, James Hamlin, David Ceperley",
+   "affiliation": "University of Rome La Sapienza (Boeri); University of Florida (Hamlin); University of Illinois (Ceperley)",
+   "year": "2024",
+   "venue": "Physics World news feature",
+   "url": "https://physicsworld.com/a/superconductivity-damaged-as-researchers-look-to-move-on-from-retractions/",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The LK-99 episode began with a preprint posted to arXiv on 22 July 2023 claiming the first room-temperature ambient-pressure superconductor, with a critical temperature at or above 400 K, in a modified lead-apatite structure, attributed to a 0.48 percent volume shrinkage causing minute structural distortion.",
+   "people": "Sukbae Lee, Ji-Hoon Kim, Young-Wan Kwon",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "arXiv preprint 2307.12008",
+   "url": "https://arxiv.org/abs/2307.12008",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Single crystals of Pb10−xCux(PO4)6O grown by the travelling-solvent floating-zone method were found to be highly insulating and optically transparent, with magnetic susceptibility characteristic of a non-magnetic insulator plus a small ferromagnetic component, leading the authors to conclude that room-temperature superconductivity in LK-99 is highly unlikely and that transport anomalies in powders were attributable to Cu2S impurity phases.",
+   "people": "Pascal Puphal, M. Y. P. Akbar, Matthias Hepting, Eberhard Goering, Masahiko Isobe, A. A. Nugroho, Bernhard Keimer",
+   "affiliation": "Max Planck Institute for Solid State Research, Stuttgart",
+   "year": "2023",
+   "venue": "APL Materials 11(10), 101128",
+   "url": "https://doi.org/10.1063/5.0172755",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The apparent superconducting-like resistivity drop in LK-99 was traced to a first-order structural transition of a Cu2S impurity phase from hexagonal to monoclinic near 385 K; no sample showed zero resistance, and all showed transitions at the Cu2S transition temperature rather than at a superconducting Tc.",
+   "people": "Shilin Zhu, Wei Wu, Zheng Li, Jianlin Luo",
+   "affiliation": "Beijing National Laboratory for Condensed Matter Physics, Institute of Physics, Chinese Academy of Sciences",
+   "year": "2023",
+   "venue": "Matter 6(12), 4401–4407",
+   "url": "https://doi.org/10.1016/j.matt.2023.11.001",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "An independent synthesis of phase-pure Pb9Cu(PO4)6O found insulator-like resistivity across 215–325 K and only diamagnetic response, with the authors concluding that their results 'do not approve the appearance of superconductivity in LK-99'.",
+   "people": "Kapil Kumar, Navneet Kumar Karn, Yogesh Kumar, V. P. S. Awana",
+   "affiliation": "CSIR-National Physical Laboratory, New Delhi; Academy of Scientific and Innovative Research, Ghaziabad",
+   "year": "2023",
+   "venue": "ACS Omega 8(44), 41737–41743",
+   "url": "https://doi.org/10.1021/acsomega.3c06096",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Leave-one-cluster-out cross-validation was introduced to show that standard random-split machine learning metrics overestimate model performance for materials discovery, because discovery requires extrapolation to chemically distinct clusters rather than interpolation within them; the test case was prediction of superconducting critical temperature.",
+   "people": "Bryce Meredig, Erin Antono, Carena Church, Maxwell Hutchinson, Julia Ling, Sean Paradiso, Ben Blaiszik, Ian Foster, Brenna Gibbons, Jason Hattrick-Simpers, Apurva Mehta, Logan Ward",
+   "affiliation": "Citrine Informatics and collaborating institutions",
+   "year": "2018",
+   "venue": "Molecular Systems Design & Engineering 3(5), 819–825",
+   "url": "https://doi.org/10.1039/C8ME00012C",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Machine learning models trained on the 2018 release of the Materials Project showed severely degraded performance on compounds added by the 2021 release, a distribution-shift failure that standard benchmark scores did not reveal but that could be anticipated using representation-space coverage analysis and disagreement between independently trained models.",
+   "people": "Kangming Li, Brian DeCost, Kamal Choudhary, Michael Greenwood, Jason Hattrick-Simpers",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "npj Computational Materials 9, article 55",
+   "url": "https://doi.org/10.1038/s41524-023-01012-9",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Across more than 700 heuristically defined out-of-distribution materials tasks involving unseen chemistry or structural symmetry, most test data were found to lie inside regions well covered by the training set, meaning the tasks measured interpolation; for the genuinely out-of-domain tasks, increasing training set size or training time had marginal or adverse effects, contrary to neural scaling assumptions.",
+   "people": "Kangming Li, Andre Niyongabo Rubungo, Xiangyun Lei, Daniel Persaud, Kamal Choudhary, Brian DeCost, Adji Bousso Dieng, Jason Hattrick-Simpers",
+   "affiliation": "",
+   "year": "2025",
+   "venue": "Communications Materials 6, article 9 (preprint arXiv:2406.06489, June 2024)",
+   "url": "https://doi.org/10.1038/s43246-024-00731-w",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Up to 95 percent of entries could be removed from several large materials property datasets with little impact on in-distribution prediction accuracy, showing that dataset size in materials machine learning is a poor proxy for information content; the redundant data reflected over-represented material types and did not mitigate severe degradation on out-of-distribution samples.",
+   "people": "Kangming Li, Daniel Persaud, Kamal Choudhary, Brian DeCost, Michael Greenwood, Jason Hattrick-Simpers",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "Nature Communications 14, article 7283",
+   "url": "https://doi.org/10.1038/s41467-023-42992-y",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The Matbench Discovery framework documented a misalignment between regression metrics and the task-relevant classification metrics for crystal stability: accurate regressors can still produce high false-positive rates near the decision boundary at 0 eV per atom above the convex hull, so low mean absolute error does not imply useful discovery performance.",
+   "people": "Janosh Riebesell, Rhys E. A. Goodall, Philipp Benner, Yuan Chiang, Bowen Deng, Gerbrand Ceder, Mark Asta, Alpha A. Lee, Anubhav Jain, Kristin A. Persson",
+   "affiliation": "University of Cambridge and Lawrence Berkeley National Laboratory",
+   "year": "2025",
+   "venue": "Nature Machine Intelligence (preprint arXiv:2308.14920, August 2023)",
+   "url": "https://doi.org/10.1038/s42256-025-01055-1",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "A benchmark of machine learning force fields run as actual molecular dynamics simulations found that the commonly reported force-prediction accuracy is not well aligned with the simulation-level metrics that matter scientifically — low force error does not guarantee stable or physically correct trajectories.",
+   "people": "Xiang Fu, Zhenghao Wu, Wujie Wang, Tian Xie, Sinan Keten, Rafael Gómez-Bombarelli, Tommi Jaakkola",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "arXiv preprint 2210.07237; later published in Transactions on Machine Learning Research",
+   "url": "https://arxiv.org/abs/2210.07237",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Analytical expressions were derived for the optimal output of three widely used neural-network methods for detecting phase transitions, showing that in the high-capacity limit these networks compute a determinate function of the input data; phase transitions can therefore be identified directly from the data without training any network, which limits claims that such networks discover novel physics.",
+   "people": "Julian Arnold, Frank Schäfer",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Physical Review X 12, 031044 (preprint arXiv:2203.06084, March 2022)",
+   "url": "https://doi.org/10.1103/PhysRevX.12.031044",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Influence functions were used to open the black box of neural networks trained to classify phases of the one-dimensional extended spinless Fermi-Hubbard model at half filling, providing a model-agnostic route to check what a phase classifier actually relies on rather than assuming it has learned an order parameter.",
+   "people": "Anna Dawid, Patrick Huembeli, Michał Tomza, Maciej Lewenstein, Alexandre Dauphin",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "New Journal of Physics 22, 115001 (preprint arXiv:2004.04711)",
+   "url": "https://doi.org/10.1088/1367-2630/abc463",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The general failure mode in which models learn decision rules that succeed on standard benchmarks but do not transfer to more demanding conditions was named and systematised as 'shortcut learning', with recommendations for interpretation and benchmarking.",
+   "people": "Robert Geirhos, Jörn-Henrik Jacobsen, Claudio Michaelis, Richard Zemel, Wieland Brendel, Matthias Bethge, Felix A. Wichmann",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Nature Machine Intelligence 2, 665–673 (preprint arXiv:2004.07780)",
+   "url": "https://doi.org/10.1038/s42256-020-00257-z",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Explanation methods applied to high-accuracy classifiers revealed 'Clever Hans' behaviour in which models exploit spurious artefacts rather than the intended signal, and the authors showed that standard performance metrics are oblivious to the difference between such shortcut strategies and genuine problem solving.",
+   "people": "Sebastian Lapuschkin, Stephan Wäldchen, Alexander Binder, Grégoire Montavon, Wojciech Samek, Klaus-Robert Müller",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Nature Communications 10, article 1096 (preprint arXiv:1902.10178)",
+   "url": "https://doi.org/10.1038/s41467-019-08987-4",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "AI tools in research were argued to risk producing 'illusions of understanding in which we believe we understand more about the world than we actually do', together with scientific monocultures of method and of knowers that narrow the range of questions asked and increase vulnerability to error.",
+   "people": "Lisa Messeri, M. J. Crockett",
+   "affiliation": "Yale University (Messeri); Princeton University (Crockett)",
+   "year": "2024",
+   "venue": "Nature 627(8002), 49–58",
+   "url": "https://doi.org/10.1038/s41586-024-07146-0",
+   "confidence": "verified",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "Milad Abolhasani reported that roughly 95 percent of self-driving-laboratory papers omit operational lifetime data, chemical consumption metrics and experimental precision — information needed to judge whether an autonomous platform is trustworthy.",
+   "people": "Milad Abolhasani",
+   "affiliation": "North Carolina State University",
+   "year": "2026",
+   "venue": "Chemistry World news feature, 'Are we rushing ahead with AI in the lab?'",
+   "url": "https://www.chemistryworld.com/news/are-we-rushing-ahead-with-ai-in-the-lab/4019424.article",
+   "confidence": "probable",
+   "_domain": "critique-limits"
+  },
+  {
+   "claim": "The Materials Project, the flagship open high-throughput DFT database for computed materials properties and phase diagrams, was introduced in a 2013 APL Materials commentary; Kristin A. Persson is its founding director and Anubhav Jain its lead author.",
+   "people": "Anubhav Jain, Shyue Ping Ong, Geoffroy Hautier, Wei Chen, William Davidson Richards, Stephen Dacek, Shreyas Cholia, Dan Gunter, David Skinner, Gerbrand Ceder, Kristin A. Persson",
+   "affiliation": "Lawrence Berkeley National Laboratory and Massachusetts Institute of Technology",
+   "year": "2013",
+   "venue": "APL Materials 1(1), 011002",
+   "url": "https://doi.org/10.1063/1.4812323",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The technique of constructing multicomponent phase diagrams (grand-potential / convex-hull) purely from first-principles total energies was established for the Li-Fe-P-O2 system, the methodological ancestor of every computed phase diagram now served by the Materials Project.",
+   "people": "Shyue Ping Ong, Lei Wang, Byoungwoo Kang, Gerbrand Ceder",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2008",
+   "venue": "Chemistry of Materials 20(5), 1798-1807",
+   "url": "https://doi.org/10.1021/cm702327g",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The Open Quantum Materials Database (OQMD) was launched at Northwestern University as a freely available high-throughput DFT database of thermodynamic and structural properties; as of the current site it reports 1,407,395 materials.",
+   "people": "James E. Saal, Scott Kirklin, Muratahan Aykol, Bryce Meredig, C. Wolverton",
+   "affiliation": "Northwestern University",
+   "year": "2013",
+   "venue": "JOM 65(11), 1501-1509",
+   "url": "https://doi.org/10.1007/s11837-013-0755-4",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "A systematic OQMD benchmark found the mean absolute error between DFT-calculated and experimental formation energies is 0.096 eV/atom, while the MAE between independent experimental measurements of the same quantity is 0.082 eV/atom — meaning DFT error is close to the experimental scatter, and that ~0.1 eV/atom is the practical noise floor for any stability claim built on these databases.",
+   "people": "Scott Kirklin, James E Saal, Bryce Meredig, Alex Thompson, Jeff W Doak, Muratahan Aykol, Stephan Rühl, Chris Wolverton",
+   "affiliation": "Northwestern University; FIZ Karlsruhe",
+   "year": "2015",
+   "venue": "npj Computational Materials 1, 15010",
+   "url": "https://doi.org/10.1038/npjcompumats.2015.10",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "AFLOW, the automatic framework for high-throughput materials discovery led by Stefano Curtarolo at Duke, was described in 2012; the project's database is served at aflowlib.org.",
+   "people": "Stefano Curtarolo, Wahyu Setyawan, Gus L. W. Hart, Michal Jahnatek, Roman V. Chepulskii, Richard H. Taylor, Shidong Wang, Junkai Xue, Kesong Yang, Ohad Levy, Michael J. Mehl, Harold T. Stokes, Denis O. Demchenko, Dane Morgan",
+   "affiliation": "Duke University",
+   "year": "2012",
+   "venue": "Computational Materials Science 58, 218-226",
+   "url": "https://doi.org/10.1016/j.commatsci.2012.02.005",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CALPHAD — the semi-empirical computational thermodynamics method that produced multicomponent phase diagrams decades before AI entered materials science — was framed by its originator Larry Kaufman as the true 'birth of the materials genome'.",
+   "people": "Larry Kaufman, John Ågren",
+   "affiliation": "Cambridge, Massachusetts (Kaufman); KTH Royal Institute of Technology (Ågren)",
+   "year": "2014",
+   "venue": "Scripta Materialia 70, 3-6",
+   "url": "https://doi.org/10.1016/j.scriptamat.2012.12.003",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Zi-Kui Liu's 2023 review sets out the state of the art in CALPHAD modeling and its integration with first-principles calculations and machine learning, and is the standard reference for where the CALPHAD/ML boundary currently sits.",
+   "people": "Zi-Kui Liu",
+   "affiliation": "Pennsylvania State University",
+   "year": "2023",
+   "venue": "Calphad 82, 102580",
+   "url": "https://doi.org/10.1016/j.calphad.2023.102580",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Ab initio random structure searching (AIRSS) — the deliberately simple stochastic approach to crystal structure prediction — showed that randomly generated structures relaxed with DFT can find ground states without any evolutionary machinery, and remains a baseline any ML-based CSP method must beat.",
+   "people": "Chris J. Pickard, R. J. Needs",
+   "affiliation": "University College London (Pickard); University of Cambridge (Needs)",
+   "year": "2011",
+   "venue": "Journal of Physics: Condensed Matter 23(5), 053201",
+   "url": "https://doi.org/10.1088/0953-8984/23/5/053201",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "USPEX established evolutionary algorithms as the dominant pre-deep-learning method for crystal structure prediction, predicting stable structures from composition alone.",
+   "people": "Artem R. Oganov, Colin W. Glass",
+   "affiliation": "ETH Zurich",
+   "year": "2006",
+   "venue": "The Journal of Chemical Physics 124(24), 244704",
+   "url": "https://doi.org/10.1063/1.2210932",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Crystal graph convolutional neural networks (CGCNN) introduced the representation — a crystal as a periodic graph of atoms and bonds — that underlies essentially all subsequent deep learning on inorganic crystals, including GNoME and MatterGen.",
+   "people": "Tian Xie, Jeffrey C. Grossman",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2018",
+   "venue": "Physical Review Letters 120(14), 145301",
+   "url": "https://doi.org/10.1103/PhysRevLett.120.145301",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "M3GNet was the first universal graph-network interatomic potential covering the whole periodic table, trained on Materials Project relaxation trajectories, enabling fast structure relaxation and energy prediction in place of DFT.",
+   "people": "Chi Chen, Shyue Ping Ong",
+   "affiliation": "University of California San Diego",
+   "year": "2022",
+   "venue": "Nature Computational Science 2(11), 718-728",
+   "url": "https://doi.org/10.1038/s43588-022-00349-3",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CHGNet, trained on over 1.5 million structures from a decade of Materials Project DFT data, adds magnetic moments as an explicit output so that charge state is captured — enabling charge-informed molecular dynamics and phase-diagram prediction for battery materials.",
+   "people": "Bowen Deng, Peichen Zhong, KyuJung Jun, Janosh Riebesell, Kevin Han, Christopher J. Bartel, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley and Lawrence Berkeley National Laboratory",
+   "year": "2023",
+   "venue": "Nature Machine Intelligence 5(9), 1031-1041",
+   "url": "https://doi.org/10.1038/s42256-023-00716-3",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "A critical benchmark of seven ML models on 85,014 Materials Project compositions found that accurate formation-energy prediction does not imply accurate stability prediction: composition-only models 'perform poorly on predicting the stability of compounds', and structural models substantially outperform them, especially in sparse chemical spaces. This is the foundational methodological caution for all downstream discovery claims.",
+   "people": "Christopher J. Bartel, Amalie Trewartha, Qi Wang, Alexander Dunn, Anubhav Jain, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley and Lawrence Berkeley National Laboratory",
+   "year": "2020",
+   "venue": "npj Computational Materials 6, 97",
+   "url": "https://doi.org/10.1038/s41524-020-00362-y",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Matbench Discovery formalized the evaluation of ML crystal-stability predictions, showing a misalignment between commonly used regression metrics and the classification metrics that actually matter for discovery, and concluding that universal interatomic potentials have advanced enough to cheaply pre-screen hypothetical stable materials.",
+   "people": "Janosh Riebesell, Rhys E. A. Goodall, Philipp Benner, Yuan Chiang, Bowen Deng, Gerbrand Ceder, Mark Asta, Alpha A. Lee, Anubhav Jain, Kristin A. Persson",
+   "affiliation": "University of Cambridge, Lawrence Berkeley National Laboratory, University of California Berkeley, Bundesanstalt für Materialforschung und -prüfung",
+   "year": "2025",
+   "venue": "Nature Machine Intelligence 7, 836-847 (arXiv:2308.14920 preprint, 2023)",
+   "url": "https://doi.org/10.1038/s42256-025-01055-1",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "GNoME (Graph Networks for Materials Exploration) reported the discovery of 2.2 million crystal structures below the convex hull, of which 381,000 were described as newly discovered stable materials — claimed as an order-of-magnitude expansion in stable materials known to humanity.",
+   "people": "Amil Merchant, Simon Batzner, Samuel S. Schoenholz, Muratahan Aykol, Gowoon Cheon, Ekin Dogus Cubuk",
+   "affiliation": "Google DeepMind",
+   "year": "2023",
+   "venue": "Nature 624(7990), 80-85 (published online 29 November 2023)",
+   "url": "https://doi.org/10.1038/s41586-023-06735-9",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Google DeepMind's accompanying announcement stated that of the 2.2 million new crystals, '380,000 are the most stable', that these would be contributed to the Materials Project, and that external labs had independently created 736 of the structures experimentally — note the blog's 380,000 differs slightly from the paper's 381,000.",
+   "people": "",
+   "affiliation": "Google DeepMind",
+   "year": "2023",
+   "venue": "Google DeepMind blog, 29 November 2023",
+   "url": "https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Cheetham and Seshadri examined randomized subsets of GNoME's outputs and found 'scant evidence for compounds that fulfill the trifecta of novelty, credibility, and utility'. They identified the structure of all 10 randomly selected entries from the 384,870-entry Stable Structure database in the ICSD; found the space-group distribution wildly unlike reality (Pnma is ~16% of ICSD structures but ranks 16th at 1.56% in GNoME's set, and the top four GNoME space groups are all non-centrosymmetric, ~34% of entries, versus ~1% in ICSD); and flagged 18,138 compounds containing Pm, Ac or Pa plus 23,529 containing Tc, Np or Pu as having no plausible utility.",
+   "people": "Anthony K. Cheetham, Ram Seshadri",
+   "affiliation": "University of California Santa Barbara (both); National University of Singapore (Cheetham)",
+   "year": "2024",
+   "venue": "Chemistry of Materials 36(8), 3490-3495",
+   "url": "https://doi.org/10.1021/acs.chemmater.4c00643",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The A-Lab, an autonomous robotic solid-state synthesis platform, reported realizing 41 novel compounds from 58 targets over 17 days of continuous operation, using targets identified from Materials Project and Google DeepMind ab initio phase-stability data.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley, Lawrence Berkeley National Laboratory, Google DeepMind, University of Minnesota",
+   "year": "2023",
+   "venue": "Nature 624(7990), 86-91 (published online 29 November 2023)",
+   "url": "https://doi.org/10.1038/s41586-023-06734-w",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Leeman, Schoop, Palgrave and co-workers published a peer-reviewed rebuttal identifying substantial errors in A-Lab's automated Rietveld analysis of powder X-ray diffraction data, arguing there was insufficient evidence for the discovery of new materials and that roughly two-thirds of the claimed successes were likely known compositionally disordered versions of the predicted ordered compounds — because DFT at 0 K neglects configurational entropy and forces atoms onto distinct crystallographic sites.",
+   "people": "Josh Leeman, Yuhan Liu, Joseph Stiles, Scott B. Lee, Prajna Bhatt, Leslie M. Schoop, Robert G. Palgrave",
+   "affiliation": "Princeton University (Leeman, Liu, Stiles, Lee, Schoop); University College London (Bhatt, Palgrave)",
+   "year": "2024",
+   "venue": "PRX Energy 3(1), 011002 (published 7 March 2024)",
+   "url": "https://doi.org/10.1103/PRXEnergy.3.011002",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature published an Author Correction on 19 January 2026 (print 5 February 2026) that retitled the A-Lab paper from 'novel materials' to 'inorganic materials'. The authors state their intention 'was to indicate that the materials were new to the prediction platform, not necessarily new to science'. On manual re-analysis, they confirmed the platform reached the correct conclusion in 36 of its 40 reported successes, with 4 inconclusive; the total was updated to exclude four targets inconclusive from XRD alone, and one compound (Zn2Cr3FeO8) was removed because it had mistakenly been included in the training data.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley, Lawrence Berkeley National Laboratory, Google DeepMind, University of Minnesota",
+   "year": "2026",
+   "venue": "Nature 650(8100), E1",
+   "url": "https://doi.org/10.1038/s41586-025-09992-y",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature's own news desk covered the A-Lab dispute within two weeks of publication, reporting that the robot chemist's claim to have created new materials had sparked a row among solid-state chemists.",
+   "people": "Mark Peplow",
+   "affiliation": "Nature (freelance science journalist)",
+   "year": "2023",
+   "venue": "Nature news, 12 December 2023",
+   "url": "https://doi.org/10.1038/d41586-023-03956-w",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CDVAE (Crystal Diffusion Variational Autoencoder) introduced diffusion-based generative modelling of periodic crystals with the correct invariances, and is the direct methodological predecessor of MatterGen; Tian Xie, its first author, later led MatterGen at Microsoft.",
+   "people": "Tian Xie, Xiang Fu, Octavian-Eugen Ganea, Regina Barzilay, Tommi Jaakkola",
+   "affiliation": "Massachusetts Institute of Technology CSAIL",
+   "year": "2022",
+   "venue": "ICLR 2022 (arXiv:2110.06197, submitted 12 October 2021)",
+   "url": "https://arxiv.org/abs/2110.06197",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "MatterGen is a diffusion generative model for inorganic materials that can be fine-tuned to generate structures conditioned on target chemistry, symmetry, and mechanical, electronic or magnetic property constraints, rather than screening a fixed candidate pool.",
+   "people": "Claudio Zeni, Robert Pinsler, Daniel Zügner, Andrew Fowler, Matthew Horton, Xiang Fu, Zilong Wang, Aliaksandra Shysheya, Jonathan Crabbé, Shoko Ueda, Roberto Sordillo, Lixin Sun, Jake Smith, Bichlien Nguyen, Hannes Schulz, Sarah Lewis, Chin-Wei Huang, Ziheng Lu, Yichi Zhou, Han Yang, Hongxia Hao, Jielan Li, Chunlei Yang, Wenjie Li, Ryota Tomioka, Tian Xie",
+   "affiliation": "Microsoft Research AI for Science",
+   "year": "2025",
+   "venue": "Nature 639(8055), 624-632 (published online 16 January 2025)",
+   "url": "https://doi.org/10.1038/s41586-025-08628-5",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Machine learning models trained on the SuperCon database were used to classify superconductors above/below 10 K and regress critical temperature, then applied to screen ICSD compounds for candidate superconductors — the reference work for ML-driven Tc prediction.",
+   "people": "Valentin Stanev, Corey Oses, A. Gilad Kusne, Efrain Rodriguez, Johnpierre Paglione, Stefano Curtarolo, Ichiro Takeuchi",
+   "affiliation": "University of Maryland (Stanev, Rodriguez, Paglione, Takeuchi); Duke University (Oses, Curtarolo); NIST (Kusne)",
+   "year": "2018",
+   "venue": "npj Computational Materials 4, 29",
+   "url": "https://doi.org/10.1038/s41524-018-0085-8",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "SuperCon, the superconducting-materials database that supplies the training labels for essentially all ML Tc work, is maintained by Japan's National Institute for Materials Science; the current re-edited public release is distributed as the MDR SuperCon Datasheet under CC BY 4.0.",
+   "people": "",
+   "affiliation": "National Institute for Materials Science (NIMS), Materials Database Group, Japan",
+   "year": "2025",
+   "venue": "NIMS Materials Data Repository (MDR), collection last updated 22 March 2025",
+   "url": "https://mdr.nims.go.jp/collections/5712mb227",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The LK-99 episode began with a preprint claiming 'the first room-temperature ambient-pressure superconductor', asserting Tc greater than or equal to 400 K in a copper-substituted lead apatite, with superconductivity attributed to structural distortion rather than temperature or pressure.",
+   "people": "Sukbae Lee, Ji-Hoon Kim, Young-Wan Kwon",
+   "affiliation": "Quantum Energy Research Centre, Seoul (as stated on the preprint; affiliation not independently verified here)",
+   "year": "2023",
+   "venue": "arXiv:2307.12008, submitted 22 July 2023",
+   "url": "https://arxiv.org/abs/2307.12008",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The apparent resistivity drop in LK-99 was attributed to the first-order superionic phase transition of the Cu2S impurity near 385 K — a mundane impurity artifact, not superconductivity.",
+   "people": "Prashant K. Jain",
+   "affiliation": "University of Illinois Urbana-Champaign",
+   "year": "2023",
+   "venue": "The Journal of Physical Chemistry C 127(37), 18253-18255",
+   "url": "https://doi.org/10.1021/acs.jpcc.3c05684",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Growth of actual single crystals of Pb10-xCux(PO4)6O at the Max Planck Institute for Solid State Research showed the material is a transparent purple insulator with no superconducting transition, settling the structural and magnetic question that polycrystalline samples had obscured.",
+   "people": "P. Puphal, M. Y. P. Akbar, M. Hepting, E. Goering, M. Isobe, A. A. Nugroho, B. Keimer",
+   "affiliation": "Max Planck Institute for Solid State Research, Stuttgart; Institut Teknologi Bandung",
+   "year": "2023",
+   "venue": "APL Materials 11(10), 101128",
+   "url": "https://doi.org/10.1063/5.0172755",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature's news account of how the LK-99 claim was resolved within roughly three weeks by distributed replication attempts is the canonical narrative of the episode and the standard reference for its use as a cautionary tale about preprint-driven hype in materials science.",
+   "people": "Dan Garisto",
+   "affiliation": "Nature (freelance science journalist)",
+   "year": "2023",
+   "venue": "Nature 620, 705-706 (16 August 2023)",
+   "url": "https://doi.org/10.1038/d41586-023-02585-7",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Roberts et al., Nature Machine Intelligence 3, 199–217 (2021): screened 2,212 studies, included 61 after quality screening, concluded none of the models are of potential clinical use.",
+   "correction": "The published version says 62, not 61. Accurate text: 'Their search identified 2,212 studies, of which 415 were included after initial screening and, after quality screening, 62 studies were included in the systematic review; the review found that none of the models identified are of potential clinical use due to methodological flaws and/or underlying biases.' The figure 61 comes from the earlier arXiv preprint (arXiv:2008.06388), not the Nature Machine Intelligence paper. URL is correct: https://doi.org/10.1038/s42256-021-00307-0",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Palgrave quotes on Rietveld refinement quality and 'two thirds' of predictions; Ceder's December 2023 response, in Chemistry World.",
+   "correction": "Substance verified verbatim, but tighten the first quote and add the byline/date. Accurate text: Chemistry World, 'New analysis raises doubts over autonomous lab's materials \"discoveries\"', 16 January 2024. Palgrave: '[The Rietveld refinement] was very bad, very beginner, completely novice human level – that led to them misidentifying things in some cases.' And: 'What they didn't realise is that two thirds of their entire predictions were just ordered versions of compounds that were already known to be disordered.' Ceder, writing on LinkedIn in December 2023: 'We have no doubt that a human can perform a higher-quality refinement on these samples. However, it was our objective to show what an autonomous laboratory can achieve, not to demonstrate what the best (or average) human can do externally to the A-Lab.' URL correct: https://www.chemistryworld.com/news/new-analysis-raises-doubts-over-autonomous-labs-materials-discoveries/4018791.article",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "GNoME: Merchant, Batzner, Schoenholz, Aykol, Cheon, Cubuk, Nature 624, 80–85 (2023), 2.2 million crystal structures, 381,000 newly discovered stable materials. DOI 10.1038/s41586-023-06018-3.",
+   "correction": "THE DOI IS WRONG AND POINTS TO AN UNRELATED PAPER. 10.1038/s41586-023-06018-3 resolves to Helson, Zwettler, Mivehvar, Colella, Roux, Konishi, Ritsch & Brantut, 'Density-wave ordering in a unitary Fermi gas with photon-mediated interactions', Nature 618, 716–720 (2023) — a cold-atoms paper with no connection to materials discovery. Correct citation: Amil Merchant, Simon Batzner, Samuel S. Schoenholz, Muratahan Aykol, Gowoon Cheon, Ekin Dogus Cubuk, 'Scaling deep learning for materials discovery', Nature 624, 80–85 (2023), https://doi.org/10.1038/s41586-023-06735-9. Second, on the numbers: the Nature abstract states 'the discovery of 2.2 million structures below the current convex hull' and does not contain the figure 381,000; that number comes from the paper body (structures on the final convex hull), and Google DeepMind's own communications round it to 380,000. Phrase it as '2.2 million structures below the convex hull, of which roughly 380,000 lie on the final convex hull' or attribute 381,000 to the article text explicitly.",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "van der Marel & Hirsch forensic reanalysis: susceptibility data 'pathological', not obtained by the described method nor by three alternatives, 'measured voltage' data not raw. International Journal of Modern Physics B 36, 2375001; arXiv:2201.07686.",
+   "correction": "The volume number is wrong. Accurate citation: D. van der Marel and J. E. Hirsch, 'Room-temperature superconductivity — or not? Comment on Nature 586, 373 (2020) by E. Snider et al.', International Journal of Modern Physics B 37(04), 2375001 (2023; published online September 2022), https://doi.org/10.1142/S0217979223750012. Volume 37, not 36. (An erratum to it exists at 10.1142/S0217979223920017, IJMPB 37(05).) The arXiv preprint URL given, https://arxiv.org/abs/2201.07686, is correct and is titled 'Extended Comment on Nature 586, 373 (2020) by E. Snider et al', submitted 19 January 2022; its abstract confirms 'the reported background-corrected susceptibility data are pathological' and that the 'measured voltage' data are not raw data.",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "UNVERIFIABLE",
+   "claim": "Confidential 124-page University of Rochester investigation report, commissioned at NSF's request, concluded 8 February 2024 after a ten-month inquiry, examined 16 allegations and found misconduct more likely than not in each; surfaced through court documents in a lawsuit Dias filed.",
+   "correction": "NOTE: partially verified only. CONFIRMED from the cited Nature article (Dan Garisto, 'Exclusive: official investigation reveals how superconductivity physicist faked blockbuster results', Nature, 2024, doi:10.1038/d41586-024-00976-y): the report is 'a confidential 124-page report from the University of Rochester', it was 'disclosed in a lawsuit', Nature's news team 'discovered the bombshell investigation report in court documents', and it found data fabrication, falsification and plagiarism. UNVERIFIED because the article body is paywalled and WebSearch was unavailable: the count of 16 allegations, the 'ten-month' duration, the 8 February 2024 conclusion date, and the 'more likely than not' standard applied to each of 16. The NSF-request element is corroborated only by Wikipedia ('at the request of the National Science Foundation'), which is not adequate sourcing for print. Obtain the Nature full text or the court filing before printing any of these four specifics.",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Physicists interviewed after the Dias retractions: Boeri on reputational harm, Hamlin on damage to science and journals contacting coauthors, Ceperley on referees receiving only the accepted manuscript. Physics World, 2024.",
+   "correction": "The year is wrong and one quote is truncated in a way that changes its subject. Accurate citation: Michael Banks, 'Superconductivity \"damaged\" as researchers look to move on from retractions', Physics World, 20 October 2023 — not 2024. https://physicsworld.com/a/superconductivity-damaged-as-researchers-look-to-move-on-from-retractions/ Verified quotes: Boeri (Sapienza University of Rome) — 'Dias' inconsiderate behaviour has harmed the reputation of the field and it may take a few years to repair the damage.' Hamlin (University of Florida) — 'I do think the whole saga is damaging to science in general, and superconductivity research more so', and on coauthors, 'All authors are subject to potential reputational harm from a misconduct allegation, so all authors should be privy to the relevant communications from editors from the very beginning.' Ceperley (University of Illinois) — 'We were only provided with the accepted manuscript and not the data files or referee comments.' Because the piece is dated October 2023, it predates the 7 November 2023 lutetium hydride retraction; do not describe these physicists as speaking 'after the Dias retractions' plural without qualification — at the time only the 2022 Nature and 2023 PRL retractions had occurred.",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Milad Abolhasani reported that roughly 95% of self-driving-laboratory papers omit operational lifetime data, chemical consumption metrics and experimental precision. Chemistry World, 2026.",
+   "correction": "The year is wrong by two years and the 95% figure is narrower than stated. Accurate citation: Julia Robinson, 'Are we rushing ahead with AI in the lab?', Chemistry World, 2 May 2024 (not 2026), https://www.chemistryworld.com/news/are-we-rushing-ahead-with-ai-in-the-lab/4019424.article Verified quote, Milad Abolhasani (North Carolina State University): 'We were surprised when we did the literature search that 95% of papers on self-driving labs did not report how long they could run the platform before it broke down.' The 95% figure attaches specifically to operational lifetime/durability. The additional items — chemical consumption metrics and experimental precision — are not covered by that percentage in the quoted passage; either drop them or source them separately (Abolhasani's group's own review in the primary literature) before attributing all three to one number.",
+   "_domain": "critique-limits"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Cheetham and Seshadri found 'scant evidence' for novelty/credibility/utility; identified all 10 randomly selected Stable Structure entries (of 384,870) in the ICSD; Pnma is ~16% of ICSD structures but ranks 16th at 1.56% in GNoME; top four GNoME space groups all non-centrosymmetric, ~34% of entries, versus ~1% in ICSD; 18,138 compounds with Pm/Ac/Pa and 23,529 with Tc/Np/Pu. Chemistry of Materials 36(8), 3490-3495 (2024).",
+   "correction": "Citation, quotation, the 384,870 figure, the 10/10 ICSD identification, the 16th-place 1.56% Pnma ranking, the ~34% non-centrosymmetric share, and both radioactive-element counts (18,138 and 23,529) are all exactly right. TWO space-group statistics are garbled. (1) Pnma is NOT ~16% of ICSD structures. The paper says: 'the top two space groups in the ICSD are centrosymmetric Pnma and P2(1)/c, accounting for approximately 16% of all structures, with ~8% in each case.' The 16% is the two groups combined; Pnma alone is ~8%. (2) '~1% in ICSD' does not mean non-centrosymmetric groups are ~1% of the ICSD. The paper says: 'in the ICSD there is only one non-centrosymmetric space group in the top 24 and it accounts for only 1% of all structures.' Accurate replacement text: 'Pnma and P2(1)/c together account for roughly 16% of ICSD structures, about 8% each, yet Pnma ranks only 16th in GNoME's Stable Structure database at 1.56%; the four commonest GNoME space groups are all non-centrosymmetric and cover ~34% of entries, whereas the ICSD's top 24 space groups contain just one non-centrosymmetric group, accounting for 1% of structures.' Correct URL: https://doi.org/10.1021/acs.chemmater.4c00643 (open-access copy: https://escholarship.org/uc/item/9qx9t3kz). Published 8 April 2024.",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "The A-Lab reported realizing 41 novel compounds from 58 targets over 17 days; Szymanski et al., Nature 624(7990), 86-91, 29 Nov 2023.",
+   "correction": "The 41/58/17-days figures are correct for the article AS ORIGINALLY PUBLISHED, but the article of record no longer reads that way and a reader following the DOI will find a mismatch. The corrected paper is titled 'An autonomous laboratory for the accelerated synthesis of inorganic materials' (the original was '...of novel materials') and its abstract now reads: 'Over 17 days of continuous operation, the A-Lab realized 36 compounds from a set of 57 targets including a variety of oxides and phosphates that were identified using large-scale ab initio phase-stability data from the Materials Project and Google DeepMind.' Publish as: 'As originally published, the A-Lab reported realizing 41 novel compounds from 58 targets over 17 days; after the 2026 author correction the paper reports 36 compounds from 57 targets and is retitled to drop the word novel.' URL is correct: https://doi.org/10.1038/s41586-023-06734-w",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "The apparent resistivity drop in LK-99 was attributed to the first-order superionic phase transition of the Cu2S impurity near 385 K; Jain, J. Phys. Chem. C 127(37), 18253-18255 (2023).",
+   "correction": "The citation, authorship, venue, volume, issue, pages and DOI are all correct, but the temperature is wrong. Jain's abstract states: 'Copper(I) sulfide has a known phase transition at 104 degrees C from an ordered low-temperature phase to a high-temperature superionic phase' — that is ~377 K, not 385 K (385 K would be 112 C). The figure matters because the point of the paper is that 377 K coincides with LK-99's reported ~104.8 C resistivity drop. Accurate replacement text: 'The apparent resistivity drop in LK-99 was attributed to the superionic phase transition of the Cu2S impurity at 104 C (~377 K) — a mundane impurity artefact, not superconductivity.' Correct URL: https://doi.org/10.1021/acs.jpcc.3c05684 (title: 'Superionic Phase Transition of Copper(I) Sulfide and Its Implication for Purported Superconductivity of LK-99'; open preprint arXiv:2308.05222).",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "OPEN QUESTION as written: 'DeepMind's blog claimed 736 had been independently created as of November 2023, but I found no peer-reviewed audit of that figure.'",
+   "correction": "The 736 figure is not blog-only. It appears verbatim in the peer-reviewed Nature abstract: 'Of the stable structures, 736 have already been independently experimentally realized.' The open question is still legitimate but must be reframed: the 736 claim IS peer-reviewed as part of the Merchant et al. paper; what is missing is an INDEPENDENT third-party audit of that figure. Rewrite as: 'The 736 figure appears in the peer-reviewed Nature paper as well as DeepMind's blog, but I found no independent audit of it, and Cheetham and Seshadri's sampling suggests the novelty rate is low.'",
+   "_domain": "materials-discovery"
+  }
+ ]
+}

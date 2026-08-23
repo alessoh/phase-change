@@ -1,0 +1,675 @@
+{
+ "chapter": 13,
+ "title": "Neural Wave Functions",
+ "outline": "Giuseppe Carleo and Matthias Troyer parameterized a many-body wave function with a restricted Boltzmann machine in 2017 and optimized it variationally, sidestepping the exponential wall of Hilbert space. The field split immediately, with lattice spin and Hubbard physics moving through convolutional, autoregressive and transformer architectures on the NetKet substrate, while quantum chemistry applied deep networks directly to continuous-space electronic wave functions. The comparison baseline throughout is Steven White's density matrix renormalization group, still superior in one dimension. The chapter's centerpiece is the 2024 V-score benchmark, the field's first honest scorecard, which identifies where every method including neural quantum states remains far from converged, and it ends on programmable quantum simulators now measuring quantum phase transitions directly.\n\nBuilt on Carleo and Troyer in Science 2017, Deng, Li and Das Sarma on volume-law entanglement, Nomura, Darmawan, Yamaji and Imada, Torlai and colleagues on tomography, NetKet and NetKet 3, Choo, Neupert and Carleo on the frustrated J1-J2 model, Schmitt and Heyl on dynamics, Hermann, Schätzle and Noé's PauliNet with DeepQMC correctly described as the package containing it rather than its successor, Pfau, Spencer, Matthews and Foulkes on FermiNet, White 1992, the Wu, Rossi, Vicentini and Carleo V-score paper in Science 2024 with its 33-author consortium, and Keesling and colleagues in the Lukin group, whose measured observable was the correlation length rather than defect density.\n\nLeaves open: the benchmark says the hardest models are not solved. It does not say which method will solve them.",
+ "domains": [
+  "nnqs-quantum",
+  "kibble-zurek"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Giuseppe Carleo and Matthias Troyer introduced the restricted Boltzmann machine as a variational ansatz for many-body quantum wave functions, optimizing it by stochastic reconfiguration to obtain ground states and unitary dynamics of the transverse-field Ising and antiferromagnetic Heisenberg models in one and two dimensions. The paper was first posted to arXiv (1606.02318) on 7 June 2016 and published in Science on 10 February 2017; it is the founding reference for neural-network quantum states.",
+   "people": "Giuseppe Carleo, Matthias Troyer",
+   "affiliation": "",
+   "year": "2017 (arXiv preprint 2016)",
+   "venue": "Science 355, 6325, 602-606",
+   "url": "https://doi.org/10.1126/science.aag2302",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Dong-Ling Deng, Xiaopeng Li and Sankar Das Sarma showed that restricted Boltzmann machine states can encode volume-law entanglement with only a polynomial number of parameters, while RBM states with short-range connectivity obey an area law — establishing that the entanglement capacity of a neural-network ansatz is not limited the way matrix product states are.",
+   "people": "Dong-Ling Deng, Xiaopeng Li, S. Das Sarma",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Physical Review X 7, 021021",
+   "url": "https://doi.org/10.1103/PhysRevX.7.021021",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Yusuke Nomura, Andrew S. Darmawan, Youhei Yamaji and Masatoshi Imada combined a restricted Boltzmann machine with conventional variational Monte Carlo (pair-product/Gutzwiller-Jastrow reference states), substantially improving ground-state accuracy for the Heisenberg and Hubbard models on square lattices. This is the key early demonstration that NQS work best as a correlator on top of physics-informed reference wave functions.",
+   "people": "Yusuke Nomura, Andrew S. Darmawan, Youhei Yamaji, Masatoshi Imada",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Physical Review B 96, 205152",
+   "url": "https://doi.org/10.1103/PhysRevB.96.205152",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Giacomo Torlai, Guglielmo Mazzola, Juan Carrasquilla, Matthias Troyer, Roger Melko and Giuseppe Carleo used RBMs to perform quantum state tomography of highly entangled states in one and two dimensions, reconstructing quantities such as entanglement entropy from experimentally accessible measurement data. The arXiv preprint (1703.05334, 2017) carried the title 'Many-body quantum state tomography with neural networks'.",
+   "people": "Giacomo Torlai, Guglielmo Mazzola, Juan Carrasquilla, Matthias Troyer, Roger Melko, Giuseppe Carleo",
+   "affiliation": "",
+   "year": "2018 (arXiv preprint 2017)",
+   "venue": "Nature Physics 14, 447-450",
+   "url": "https://doi.org/10.1038/s41567-018-0048-5",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Stefanie Czischek, Martin Gärttner and Thomas Gasenzer tested RBM wave functions against exact solutions, tDMRG and semi-classical methods for quenches near the Ising quantum critical point, finding that convergence slows badly when long-range correlations build up. This is an important early counterweight to NQS optimism: near criticality the ansatz is hardest to optimize.",
+   "people": "Stefanie Czischek, Martin Gärttner, Thomas Gasenzer",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Physical Review B 98, 024311",
+   "url": "https://doi.org/10.1103/PhysRevB.98.024311",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "NetKet, the open-source machine-learning toolkit for many-body quantum systems, was released with a 19-author paper led by Giuseppe Carleo in SoftwareX in 2019 (arXiv:1904.00031). It implements neural-network quantum states as variational ansätze plus ground-state search, tomography and supervised learning on customizable lattices. Source: https://github.com/netket/netket",
+   "people": "Giuseppe Carleo, Kenny Choo, Damian Hofmann, James E. T. Smith, Tom Westerhout, Fabien Alet, Emily J. Davis, Stavros Efthymiou, Ivan Glasser, Sheng-Hsuan Lin, Marta Mauri, Guglielmo Mazzola, Christian B. Mendl, Evert van Nieuwenburg, Ossian O'Reilly, Hugo Théveniaut, Giacomo Torlai, Filippo Vicentini, Alexander Wietek",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "SoftwareX 10, 100311",
+   "url": "https://doi.org/10.1016/j.softx.2019.100311",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "NetKet 3, led by Filippo Vicentini with Giuseppe Carleo as senior author, rebuilt the library on JAX: arbitrary neural ansätze written in pure Python, just-in-time compilation, automatic differentiation, GPU/TPU support, discrete symmetry groups, chunking to thousands of degrees of freedom, and drivers for quantum dynamics. Published in SciPost Physics Codebases in 2022 (arXiv:2112.10526, 2021). Source: https://github.com/netket/netket",
+   "people": "Filippo Vicentini, Damian Hofmann, Attila Szabó, Dian Wu, Christopher Roth, Clemens Giuliani, Gabriel Pescia, Jannes Nys, Vladimir Vargas-Calderón, Nikita Astrakhantsev, Giuseppe Carleo",
+   "affiliation": "",
+   "year": "2022 (arXiv preprint 2021)",
+   "venue": "SciPost Physics Codebases 7",
+   "url": "https://doi.org/10.21468/SciPostPhysCodeb.7",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Kenny Choo, Titus Neupert and Giuseppe Carleo applied a fully convolutional neural network ansatz to the frustrated spin-1/2 J1-J2 Heisenberg model on the square lattice — a sign-problem-afflicted benchmark inaccessible to quantum Monte Carlo — obtaining ground-state energies competitive with and sometimes better than the state of the art. Choo and Neupert were at the University of Zurich; Carleo at the Center for Computational Quantum Physics, Flatiron Institute.",
+   "people": "Kenny Choo, Titus Neupert, Giuseppe Carleo",
+   "affiliation": "University of Zurich (Choo, Neupert); Center for Computational Quantum Physics, Flatiron Institute (Carleo)",
+   "year": "2019",
+   "venue": "Physical Review B 100, 125124",
+   "url": "https://doi.org/10.1103/PhysRevB.100.125124",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Markus Schmitt and Markus Heyl simulated quantum many-body dynamics of the two-dimensional transverse-field Ising model with artificial neural networks, reaching times comparable to or beyond tensor-network methods and observing collapse-and-revival oscillations of ferromagnetic order — directly relevant to Rydberg-atom quantum simulators.",
+   "people": "Markus Schmitt, Markus Heyl",
+   "affiliation": "",
+   "year": "2020 (arXiv preprint 1912.08828, 2019)",
+   "venue": "Physical Review Letters 125, 100503",
+   "url": "https://doi.org/10.1103/PhysRevLett.125.100503",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Jan Hermann, Zeno Schätzle and Frank Noé introduced PauliNet, a deep-learning wave-function ansatz for the electronic Schrödinger equation with a multireference Hartree-Fock baseline, cusp conditions and antisymmetry built in, trained by variational quantum Monte Carlo. It reached near-exact energies for molecules with up to 30 electrons. Preprint arXiv:1909.08423 (2019); published in Nature Chemistry in 2020.",
+   "people": "Jan Hermann, Zeno Schätzle, Frank Noé",
+   "affiliation": "",
+   "year": "2020 (arXiv preprint 2019)",
+   "venue": "Nature Chemistry 12, 891-897",
+   "url": "https://doi.org/10.1038/s41557-020-0544-y",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "DeepQMC, the open-source successor framework to PauliNet, was published as a software suite unifying several deep-learning quantum Monte Carlo architectures under one JAX-based codebase. Source: https://github.com/deepqmc/deepqmc (arXiv:2307.14123).",
+   "people": "Zeno Schätzle, P. Bernát Szabó, Matěj Mezera, Jan Hermann, Frank Noé",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "The Journal of Chemical Physics 159, 9, 094108",
+   "url": "https://doi.org/10.1063/5.0157512",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "David Pfau, James S. Spencer, Alexander G. de G. Matthews and W. M. C. Foulkes introduced FermiNet, a deep neural network that replaces the Slater determinant with permutation-equivariant many-electron orbitals, achieving chemical accuracy on small molecules without any basis set or reference wave function. Preprint arXiv:1909.02487 (2019, titled 'Ab-Initio Solution of the Many-Electron Schrödinger Equation with Deep Neural Networks'); published in Physical Review Research on 16 September 2020.",
+   "people": "David Pfau, James S. Spencer, Alexander G. de G. Matthews, W. M. C. Foulkes",
+   "affiliation": "",
+   "year": "2020 (arXiv preprint 2019)",
+   "venue": "Physical Review Research 2, 3, 033429",
+   "url": "https://doi.org/10.1103/PhysRevResearch.2.033429",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "David Pfau and colleagues at Google DeepMind extended neural-network variational Monte Carlo to excited states with a parameter-free method that requires no explicit orthogonalization, recasting the search for the lowest excited states as a ground-state problem in an expanded system. Combined with FermiNet and the Psiformer ansatz it recovered vertical excitation energies and oscillator strengths across a range of molecules. Preprint arXiv:2308.16848 (2023).",
+   "people": "David Pfau, Simon Axelrod, Halvard Sutterud, Ingrid von Glehn, James S. Spencer",
+   "affiliation": "Google DeepMind",
+   "year": "2024 (arXiv preprint 2023)",
+   "venue": "Science 385, issue 6711",
+   "url": "https://doi.org/10.1126/science.adn0137",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "James Kirkpatrick and colleagues at DeepMind trained the DM21 exchange-correlation functional on molecular data plus fictitious systems with fractional charge and fractional spin, curing the delocalization and static-correlation errors that afflict conventional density functional theory. Note this is a DFT result, not a neural-network quantum state; it is the complementary DeepMind line of work.",
+   "people": "James Kirkpatrick, Brendan McMorrow, David H. P. Turban, Alexander L. Gaunt, James S. Spencer, Alexander G. D. G. Matthews, Annette Obika, Louis Thiry, Meire Fortunato, David Pfau, Lara Román Castellanos, Stig Petersen, Alexander W. R. Nelson, Pushmeet Kohli, Paula Mori-Sánchez, Demis Hassabis, Aron J. Cohen",
+   "affiliation": "DeepMind",
+   "year": "2021",
+   "venue": "Science 374, 6573, 1385-1389",
+   "url": "https://doi.org/10.1126/science.abj6511",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Javier Robledo Moreno, Giuseppe Carleo, Antoine Georges and James Stokes constructed 'hidden-fermion' neural network states — Slater determinants in an enlarged Hilbert space with a neural-network-parameterized constraint — proved the family universal, and matched leading variational methods on the two-dimensional Hubbard model. Preprint arXiv:2111.10420 (2021).",
+   "people": "Javier Robledo Moreno, Giuseppe Carleo, Antoine Georges, James Stokes",
+   "affiliation": "",
+   "year": "2022 (arXiv preprint 2021)",
+   "venue": "Proceedings of the National Academy of Sciences 119, e2122059119",
+   "url": "https://doi.org/10.1073/pnas.2122059119",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Christopher Roth, Attila Szabó and Allan H. MacDonald showed that very deep (4-16 layer) group-convolutional neural quantum states outperform state-of-the-art variational methods on highly frustrated magnets, including square- and triangular-lattice spin-liquid candidates. Preprint arXiv:2211.07749 (2022).",
+   "people": "Christopher Roth, Attila Szabó, Allan H. MacDonald",
+   "affiliation": "",
+   "year": "2023 (arXiv preprint 2022)",
+   "venue": "Physical Review B 108, 054410",
+   "url": "https://doi.org/10.1103/PhysRevB.108.054410",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Ao Chen and Markus Heyl introduced a minimum-step stochastic-reconfiguration optimizer that removes the parameter-count bottleneck in training large neural quantum states, then used it on the frustrated J1-J2 model to produce evidence for a gapless quantum spin-liquid phase. Published in Nature Physics on 1 July 2024.",
+   "people": "Ao Chen, Markus Heyl",
+   "affiliation": "",
+   "year": "2024",
+   "venue": "Nature Physics 20, 1476-1481",
+   "url": "https://doi.org/10.1038/s41567-024-02566-1",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Dian Wu, Riccardo Rossi, Filippo Vicentini and Giuseppe Carleo, with a 30-author consortium that included Steven R. White, Masatoshi Imada, Federico Becca, Juan Carrasquilla and Antoine Georges, defined the V-score — a dimensionless accuracy metric built from the variational energy and its variance — and released a curated dataset of variational calculations across many-body Hamiltonians, exposing which models (notably frustrated and doped Hubbard-type systems) remain unsolved by every method including NQS. Preprint arXiv:2302.04919 (2023); published in Science on 18 October 2024.",
+   "people": "Dian Wu, Riccardo Rossi, Filippo Vicentini, Nikita Astrakhantsev, Federico Becca, Xiaodong Cao, Juan Carrasquilla, Francesco Ferrari, Antoine Georges, Mohamed Hibat-Allah, Masatoshi Imada, Andreas M. Läuchli, Guglielmo Mazzola, Antonio Mezzacapo, Andrew Millis, Javier Robledo Moreno, Titus Neupert, Yusuke Nomura, Jannes Nys, Olivier Parcollet, Rico Pohle, Imelda Romero, Michael Schmid, J. Maxwell Silvester, Sandro Sorella, Luca F. Tocchio, Lei Wang, Steven R. White, Alexander Wietek, Qi Yang, Yiqi Yang, Shiwei Zhang, Giuseppe Carleo",
+   "affiliation": "",
+   "year": "2024 (arXiv preprint 2023)",
+   "venue": "Science 386, 6719, 296-301",
+   "url": "https://doi.org/10.1126/science.adg9774",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Hannah Lange, Anka Van de Walle, Atiye Abedinnia and Annabelle Bohrdt published the standard review of neural quantum states, surveying architectures (RBM, CNN, autoregressive, RNN, transformer), optimization schemes and applications, including open systems and dynamics. Published 30 September 2024; preprint arXiv:2402.09402 (2024).",
+   "people": "Hannah Lange, Anka Van de Walle, Atiye Abedinnia, Annabelle Bohrdt",
+   "affiliation": "",
+   "year": "2024",
+   "venue": "Quantum Science and Technology 9, 4, 040501",
+   "url": "https://doi.org/10.1088/2058-9565/ad7168",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Steven R. White, then at the University of California, Irvine, introduced the density matrix renormalization group: truncate the Hilbert space by keeping the eigenvectors of the reduced density matrix with the largest weight rather than the lowest-energy states. Published 9 November 1992; extended in 'Density-matrix algorithms for quantum renormalization groups', Physical Review B 48, 10345-10356 (1993), doi 10.1103/PhysRevB.48.10345. DMRG and its matrix-product-state formulation remain the accuracy baseline against which every neural-network ansatz is measured.",
+   "people": "Steven R. White",
+   "affiliation": "Department of Physics, University of California, Irvine",
+   "year": "1992",
+   "venue": "Physical Review Letters 69, 19, 2863-2866",
+   "url": "https://doi.org/10.1103/PhysRevLett.69.2863",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Ulrich Schollwöck's review recast DMRG in the language of matrix product states, which is the conceptual bridge between tensor networks and neural-network quantum states (an RBM is, in a precise sense, a different kind of tensor factorization). Submitted to arXiv August 2010 (1008.3477), published in Annals of Physics in 2011.",
+   "people": "Ulrich Schollwöck",
+   "affiliation": "",
+   "year": "2011 (arXiv preprint 2010)",
+   "venue": "Annals of Physics 326, 1, 96-192",
+   "url": "https://doi.org/10.1016/j.aop.2010.09.012",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Pierre Pfeuty gave the exact solution of the one-dimensional Ising model in a transverse field by Jordan-Wigner mapping to free fermions, establishing the critical point at transverse field equal to the exchange coupling. This is the canonical quantum phase transition and the standard first benchmark for every neural-network quantum state paper.",
+   "people": "Pierre Pfeuty",
+   "affiliation": "",
+   "year": "1970",
+   "venue": "Annals of Physics 57, 1, 79-90",
+   "url": "https://doi.org/10.1016/0003-4916(70)90270-8",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Juan Carrasquilla and Roger G. Melko showed that ordinary supervised neural networks — fully connected and convolutional — can classify phases and locate phase transitions in condensed-matter Hamiltonians directly from raw configurations, including states with no conventional local order parameter. Published in Nature Physics in 2017; this is the discriminative counterpart to the generative NQS programme.",
+   "people": "Juan Carrasquilla, Roger G. Melko",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Nature Physics 13, 431-434",
+   "url": "https://doi.org/10.1038/nphys4035",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Evert P. L. van Nieuwenburg, Ye-Hua Liu and Sebastian D. Huber introduced 'learning by confusion': deliberately mislabel data at a trial critical point and read off the true transition from the W-shaped performance curve. Demonstrated on the Kitaev chain topological transition, the classical Ising transition and a many-body-localization transition, it requires no order parameter. All three authors were at the Institute for Theoretical Physics, ETH Zurich. Preprint arXiv:1610.02048 (2016).",
+   "people": "Evert P. L. van Nieuwenburg, Ye-Hua Liu, Sebastian D. Huber",
+   "affiliation": "Institute for Theoretical Physics, ETH Zurich",
+   "year": "2017 (arXiv preprint 2016)",
+   "venue": "Nature Physics 13, 435-439",
+   "url": "https://doi.org/10.1038/nphys4037",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Markus Greiner, Olaf Mandel, Tilman Esslinger, Theodor W. Hänsch and Immanuel Bloch observed the superfluid-to-Mott-insulator quantum phase transition in a Bose-Einstein condensate loaded into a three-dimensional optical lattice, tuning the transition by lattice depth. Published 3 January 2002 at Ludwig-Maximilians-Universität Munich; the founding experiment of quantum simulation of Hubbard physics.",
+   "people": "Markus Greiner, Olaf Mandel, Tilman Esslinger, Theodor W. Hänsch, Immanuel Bloch",
+   "affiliation": "Ludwig-Maximilians-Universität München",
+   "year": "2002",
+   "venue": "Nature 415, 6867, 39-44",
+   "url": "https://doi.org/10.1038/415039a",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Markus Greiner's group at Harvard realized a cold-atom Fermi-Hubbard antiferromagnet on a roughly 80-site two-dimensional square lattice with a quantum gas microscope, observing antiferromagnetic correlations whose correlation length reached the system size. This is the experimental benchmark that classical Hubbard-model methods, including neural-network quantum states, are asked to reproduce.",
+   "people": "Anton Mazurenko, Christie S. Chiu, Geoffrey Ji, Maxwell F. Parsons, Márton Kanász-Nagy, Richard Schmidt, Fabian Grusdt, Eugene Demler, Daniel Greif, Markus Greiner",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Nature 545, 7655, 462-466",
+   "url": "https://doi.org/10.1038/nature22362",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Alexander Keesling and co-workers in Mikhail D. Lukin's group used a programmable Rydberg-atom simulator to verify the quantum Kibble-Zurek mechanism across an Ising-type quantum phase transition, measuring the growth of spatial correlations and the universal scaling of defect density with ramp rate. Preprint arXiv:1809.05540 (2018).",
+   "people": "Alexander Keesling, Ahmed Omran, Harry Levine, Hannes Bernien, Hannes Pichler, Soonwon Choi, Rhine Samajdar, Sylvain Schwartz, Pietro Silvi, Subir Sachdev, Peter Zoller, Manuel Endres, Markus Greiner, Vladan Vuletić, Mikhail D. Lukin",
+   "affiliation": "",
+   "year": "2019 (arXiv preprint 2018)",
+   "venue": "Nature 568, 7751, 207-211",
+   "url": "https://doi.org/10.1038/s41586-019-1070-1",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Sepehr Ebadi and colleagues at Harvard and MIT, with Mikhail D. Lukin and Markus Greiner as senior authors, mapped the phase diagram of a 256-atom programmable Rydberg quantum simulator, observing checkerboard, striated and star ordered phases and quantum phase transitions between them, with Subir Sachdev contributing the theory.",
+   "people": "Sepehr Ebadi, Tout T. Wang, Harry Levine, Alexander Keesling, Giulia Semeghini, Ahmed Omran, Dolev Bluvstein, Rhine Samajdar, Hannes Pichler, Wen Wei Ho, Soonwon Choi, Subir Sachdev, Markus Greiner, Vladan Vuletić, Mikhail D. Lukin",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Nature 595, 7866, 227-232",
+   "url": "https://doi.org/10.1038/s41586-021-03582-4",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Giulia Semeghini and co-workers placed 219 atoms on the links of a kagome lattice and used Rydberg blockade to create a frustrated state with no local order, detecting the onset of a toric-code-type quantum spin liquid through topological string operators. Preprint arXiv:2104.04119 (2021).",
+   "people": "Giulia Semeghini, Harry Levine, Alexander Keesling, Sepehr Ebadi, Tout T. Wang, Dolev Bluvstein, Ruben Verresen, Hannes Pichler, Marcin Kalinowski, Rhine Samajdar, Ahmed Omran, Subir Sachdev, Ashvin Vishwanath, Markus Greiner, Vladan Vuletić, Mikhail D. Lukin",
+   "affiliation": "",
+   "year": "2021 (arXiv preprint 2021)",
+   "venue": "Science 374, 6572, 1242-1247",
+   "url": "https://doi.org/10.1126/science.abi8794",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Google Quantum AI identified a phase transition in random circuit sampling controlled by the error rate per cycle, described by a weak-link model, and ran a 67-qubit, 32-cycle experiment in the computationally complex phase. Preprint arXiv:2304.11119 (2023, titled 'Phase transition in Random Circuit Sampling'); published in Nature in 2024.",
+   "people": "Alexis Morvan, Benjamin Villalonga, Xiao Mi (Google Quantum AI and collaborators)",
+   "affiliation": "Google Quantum AI",
+   "year": "2024 (arXiv preprint 2023)",
+   "venue": "Nature 634, 328-333",
+   "url": "https://doi.org/10.1038/s41586-024-07998-6",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Google Quantum AI's 69-qubit analogue-digital superconducting simulator, built with collaborators at Princeton, PSI and Geneva, revealed a coarsening-induced breakdown of Kibble-Zurek scaling in the XY model and signatures of the Kosterlitz-Thouless transition, with cross-entropy benchmarking placing the evolution beyond classical simulation. Preprint arXiv:2405.17385 (2024); published in Nature on 6 February 2025.",
+   "people": "Trond I. Andersen, Nikita Astrakhantsev, Amir H. Karamlou, Julia Berndtsson, Johannes Motruk, Aaron Szasz (Google Quantum AI and collaborators)",
+   "affiliation": "Google Research / Google Quantum AI, with Princeton University, Paul Scherrer Institute and University of Geneva",
+   "year": "2025 (arXiv preprint 2024)",
+   "venue": "Nature 638, 8049, 79-85",
+   "url": "https://doi.org/10.1038/s41586-024-08460-3",
+   "confidence": "verified",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "claim": "Founding paper of the mechanism. Shows that in a spontaneously broken gauge theory the type of defect formed — domain wall, string, or monopole — is determined by the homotopy groups of the manifold of degenerate vacua. Argues theories producing domain walls are likely excluded by unacceptable gravitational effects, while a cosmic network of strings may well have formed. This is the correct primary citation for the topological/cosmological half of 'Kibble-Zurek'.",
+   "people": "Tom W. B. Kibble",
+   "affiliation": "Imperial College London (affiliation not independently verified from the source page, which is bot-blocked)",
+   "year": "1976",
+   "venue": "Journal of Physics A: Mathematical and General, vol. 9, no. 8, pp. 1387-1398",
+   "url": "https://doi.org/10.1088/0305-4470/9/8/029",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Kibble's follow-up review, the source of the causal-horizon argument for the initial density of defects — that domains cannot be correlated over distances larger than the causal horizon at the transition, which sets a defect separation. This is where the density estimate (as opposed to the topological classification) originates on the cosmology side.",
+   "people": "Tom W. B. Kibble",
+   "affiliation": "Imperial College London (not independently verified)",
+   "year": "1980",
+   "venue": "Physics Reports, vol. 67, no. 1, pp. 183-199",
+   "url": "https://doi.org/10.1016/0370-1573(80)90091-5",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The paper that made the mechanism testable. Proposes the analogy between cosmic strings and superfluid vortex lines and suggests a cryogenic pressure-quench experiment. Key argument: in a superfluid formed by rapid quench, the phase of the Bose condensate wavefunction is chosen randomly in domains of characteristic size d, so the typical phase mismatch around an annulus of circumference C scales as (C/d)^(1/2). Correct primary citation for the condensed-matter half of the mechanism.",
+   "people": "Wojciech H. Zurek",
+   "affiliation": "Los Alamos National Laboratory (not independently verified; Nature page is paywalled/redirects)",
+   "year": "1985",
+   "venue": "Nature, vol. 317, no. 6037, pp. 505-508",
+   "url": "https://doi.org/10.1038/317505a0",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Zurek's long review, the standard primary source for the Kibble-Zurek scaling law in its usual form. Reviews the cosmology/condensed-matter connection, the freeze-out argument, and proposes further experiments in superfluid helium and liquid crystals. Cite this rather than the 1985 Nature letter when the chapter states the quench-rate power law itself.",
+   "people": "Wojciech H. Zurek",
+   "affiliation": "Los Alamos National Laboratory",
+   "year": "1996",
+   "venue": "Physics Reports, vol. 276, pp. 177-221",
+   "url": "https://doi.org/10.1016/S0370-1573(96)00009-9",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "First numerical demonstration of the quench-rate scaling law for kink density — the simulation result that turned the freeze-out argument into a quantitative, checkable prediction. Useful if the chapter wants a citation for the law being validated computationally before it was validated experimentally.",
+   "people": "Pablo Laguna and Wojciech Hubert Zurek",
+   "affiliation": "Los Alamos National Laboratory (Zurek); Laguna's 1997 affiliation not verified",
+   "year": "1997",
+   "venue": "Physical Review Letters, vol. 78, pp. 2519-2522",
+   "url": "https://doi.org/10.1103/PhysRevLett.78.2519",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The best single modern citation for the Kibble-Zurek scaling law stated explicitly. Reviews how dynamics ceases to be adiabatic near the critical point because of critical slowing down, and gives the density of defects as a function of quench rate: frozen correlation length scales as quench time to the power nu/(1+nu*z), defect density as the inverse d-th power of that. Covers both classical and quantum cases.",
+   "people": "Adolfo del Campo and Wojciech H. Zurek",
+   "affiliation": "Los Alamos National Laboratory",
+   "year": "2014",
+   "venue": "International Journal of Modern Physics A, vol. 29, no. 8, art. 1430018",
+   "url": "https://doi.org/10.1142/S0217751X1430018X",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Kibble's own accessible retrospective, written for a general physics audience — how speculations about early-universe phase transitions led to small-scale laboratory experiments, and what consistent picture emerged. Good citation for a book chapter that wants one readable, authoritative overview signed by Kibble himself.",
+   "people": "Tom Kibble",
+   "affiliation": "Imperial College London (not verified from source)",
+   "year": "2007",
+   "venue": "Physics Today, vol. 60, no. 9, pp. 47-52",
+   "url": "https://doi.org/10.1063/1.2784684",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "One of three independent 2005 papers that extended the mechanism from thermal to quantum phase transitions. Damski's contribution reframes Landau-Zener transitions as the simplest quantum model supporting Kibble-Zurek topological defect production, making the quantum analogy concrete in a two-level system.",
+   "people": "Bogdan Damski",
+   "affiliation": "Not verified",
+   "year": "2005",
+   "venue": "Physical Review Letters, vol. 95, art. 035701",
+   "url": "https://doi.org/10.1103/PhysRevLett.95.035701",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Companion 2005 paper establishing the quantum Kibble-Zurek mechanism: near a quantum critical point the relevant timescale is set by the inverse energy gap between ground and excited states, and when the Hamiltonian changes faster than that, nonadiabatic excitations freeze the growth of correlated regions. This is the paper the Rydberg experiment cites as the QKZM foundation.",
+   "people": "Wojciech H. Zurek, Uwe Dorner, and Peter Zoller",
+   "affiliation": "Los Alamos National Laboratory (Zurek); University of Innsbruck / IQOQI (Dorner, Zoller) — affiliations not independently verified",
+   "year": "2005",
+   "venue": "Physical Review Letters, vol. 95, art. 105701",
+   "url": "https://doi.org/10.1103/PhysRevLett.95.105701",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The third 2005 QKZM paper: an exact solution of the quantum Ising model under a linear quench, giving the defect (kink) density scaling analytically for the canonical solvable case. Cite alongside Damski and Zurek/Dorner/Zoller when introducing the quantum version.",
+   "people": "Jacek Dziarmaga",
+   "affiliation": "Jagiellonian University, Krakow (not verified)",
+   "year": "2005",
+   "venue": "Physical Review Letters, vol. 95, art. 245701",
+   "url": "https://doi.org/10.1103/PhysRevLett.95.245701",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "THE RYDBERG PAPER, with the observable stated precisely. A 51-atom array of rubidium-87 with programmable van der Waals interactions was swept across an Ising-type quantum phase transition into a Z2-ordered phase. The measured quantity was the Rydberg density-density correlation function G(r); a correlation length was extracted by fitting an exponential decay to the modulus of that correlation function. The reported result is a power-law fit of correlation length versus inverse detuning sweep rate giving mu = 0.50(3), where mu = nu/(1+nu*z). This matches 1D Ising (0.5) and excludes mean-field (1/3). Defect density was NOT the reported observable — the paper itself contrasts the coarse-grained QKZM defect-density prediction with the microscopic information in the correlation function's shape. The authors also report a universal collapse of correlations under length rescaling, deviations beyond QKZM (correlations turning negative at some distances), and extension to chiral clock models with mu about 0.38 (Z3) and about 0.25 (Z4).",
+   "people": "Alexander Keesling, Ahmed Omran, Harry Levine, Hannes Bernien, Hannes Pichler, Soonwon Choi, Rhine Samajdar, Sylvain Schwartz, Pietro Silvi, Subir Sachdev, Peter Zoller, Manuel Endres, Markus Greiner, Vladan Vuletic, Mikhail D. Lukin",
+   "affiliation": "Department of Physics, Harvard University (Keesling, Omran, Levine, Bernien, Choi, Samajdar, Sachdev, Greiner, Lukin); ITAMP, Harvard-Smithsonian Center for Astrophysics (Pichler, jointly with Harvard); Department of Physics and Research Laboratory of Electronics, MIT (Vuletic); Laboratoire Kastler Brossel, ENS/CNRS/Sorbonne Universite/College de France, Paris (Schwartz); IQOQI, Austrian Academy of Sciences and Center for Quantum Physics, University of Innsbruck (Silvi, Zoller); Division of Physics, Mathematics and Astronomy, Caltech (Endres) — read directly from the article's affiliation footnotes",
+   "year": "2019 (Nature); preprint arXiv:1809.05540 submitted 14 September 2018, revised 1 April 2019",
+   "venue": "Nature, vol. 568, pp. 207-211",
+   "url": "https://doi.org/10.1038/s41586-019-1070-1",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Preprint of the Rydberg paper, freely accessible. Useful as a secondary URL for readers without Nature access; note the 2018 preprint year against the 2019 journal year.",
+   "people": "Alexander Keesling and colleagues (same author list as the Nature version)",
+   "affiliation": "Harvard University, MIT, and collaborating institutions",
+   "year": "2018 (preprint); 2019 (journal)",
+   "venue": "arXiv:1809.05540 [quant-ph]",
+   "url": "https://arxiv.org/abs/1809.05540",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Earliest laboratory test of the defect-formation picture, using liquid crystals as a cosmological analogue. Supports the 'one-scale' model for cosmic string evolution and observes textures decaying into monopole-antimonopole pairs. Historically the first 'cosmology in the lab' experiment in this lineage, predating the superfluid tests.",
+   "people": "Isaac Chuang, Ruth Durrer, Neil Turok, and Bernard Yurke",
+   "affiliation": "Not verified",
+   "year": "1991",
+   "venue": "Science, vol. 251, no. 4999, pp. 1336-1342",
+   "url": "https://doi.org/10.1126/science.251.4999.1336",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The much-cited superfluid helium-4 vortex result — reported generation of defects in a pressure-quenched helium-4 sample as an analogue of cosmic string formation. IMPORTANT CAVEAT: this result was not reproduced by the same group's later, improved experiment (see the 1998 Dodd et al. entry). A chapter citing it as a confirmation without that caveat would be misleading.",
+   "people": "P. C. Hendry, N. S. Lawson, R. A. M. Lee, P. V. E. McClintock, and C. D. H. Williams",
+   "affiliation": "Lancaster University and University of Exeter (not independently verified)",
+   "year": "1994",
+   "venue": "Nature, vol. 368, pp. 315-317",
+   "url": "https://doi.org/10.1038/368315a0",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The retraction-in-effect of the helium-4 result: fast mechanical expansions of liquid helium-4 through the lambda transition produced no observable vortices. Same core group as the 1994 paper. Essential companion citation — the honest version of the experimental record is that helium-4 did not deliver, and helium-3 did.",
+   "people": "M. E. Dodd, P. C. Hendry, N. S. Lawson, P. V. E. McClintock, and C. D. H. Williams",
+   "affiliation": "Lancaster University and University of Exeter (not independently verified)",
+   "year": "1998",
+   "venue": "Physical Review Letters, vol. 81, pp. 3703-3706",
+   "url": "https://doi.org/10.1103/PhysRevLett.81.3703",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "One of two independent superfluid helium-3 confirmations published back-to-back in the same 1996 issue of Nature. Grenoble/Lancaster collaboration simulating cosmic string formation via neutron-induced local heating and recooling through the transition.",
+   "people": "Christian Bauerle, Yuriy M. Bunkov, Shaun N. Fisher, Henri Godfrin, and George R. Pickett",
+   "affiliation": "CNRS Grenoble and Lancaster University (not independently verified). Note the diacritic: Bauerle is properly written Bäuerle.",
+   "year": "1996",
+   "venue": "Nature, vol. 382, pp. 332-334",
+   "url": "https://doi.org/10.1038/382332a0",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The companion helium-3 confirmation, notable because Tom W. B. Kibble is himself a co-author — the theorist testing his own mechanism. Neutron irradiation heats local regions of superfluid helium-3 above the transition temperature; the recooling transition is accompanied by vortex formation, the superfluid analogue of cosmic strings. These two 1996 papers are the strongest early experimental support.",
+   "people": "V. M. H. Ruutu, V. B. Eltsov, A. J. Gill, Tom W. B. Kibble, M. Krusius, Yu. G. Makhlin, B. Placais, G. E. Volovik, and Wen Xu",
+   "affiliation": "Low Temperature Laboratory, Helsinki University of Technology, with Kibble at Imperial College London (not independently verified). Note the diacritic: Placais is properly written Plaçais.",
+   "year": "1996",
+   "venue": "Nature, vol. 382, pp. 334-336",
+   "url": "https://doi.org/10.1038/382334a0",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The superconducting-circuit test, predating the qubit era: spontaneous fluxon (magnetic flux quantum) trapping in an annular Josephson tunnel junction quenched through the normal-superconducting transition. Reported a measured Zurek-Kibble scaling exponent of sigma = 0.27 +/- 0.05 against a predicted 0.25. The exponent values come from a search snippet, not from the article text, so treat those numbers as needing confirmation before print; the citation itself is Crossref-verified.",
+   "people": "Roberto Monaco, Jesper Mygind, and Ray J. Rivers",
+   "affiliation": "Istituto di Cibernetica, CNR (Italy); Technical University of Denmark; Imperial College London — not independently verified",
+   "year": "2002",
+   "venue": "Physical Review Letters, vol. 89, art. 080603",
+   "url": "https://doi.org/10.1103/PhysRevLett.89.080603",
+   "confidence": "probable",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "One of two independent trapped-ion confirmations published simultaneously in Nature Communications in 2013. A laser-cooled ion string undergoes a structural transition from linear to zig-zag as the confining potential is quenched; kinks appear in the zig-zag, and the kink creation rate follows the Kibble-Zurek power law. Title states the result directly: observation of the scaling law for defect formation.",
+   "people": "S. Ulm, J. Rossnagel, G. Jacob, C. Degunther, S. T. Dawkins, U. G. Poschinger, R. Nigmatullin, A. Retzker, M. B. Plenio, F. Schmidt-Kaler, and K. Singer",
+   "affiliation": "Universitat Mainz, Universitat Ulm, and Hebrew University of Jerusalem (not independently verified). Note diacritics: Rossnagel is properly Roßnagel; Degunther is properly Degünther.",
+   "year": "2013",
+   "venue": "Nature Communications, vol. 4, art. 2290",
+   "url": "https://doi.org/10.1038/ncomms3290",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The companion trapped-ion paper, with Wojciech H. Zurek and Adolfo del Campo as co-authors. Topological defect formation and spontaneous symmetry breaking in ion Coulomb crystals, reporting an enhanced power-law scaling consistent with numerical simulations. Together with Ulm et al. this is the strongest trapped-ion evidence for defect-density scaling — the observable the Rydberg experiment did not measure.",
+   "people": "K. Pyka, J. Keller, H. L. Partner, R. Nigmatullin, T. Burgermeister, D. M. Meier, K. Kuhlmann, A. Retzker, M. B. Plenio, Wojciech H. Zurek, Adolfo del Campo, and T. E. Mehlstaubler",
+   "affiliation": "Physikalisch-Technische Bundesanstalt Braunschweig, Universitat Ulm, Hebrew University of Jerusalem, and Los Alamos National Laboratory (not independently verified). Note diacritic: Mehlstaubler is properly Mehlstäubler.",
+   "year": "2013",
+   "venue": "Nature Communications, vol. 4, art. 2291",
+   "url": "https://doi.org/10.1038/ncomms3291",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Trapped-ion test that goes past the mean: probes the full distribution of kink pairs in a 1D quantum Ising chain driven across the paramagnet-ferromagnet transition, using a single trapped ion as a momentum-space quantum simulator. Finds the kink-pair number follows a Poisson binomial distribution in which all cumulants — not just the mean that KZM predicts — scale with a universal power law in quench time. Useful if the chapter wants to say the mechanism has been extended and stress-tested, not merely confirmed.",
+   "people": "Jin-Ming Cui, Fernando Javier Gomez-Ruiz, Yun-Feng Huang, Chuan-Feng Li, Guang-Can Guo, and Adolfo del Campo",
+   "affiliation": "University of Science and Technology of China, Hefei (Cui, Huang, Li, Guo); del Campo's 2020 affiliation not verified. Note diacritic: Gomez-Ruiz is properly Gómez-Ruiz.",
+   "year": "2019 (preprint arXiv:1903.02145); 2020 (journal)",
+   "venue": "Communications Physics, vol. 3, art. 44",
+   "url": "https://doi.org/10.1038/s42005-020-0306-6",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Cold-atom test in the Bose-Einstein condensation transition: spontaneous vortices appear in the formation of a BEC, interpreted as Kibble-Zurek defect formation. The first clear BEC-based observation and a common textbook example.",
+   "people": "Chad N. Weiler, Tyler W. Neely, David R. Scherer, Ashton S. Bradley, Matthew J. Davis, and Brian P. Anderson",
+   "affiliation": "University of Arizona, University of Queensland, University of Otago (not independently verified)",
+   "year": "2008",
+   "venue": "Nature, vol. 455, pp. 948-951",
+   "url": "https://doi.org/10.1038/nature07334",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Elongated BEC test in which the defects produced are solitons rather than vortices — spontaneous creation of Kibble-Zurek solitons across the condensation transition, with the defect number scaling with the quench rate. Trento group.",
+   "people": "Giacomo Lamporesi, Simone Donadello, Simone Serafini, Franco Dalfovo, and Gabriele Ferrari",
+   "affiliation": "INO-CNR BEC Center and University of Trento (not independently verified)",
+   "year": "2013",
+   "venue": "Nature Physics, vol. 9, pp. 656-660",
+   "url": "https://doi.org/10.1038/nphys2734",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "The cold-atom result closest in spirit to the Rydberg measurement, and a useful comparison point for the chapter: a homogeneous (box-trapped) Bose gas was thermally quenched through the BEC transition and homodyne matter-wave interferometry measured first-order correlation functions, verifying the homogeneous-system power-law scaling of the COHERENCE LENGTH with quench rate — a correlation-length observable, not a defect count. Cambridge group.",
+   "people": "Nir Navon, Alexander L. Gaunt, Robert P. Smith, and Zoran Hadzibabic",
+   "affiliation": "Cavendish Laboratory, University of Cambridge",
+   "year": "2015",
+   "venue": "Science, vol. 347, no. 6218, pp. 167-170",
+   "url": "https://doi.org/10.1126/science.1258676",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Superconducting-circuit quantum test at scale: coherent evolution through a quantum phase transition in a 1D transverse-field Ising chain using up to 2,000 superconducting flux qubits in a programmable quantum annealer. Observed the quantum Kibble-Zurek mechanism with the theoretically predicted KINK STATISTICS plus positive kink-kink correlations, independent of system temperature, in quantitative agreement with analytical closed-system solutions. This is the superconducting-circuit counterpart to the Rydberg experiment, and notably it does report defect (kink) statistics.",
+   "people": "Andrew D. King, Sei Suzuki, Jack Raymond, Alex Zucca, Trevor Lanting, Fabio Altomare, Andrew J. Berkley, Sara Ejtemaee, Emile Hoskinson, Shuiyuan Huang, Eric Ladizinsky, Allison J. R. MacDonald, Gaelen Marsden, Travis Oh, Gabriel Poulin-Lamarre, Mauricio Reis, Chris Rich, Yuki Sato, Jed D. Whittaker, Jason Yao, Richard Harris, Daniel A. Lidar, Hidetoshi Nishimori, and Mohammad H. Amin",
+   "affiliation": "D-Wave Quantum Systems (Burnaby, Canada), with academic collaborators including Daniel A. Lidar (University of Southern California) and Hidetoshi Nishimori (Tokyo Institute of Technology) — collaborator affiliations not independently verified",
+   "year": "2022 (preprint arXiv:2202.05847, 2022)",
+   "venue": "Nature Physics, vol. 18, pp. 1324-1328",
+   "url": "https://doi.org/10.1038/s41567-022-01741-6",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Scale-up of the superconducting-flux-qubit work to a 3D programmable spin glass on more than 5,000 qubits, measuring quantum critical dynamics in a regime where classical simulation of the many-body quantum dynamics is intractable. Optional for the chapter, but the natural citation if it wants to argue that Kibble-Zurek physics has become a benchmark for quantum simulators rather than merely a phenomenon being tested.",
+   "people": "Andrew D. King, Jack Raymond, Trevor Lanting, Richard Harris, Alex Zucca, and 22 further co-authors (27 total)",
+   "affiliation": "D-Wave Quantum Systems, with Boston University collaborators (not independently verified)",
+   "year": "2022 (preprint arXiv:2207.13800); 2023 (journal)",
+   "venue": "Nature, vol. 617, pp. 61-66",
+   "url": "https://doi.org/10.1038/s41586-023-05867-2",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Recent superfluid test: universal Kibble-Zurek scaling in a homogeneous, strongly interacting atomic Fermi superfluid, probed with two distinct control parameters (temperature and interaction strength) whose microscopic condensate-formation physics differs by two orders of magnitude in timescale, yet which yield a consistent scaling exponent of about 0.68. The two-pathway design is the strongest available evidence for universality specifically. The 0.68 value comes from a search summary of the abstract rather than the article text, so confirm before quoting a number.",
+   "people": "Kyuhwan Lee, Sol Kim, Taehoon Kim, and Yong-il Shin",
+   "affiliation": "Seoul National University (not independently verified; Crossref lists the fourth author as 'Y. Shin')",
+   "year": "2023 (preprint arXiv:2310.05437); 2024 (journal)",
+   "venue": "Nature Physics, vol. 20, pp. 1570-1574",
+   "url": "https://doi.org/10.1038/s41567-024-02592-z",
+   "confidence": "probable",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "claim": "Earlier Fermi-superfluid result from the same lead group, reporting Kibble-Zurek universality in a strongly interacting Fermi superfluid — here the observable IS defect density, with the scaling exponent relating defect density to quench rate determined by the underlying symmetries. Pair with the 2024 paper if the chapter wants both the first Fermi-superfluid observation and its two-pathway confirmation.",
+   "people": "Bumsuk Ko, Jee Woo Park, and Yong-il Shin",
+   "affiliation": "Seoul National University (not independently verified; Crossref lists the third author as 'Y. Shin')",
+   "year": "2019",
+   "venue": "Nature Physics, vol. 15, pp. 1227-1231",
+   "url": "https://doi.org/10.1038/s41567-019-0650-1",
+   "confidence": "verified",
+   "_domain": "kibble-zurek"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "V-score paper: Wu, Rossi, Vicentini, Carleo 'with a 30-author consortium'; Science 386(6719), 296-301, published 18 October 2024, arXiv:2302.04919",
+   "correction": "The author count is wrong: the paper has 33 authors, not 30 (the dossier's own `people` field correctly lists all 33, matching arXiv exactly). Accurate text: 'Dian Wu, Riccardo Rossi, Filippo Vicentini and Giuseppe Carleo, with a 33-author consortium that included Steven R. White, Masatoshi Imada, Federico Becca, Juan Carrasquilla and Antoine Georges, defined the V-score...' Everything else in the item is correct: 'Variational benchmarks for quantum many-body problems', Science 386, 296-301 (18 October 2024), https://doi.org/10.1126/science.adg9774, preprint arXiv:2302.04919 (2023).",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Keesling et al. (Lukin group), Rydberg simulator verification of the quantum Kibble-Zurek mechanism, 'measuring the growth of spatial correlations and the universal scaling of defect density with ramp rate', Nature 568(7751), 207-211 (2019), arXiv:1809.05540",
+   "correction": "The citation is correct but the described measurement overstates/misstates the result. The paper measures the growth of spatial correlations across the transition and the universal power-law scaling of the correlation length with the ramp (sweep) rate — not defect density — and additionally extracts critical exponents for chiral clock models and observes corrections beyond the QKZM prediction. Accurate text: 'Alexander Keesling and co-workers in Mikhail D. Lukin's group used a programmable Rydberg-atom simulator to verify the quantum Kibble-Zurek mechanism across an Ising-type quantum phase transition, measuring the growth of spatial correlations and the universal scaling of the correlation length with the ramp rate, observing corrections beyond the QKZM prediction, and extracting critical exponents for chiral clock models.' Citation unchanged: Nature 568, 207-211 (2019), https://doi.org/10.1038/s41586-019-1070-1, preprint arXiv:1809.05540 (2018).",
+   "_domain": "nnqs-quantum"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "SUMMARY / del Campo & Zurek 2014 scaling law: 'the frozen-out correlation length scales as a power of the quench time with exponent nu/(1+nu*z), and defect density as the inverse d-th power of that.'",
+   "correction": "THIS IS THE MOST SERIOUS ERROR IN THE DOSSIER AND MUST NOT REACH PRINT. The correlation-length half is right; the defect-density half is wrong. Verified against the full text of del Campo & Zurek, arXiv:1310.1600 (= Int. J. Mod. Phys. A 29, 1430018), which gives:  xi_hat = xi_0 (tau_Q/tau_0)^(nu/(1+z*nu))  and  n ~ (1/xi_0^(D-d)) * (tau_0/tau_Q)^((D-d)*nu/(1+z*nu)). The paper defines D as the dimension of SPACE and d as the dimension of the DEFECT (d=1 for vortex lines in a 3D superfluid; d=0 for point defects). Defect density therefore scales as the inverse (D-d)-th power of the frozen correlation length -- the inverse CODIMENSION power -- not the inverse d-th power. The dossier's version is not a typo but a sign/symbol swap that inverts the physics: for vortex lines in 3D it would give n ~ 1/xi_hat instead of the correct n ~ 1/xi_hat^2. Correct text for the chapter: 'The frozen-out correlation length scales as the quench time to the power nu/(1+nu*z), and the defect density as the inverse (D-d) power of that length, where D is the dimension of space and d the dimension of the defect.'",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Direct quotation from Keesling et al. 2019: \"While the QKZM is a coarse-grained description that predicts the mean density of defects, the shape of the correlation function gives further access to microscopic details of the system.\"",
+   "correction": "MISQUOTE presented inside quotation marks. Verified against the full text (arXiv:1809.05540v2, the accepted version). The actual sentence reads: \"While the quantum Kibble-Zurek mechanism is a coarse-grained description predicting the mean density of defects, the shape of the correlation function gives further access to microscopic details of the system.\" The dossier substitutes the abbreviation 'QKZM' for 'the quantum Kibble-Zurek mechanism' and 'that predicts' for 'predicting'. The substance is unchanged, but a book published under a real author's name cannot print an altered string inside quotation marks. Use the exact wording above, or paraphrase without quotation marks.",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Direct quotation from Keesling et al. 2019: the authors claim this as \"the first experimental verification of the QKZM in an isolated quantum system that defies a mean-field description.\"",
+   "correction": "Same misquote pattern. The actual sentence is: \"These results offer the first experimental verification of the quantum Kibble-Zurek mechanism in an isolated quantum system that defies a mean-field description.\" Again 'QKZM' is the dossier's abbreviation, not the authors'. Quote it in full or paraphrase.",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Kibble 1980, Physics Reports 67(1), 183-199 -- 'the source of the causal-horizon argument for the initial density of defects... This is where the density estimate (as opposed to the topological classification) originates on the cosmology side.'",
+   "correction": "The citation is exact -- INSPIRE-HEP and Crossref confirm 'Some implications of a cosmological phase transition', T. W. B. Kibble, Phys. Rep. 67(1), 183-199 (1980), DOI 10.1016/0370-1573(80)90091-5. But the ORIGINALITY claim overstates. Two problems. (1) The paper's own abstract describes it as a set of Les Houches winter-school lectures whose 'aim is mainly pedagogical, with special emphasis on unsolved problems' -- not the introduction of a new density estimate. (2) del Campo & Zurek 2014, the dossier's own preferred modern source, credits the field to 'the seminal papers of Tom Kibble [1,2]' -- citing the 1976 and 1980 papers JOINTLY, not the 1980 one alone, for the causal argument. Recommended text: 'Kibble's causality argument -- that domains cannot be correlated over distances larger than the causal horizon at the transition, which sets a lower bound on defect separation -- is developed across his 1976 and 1980 papers.' Cite both.",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Laguna & Zurek 1997, PRL 78, 2519-2522 -- 'First numerical demonstration of the quench-rate scaling law for kink density.'",
+   "correction": "Bibliography exact: 'Density of Kinks after a Quench: When Symmetry Breaks, How Big are the Pieces?', Pablo Laguna and Wojciech Hubert Zurek, Phys. Rev. Lett. 78(13), 2519-2522 (31 March 1997), DOI 10.1103/PhysRevLett.78.2519. But drop the word 'first'. The paper makes no priority claim; its own abstract calls it 'a limited (1D) test of the more general theory of domain-size evolution.' It also states a concrete result the dossier omits and the chapter would benefit from: numerical Landau-Ginzburg evolution gives a kink density 'proportional to the fourth root of its rate.' Recommended text: 'A 1D numerical study of Landau-Ginzburg dynamics found the kink density proportional to the fourth root of the quench rate, and the authors present it as a limited test of the general domain-size theory.'",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Zurek, Dorner & Zoller 2005, PRL 95, art. 105701 -- companion paper establishing the QKZM; near a quantum critical point the relevant timescale is set by the inverse gap, and faster-than-gap driving freezes the growth of correlated regions. 'This is the paper the Rydberg experiment cites as the QKZM foundation.'",
+   "correction": "Bibliography exact: 'Dynamics of a Quantum Phase Transition', Wojciech H. Zurek, Uwe Dorner, Peter Zoller, Phys. Rev. Lett. 95(10), 105701 (1 September 2005), DOI 10.1103/PhysRevLett.95.105701, preprint cond-mat/0503511. Two adjustments. (1) The physics paraphrase is defensible but not what the abstract emphasizes; the abstract presents TWO approaches -- one retracing the standard thermodynamic argument in a quantum setting, one 'purely quantum, based on the Landau-Zener formula for transition probabilities in avoided level crossings' -- and shows they 'yield compatible results for the scaling of the defect density with the quench rate.' If you describe the paper, describe that. (2) Delete the singular claim that this is 'the paper the Rydberg experiment cites as the QKZM foundation': Keesling et al. cite the 2005 quantum-extension literature collectively, not this paper uniquely. Say 'one of the papers the Rydberg experiment cites' or drop the clause.",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Chuang, Durrer, Turok & Yurke 1991, Science 251(4999), 1336-1342 -- earliest laboratory test of the defect-formation picture; supports the 'one-scale' model for cosmic string evolution; observes textures decaying into monopole-antimonopole pairs; first 'cosmology in the lab' experiment in this lineage.",
+   "correction": "Bibliography and author order exact: Isaac Chuang, Ruth Durrer, Neil Turok, Bernard Yurke, 'Cosmology in the Laboratory: Defect Dynamics in Liquid Crystals', Science 251(4999), 1336-1342 (15 March 1991), DOI 10.1126/science.251.4999.1336. The one-scale and texture-decay claims are confirmed verbatim from the abstract. FIX THE FRAMING: this is a test of defect DYNAMICS and EVOLUTION, not of defect FORMATION. The abstract is explicit -- 'the direct study of the scaling solution for a network of strings', 'a model for the evolution of monopoles and texture' -- and it never measures a Kibble-Zurek quench-rate scaling. Calling it 'the earliest laboratory test of the defect-formation picture' will mislead a reader into thinking the KZ scaling law was tested in 1991; it was not. Recommended text: 'The earliest cosmology-in-the-lab experiment in this lineage, testing defect dynamics -- the one-scale model for string network evolution and the decay of textures into monopole-antimonopole pairs -- rather than the quench-rate formation law.'",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Ulm et al. 2013, Nature Communications 4, art. 2290 -- laser-cooled ion string, linear-to-zigzag structural transition, kink creation rate follows the Kibble-Zurek power law.",
+   "correction": "Bibliography and the eleven-author list are exact: 'Observation of the Kibble-Zurek scaling law for defect formation in ion crystals', Nat. Commun. 4, 2290 (7 August 2013), DOI 10.1038/ncomms3290, with Roßnagel and Degünther carrying the diacritics as flagged. But the description is too vague for a book that is making a point about precision. The abstract specifies: the crystal is SIXTEEN laser-cooled trapped ions; the measured scaling is defect formation proportional to the traversal rate to the power 2.68 +/- 0.06; and this 'supports the prediction of 8/3 = 2.67 FOR FINITE INHOMOGENEOUS SYSTEMS.' That is the inhomogeneous KZM exponent, not the homogeneous Kibble-Zurek exponent, and the authors themselves stress the result 'demonstrates that the scaling laws also apply in the mesoscopic regime.' Recommended text: 'In a crystal of 16 laser-cooled trapped ions driven through the linear-to-zigzag structural transition, defect formation scaled with the traversal rate to the power 2.68 +/- 0.06, matching the 8/3 prediction of the inhomogeneous Kibble-Zurek mechanism for finite systems.'",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Weiler et al. 2008, Nature 455, 948-951 -- spontaneous vortices in BEC formation, interpreted as Kibble-Zurek defect formation; the first clear BEC-based observation.",
+   "correction": "Bibliography exact: 'Spontaneous vortices in the formation of Bose-Einstein condensates', Nature 455(7215), 948-951 (October 2008), DOI 10.1038/nature07334, six authors in the stated order. The priority claim is also supported -- the preprint (arXiv:0807.3323) states 'our results encompass the first experimental observations and statistical characterisation of spontaneous vortex formation in the condensation transition.' THE CAUTION THE DOSSIER SHOULD HAVE FLAGGED, given that this is precisely the error class the brief exists to prevent: Weiler et al. observed and statistically characterized spontaneous vortices but did NOT measure a power-law scaling of defect number against quench rate, and neither the published nor the preprint abstract mentions Kibble-Zurek by name. This paper belongs in the 'do defects form at all' column, not the 'defect density scales as a power of quench rate' column. del Campo & Zurek 2014 sorts the literature exactly that way. Cite it for observation, never for the scaling law.",
+   "_domain": "kibble-zurek"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Lamporesi et al. 2013, Nature Physics 9, 656-660 -- spontaneous creation of Kibble-Zurek solitons in an elongated BEC, with defect number scaling with the quench rate. Trento group.",
+   "correction": "Bibliography exact: 'Spontaneous creation of Kibble-Zurek solitons in a Bose-Einstein condensate', Nature Physics 9(10), 656-660 (October 2013), DOI 10.1038/nphys2734, five authors in the stated order. One precision fix: the abstract says 'We measure the power-law dependence of defect number on the QUENCH TIME', not the quench rate. In a chapter whose whole subject is a power law in tau_Q, quench time and quench rate are reciprocals and the exponent changes sign between them; keep the paper's own variable. The abstract also adds a finding worth a clause: 'lower atomic densities enhance defect formation.'",
+   "_domain": "kibble-zurek"
+  }
+ ]
+}

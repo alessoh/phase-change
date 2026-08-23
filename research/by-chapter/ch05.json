@@ -1,0 +1,396 @@
+{
+ "chapter": 5,
+ "title": "The Machine That Found the Critical Temperature",
+ "outline": "The founding result, told properly. Juan Carrasquilla and Roger Melko fed labelled Ising configurations to an ordinary feed-forward network, which learned to separate ordered from disordered and, through finite-size scaling of its own output, returned the critical temperature. The genuinely surprising part came next, when the same architecture worked on a Coulomb phase and on the toric code, systems with no local order parameter for the network to have rediscovered. Tomoki Ohtsuki and Tomi Ohtsuki had independently applied deep learning to random two-dimensional electron systems in 2016. The chapter is careful about what these papers did and did not claim, since the secondary literature has garbled several of them.\n\nBuilt on Carrasquilla and Melko in Nature Physics 2017, the toric code and Coulomb phase results, Ohtsuki and Ohtsuki in J. Phys. Soc. Jpn. 85, 123706, described accurately as comparing network output against previously published exponents rather than estimating exponents itself, and Broecker, Carrasquilla, Melko and Trebst on sign-problematic fermions, correctly described as classifying the sampled Green's function rather than auxiliary-field configurations.\n\nLeaves open: the network needed labels, and labels require knowing the answer. What happens when nobody knows where the boundary is?",
+ "domains": [
+  "ml-phase-detection"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Juan Carrasquilla and Roger G. Melko demonstrated that a standard feed-forward neural network, trained by supervised learning on raw Monte Carlo spin configurations of the two-dimensional square-lattice Ising model, can classify the ordered and disordered phases and locate the critical temperature without being given the Hamiltonian or any order parameter; a convolutional variant also distinguished the topological phase of the square-lattice Ising gauge theory, which has no conventional local order parameter.",
+   "people": "Juan Carrasquilla, Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics, Waterloo (Carrasquilla); Department of Physics and Astronomy, University of Waterloo, and Perimeter Institute (Melko)",
+   "year": "2017 (Nature Physics); arXiv preprint posted 5 May 2016 as arXiv:1605.01735",
+   "venue": "Nature Physics 13, 431-434",
+   "url": "https://doi.org/10.1038/nphys4035",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Evert P. L. van Nieuwenburg, Ye-Hua Liu and Sebastian D. Huber introduced the \"learning by confusion\" scheme, in which a neural network is trained repeatedly on data deliberately labelled with a proposed but generally wrong transition point; plotting classification accuracy against the proposed point yields a characteristic W shape whose central peak marks the true transition. The method was demonstrated on the topological transition of the Kitaev chain, the thermal transition of the classical Ising model, and the many-body-localization transition of a disordered quantum spin chain.",
+   "people": "Evert P. L. van Nieuwenburg, Ye-Hua Liu, Sebastian D. Huber",
+   "affiliation": "Institute for Theoretical Physics, ETH Zurich",
+   "year": "2017 (Nature Physics); arXiv preprint posted 6 October 2016 as arXiv:1610.02048",
+   "venue": "Nature Physics 13, 435-439",
+   "url": "https://doi.org/10.1038/nphys4037",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Lei Wang showed that purely unsupervised learning identifies phases and phase transitions: principal component analysis applied to raw Ising spin configurations extracts a leading principal component proportional to the magnetization, and clustering in the low-dimensional feature space separates the phases, with further components carrying structure-factor information.",
+   "people": "Lei Wang",
+   "affiliation": "Beijing National Lab for Condensed Matter Physics and Institute of Physics, Chinese Academy of Sciences, Beijing",
+   "year": "2016 (Physical Review B); arXiv preprint posted 1 June 2016 as arXiv:1606.00318",
+   "venue": "Physical Review B 94, 195105",
+   "url": "https://doi.org/10.1103/PhysRevB.94.195105",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Sebastian J. Wetzel systematically compared unsupervised methods — principal component analysis, manifold learning, clustering, and artificial-neural-network variational autoencoders — on Monte Carlo configurations of the two-dimensional Ising model and the three-dimensional XY model, finding that PCA and variational autoencoders recover latent variables corresponding to the known order parameters, and that the VAE reconstruction loss itself serves as a general-purpose indicator of a phase transition.",
+   "people": "Sebastian J. Wetzel",
+   "affiliation": "Institut für Theoretische Physik, Universität Heidelberg",
+   "year": "2017 (Physical Review E); arXiv preprint posted 7 March 2017 as arXiv:1703.02435",
+   "venue": "Physical Review E 96, 022140",
+   "url": "https://doi.org/10.1103/PhysRevE.96.022140",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Sebastian J. Wetzel and Manuel Scherzer addressed the interpretability problem by reconstructing the decision function of a trained neural network as an explicit simple function of its inputs when that decision function is sufficiently symmetric, thereby reading off the order parameter the network had implicitly discovered — demonstrated for the Ising model and for SU(2) lattice gauge theory.",
+   "people": "Sebastian J. Wetzel, Manuel Scherzer",
+   "affiliation": "Institut für Theoretische Physik, Universität Heidelberg",
+   "year": "2017 (Physical Review B); arXiv preprint posted May 2017 as arXiv:1705.05582",
+   "venue": "Physical Review B 96, 184410",
+   "url": "https://doi.org/10.1103/PhysRevB.96.184410",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Kelvin Ch'ng, Juan Carrasquilla, Roger G. Melko and Ehsan Khatami trained a three-dimensional convolutional neural network on auxiliary-field configurations generated by determinant quantum Monte Carlo for the fermionic Hubbard model on a cubic lattice, and correctly predicted the finite-temperature antiferromagnetic phase diagram at half filling, extending the supervised approach from classical spins to strongly correlated fermions.",
+   "people": "Kelvin Ch'ng, Juan Carrasquilla, Roger G. Melko, Ehsan Khatami",
+   "affiliation": "San José State University (Ch'ng, Khatami); Perimeter Institute and University of Waterloo (Carrasquilla, Melko)",
+   "year": "2017 (Physical Review X); arXiv preprint posted 8 September 2016 as arXiv:1609.02552",
+   "venue": "Physical Review X 7, 031038",
+   "url": "https://doi.org/10.1103/PhysRevX.7.031038",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Peter Broecker, Juan Carrasquilla, Roger G. Melko and Simon Trebst showed that machine-learning classification of quantum Monte Carlo configurations remains effective for interacting fermion models afflicted by the sign problem, where conventional observables become statistically inaccessible.",
+   "people": "Peter Broecker, Juan Carrasquilla, Roger G. Melko, Simon Trebst",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Scientific Reports 7, 8823",
+   "url": "https://doi.org/10.1038/s41598-017-09098-0",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Yi Zhang and Eun-Ah Kim introduced quantum loop topography (QLT), a feature-engineering procedure that converts a many-body Hamiltonian or wave function into a multi-dimensional image by evaluating two-point operators forming closed loops at independent Monte Carlo steps, guided by the relevant response function (Hall conductivity). Fed to a fully connected network with a single hidden layer, QLT distinguished Chern insulators and fractional Chern insulators from trivial insulators, producing what the authors describe as the first machine-learned phase diagram containing a topological quantum phase transition.",
+   "people": "Yi Zhang, Eun-Ah Kim",
+   "affiliation": "Department of Physics, Cornell University, Ithaca, and Kavli Institute for Theoretical Physics, University of California, Santa Barbara",
+   "year": "2017 (Physical Review Letters); arXiv preprint posted 4 November 2016 as arXiv:1611.01518",
+   "venue": "Physical Review Letters 118, 216401",
+   "url": "https://doi.org/10.1103/PhysRevLett.118.216401",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Yi Zhang, Roger G. Melko and Eun-Ah Kim extended quantum loop topography to quasiparticle statistics, constructing loop observables sensitive to the mutual statistics of spinons and visons, and used a feed-forward network to locate the phase boundary between a Z2 quantum spin liquid and trivial phases without evaluating Wilson loops or topological entanglement entropy.",
+   "people": "Yi Zhang, Roger G. Melko, Eun-Ah Kim",
+   "affiliation": "",
+   "year": "2017 (Physical Review B); arXiv preprint posted May 2017 as arXiv:1705.01947",
+   "venue": "Physical Review B 96, 245119",
+   "url": "https://doi.org/10.1103/PhysRevB.96.245119",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Joaquin F. Rodriguez-Nieva and Mathias S. Scheurer used diffusion maps — a nonlinear unsupervised manifold-learning technique — on bare spin configurations to cluster samples of the two-dimensional XY model by winding number and to capture the Berezinskii-Kosterlitz-Thouless transition, and applied the same method to the Ising gauge theory, achieving detection of topological order without manual feature engineering or labels.",
+   "people": "Joaquin F. Rodriguez-Nieva, Mathias S. Scheurer",
+   "affiliation": "",
+   "year": "2019 (Nature Physics); arXiv preprint posted 15 May 2018 as arXiv:1805.05961",
+   "venue": "Nature Physics 15, 790-795",
+   "url": "https://doi.org/10.1038/s41567-019-0512-x",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Jonas Greitemann, Ke Liu and Lode Pollet combined the theory of orientational tensors with support vector machines using a tensorial kernel (TK-SVM), producing a machine-learning method whose decision function is directly interpretable as an explicit multipolar order parameter, and used it to detect hidden multipolar (nematic) spin order.",
+   "people": "Jonas Greitemann, Ke Liu, Lode Pollet",
+   "affiliation": "",
+   "year": "2019 (Physical Review B); arXiv preprint posted 23 April 2018 as arXiv:1804.08557",
+   "venue": "Physical Review B 99, 060404(R)",
+   "url": "https://doi.org/10.1103/PhysRevB.99.060404",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Jonas Greitemann, Ke Liu, Ludovic D. C. Jaubert, Han Yan, Nic Shannon and Lode Pollet applied tensorial kernel support vector machines to frustrated magnets and showed the method identifies not only hidden order parameters but also the emergent local constraints (ground-state \"ice rules\") that characterize classical spin liquids.",
+   "people": "Jonas Greitemann, Ke Liu, Ludovic D. C. Jaubert, Han Yan, Nic Shannon, Lode Pollet",
+   "affiliation": "",
+   "year": "2019 (Physical Review B); arXiv preprint posted 29 July 2019",
+   "venue": "Physical Review B 100, 174408",
+   "url": "https://doi.org/10.1103/PhysRevB.100.174408",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Pedro Ponte and Roger G. Melko showed that support vector machines can learn the explicit mathematical form of physical discriminators — order parameters and Hamiltonian constraints — for two-dimensional spin models including the ferromagnetic Ising model, a conserved-order-parameter Ising model, and the Ising gauge theory, making the learned classifier human-readable rather than a black box.",
+   "people": "Pedro Ponte, Roger G. Melko",
+   "affiliation": "Department of Physics and Astronomy, University of Waterloo, and Perimeter Institute for Theoretical Physics",
+   "year": "2017 (Physical Review B); arXiv preprint posted 19 April 2017 as arXiv:1704.05848",
+   "venue": "Physical Review B 96, 205146",
+   "url": "https://doi.org/10.1103/PhysRevB.96.205146",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Wenjian Hu, Rajiv R. P. Singh and Richard T. Scalettar carried out a critical examination of unsupervised phase detection, applying principal component analysis and autoencoders to the square- and triangular-lattice Ising models, the Blume-Capel model, a highly degenerate biquadratic-exchange spin-one Ising model, and the two-dimensional XY model, and showing which transitions and crossovers PCA can and cannot distinguish.",
+   "people": "Wenjian Hu, Rajiv R. P. Singh, Richard T. Scalettar",
+   "affiliation": "University of California, Davis",
+   "year": "2017 (Physical Review E); arXiv preprint posted 1 April 2017 as arXiv:1704.00080",
+   "venue": "Physical Review E 95, 062122",
+   "url": "https://doi.org/10.1103/PhysRevE.95.062122",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Ce Wang and Hui Zhai applied principal component analysis to Monte Carlo configurations of the frustrated XY model on triangular and union-jack lattices, systems with two distinct order parameters and two transitions, and found the leading principal components track both orders and locate both transitions without human input.",
+   "people": "Ce Wang, Hui Zhai",
+   "affiliation": "",
+   "year": "2017 (Physical Review B); arXiv preprint posted June 2017 as arXiv:1706.07977",
+   "venue": "Physical Review B 96, 144432",
+   "url": "https://doi.org/10.1103/PhysRevB.96.144432",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Matthew J. S. Beach, Anna Golubeva and Roger G. Melko examined whether neural networks classifying the two-dimensional XY model actually learn vortices, and found that substantial feature engineering of the raw spin states is required before that claim can be made: a single-layer network fails to classify the phases, a convolutional network succeeds, and a purpose-designed deep network can learn vortices without feature engineering. The work is a cautionary counterpoint to naive interpretations of supervised phase classification.",
+   "people": "Matthew J. S. Beach, Anna Golubeva, Roger G. Melko",
+   "affiliation": "",
+   "year": "2018 (Physical Review B); arXiv preprint posted 26 October 2017 as arXiv:1710.09842",
+   "venue": "Physical Review B 97, 045207",
+   "url": "https://doi.org/10.1103/PhysRevB.97.045207",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Frank Schindler, Nicolas Regnault and Titus Neupert trained a multilayer perceptron with a single hidden layer on entanglement spectra of individual eigenstates of the random-field Heisenberg spin-1/2 chain, using labelled data from the deeply localized and deeply thermal regimes, and used it to locate the many-body-localization transition.",
+   "people": "Frank Schindler, Nicolas Regnault, Titus Neupert",
+   "affiliation": "",
+   "year": "2017 (Physical Review B); arXiv preprint posted 5 April 2017 as arXiv:1704.01578",
+   "venue": "Physical Review B 95, 245134",
+   "url": "https://doi.org/10.1103/PhysRevB.95.245134",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Jordan Venderley, Vedika Khemani and Eun-Ah Kim showed that a single feed-forward network fed entanglement spectra from individual eigenstates can decode two distinct many-body-localized phases and a thermalizing phase, and that the network-based diagnostic gives a sharper phase boundary than entanglement entropy alone.",
+   "people": "Jordan Venderley, Vedika Khemani, Eun-Ah Kim",
+   "affiliation": "",
+   "year": "2018 (Physical Review Letters); arXiv preprint posted 31 October 2017 as arXiv:1711.00020",
+   "venue": "Physical Review Letters 120, 257204",
+   "url": "https://doi.org/10.1103/PhysRevLett.120.257204",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Patrick Huembeli, Alexandre Dauphin and Peter Wittek applied adversarial domain adaptation — training on a known region of parameter space and adapting to unlabelled data elsewhere — to derive phase diagrams directly from ground states without ad hoc feature engineering, demonstrating it on the Ising model at finite temperature, the Bose-Hubbard model, and the disordered Su-Schrieffer-Heeger model.",
+   "people": "Patrick Huembeli, Alexandre Dauphin, Peter Wittek",
+   "affiliation": "",
+   "year": "2018 (Physical Review B); arXiv preprint posted 23 October 2017 as arXiv:1710.08382",
+   "venue": "Physical Review B 97, 134109",
+   "url": "https://doi.org/10.1103/PhysRevB.97.134109",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Patrick Huembeli, Alexandre Dauphin, Peter Wittek and Christian Gogolin used interpretability tools on networks trained to detect the many-body-localization transition in order to extract the characteristic features the network relies on, automating the discovery of transition signatures rather than only the transition location.",
+   "people": "Patrick Huembeli, Alexandre Dauphin, Peter Wittek, Christian Gogolin",
+   "affiliation": "",
+   "year": "2019 (Physical Review B); arXiv preprint posted 1 June 2018 as arXiv:1806.00419",
+   "venue": "Physical Review B 99, 104106",
+   "url": "https://doi.org/10.1103/PhysRevB.99.104106",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Ye-Hua Liu and Evert P. L. van Nieuwenburg introduced discriminative cooperative networks (DCN), a pair of networks — a guesser that proposes labels and a learner that is trained on them — that cooperate to detect phase transitions from fully unlabelled data, generalizing the earlier confusion scheme.",
+   "people": "Ye-Hua Liu, Evert P. L. van Nieuwenburg",
+   "affiliation": "",
+   "year": "2018 (Physical Review Letters); arXiv preprint posted 25 June 2017 as arXiv:1706.08111",
+   "venue": "Physical Review Letters 120, 176401",
+   "url": "https://doi.org/10.1103/PhysRevLett.120.176401",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Korbinian Kottmann, Patrick Huembeli, Maciej Lewenstein and Antonio Acín reframed unsupervised phase discovery as deep anomaly detection: a network trained to recognize data from one known region flags anomalous regions as candidate new phases. They mapped the phase diagram of the one-dimensional extended Bose-Hubbard model at integer filling using entanglement spectra, tensor-network central tensors, and experimentally accessible low-order correlation functions.",
+   "people": "Korbinian Kottmann, Patrick Huembeli, Maciej Lewenstein, Antonio Acín",
+   "affiliation": "ICFO - Institut de Ciencies Fotoniques, The Barcelona Institute of Science and Technology, Castelldefels (Barcelona)",
+   "year": "2020 (Physical Review Letters); arXiv preprint posted 22 March 2020 as arXiv:2003.09905",
+   "venue": "Physical Review Letters 125, 170603",
+   "url": "https://doi.org/10.1103/PhysRevLett.125.170603",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Benno S. Rem, Niklas Käming, Matthias Tarnowski, Luca Asteria, Nick Fläschner, Christoph Becker, Klaus Sengstock and Christof Weitenberg applied neural networks directly to experimental ultracold-atom data, extracting the topological phase diagram of the Haldane model from raw density images and characterizing the superfluid-to-Mott-insulator transition — moving machine-learned phase identification from simulated configurations to laboratory measurements.",
+   "people": "Benno S. Rem, Niklas Käming, Matthias Tarnowski, Luca Asteria, Nick Fläschner, Christoph Becker, Klaus Sengstock, Christof Weitenberg",
+   "affiliation": "Institut für Laserphysik / Institute for Quantum Physics, Universität Hamburg",
+   "year": "2019 (Nature Physics); arXiv preprint posted 14 September 2018 as arXiv:1809.05519",
+   "venue": "Nature Physics 15, 917",
+   "url": "https://doi.org/10.1038/s41567-019-0554-0",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Annabelle Bohrdt, Christie S. Chiu, Geoffrey Ji, Muqing Xu, Daniel Greif, Markus Greiner, Eugene Demler, Fabian Grusdt and Michael Knap used machine learning to classify quantum-gas-microscope snapshots of the two-dimensional Fermi-Hubbard model against two competing theories — a doped resonating-valence-bond spin liquid and geometric string theory with hidden spin order — and found that up to intermediate doping the classifier assigns experimental snapshots to the geometric-string description.",
+   "people": "Annabelle Bohrdt, Christie S. Chiu, Geoffrey Ji, Muqing Xu, Daniel Greif, Markus Greiner, Eugene Demler, Fabian Grusdt, Michael Knap",
+   "affiliation": "",
+   "year": "2019 (Nature Physics); arXiv preprint posted 29 November 2018 as arXiv:1811.12425",
+   "venue": "Nature Physics 15, 921-924",
+   "url": "https://doi.org/10.1038/s41567-019-0565-x",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Niklas Käming, Anna Dawid, Korbinian Kottmann, Maciej Lewenstein, Klaus Sengstock, Alexandre Dauphin and Christof Weitenberg combined anomaly detection with influence functions to map the topological phase diagram of the Haldane model from noisy finite-temperature experimental data in a fully unbiased way, without prior knowledge of an order parameter, and extended the approach to Floquet systems.",
+   "people": "Niklas Käming, Anna Dawid, Korbinian Kottmann, Maciej Lewenstein, Klaus Sengstock, Alexandre Dauphin, Christof Weitenberg",
+   "affiliation": "",
+   "year": "2021 (Machine Learning: Science and Technology); arXiv preprint posted January 2021 as arXiv:2101.05712",
+   "venue": "Machine Learning: Science and Technology 2, 035037",
+   "url": "https://doi.org/10.1088/2632-2153/abffe7",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Mathias S. Scheurer and Robert-Jan Slager devised an unsupervised algorithm that searches for adiabatic deformation paths between Hamiltonians and clusters them by topological equivalence class, giving a parametrization-independent, symmetry-class-agnostic route to band topology.",
+   "people": "Mathias S. Scheurer, Robert-Jan Slager",
+   "affiliation": "",
+   "year": "2020 (Physical Review Letters); arXiv preprint posted 6 January 2020 as arXiv:2001.01711",
+   "venue": "Physical Review Letters 124, 226401",
+   "url": "https://doi.org/10.1103/PhysRevLett.124.226401",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Julian Arnold and Frank Schäfer derived the optimal analytical predictors that neural-network-based phase-detection schemes — including the confusion scheme and learning-by-prediction — converge to in the infinite-capacity limit, showing that in many benchmark cases the network can be replaced outright by a closed-form expression, which both speeds up detection and clarifies what these methods actually measure.",
+   "people": "Julian Arnold, Frank Schäfer",
+   "affiliation": "",
+   "year": "2022 (Physical Review X); arXiv preprint posted 14 February 2022",
+   "venue": "Physical Review X 12, 031044",
+   "url": "https://doi.org/10.1103/PhysRevX.12.031044",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Tomoki Ohtsuki and Tomi Ohtsuki applied deep convolutional neural networks to wave-function images of random two-dimensional electron systems and estimated the critical exponents and phase boundaries of the Anderson and quantum Hall transitions, one of the earliest deep-learning treatments of a disorder-driven quantum phase transition.",
+   "people": "Tomoki Ohtsuki, Tomi Ohtsuki",
+   "affiliation": "",
+   "year": "2016; arXiv preprint posted 3 October 2016",
+   "venue": "Journal of the Physical Society of Japan 85, 123706",
+   "url": "https://doi.org/10.7566/JPSJ.85.123706",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Giuseppe Carleo, Ignacio Cirac, Kyle Cranmer, Laurent Daudet, Maria Schuld, Naftali Tishby, Leslie Vogt-Maranto and Lenka Zdeborová wrote the standard review of the machine-learning/physics interface, covering statistical physics of learning, applications across particle physics, cosmology, many-body quantum matter, quantum computing and chemistry, and the cross-fertilization between the two fields; its many-body section is the canonical survey of phase-classification work.",
+   "people": "Giuseppe Carleo, Ignacio Cirac, Kyle Cranmer, Laurent Daudet, Maria Schuld, Naftali Tishby, Leslie Vogt-Maranto, Lenka Zdeborová",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Reviews of Modern Physics 91, 045002",
+   "url": "https://doi.org/10.1103/RevModPhys.91.045002",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "Juan Carrasquilla wrote a dedicated review of machine learning for quantum matter, covering algorithms that recognize conventional and topological states in both synthetic and experimental datasets, neural-network representations of quantum states, and applications to simulating and controlling quantum systems.",
+   "people": "Juan Carrasquilla",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Advances in Physics: X 5, 1797528",
+   "url": "https://doi.org/10.1080/23746149.2020.1797528",
+   "confidence": "verified",
+   "_domain": "ml-phase-detection"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Broecker, Carrasquilla, Melko & Trebst, Scientific Reports 7, 8823 (2017) — 'machine-learning classification of quantum Monte Carlo configurations remains effective for sign-problematic fermion models'",
+   "correction": "Bibliographic data are correct (Scientific Reports 7, 8823 (2017), DOI 10.1038/s41598-017-09098-0; arXiv:1608.07848 posted 28 August 2016), but the description of what was classified is wrong in a way the paper explicitly contradicts. Accurate text: 'Peter Broecker, Juan Carrasquilla, Roger G. Melko and Simon Trebst showed that a convolutional neural network fed the Green\\'s function sampled by auxiliary-field quantum Monte Carlo — and specifically not the auxiliary-field configurations themselves, which they found do not carry sufficient information — can identify and locate quantum phase transitions in many-fermion systems, including systems with a severe sign problem where conventional estimators such as equal-time correlation functions fail.' URL: https://doi.org/10.1038/s41598-017-09098-0",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Hu, Singh & Scalettar, Phys. Rev. E 95, 062122 (2017), 'A critical examination'; arXiv:1704.00080 stated as posted 1 April 2017",
+   "correction": "Everything is correct except the preprint date: arXiv:1704.00080 v1 was submitted 31 March 2017 (announced in the April 2017 listing), not 1 April 2017. Correct text: 'arXiv preprint posted 31 March 2017 as arXiv:1704.00080'. URL: https://doi.org/10.1103/PhysRevE.95.062122 (preprint: https://arxiv.org/abs/1704.00080). Note also that the models list in the claim is exact, and the paper's negative results are worth keeping: PCA on raw configurations fails to capture the 'charge' correlations of the biquadratic spin-one model and the vorticity of the XY model.",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Huembeli, Dauphin & Wittek, 'Identifying Quantum Phase Transitions with Adversarial Neural Networks', Phys. Rev. B 97, 134109 (2018); arXiv:1710.08382 stated as posted 23 October 2017",
+   "correction": "Journal, volume, page, year, author names and order, DOI, and the three demonstration models (finite-temperature Ising, Bose-Hubbard, disordered SSH) are all correct; the preprint date is wrong. arXiv:1710.08382 v1 was submitted 11 October 2017 (v2 31 March 2018). Correct text: 'arXiv preprint posted 11 October 2017 as arXiv:1710.08382'. URL: https://doi.org/10.1103/PhysRevB.97.134109 (preprint: https://arxiv.org/abs/1710.08382)",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Huembeli, Dauphin, Wittek & Gogolin, Phys. Rev. B 99, 104106 (2019) — 'used interpretability tools on networks trained to detect the MBL transition to extract the characteristic features the network relies on'",
+   "correction": "Authors, venue (Phys. Rev. B 99, 104106 (2019)), DOI, and arXiv:1806.00419 posted 1 June 2018 are all correct, but the method is mischaracterized: this is not post-hoc interpretability applied to a trained classifier. Accurate text: 'Patrick Huembeli, Alexandre Dauphin, Peter Wittek and Christian Gogolin used an almost entirely unsupervised, adversarial (game-theoretic) setup between two neural networks with conflicting objectives to let the machine itself choose which features to predict from, thereby identifying a new effective order parameter for the disorder-driven many-body-localization transition and locating it from far fewer disorder realizations — a reduction in numerical effort of roughly two orders of magnitude — rather than only locating a transition already characterized by hand.' URL: https://doi.org/10.1103/PhysRevB.99.104106",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Rem, Käming, Tarnowski, Asteria, Fläschner, Becker, Sengstock & Weitenberg, cited as 'Nature Physics 15, 917' (2019)",
+   "correction": "Author names and order, year, DOI, arXiv:1809.05519 posted 14 September 2018, and the substance of the claim are all correct; only the page citation is incomplete. Crossref gives the full range. Correct text: 'Nature Physics 15, 917-920 (2019)'. URL: https://doi.org/10.1038/s41567-019-0554-0. (This resolves the dossier's own open question about 917-922 vs 917-920: the publisher record is 917-920.)",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Ohtsuki & Ohtsuki, J. Phys. Soc. Jpn. 85, 123706 (2016) — 'estimated the critical exponents and phase boundaries of the Anderson and quantum Hall transitions'",
+   "correction": "Authors, order, spelling, journal, volume, article number, year, DOI and arXiv v1 date (3 October 2016, arXiv:1610.00462) are all correct, but the claimed results are not in the paper. The paper reports no critical-exponent estimates — it takes previously published critical disorders and exponents from finite-size scaling of the localization length as external reference values against which the network output is compared — and it does not treat the quantum Hall plateau transition. Accurate text: 'Tomoki Ohtsuki (NTT DATA Mathematical Systems Inc.) and Tomi Ohtsuki (Sophia University) trained convolutional neural networks (a two-weight-layer network and a LeNet-like four-weight-layer network) on images of individual eigenfunctions of random two-dimensional electron systems, and showed the trained classifier locates the Anderson localization-delocalization transition of the 2D symplectic SU(2) model and the transition from a disordered Chern insulator to an Anderson insulator in the unitary class, with the learned classification transferring to the related Ando model — one of the earliest deep-learning treatments of a disorder-driven quantum phase transition.' URL: https://doi.org/10.7566/JPSJ.85.123706. The dossier's open question that 'Ohtsuki & Ohtsuki attempted exponents directly' rests on the same error and should be struck; exponent estimation appears in the later three-dimensional follow-up, J. Phys. Soc. Jpn. 86, 044708 (2017).",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "UNVERIFIABLE",
+   "claim": "Affiliation fields given in the dossier (Perimeter/Waterloo; ETH Zurich; IOP CAS Beijing; Heidelberg; San José State; Cornell + KITP UCSB; UC Davis; ICFO; Universität Hamburg)",
+   "correction": "Only two were checked against a printed title page in this session: Zhang & Kim (arXiv:1611.01518v2 title page reads 'Department of Physics, Cornell University, Ithaca, New York 14853, USA and Kavli Institute for Theoretical Physics, University of California, Santa Barbara, California 93106, USA' — matches the dossier), and Ohtsuki & Ohtsuki (title page reads 'NTT DATA Mathematical Systems Inc, Shinjuku-ku, Tokyo' for Tomoki and 'Physics Division, Sophia University, Chiyoda-ku, Tokyo' for Tomi — the dossier left this field empty). The remaining affiliation strings could not be verified because APS and Nature title pages redirect to authentication endpoints and the session's web-search budget was exhausted; they are plausible but should be pulled from each published title page before print, since author affiliations frequently changed between preprint and publication in this cohort (Carrasquilla in particular moved to D-Wave Systems around the Nature Physics publication date).",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Broecker, Carrasquilla, Melko & Trebst showed that machine-learning classification of quantum Monte Carlo CONFIGURATIONS remains effective for sign-problematic interacting fermion models. Scientific Reports 7, 8823 (2017); https://doi.org/10.1038/s41598-017-09098-0",
+   "correction": "Bibliographic data are all correct (authors, order, venue, article number, DOI; arXiv:1608.07848, posted 28 August 2016). The physics claim is misleading and would be actively wrong next to the Ch'ng et al. entry, which DOES use auxiliary-field configurations. Accurate text: 'Peter Broecker, Juan Carrasquilla, Roger G. Melko and Simon Trebst showed that a convolutional neural network fed the Green's function sampled by auxiliary-field quantum Monte Carlo — the auxiliary field itself, they found, does not hold sufficient information — can correctly identify and locate quantum phase transitions in many-fermion systems, and that this works even in systems with a severe fermion sign problem, where conventional equal-time correlation functions extracted from the same Green's function fail.' URL unchanged: https://doi.org/10.1038/s41598-017-09098-0",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Hu, Singh & Scalettar, critical examination of PCA and autoencoders on square/triangular Ising, Blume-Capel, biquadratic-exchange spin-one Ising, and 2D XY. Phys. Rev. E 95, 062122 (2017); arXiv:1704.00080 posted 1 April 2017; https://doi.org/10.1103/PhysRevE.95.062122",
+   "correction": "Everything is right except the preprint date. arXiv:1704.00080 v1 was submitted Friday, 31 March 2017 (22:51 UTC), not 1 April 2017. Corrected text: '...arXiv preprint posted 31 March 2017 as arXiv:1704.00080.' Venue, authors, article number, DOI and model list all confirmed against the abstract. URL correct: https://doi.org/10.1103/PhysRevE.95.062122",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Huembeli, Dauphin & Wittek, adversarial domain adaptation to derive phase diagrams from ground states; Ising at finite temperature, Bose-Hubbard, disordered SSH. Phys. Rev. B 97, 134109 (2018); arXiv preprint posted 23 October 2017 as arXiv:1710.08382; https://doi.org/10.1103/PhysRevB.97.134109",
+   "correction": "The arXiv posting date is wrong. arXiv:1710.08382 v1 was submitted Wednesday, 11 October 2017 (16:00:21 UTC); v2 on 31 March 2018. Corrected text: '...arXiv preprint posted 11 October 2017 as arXiv:1710.08382.' Authors, order, venue (Phys. Rev. B 97, 134109 (2018)), DOI and the substance of the claim are all confirmed. URL correct: https://doi.org/10.1103/PhysRevB.97.134109",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Huembeli, Dauphin, Wittek & Gogolin 'used interpretability tools on networks trained to detect the MBL transition in order to extract the characteristic features the network relies on'. Phys. Rev. B 99, 104106 (2019); arXiv:1806.00419 posted 1 June 2018; https://doi.org/10.1103/PhysRevB.99.104106",
+   "correction": "Authors, order, venue, article number, DOI and preprint date are all correct, but the method is mischaracterized. The paper is not post-hoc interpretability applied to a supervised MBL classifier; it is an adversarial, game-theoretic setup between two networks with conflicting objectives, described by the authors as 'almost entirely unsupervised'. Accurate text: 'Patrick Huembeli, Alexandre Dauphin, Peter Wittek and Christian Gogolin used an adversarial, almost entirely unsupervised game between two neural networks to discover automatically which features of the data mark the disorder-driven many-body-localization transition — in effect a machine-found order parameter — pinning down the transition from far fewer disorder realizations and cutting the numerical effort of mapping the phase diagram by roughly a factor of a hundred.' URL unchanged: https://doi.org/10.1103/PhysRevB.99.104106",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Tomoki Ohtsuki and Tomi Ohtsuki applied deep CNNs to wave-function images of random 2D electron systems and ESTIMATED THE CRITICAL EXPONENTS and phase boundaries of the Anderson and quantum Hall transitions. J. Phys. Soc. Jpn. 85, 123706 (2016); arXiv posted 3 October 2016; https://doi.org/10.7566/JPSJ.85.123706",
+   "correction": "This is the most serious error in the dossier and it inverts what the paper says. The bibliography is right — Tomoki Ohtsuki (NTT DATA Mathematical Systems Inc.) and Tomi Ohtsuki (Sophia University), in that order, J. Phys. Soc. Jpn. 85, 123706 (2016), arXiv:1610.00462 v1 3 October 2016, DOI 10.7566/JPSJ.85.123706 — but the paper does NOT estimate critical exponents. Its own text states, of the scaling law P(W,L)=f[(W-Wc)L^(1/nu)], that 'determining the exponent nu is beyond the scope of this Letter.' The transitions treated are the localization-delocalization (Anderson) transition and the disordered Chern insulator-to-Anderson insulator transition, i.e. the quantum ANOMALOUS Hall setting, not the integer quantum Hall plateau transition. Accurate text: 'Tomoki Ohtsuki and Tomi Ohtsuki applied a multilayered convolutional neural network to images of eigenfunctions of random two-dimensional electron systems, using it to judge from a single eigenfunction which phase it belongs to and thereby to locate the localization-delocalization transition and the disordered Chern insulator-to-Anderson insulator transition — one of the earliest deep-learning treatments of a disorder-driven quantum phase transition. The authors explicitly left determination of the critical exponent to future work.' URL unchanged: https://doi.org/10.7566/JPSJ.85.123706. If a critical-exponent claim is wanted, do not attach it to this paper; the authors' three-dimensional follow-up is Tomi Ohtsuki and Tomoki Ohtsuki (note the reversed order), J. Phys. Soc. Jpn. 86, 044708 (2017), arXiv:1612.04909, https://doi.org/10.7566/JPSJ.86.044708 — and its exponent content must be checked separately before being asserted.",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "UNVERIFIABLE",
+   "claim": "Open question in the dossier: a Nature Physics 2019 'Machine learning phases of matter' landscape article.",
+   "correction": "I could not confirm any such article, and the dossier's own scepticism is warranted. 'Machine learning phases of matter' is unambiguously the Carrasquilla-Melko title (Nature Physics 13, 431-434, 2017). Nature Physics volume 15 (2019) does contain the three research papers noted (Rodriguez-Nieva & Scheurer p. 790; Rem et al. p. 917-920; Bohrdt et al. p. 921-924), but no accompanying editorial, News & Views, or landscape/overview article under that or a similar title surfaced in searching, and nature.com blocks direct fetching (HTTP 403 / auth redirect). Recommendation: cut this citation from the manuscript unless someone verifies it against the physical issue or a library copy. Do not paraphrase it into existence.",
+   "_domain": "ml-phase-detection"
+  },
+  {
+   "status": "REFUTED",
+   "claim": "Open question in the dossier: 'Ohtsuki & Ohtsuki attempted exponents directly' (offered as evidence on whether ML can deliver reliable critical exponents).",
+   "correction": "False, and it propagates the item-28 error into the open-questions section. The 2016 Letter states the opposite: 'determining the exponent nu is beyond the scope of this Letter.' Corrected text: 'Whether machine-learned phase boundaries can deliver quantitatively reliable critical exponents and finite-size scaling — as opposed to approximate transition locations — is still unsettled; Ohtsuki and Ohtsuki explicitly deferred determination of the exponent nu, and the general reliability of the approach for critical phenomena is not established.'",
+   "_domain": "ml-phase-detection"
+  }
+ ]
+}

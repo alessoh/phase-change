@@ -1,0 +1,613 @@
+{
+ "chapter": 15,
+ "title": "Phase Diagrams at Scale",
+ "outline": "The industrial chapter, and the one that must be written most carefully. High-throughput density functional theory databases turned crystal energetics into queryable data and made computed convex-hull phase diagrams routine. Surrogate models then replaced the density functional theory itself, and generative models began proposing crystals directly. The chapter's argument is that stability prediction is not discovery, a gap that Christopher Bartel and colleagues demonstrated in 2020 by showing that low formation-energy error does not imply correct stability classification, and which Matbench Discovery later formalized as a benchmark. Both headline 2023 results are presented together with their published criticism, in the same chapter rather than quarantined in a footnote.\n\nBuilt on the Materials Project, the Open Quantum Materials Database and AFLOW, CALPHAD and its coupling to machine learning, Xie and Grossman's crystal graph convolutional networks, M3GNet and CHGNet, CDVAE and MatterGen, GNoME together with the Cheetham and Seshadri critique regarding novelty, cation ordering and space-group distribution, the A-Lab paper together with its Leeman, Schoop and Palgrave critique and the 2026 Nature author correction that retitled it to inorganic materials and withdrew the novelty framing, Bartel and colleagues 2020, and Matbench Discovery.\n\nLeaves open: if the benchmark cannot tell a discovery from a rediscovery, what has been discovered?",
+ "domains": [
+  "materials-discovery",
+  "superconductivity-ml"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "The Materials Project, the flagship open high-throughput DFT database for computed materials properties and phase diagrams, was introduced in a 2013 APL Materials commentary; Kristin A. Persson is its founding director and Anubhav Jain its lead author.",
+   "people": "Anubhav Jain, Shyue Ping Ong, Geoffroy Hautier, Wei Chen, William Davidson Richards, Stephen Dacek, Shreyas Cholia, Dan Gunter, David Skinner, Gerbrand Ceder, Kristin A. Persson",
+   "affiliation": "Lawrence Berkeley National Laboratory and Massachusetts Institute of Technology",
+   "year": "2013",
+   "venue": "APL Materials 1(1), 011002",
+   "url": "https://doi.org/10.1063/1.4812323",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The technique of constructing multicomponent phase diagrams (grand-potential / convex-hull) purely from first-principles total energies was established for the Li-Fe-P-O2 system, the methodological ancestor of every computed phase diagram now served by the Materials Project.",
+   "people": "Shyue Ping Ong, Lei Wang, Byoungwoo Kang, Gerbrand Ceder",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2008",
+   "venue": "Chemistry of Materials 20(5), 1798-1807",
+   "url": "https://doi.org/10.1021/cm702327g",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The Open Quantum Materials Database (OQMD) was launched at Northwestern University as a freely available high-throughput DFT database of thermodynamic and structural properties; as of the current site it reports 1,407,395 materials.",
+   "people": "James E. Saal, Scott Kirklin, Muratahan Aykol, Bryce Meredig, C. Wolverton",
+   "affiliation": "Northwestern University",
+   "year": "2013",
+   "venue": "JOM 65(11), 1501-1509",
+   "url": "https://doi.org/10.1007/s11837-013-0755-4",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "A systematic OQMD benchmark found the mean absolute error between DFT-calculated and experimental formation energies is 0.096 eV/atom, while the MAE between independent experimental measurements of the same quantity is 0.082 eV/atom — meaning DFT error is close to the experimental scatter, and that ~0.1 eV/atom is the practical noise floor for any stability claim built on these databases.",
+   "people": "Scott Kirklin, James E Saal, Bryce Meredig, Alex Thompson, Jeff W Doak, Muratahan Aykol, Stephan Rühl, Chris Wolverton",
+   "affiliation": "Northwestern University; FIZ Karlsruhe",
+   "year": "2015",
+   "venue": "npj Computational Materials 1, 15010",
+   "url": "https://doi.org/10.1038/npjcompumats.2015.10",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "AFLOW, the automatic framework for high-throughput materials discovery led by Stefano Curtarolo at Duke, was described in 2012; the project's database is served at aflowlib.org.",
+   "people": "Stefano Curtarolo, Wahyu Setyawan, Gus L. W. Hart, Michal Jahnatek, Roman V. Chepulskii, Richard H. Taylor, Shidong Wang, Junkai Xue, Kesong Yang, Ohad Levy, Michael J. Mehl, Harold T. Stokes, Denis O. Demchenko, Dane Morgan",
+   "affiliation": "Duke University",
+   "year": "2012",
+   "venue": "Computational Materials Science 58, 218-226",
+   "url": "https://doi.org/10.1016/j.commatsci.2012.02.005",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CALPHAD — the semi-empirical computational thermodynamics method that produced multicomponent phase diagrams decades before AI entered materials science — was framed by its originator Larry Kaufman as the true 'birth of the materials genome'.",
+   "people": "Larry Kaufman, John Ågren",
+   "affiliation": "Cambridge, Massachusetts (Kaufman); KTH Royal Institute of Technology (Ågren)",
+   "year": "2014",
+   "venue": "Scripta Materialia 70, 3-6",
+   "url": "https://doi.org/10.1016/j.scriptamat.2012.12.003",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Zi-Kui Liu's 2023 review sets out the state of the art in CALPHAD modeling and its integration with first-principles calculations and machine learning, and is the standard reference for where the CALPHAD/ML boundary currently sits.",
+   "people": "Zi-Kui Liu",
+   "affiliation": "Pennsylvania State University",
+   "year": "2023",
+   "venue": "Calphad 82, 102580",
+   "url": "https://doi.org/10.1016/j.calphad.2023.102580",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Ab initio random structure searching (AIRSS) — the deliberately simple stochastic approach to crystal structure prediction — showed that randomly generated structures relaxed with DFT can find ground states without any evolutionary machinery, and remains a baseline any ML-based CSP method must beat.",
+   "people": "Chris J. Pickard, R. J. Needs",
+   "affiliation": "University College London (Pickard); University of Cambridge (Needs)",
+   "year": "2011",
+   "venue": "Journal of Physics: Condensed Matter 23(5), 053201",
+   "url": "https://doi.org/10.1088/0953-8984/23/5/053201",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "USPEX established evolutionary algorithms as the dominant pre-deep-learning method for crystal structure prediction, predicting stable structures from composition alone.",
+   "people": "Artem R. Oganov, Colin W. Glass",
+   "affiliation": "ETH Zurich",
+   "year": "2006",
+   "venue": "The Journal of Chemical Physics 124(24), 244704",
+   "url": "https://doi.org/10.1063/1.2210932",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Crystal graph convolutional neural networks (CGCNN) introduced the representation — a crystal as a periodic graph of atoms and bonds — that underlies essentially all subsequent deep learning on inorganic crystals, including GNoME and MatterGen.",
+   "people": "Tian Xie, Jeffrey C. Grossman",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2018",
+   "venue": "Physical Review Letters 120(14), 145301",
+   "url": "https://doi.org/10.1103/PhysRevLett.120.145301",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "M3GNet was the first universal graph-network interatomic potential covering the whole periodic table, trained on Materials Project relaxation trajectories, enabling fast structure relaxation and energy prediction in place of DFT.",
+   "people": "Chi Chen, Shyue Ping Ong",
+   "affiliation": "University of California San Diego",
+   "year": "2022",
+   "venue": "Nature Computational Science 2(11), 718-728",
+   "url": "https://doi.org/10.1038/s43588-022-00349-3",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CHGNet, trained on over 1.5 million structures from a decade of Materials Project DFT data, adds magnetic moments as an explicit output so that charge state is captured — enabling charge-informed molecular dynamics and phase-diagram prediction for battery materials.",
+   "people": "Bowen Deng, Peichen Zhong, KyuJung Jun, Janosh Riebesell, Kevin Han, Christopher J. Bartel, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley and Lawrence Berkeley National Laboratory",
+   "year": "2023",
+   "venue": "Nature Machine Intelligence 5(9), 1031-1041",
+   "url": "https://doi.org/10.1038/s42256-023-00716-3",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "A critical benchmark of seven ML models on 85,014 Materials Project compositions found that accurate formation-energy prediction does not imply accurate stability prediction: composition-only models 'perform poorly on predicting the stability of compounds', and structural models substantially outperform them, especially in sparse chemical spaces. This is the foundational methodological caution for all downstream discovery claims.",
+   "people": "Christopher J. Bartel, Amalie Trewartha, Qi Wang, Alexander Dunn, Anubhav Jain, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley and Lawrence Berkeley National Laboratory",
+   "year": "2020",
+   "venue": "npj Computational Materials 6, 97",
+   "url": "https://doi.org/10.1038/s41524-020-00362-y",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Matbench Discovery formalized the evaluation of ML crystal-stability predictions, showing a misalignment between commonly used regression metrics and the classification metrics that actually matter for discovery, and concluding that universal interatomic potentials have advanced enough to cheaply pre-screen hypothetical stable materials.",
+   "people": "Janosh Riebesell, Rhys E. A. Goodall, Philipp Benner, Yuan Chiang, Bowen Deng, Gerbrand Ceder, Mark Asta, Alpha A. Lee, Anubhav Jain, Kristin A. Persson",
+   "affiliation": "University of Cambridge, Lawrence Berkeley National Laboratory, University of California Berkeley, Bundesanstalt für Materialforschung und -prüfung",
+   "year": "2025",
+   "venue": "Nature Machine Intelligence 7, 836-847 (arXiv:2308.14920 preprint, 2023)",
+   "url": "https://doi.org/10.1038/s42256-025-01055-1",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "GNoME (Graph Networks for Materials Exploration) reported the discovery of 2.2 million crystal structures below the convex hull, of which 381,000 were described as newly discovered stable materials — claimed as an order-of-magnitude expansion in stable materials known to humanity.",
+   "people": "Amil Merchant, Simon Batzner, Samuel S. Schoenholz, Muratahan Aykol, Gowoon Cheon, Ekin Dogus Cubuk",
+   "affiliation": "Google DeepMind",
+   "year": "2023",
+   "venue": "Nature 624(7990), 80-85 (published online 29 November 2023)",
+   "url": "https://doi.org/10.1038/s41586-023-06735-9",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Google DeepMind's accompanying announcement stated that of the 2.2 million new crystals, '380,000 are the most stable', that these would be contributed to the Materials Project, and that external labs had independently created 736 of the structures experimentally — note the blog's 380,000 differs slightly from the paper's 381,000.",
+   "people": "",
+   "affiliation": "Google DeepMind",
+   "year": "2023",
+   "venue": "Google DeepMind blog, 29 November 2023",
+   "url": "https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Cheetham and Seshadri examined randomized subsets of GNoME's outputs and found 'scant evidence for compounds that fulfill the trifecta of novelty, credibility, and utility'. They identified the structure of all 10 randomly selected entries from the 384,870-entry Stable Structure database in the ICSD; found the space-group distribution wildly unlike reality (Pnma is ~16% of ICSD structures but ranks 16th at 1.56% in GNoME's set, and the top four GNoME space groups are all non-centrosymmetric, ~34% of entries, versus ~1% in ICSD); and flagged 18,138 compounds containing Pm, Ac or Pa plus 23,529 containing Tc, Np or Pu as having no plausible utility.",
+   "people": "Anthony K. Cheetham, Ram Seshadri",
+   "affiliation": "University of California Santa Barbara (both); National University of Singapore (Cheetham)",
+   "year": "2024",
+   "venue": "Chemistry of Materials 36(8), 3490-3495",
+   "url": "https://doi.org/10.1021/acs.chemmater.4c00643",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The A-Lab, an autonomous robotic solid-state synthesis platform, reported realizing 41 novel compounds from 58 targets over 17 days of continuous operation, using targets identified from Materials Project and Google DeepMind ab initio phase-stability data.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley, Lawrence Berkeley National Laboratory, Google DeepMind, University of Minnesota",
+   "year": "2023",
+   "venue": "Nature 624(7990), 86-91 (published online 29 November 2023)",
+   "url": "https://doi.org/10.1038/s41586-023-06734-w",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Leeman, Schoop, Palgrave and co-workers published a peer-reviewed rebuttal identifying substantial errors in A-Lab's automated Rietveld analysis of powder X-ray diffraction data, arguing there was insufficient evidence for the discovery of new materials and that roughly two-thirds of the claimed successes were likely known compositionally disordered versions of the predicted ordered compounds — because DFT at 0 K neglects configurational entropy and forces atoms onto distinct crystallographic sites.",
+   "people": "Josh Leeman, Yuhan Liu, Joseph Stiles, Scott B. Lee, Prajna Bhatt, Leslie M. Schoop, Robert G. Palgrave",
+   "affiliation": "Princeton University (Leeman, Liu, Stiles, Lee, Schoop); University College London (Bhatt, Palgrave)",
+   "year": "2024",
+   "venue": "PRX Energy 3(1), 011002 (published 7 March 2024)",
+   "url": "https://doi.org/10.1103/PRXEnergy.3.011002",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature published an Author Correction on 19 January 2026 (print 5 February 2026) that retitled the A-Lab paper from 'novel materials' to 'inorganic materials'. The authors state their intention 'was to indicate that the materials were new to the prediction platform, not necessarily new to science'. On manual re-analysis, they confirmed the platform reached the correct conclusion in 36 of its 40 reported successes, with 4 inconclusive; the total was updated to exclude four targets inconclusive from XRD alone, and one compound (Zn2Cr3FeO8) was removed because it had mistakenly been included in the training data.",
+   "people": "Nathan J. Szymanski, Bernardus Rendy, Yuxing Fei, Rishi E. Kumar, Tanjin He, David Milsted, Matthew J. McDermott, Max Gallant, Ekin Dogus Cubuk, Amil Merchant, Haegyeom Kim, Anubhav Jain, Christopher J. Bartel, Kristin Persson, Yan Zeng, Gerbrand Ceder",
+   "affiliation": "University of California Berkeley, Lawrence Berkeley National Laboratory, Google DeepMind, University of Minnesota",
+   "year": "2026",
+   "venue": "Nature 650(8100), E1",
+   "url": "https://doi.org/10.1038/s41586-025-09992-y",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature's own news desk covered the A-Lab dispute within two weeks of publication, reporting that the robot chemist's claim to have created new materials had sparked a row among solid-state chemists.",
+   "people": "Mark Peplow",
+   "affiliation": "Nature (freelance science journalist)",
+   "year": "2023",
+   "venue": "Nature news, 12 December 2023",
+   "url": "https://doi.org/10.1038/d41586-023-03956-w",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "CDVAE (Crystal Diffusion Variational Autoencoder) introduced diffusion-based generative modelling of periodic crystals with the correct invariances, and is the direct methodological predecessor of MatterGen; Tian Xie, its first author, later led MatterGen at Microsoft.",
+   "people": "Tian Xie, Xiang Fu, Octavian-Eugen Ganea, Regina Barzilay, Tommi Jaakkola",
+   "affiliation": "Massachusetts Institute of Technology CSAIL",
+   "year": "2022",
+   "venue": "ICLR 2022 (arXiv:2110.06197, submitted 12 October 2021)",
+   "url": "https://arxiv.org/abs/2110.06197",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "MatterGen is a diffusion generative model for inorganic materials that can be fine-tuned to generate structures conditioned on target chemistry, symmetry, and mechanical, electronic or magnetic property constraints, rather than screening a fixed candidate pool.",
+   "people": "Claudio Zeni, Robert Pinsler, Daniel Zügner, Andrew Fowler, Matthew Horton, Xiang Fu, Zilong Wang, Aliaksandra Shysheya, Jonathan Crabbé, Shoko Ueda, Roberto Sordillo, Lixin Sun, Jake Smith, Bichlien Nguyen, Hannes Schulz, Sarah Lewis, Chin-Wei Huang, Ziheng Lu, Yichi Zhou, Han Yang, Hongxia Hao, Jielan Li, Chunlei Yang, Wenjie Li, Ryota Tomioka, Tian Xie",
+   "affiliation": "Microsoft Research AI for Science",
+   "year": "2025",
+   "venue": "Nature 639(8055), 624-632 (published online 16 January 2025)",
+   "url": "https://doi.org/10.1038/s41586-025-08628-5",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Machine learning models trained on the SuperCon database were used to classify superconductors above/below 10 K and regress critical temperature, then applied to screen ICSD compounds for candidate superconductors — the reference work for ML-driven Tc prediction.",
+   "people": "Valentin Stanev, Corey Oses, A. Gilad Kusne, Efrain Rodriguez, Johnpierre Paglione, Stefano Curtarolo, Ichiro Takeuchi",
+   "affiliation": "University of Maryland (Stanev, Rodriguez, Paglione, Takeuchi); Duke University (Oses, Curtarolo); NIST (Kusne)",
+   "year": "2018",
+   "venue": "npj Computational Materials 4, 29",
+   "url": "https://doi.org/10.1038/s41524-018-0085-8",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "SuperCon, the superconducting-materials database that supplies the training labels for essentially all ML Tc work, is maintained by Japan's National Institute for Materials Science; the current re-edited public release is distributed as the MDR SuperCon Datasheet under CC BY 4.0.",
+   "people": "",
+   "affiliation": "National Institute for Materials Science (NIMS), Materials Database Group, Japan",
+   "year": "2025",
+   "venue": "NIMS Materials Data Repository (MDR), collection last updated 22 March 2025",
+   "url": "https://mdr.nims.go.jp/collections/5712mb227",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The LK-99 episode began with a preprint claiming 'the first room-temperature ambient-pressure superconductor', asserting Tc greater than or equal to 400 K in a copper-substituted lead apatite, with superconductivity attributed to structural distortion rather than temperature or pressure.",
+   "people": "Sukbae Lee, Ji-Hoon Kim, Young-Wan Kwon",
+   "affiliation": "Quantum Energy Research Centre, Seoul (as stated on the preprint; affiliation not independently verified here)",
+   "year": "2023",
+   "venue": "arXiv:2307.12008, submitted 22 July 2023",
+   "url": "https://arxiv.org/abs/2307.12008",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "The apparent resistivity drop in LK-99 was attributed to the first-order superionic phase transition of the Cu2S impurity near 385 K — a mundane impurity artifact, not superconductivity.",
+   "people": "Prashant K. Jain",
+   "affiliation": "University of Illinois Urbana-Champaign",
+   "year": "2023",
+   "venue": "The Journal of Physical Chemistry C 127(37), 18253-18255",
+   "url": "https://doi.org/10.1021/acs.jpcc.3c05684",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Growth of actual single crystals of Pb10-xCux(PO4)6O at the Max Planck Institute for Solid State Research showed the material is a transparent purple insulator with no superconducting transition, settling the structural and magnetic question that polycrystalline samples had obscured.",
+   "people": "P. Puphal, M. Y. P. Akbar, M. Hepting, E. Goering, M. Isobe, A. A. Nugroho, B. Keimer",
+   "affiliation": "Max Planck Institute for Solid State Research, Stuttgart; Institut Teknologi Bandung",
+   "year": "2023",
+   "venue": "APL Materials 11(10), 101128",
+   "url": "https://doi.org/10.1063/5.0172755",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "Nature's news account of how the LK-99 claim was resolved within roughly three weeks by distributed replication attempts is the canonical narrative of the episode and the standard reference for its use as a cautionary tale about preprint-driven hype in materials science.",
+   "people": "Dan Garisto",
+   "affiliation": "Nature (freelance science journalist)",
+   "year": "2023",
+   "venue": "Nature 620, 705-706 (16 August 2023)",
+   "url": "https://doi.org/10.1038/d41586-023-02585-7",
+   "confidence": "verified",
+   "_domain": "materials-discovery"
+  },
+  {
+   "claim": "BCS theory establishes the superconducting transition as a continuous phase transition whose order parameter is the energy gap: an attractive phonon-mediated interaction between electrons near the Fermi surface produces a paired ground state, and the gap Delta(T) closes continuously as T approaches Tc. This is the theoretical object every Tc-prediction model is implicitly approximating.",
+   "people": "John Bardeen, Leon N. Cooper, J. Robert Schrieffer",
+   "affiliation": "Department of Physics, University of Illinois, Urbana",
+   "year": "1957",
+   "venue": "Physical Review 108, 1175-1204",
+   "url": "https://doi.org/10.1103/PhysRev.108.1175",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "Ginzburg-Landau theory (1950) describes the transition phenomenologically via a complex order parameter psi, an expansion of the free energy in |psi|^2 and |psi|^4, and two length scales (coherence length and penetration depth) whose ratio kappa separates type-I from type-II behaviour. Ginzburg's 2004 Nobel Lecture is a citable first-person account of the 1950 construction and of what it does and does not explain. The original paper is V. L. Ginzburg and L. D. Landau, Zh. Eksp. Teor. Fiz. 20, 1064 (1950); no stable open DOI for that original was located.",
+   "people": "Vitaly L. Ginzburg (with Lev D. Landau for the 1950 original)",
+   "affiliation": "P. N. Lebedev Physical Institute, Moscow",
+   "year": "2004 (Nobel Lecture); 1950 (original paper)",
+   "venue": "Reviews of Modern Physics 76, 981-998 (Nobel Lecture)",
+   "url": "https://doi.org/10.1103/RevModPhys.76.981",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "SuperCon is the empirical substrate for essentially all composition-based ML on superconductivity, and its provenance matters. It originated in NIMS (Japan) work traceable to a national 'Multi-Core' project begun in 1987 following the 1986 cuprate discovery, was distributed as part of the MatNavi database, had its web GUI service decommissioned in 2021, and is now published as re-edited 'MDR SuperCon Datasheet' releases under CC-BY with a new DOI issued per revision. Reported record counts differ by version (figures of roughly 16,400, 26,323 and 32,000 appear in different sources), which is itself a caution for anyone quoting dataset size.",
+   "people": "National Institute for Materials Science (NIMS) — institutional dataset, no single author",
+   "affiliation": "National Institute for Materials Science, Tsukuba, Japan",
+   "year": "1987 origin; MDR releases from 2022, updated through 2025",
+   "venue": "NIMS Materials Data Repository (MDR) / DICE",
+   "url": "https://mdr.nims.go.jp/collections/5712mb227",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "SuperCon2 was built by machine-reading the literature rather than by hand curation: Grobid-superconductors, a Grobid module mixing ML sequence labelling with heuristics, extracted 40,324 material-property records from 37,700 papers, capturing material name, formula, class, shape, doping, substrate, Tc, and where available applied pressure and measurement method. This is the provenance answer to 'where would more superconductor data come from', and also a new source of extraction error.",
+   "people": "Luca Foppiano, Pedro Baptista de Castro, Pedro Ortiz Suarez, Kensei Terashima, Yoshihiko Takano, Masashi Ishii",
+   "affiliation": "National Institute for Materials Science, Tsukuba (with co-authors at Inria/Sorbonne for Ortiz Suarez)",
+   "year": "2023 (journal); arXiv October 2022",
+   "venue": "Science and Technology of Advanced Materials: Methods 3, 2153633",
+   "url": "https://doi.org/10.1080/27660400.2022.2153633",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "3DSC augments SuperCon entries with approximate three-dimensional crystal structures by matching compositions to structural databases, explicitly to address the fact that SuperCon carries composition only. The authors show empirically that access to structural information improves Tc prediction — a direct measurement of how much the composition-only setup was leaving on the table.",
+   "people": "Timo Sommer, Roland Willa, Jörg Schmalian, Pascal Friederich",
+   "affiliation": "Karlsruhe Institute of Technology (Institute of Theoretical Condensed Matter and Institute of Nanotechnology)",
+   "year": "2023 (journal); arXiv December 2022",
+   "venue": "Scientific Data 10, 816",
+   "url": "https://doi.org/10.1038/s41597-023-02721-y",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "The canonical paper. Using SuperCon (over 12,000 entries), the authors trained a random-forest classifier on composition-derived (Magpie-style) features to sort materials above or below 10 K at about 92% out-of-sample accuracy, then trained separate regression models for the cuprate, iron-based and low-Tc families, and combined classification and regression into a pipeline that screened the ICSD. The screen proposed more than 30 non-cuprate, non-iron-based oxides as candidates. Note the year split: arXiv September 2017, journal 2018.",
+   "people": "Valentin Stanev, Corey Oses, A. Gilad Kusne, Efrain Rodriguez, Johnpierre Paglione, Stefano Curtarolo, Ichiro Takeuchi",
+   "affiliation": "University of Maryland, College Park (Stanev, Kusne, Rodriguez, Paglione, Takeuchi); Duke University (Oses, Curtarolo); National Institute of Standards and Technology (Kusne)",
+   "year": "2018 (npj); arXiv 1709.02727 submitted 8 September 2017",
+   "venue": "npj Computational Materials 4, 29",
+   "url": "https://doi.org/10.1038/s41524-018-0085-8",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "Hamidieh's regression model on SuperCon-derived features (thermal conductivity, atomic radius, valence, electron affinity, atomic mass, aggregated over the formula) reported out-of-sample RMSE of about 9.5 K. Two limitations are stated by the author and are widely ignored by users of the resulting dataset: the model predicts Tc only for materials already assumed to be superconductors, and it says nothing about whether a compound superconducts at all. The associated feature table became the UCI 'Superconductivity Data' set and is now the most heavily reused benchmark in the area, which propagates SuperCon's errors into hundreds of downstream papers.",
+   "people": "Kam Hamidieh",
+   "affiliation": "University of Pennsylvania (statistics; affiliation stated in the arXiv preprint, not independently re-verified here)",
+   "year": "2018 (journal); arXiv 1803.10260 March 2018",
+   "venue": "Computational Materials Science 154, 346-354",
+   "url": "https://arxiv.org/abs/1803.10260",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "An unsupervised/embedding approach: element vectors learned from SuperCon compositions, then regression of Tc, reporting R^2 of about 0.93 and proposing new high-Tc candidates. Useful as a data point that very high reported R^2 on random splits is routine in this literature and by itself carries no discovery information.",
+   "people": "Benjamin Roter, Sasa V. Dordevic",
+   "affiliation": "Department of Physics, University of Akron (affiliation not independently re-verified here)",
+   "year": "2020 (journal); arXiv 2002.07266 February 2020",
+   "venue": "Physica C: Superconductivity and its Applications 575, 1353689",
+   "url": "https://arxiv.org/abs/2002.07266",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "The key methodological critique, and the cleanest statement of the interpolation problem. The authors show that standard random k-fold cross-validation systematically overestimates model usefulness for discovery, and introduce leave-one-cluster-out cross-validation (LOCO CV) plus a nearest-neighbour benchmark to measure extrapolation instead. Superconductor Tc is the worked example, hence the title. Their conclusion is that ML-guided iterative experiment, not one-shot high-throughput screening, is the route to a genuinely new high-Tc material.",
+   "people": "Bryce Meredig, Erin Antono, Carena Church, Maxwell Hutchinson, Julia Ling, Sean Paradiso, Ben Blaiszik, Ian Foster, Brenna Gibbons, Jason Hattrick-Simpers, Apurva Mehta, Logan Ward",
+   "affiliation": "Citrine Informatics; University of Chicago and Argonne National Laboratory; NIST; SLAC (full author list and affiliation mapping not fully re-verified here)",
+   "year": "2018",
+   "venue": "Molecular Systems Design & Engineering 3, 819-825",
+   "url": "https://doi.org/10.1039/C8ME00012C",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A large, careful composition-only study that documents concrete SuperCon data pathologies: roughly 4,000 entries with no reported Tc or an explicit report of no superconductivity, and multiply-reported compositions requiring the authors to take a median Tc per composition. The paper also states the structural limitation plainly — the approach cannot differentiate materials with multiple stable phases having distinct properties — and reports that family-specific models (cuprate, iron-based) did not beat their general model.",
+   "people": "Son Gyo Jung, Guwon Jung, Jacqueline M. Cole",
+   "affiliation": "Cavendish Laboratory, University of Cambridge; ISIS Neutron and Muon Source and Scientific Computing Department, STFC Rutherford Appleton Laboratory",
+   "year": "2024",
+   "venue": "Journal of Chemical Information and Modeling 64(19), 7349-7375",
+   "url": "https://doi.org/10.1021/acs.jcim.4c01137",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A recent, explicit example of the confirmation gap: similarity-based ridge regression on SuperCon reports approximately 5 K average out-of-sample Tc error and, screening about 153,000 Materials Project entries, proposes LiCuF4, Ag2H12S(NO)4 and Na2H6PtO6 at roughly 315-316 K. No experimental verification of any candidate is claimed. Predicting a fluoride and an oxide at 316 K from a model trained overwhelmingly on cuprates is precisely the extrapolation regime Meredig and colleagues warned about.",
+   "people": "Siwoo Lee, Jason Hattrick-Simpers, Young-June Kim, O. Anatole von Lilienfeld",
+   "affiliation": "University of Toronto (affiliations not independently re-verified here)",
+   "year": "arXiv June 2024, revised November 2024; journal version 2025",
+   "venue": "arXiv:2406.14524; journal version in Machine Learning: Science and Technology",
+   "url": "https://arxiv.org/abs/2406.14524",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A 28-page review that states the field's uncomfortable summary directly: SuperCon data quality remains uncertain; ML models struggle to predict outside their training distribution, particularly for high-pressure hydrides representing genuinely novel chemistry; and ML-predicted superconductors have rarely been experimentally confirmed. It also makes the composition-only criticism concrete — identical formulas can correspond to structures with very different Tc.",
+   "people": "Huan Tran, Hieu-Chi Dam, Christopher Kuenneth, Tuoc N. Vu, Hiori Kino",
+   "affiliation": "Multi-institution (Georgia Tech / JAIST / University of Bayreuth / Hanoi University of Science and Technology / NIMS — mapping not independently re-verified here)",
+   "year": "2024 (journal); arXiv posting October 2025",
+   "venue": "Chemistry of Materials 36(22), 10939-10966",
+   "url": "https://doi.org/10.1021/acs.chemmater.4c01757",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "The strongest documented case of ML actually producing a new superconductor. Four closed-loop cycles of ML prediction followed by synthesis and measurement, with results fed back into the model, more than doubled the discovery success rate. Concrete outcome: one new superconductor found in the Zr-In-Ni system, five superconductors rediscovered that were absent from the training data, and two further phase diagrams flagged as promising. Note the modest scale of the win — one genuinely new compound, not a high-Tc breakthrough.",
+   "people": "Elizabeth A. Pogue, Alexander New, Kyle McElroy, Nam Q. Le, Michael J. Pekala, Ian McCue, Eddie Gienger, Janna Domenico, Elizabeth Hedrick, Tyrel M. McQueen, Brandon Wilfong, Christine D. Piatko, Christopher R. Ratto, Andrew Lennon, Christine Chung, Timothy Montalbano, Gregory Bassen, Christopher D. Stiles",
+   "affiliation": "Johns Hopkins University Applied Physics Laboratory; Johns Hopkins University; Northwestern University (McCue)",
+   "year": "2023 (journal); arXiv 2212.11855 December 2022",
+   "venue": "npj Computational Materials 9, 181",
+   "url": "https://doi.org/10.1038/s41524-023-01131-3",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A physics-constrained alternative to composition-only ML: BCS-inspired pre-screening of 1,736 materials on Debye temperature and electronic density of states, electron-phonon coupling calculations for 1,058 of them, and 105 dynamically stable materials with Tc >= 5 K by the McMillan-Allen-Dynes formula (examples reported include MoN, VC, VTe, KB6, Ru3NbC, V3Pt, ScN, LaN2, RuO2, TaC). Methodologically important finding: predicting the Eliashberg function as an intermediate quantity improves the deep-learning model over predicting Tc directly.",
+   "people": "Kamal Choudhary, Kevin Garrity",
+   "affiliation": "Materials Science and Engineering Division, National Institute of Standards and Technology (JARVIS infrastructure)",
+   "year": "2022 (journal); arXiv 2205.00060 April 2022",
+   "venue": "npj Computational Materials 8, 244",
+   "url": "https://doi.org/10.1038/s41524-022-00933-1",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "Machine learning used to improve the theory rather than to bypass it: symbolic regression (SISSO) applied to a database of artificially generated alpha^2 F(omega) spectral functions and numerical Eliashberg solutions yields a closed-form Tc expression that matches Allen-Dynes for low-Tc superconductors and substantially outperforms it at high Tc. This is the cleanest example of ML producing a transferable, interpretable result about the transition itself.",
+   "people": "S. R. Xie, Y. Quan, A. C. Hire, B. Deng, J. M. DeStefano, I. Salinas, U. S. Shah, L. Fanfarillo, J. Lim, J. Kim, G. R. Stewart, J. J. Hamlin, P. J. Hirschfeld, R. G. Hennig",
+   "affiliation": "University of Florida (Department of Physics and Department of Materials Science and Engineering)",
+   "year": "2022 (journal); arXiv 2106.05235 June 2021",
+   "venue": "npj Computational Materials 8, 14",
+   "url": "https://doi.org/10.1038/s41524-021-00666-7",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "ML as a triage layer over ab initio physics at scale: roughly 7,000 converged electron-phonon calculations were used to train a model predicting electron-phonon and superconducting properties from structural, compositional and electronic ground-state descriptors; approximately 200,000 metallic compounds were then evaluated, candidates above 5 K validated with density-functional perturbation theory, and 541 compounds with Tc above 10 K identified. Note the difference from SuperCon-based work: the training labels are computed, not experimental, so the model inherits Migdal-Eliashberg assumptions rather than database errors.",
+   "people": "Tiago F. T. Cerqueira, Antonio Sanna, Miguel A. L. Marques",
+   "affiliation": "CFisUC, University of Coimbra; Max Planck Institute of Microstructure Physics, Halle; Ruhr University Bochum",
+   "year": "2024 (journal); arXiv 2307.10728 July 2023",
+   "venue": "Advanced Materials 36(1), 2307085",
+   "url": "https://doi.org/10.1002/adma.202307085",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A high-throughput survey of binary hydrides across the periodic table from 10 to 500 GPa using crystal structure prediction, with a learned model used to rank candidates before converged electron-phonon calculations were run for 121 of them, yielding 36 dynamically stable superconductors above 100 K. Marked an Editors' Suggestion in Physical Review B. Illustrates the standard hydride workflow: structure search first, ML as a cost-reduction surrogate, first-principles electron-phonon theory as the arbiter.",
+   "people": "Alice M. Shipley, Michael J. Hutcheon, Richard J. Needs, Chris J. Pickard",
+   "affiliation": "University of Cambridge (Cavendish Laboratory and Department of Materials Science and Metallurgy)",
+   "year": "2021 (journal); arXiv 2105.02296 May 2021",
+   "venue": "Physical Review B 104, 054501",
+   "url": "https://doi.org/10.1103/PhysRevB.104.054501",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "CONFIRMED PREDICTION. Duan and colleagues predicted in 2014 that dense (H2S)2H2 would metallize and superconduct, with Im-3m H3S computed at 191-204 K near 200 GPa using the Allen-Dynes-modified McMillan equation. Drozdov, Eremets and co-workers reported 203 K in the sulfur hydride system at high pressure the following year, with an isotope effect supporting the conventional phonon mechanism. This is the field's flagship theory-first success — and it came from crystal-structure search plus electron-phonon theory, not from data-driven ML.",
+   "people": "Defang Duan, Yunxian Liu, Fubo Tian, Tian Cui and co-workers (prediction); A. P. Drozdov, M. I. Eremets, I. A. Troyan, V. Ksenofontov, S. I. Shylin (experiment)",
+   "affiliation": "State Key Laboratory of Superhard Materials, Jilin University (prediction); Max-Planck-Institut für Chemie, Mainz, and Johannes Gutenberg-Universität Mainz (experiment)",
+   "year": "2014 (prediction); 2015 (experiment)",
+   "venue": "Scientific Reports 4, 6968 (2014); Nature 525, 73-76 (2015)",
+   "url": "https://doi.org/10.1038/srep06968",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "CONFIRMED PREDICTION. Two independent 2017 computational papers predicted clathrate rare-earth superhydrides: Liu, Naumov, Hoffmann, Ashcroft and Hemley (PNAS 114, 6990-6995) for La and Y hydrides, and Peng, Sun, Pickard, Needs, Wu and Ma (Physical Review Letters 119, 107001), the latter predicting YH10 at up to 303 K near 400 GPa. LaH10 was then reported experimentally twice: Somayazulu and colleagues saw a resistance drop beginning near 260 K at about 190 GPa (Physical Review Letters 122, 027001, 2019) and Drozdov, Eremets and colleagues reported 250 K (Nature 569, 528-531, 2019). Errea and colleagues subsequently showed that quantum atomic fluctuations are what stabilize the high-symmetry Fm-3m structure, with electron-phonon coupling lambda of about 3.5 (Nature 578, 66-69, 2020). YH10 at 303 K has NOT been confirmed.",
+   "people": "Hanyu Liu, Ivan I. Naumov, Roald Hoffmann, N. W. Ashcroft, Russell J. Hemley (prediction); Feng Peng, Ying Sun, Chris J. Pickard, Richard J. Needs, Qiang Wu, Yanming Ma (prediction); Maddury Somayazulu, Muhtar Ahart, Ajay K. Mishra, Zachary M. Geballe, Maria Baldini, Yue Meng, Viktor V. Struzhkin, Russell J. Hemley (experiment); A. P. Drozdov, P. P. Kong, V. S. Minkov, M. I. Eremets and co-workers (experiment); Ion Errea, Francesco Belli, Lorenzo Monacelli, Antonio Sanna, Takashi Koretsune, Terumasa Tadano, Raffaello Bianco, Matteo Calandra, Ryotaro Arita, Francesco Mauri, José A. Flores-Livas (theory of the observed structure)",
+   "affiliation": "Carnegie Institution for Science / Cornell University / George Washington University (Liu et al.); Jilin University and University of Cambridge (Peng et al.); Max-Planck-Institut für Chemie, Mainz (Drozdov et al.)",
+   "year": "2017 predictions; 2019 experiments; 2020 structural theory",
+   "venue": "PNAS 114, 6990-6995; Physical Review Letters 119, 107001; Physical Review Letters 122, 027001; Nature 569, 528-531; Nature 578, 66-69",
+   "url": "https://doi.org/10.1073/pnas.1704505114",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "NOT CONFIRMED — RETRACTED. Two room-temperature superconductivity claims from the group of Ranga Dias were retracted. 'Room-temperature superconductivity in a carbonaceous sulfur hydride' (Nature 586, 373, 2020, claiming 15 degrees C at 267 GPa) was retracted in 2022 after editors established that a non-standard, undisclosed, user-defined background subtraction had been applied to the raw magnetic susceptibility data. 'Evidence of near-ambient superconductivity in a N-doped lutetium hydride' (Nature 615, 244-250, 2023) was retracted in November 2023 at the request of eight co-authors, who stated the paper did not accurately reflect the provenance of the materials, the measurements undertaken, or the data-processing protocols; the journal separately found credible, substantial and unresolved concerns about the resistance data, and other groups failed to reproduce the result.",
+   "people": "Elliot Snider, Nathan Dasenbrock-Gammon, Raymond McBride, Ashkan Salamat, Ranga P. Dias and co-authors",
+   "affiliation": "University of Rochester; University of Nevada, Las Vegas",
+   "year": "2020 published / 2022 retracted; 2023 published / 2023 retracted",
+   "venue": "Nature 586, 373-377 and Retraction Note Nature 610, 804 (2022); Nature 615, 244-250 and Retraction Note Nature 624, 460 (2023)",
+   "url": "https://doi.org/10.1038/s41586-022-05294-9",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "DISPUTED, NOT RETRACTED. J. E. Hirsch and F. Marsiglio argue that the experimental observations on high-pressure hydrides rule out conventional superconductivity, leaving either an exotic 'nonstandard' superconductor or no superconductivity at all, and judge the latter more probable; Hirsch has also published with D. van der Marel challenging specific datasets. The Eremets group's principal rebuttal evidence is SQUID magnetometry under pressure reporting superconducting parameters for Im-3m H3S and Fm-3m LaH10 (Minkov, Prakapenka, Greenberg, Eremets, Nature Communications 13, 3194, 2022), itself the subject of a 2023 author correction and continuing published exchange. Any account of hydride Tc predictions should state that the confirmations rest on contested measurements.",
+   "people": "J. E. Hirsch, F. Marsiglio (critics); V. S. Minkov, V. B. Prakapenka, E. Greenberg, M. I. Eremets (defenders)",
+   "affiliation": "University of California, San Diego (Hirsch); University of Alberta (Marsiglio); Max-Planck-Institut für Chemie, Mainz and University of Chicago (Minkov et al.)",
+   "year": "2021 (Hirsch and Marsiglio); 2022 with 2023 correction (Minkov et al.)",
+   "venue": "Physical Review B 103, 134505; Nature Communications 13, 3194",
+   "url": "https://doi.org/10.1103/PhysRevB.103.134505",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "ML applied to the transition rather than to Tc: an ensemble of artificial neural networks trained on candidate order types was used to detect hidden electronic order in scanning-tunnelling-microscopy image arrays from cuprates, identifying a commensurate four-unit-cell periodic modulation. Widely cited as the demonstration that neural networks can extract order-parameter structure from raw experimental quantum-matter images.",
+   "people": "Yi Zhang, A. Mesaros, K. Fujita, S. D. Edkins, M. H. Hamidian, K. Ch'ng, H. Eisaki, S. Uchida, J. C. Séamus Davis, Ehsan Khatami, Eun-Ah Kim",
+   "affiliation": "Cornell University; San Jose State University; Ewha Womans University; AIST and University of Tokyo",
+   "year": "2019 (journal); arXiv 1808.00479 August 2018",
+   "venue": "Nature 570, 484-490",
+   "url": "https://doi.org/10.1038/s41586-019-1319-8",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "Machine learning aimed directly at pairing mechanism and gap structure. Within Migdal-Eliashberg theory, supervised learning maps superconducting gap functions to electron-boson spectral functions, with an autoencoder compressing the spectral functions so the asymmetric function-to-function mapping remains learnable. A related and more recent line trains two-head convolutional networks on quasiparticle-interference images to classify pairing symmetry by irreducible representation and to regress continuous parameters such as singlet-triplet mixing and gap magnitude.",
+   "people": "Wan-Ju Li, Ming-Chien Hsu, Shin-Ming Huang",
+   "affiliation": "National Sun Yat-sen University, Taiwan (affiliation not independently re-verified here)",
+   "year": "2020",
+   "venue": "New Journal of Physics 22, 123014",
+   "url": "https://arxiv.org/abs/2007.07512",
+   "confidence": "probable",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "Unsupervised ML for mapping phase diagrams from raw measurement data: nonnegative matrix factorization combined with custom clustering and cross-correlation robustly determines how many basis diffraction patterns are present in a combinatorial X-ray diffraction dataset and handles peak-shifted patterns. Same Maryland/NIST group as the 2018 Tc paper, and the natural companion technique for locating phase boundaries experimentally rather than predicting Tc from a formula.",
+   "people": "Valentin Stanev, Velimir V. Vesselinov, A. Gilad Kusne, Graham Antoszewski, Ichiro Takeuchi, Boian S. Alexandrov",
+   "affiliation": "University of Maryland, College Park; Los Alamos National Laboratory; National Institute of Standards and Technology",
+   "year": "2018 (journal); arXiv 1802.07307 February 2018",
+   "venue": "npj Computational Materials 4, 43",
+   "url": "https://doi.org/10.1038/s41524-018-0099-2",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "claim": "A ceiling argument that bounds what any ML Tc search can hope to find in the conventional channel: analysis of electron-phonon calculations for more than 20,000 metals reveals an intrinsic trade-off between the logarithmic average phonon frequency and the electron-phonon coupling constant lambda, so that room-temperature conventional superconductivity at ambient pressure is deemed extremely unlikely. Li2AgH6 and Li2AuH6 are identified as near the practical limit.",
+   "people": "Kun Gao, Tiago F. T. Cerqueira, Antonio Sanna, Yue-Wen Fang, Đorđe Dangić, Ion Errea, Hai-Chen Wang, Silvana Botti, Miguel A. L. Marques",
+   "affiliation": "Ruhr University Bochum; University of Coimbra; Max Planck Institute of Microstructure Physics, Halle; University of the Basque Country / Donostia International Physics Center",
+   "year": "2025 (journal); arXiv 2502.18281 February 2025",
+   "venue": "Nature Communications 16, 8253",
+   "url": "https://doi.org/10.1038/s41467-025-63702-w",
+   "confidence": "verified",
+   "_domain": "superconductivity-ml"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Cheetham and Seshadri found 'scant evidence' for novelty/credibility/utility; identified all 10 randomly selected Stable Structure entries (of 384,870) in the ICSD; Pnma is ~16% of ICSD structures but ranks 16th at 1.56% in GNoME; top four GNoME space groups all non-centrosymmetric, ~34% of entries, versus ~1% in ICSD; 18,138 compounds with Pm/Ac/Pa and 23,529 with Tc/Np/Pu. Chemistry of Materials 36(8), 3490-3495 (2024).",
+   "correction": "Citation, quotation, the 384,870 figure, the 10/10 ICSD identification, the 16th-place 1.56% Pnma ranking, the ~34% non-centrosymmetric share, and both radioactive-element counts (18,138 and 23,529) are all exactly right. TWO space-group statistics are garbled. (1) Pnma is NOT ~16% of ICSD structures. The paper says: 'the top two space groups in the ICSD are centrosymmetric Pnma and P2(1)/c, accounting for approximately 16% of all structures, with ~8% in each case.' The 16% is the two groups combined; Pnma alone is ~8%. (2) '~1% in ICSD' does not mean non-centrosymmetric groups are ~1% of the ICSD. The paper says: 'in the ICSD there is only one non-centrosymmetric space group in the top 24 and it accounts for only 1% of all structures.' Accurate replacement text: 'Pnma and P2(1)/c together account for roughly 16% of ICSD structures, about 8% each, yet Pnma ranks only 16th in GNoME's Stable Structure database at 1.56%; the four commonest GNoME space groups are all non-centrosymmetric and cover ~34% of entries, whereas the ICSD's top 24 space groups contain just one non-centrosymmetric group, accounting for 1% of structures.' Correct URL: https://doi.org/10.1021/acs.chemmater.4c00643 (open-access copy: https://escholarship.org/uc/item/9qx9t3kz). Published 8 April 2024.",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "The A-Lab reported realizing 41 novel compounds from 58 targets over 17 days; Szymanski et al., Nature 624(7990), 86-91, 29 Nov 2023.",
+   "correction": "The 41/58/17-days figures are correct for the article AS ORIGINALLY PUBLISHED, but the article of record no longer reads that way and a reader following the DOI will find a mismatch. The corrected paper is titled 'An autonomous laboratory for the accelerated synthesis of inorganic materials' (the original was '...of novel materials') and its abstract now reads: 'Over 17 days of continuous operation, the A-Lab realized 36 compounds from a set of 57 targets including a variety of oxides and phosphates that were identified using large-scale ab initio phase-stability data from the Materials Project and Google DeepMind.' Publish as: 'As originally published, the A-Lab reported realizing 41 novel compounds from 58 targets over 17 days; after the 2026 author correction the paper reports 36 compounds from 57 targets and is retitled to drop the word novel.' URL is correct: https://doi.org/10.1038/s41586-023-06734-w",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "The apparent resistivity drop in LK-99 was attributed to the first-order superionic phase transition of the Cu2S impurity near 385 K; Jain, J. Phys. Chem. C 127(37), 18253-18255 (2023).",
+   "correction": "The citation, authorship, venue, volume, issue, pages and DOI are all correct, but the temperature is wrong. Jain's abstract states: 'Copper(I) sulfide has a known phase transition at 104 degrees C from an ordered low-temperature phase to a high-temperature superionic phase' — that is ~377 K, not 385 K (385 K would be 112 C). The figure matters because the point of the paper is that 377 K coincides with LK-99's reported ~104.8 C resistivity drop. Accurate replacement text: 'The apparent resistivity drop in LK-99 was attributed to the superionic phase transition of the Cu2S impurity at 104 C (~377 K) — a mundane impurity artefact, not superconductivity.' Correct URL: https://doi.org/10.1021/acs.jpcc.3c05684 (title: 'Superionic Phase Transition of Copper(I) Sulfide and Its Implication for Purported Superconductivity of LK-99'; open preprint arXiv:2308.05222).",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "OPEN QUESTION as written: 'DeepMind's blog claimed 736 had been independently created as of November 2023, but I found no peer-reviewed audit of that figure.'",
+   "correction": "The 736 figure is not blog-only. It appears verbatim in the peer-reviewed Nature abstract: 'Of the stable structures, 736 have already been independently experimentally realized.' The open question is still legitimate but must be reframed: the 736 claim IS peer-reviewed as part of the Merchant et al. paper; what is missing is an INDEPENDENT third-party audit of that figure. Rewrite as: 'The 736 figure appears in the peer-reviewed Nature paper as well as DeepMind's blog, but I found no independent audit of it, and Cheetham and Seshadri's sampling suggests the novelty rate is low.'",
+   "_domain": "materials-discovery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "SuperCon2 / Grobid-superconductors: Foppiano, Baptista de Castro, Ortiz Suarez, Terashima, Takano, Ishii, STAM: Methods 3, 2153633 (2023), arXiv Oct 2022; 40,324 records from 37,700 papers; co-authors at Inria/Sorbonne for Ortiz Suarez.",
+   "correction": "Citation and numbers are right; one affiliation is wrong. Correct: Luca Foppiano, Pedro Baptista de Castro, Pedro Ortiz Suarez, Kensei Terashima, Yoshihiko Takano, Masashi Ishii, 'Automatic extraction of materials and properties from superconductors scientific literature', Science and Technology of Advanced Materials: Methods 3(1), 2153633 (2023), DOI 10.1080/27660400.2022.2153633; arXiv:2210.15600, submitted 26 October 2022. 40,324 records from 37,700 papers, captured fields (name, formula, class, shape, doping, substitution variables, substrate, Tc, applied pressure, measurement method) all confirmed. CORRECTION: Ortiz Suarez's affiliation in the publisher metadata is University of Mannheim, not Inria/Sorbonne. Also note the publisher renders the second author as 'Pedro Baptista Castro' while arXiv renders 'Pedro Baptista de Castro' — use the published journal form if citing the journal version. URL https://doi.org/10.1080/27660400.2022.2153633 resolves to this exact work.",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Tran, Dam, Kuenneth, Vu, Kino, 28-page review, Chemistry of Materials 36(22), 10939-10966 (2024), arXiv October 2025; states SuperCon data quality remains uncertain, ML struggles outside training distribution especially for high-pressure hydrides, and ML-predicted superconductors have rarely been experimentally confirmed.",
+   "correction": "Citation is real and correct except for one author's name form. Correct: Huan Tran, Hieu-Chi Dam, Christopher Kuenneth, VU NGOC TUOC, Hiori Kino, 'Superconductor Discovery in the Emerging Paradigm of Materials Informatics', Chemistry of Materials 36(22), 10939-10966 (2024), DOI 10.1021/acs.chemmater.4c01757. The dossier writes 'Tuoc N. Vu'; the printed byline is 'Vu Ngoc Tuoc' (Hanoi University of Science & Technology) — a book citing under a real author's name should match the printed byline exactly. Affiliations otherwise confirmed from publisher metadata: Georgia Tech (Tran); JAIST (Dam); University of Bayreuth (Kuenneth); Hanoi University of Science & Technology (Vu Ngoc Tuoc); NIMS (Kino). Page range 10939-10966 = 28 pages, confirmed. The arXiv posting is arXiv:2510.25971 (October 2025), i.e. a postprint appearing AFTER journal publication — that ordering is unusual and worth a word so it does not read as a typo. The three substantive assertions attributed to the review are consistent with its abstract and framing but were verified only at abstract/summary level, not by reading the 28 pages end to end; quote the review directly rather than paraphrasing if these lines are load-bearing.",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Shipley, Hutcheon, Needs, Pickard, Physical Review B 104, 054501 (2021), arXiv:2105.02296 May 2021; binary hydrides 10-500 GPa via crystal structure prediction, 'a learned model used to rank candidates', converged electron-phonon calculations for 121, 36 dynamically stable superconductors above 100 K; Editors' Suggestion; 'illustrates the standard hydride workflow: ML as a cost-reduction surrogate'.",
+   "correction": "The citation is correct but the method is mischaracterized, and this is load-bearing because the summary uses this paper as evidence that 'ML entered hydride work as a surrogate to triage structure-search candidates'. Bibliographic data confirmed: Alice M. Shipley, Michael J. Hutcheon, Richard J. Needs, Chris J. Pickard, 'High-throughput discovery of high-temperature conventional superconductors', Phys. Rev. B 104, 054501 (2021), DOI 10.1103/PhysRevB.104.054501, arXiv:2105.02296 submitted 5 May 2021; 121 converged electron-phonon calculations and 36 above-100 K dynamically stable superconductors confirmed verbatim. THE ERROR: the ranking model is NOT a machine-learning model. The abstract reads: 'Building a critical temperature (Tc) model, with inputs arising from density of states calculations and Gaspari-Gyorffy theory, allows us to predict which energetically competitive candidates are most promising for high-Tc superconductivity... and to refine the model in an iterative manner.' Neither the abstract nor the title invokes machine learning. Accurate replacement text: 'A high-throughput survey of binary hydrides across the periodic table from 10 to 500 GPa using crystal structure prediction, in which a physics-based Tc model built from density-of-states calculations and Gaspari-Gyorffy theory — refined iteratively against their own computed results, not a machine-learning surrogate — was used to rank candidates before converged electron-phonon calculations were run for 121 of them, yielding 36 dynamically stable superconductors above 100 K (18 above 200 K, including NaH6 at 248-279 K and CaH6 at 216-253 K at 100 GPa).' Cite Cerqueira, Sanna and Marques 2024 alone for the ML-surrogate point, since that paper does explicitly train a machine-learning model. SEPARATELY UNVERIFIABLE: the 'Editors' Suggestion' label could not be confirmed — APS pages (journals.aps.org and link.aps.org) return HTTP 403 to automated fetches and no secondary source attests it. Drop the claim or verify it by eye on the APS page before print.",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Hirsch and Marsiglio, Physical Review B 103, 134505 (2021), argue hydride observations rule out conventional superconductivity; Hirsch has also published with D. van der Marel; Eremets group rebuts with SQUID magnetometry reporting superconducting parameters for Im-3m H3S and Fm-3m LaH10 — Minkov, Prakapenka, Greenberg, Eremets, Nature Communications 13, 3194 (2022), subject to a 2023 author correction.",
+   "correction": "THE AUTHOR LIST FOR THE MINKOV PAPER IS WRONG — it names a person who is not an author and drops four who are. Correct: V. S. Minkov, S. L. Bud'ko, F. F. Balakirev, V. B. Prakapenka, S. Chariton, R. J. Husband, H. P. Liermann, M. I. Eremets, 'Magnetic field screening in hydrogen-rich high-temperature superconductors', Nature Communications 13, 3194 (9 June 2022), DOI 10.1038/s41467-022-30782-x, URL https://www.nature.com/articles/s41467-022-30782-x. E. Greenberg is NOT an author of this paper — he is an author of the separate Drozdov et al. Nature 569, 528 (2019) LaH10 paper, and the two have evidently been conflated. Affiliations should read: Max-Planck-Institut für Chemie, Mainz (Minkov, Eremets); Ames Laboratory / Iowa State (Bud'ko); Los Alamos National Laboratory (Balakirev); University of Chicago, GSECARS (Prakapenka, Chariton); DESY (Husband, Liermann). The 2023 author correction is Nature Communications 14, 5322 (2023), DOI 10.1038/s41467-023-40837-2 — cite that DOI rather than describing it vaguely; note also that in March 2024 Nature Communications editors were alerted to further concerns about raw-data processing, and a further exchange ran as Nature Communications 15 (2024), DOI 10.1038/s41467-024-52327-0. The Hirsch-Marsiglio citation itself is correct: 'Nonstandard superconductivity or no superconductivity in hydrides under high pressure', Phys. Rev. B 103, 134505 (6 Apr 2021), DOI 10.1103/PhysRevB.103.134505 — resolves. The van der Marel collaboration is real: J. E. Hirsch and D. van der Marel, 'Room-temperature superconductivity — or not? Comment on Nature 586, 373 (2020) by E. Snider et al.', International Journal of Modern Physics B, DOI 10.1142/S0217979223750012 (arXiv:2201.07686) — cite it rather than alluding to it.",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "status": "UNVERIFIABLE",
+   "claim": "Li, Hsu, Huang, New Journal of Physics 22, 123014 (2020); within Migdal-Eliashberg theory, supervised learning maps superconducting gap functions to electron-boson spectral functions, with an autoencoder compressing the spectral functions. Plus: 'a related and more recent line trains two-head convolutional networks on quasiparticle-interference images to classify pairing symmetry by irreducible representation and to regress continuous parameters such as singlet-triplet mixing and gap magnitude.'",
+   "correction": "The FIRST half is confirmed: Wan-Ju Li, Ming-Chien Hsu, Shin-Ming Huang, 'Machine learning on the electron-boson mechanism in superconductors', New Journal of Physics 22, 123014 (2020), arXiv:2007.07512 submitted 15 July 2020 — the arXiv URL in the dossier resolves to this exact work, and the abstract confirms the Migdal-Eliashberg framing, the gap-function-to-spectral-function mapping, and the use of autoencoders to handle 'function-to-function mappings with asymmetric complexities'. Add the journal DOI 10.1088/1367-2630/abcadb when citing. The affiliation (National Sun Yat-sen University) could not be verified — IOPscience blocks automated fetches with a bot challenge — so check the printed title page. The SECOND half is UNVERIFIABLE AS WRITTEN: the 'related and more recent line' on two-head convolutional networks over quasiparticle-interference images carries no citation at all in the dossier, so there is nothing to check. Do not print this sentence without a specific paper attached to it; an uncited specific technical claim of this shape is exactly where fabrication enters a manuscript.",
+   "_domain": "superconductivity-ml"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Summary-level: 'ML entered hydride work later as a surrogate to triage structure-search candidates (Shipley, Hutcheon, Needs and Pickard 2021; Cerqueira, Sanna and Marques 2024).'",
+   "correction": "Half of this attribution fails. Cerqueira, Sanna and Marques (2024) genuinely trained a machine-learning model on ~7,000 electron-phonon calculations and used it as a screening surrogate — that citation supports the sentence. Shipley, Hutcheon, Needs and Pickard (2021) did NOT: their candidate-ranking model takes 'inputs arising from density of states calculations and Gaspari-Gyorffy theory', a physics-based semi-empirical Tc model refined iteratively, and the paper does not present it as machine learning. Corrected sentence: 'ML entered hydride work later as a surrogate to triage structure-search candidates (Cerqueira, Sanna and Marques 2024); earlier high-throughput hydride searches such as Shipley, Hutcheon, Needs and Pickard (2021) used physics-based semi-empirical Tc models rather than machine learning for the same triage role.' This matters because the sentence is the book's stated dividing line between theory-first and data-driven discovery, and the Shipley citation currently sits on the wrong side of it.",
+   "_domain": "superconductivity-ml"
+  }
+ ]
+}

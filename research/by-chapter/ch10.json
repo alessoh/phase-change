@@ -1,0 +1,326 @@
+{
+ "chapter": 10,
+ "title": "Melting, Freezing, and the Phase Diagram of Water",
+ "outline": "The payoff chapter, and the strongest evidence in the book that these methods produce real physics rather than plausible pictures. Machine-learned potentials have produced full ab initio quality phase diagrams of water, homogeneous ice nucleation rates by seeding, the phase diagram and nucleation of gallium including its kinetic preference for the metastable beta phase, silicon crystallization from deep metadynamics, crystallization kinetics of the alloys used in phase-change memory, and evidence bearing on the disputed second critical point of supercooled water.\n\nBuilt on the deep potential water phase diagram, ice nucleation by seeding, gallium and the Ostwald step rule made quantitative, Niu, Piaggi, Invernizzi and Parrinello on silica crystallization described accurately as to what the simulations did and did not resolve, phase-change memory alloys, and the second critical point controversy.\n\nLeaves open: every one of these results depended on someone choosing the right coordinate to bias along.",
+ "domains": [
+  "ml-potentials-nucleation"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Joerg Behler and Michele Parrinello introduced the high-dimensional neural network potential, in which the total energy is decomposed into atomic contributions each predicted by an identical feed-forward network fed with symmetry-invariant functions of the local environment, demonstrating it on bulk silicon at a cost several orders of magnitude below DFT.",
+   "people": "Jörg Behler, Michele Parrinello",
+   "affiliation": "",
+   "year": "2007",
+   "venue": "Physical Review Letters 98, 146401",
+   "url": "https://doi.org/10.1103/PhysRevLett.98.146401",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert P. Bartok, Mike C. Payne, Risi Kondor and Gabor Csanyi introduced Gaussian Approximation Potentials, applying Gaussian process regression to quantum-mechanical energies and forces so that the interatomic potential has no fixed functional form and can represent complex energy landscapes.",
+   "people": "Albert P. Bartók, Mike C. Payne, Risi Kondor, Gábor Csányi",
+   "affiliation": "Cavendish Laboratory, University of Cambridge",
+   "year": "2010",
+   "venue": "Physical Review Letters 104, 136403",
+   "url": "https://doi.org/10.1103/PhysRevLett.104.136403",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert P. Bartok, James R. Kermode, Noam Bernstein and Gabor Csanyi built a general-purpose Gaussian Approximation Potential for silicon that reproduces DFT reference results simultaneously for crystalline, liquid and amorphous bulk phases as well as point, line and planar defects — a prerequisite for treating melting and crystallization within one model.",
+   "people": "Albert P. Bartók, James Kermode, Noam Bernstein, Gábor Csányi",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Physical Review X 8, 041048",
+   "url": "https://doi.org/10.1103/PhysRevX.8.041048",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Linfeng Zhang, Jiequn Han, Han Wang, Roberto Car and Weinan E introduced Deep Potential Molecular Dynamics (DeePMD), a deep neural network many-body potential that preserves the natural symmetries of the problem and scales linearly with system size while reproducing the ab initio training data essentially exactly.",
+   "people": "Linfeng Zhang, Jiequn Han, Han Wang, Roberto Car, Weinan E",
+   "affiliation": "",
+   "year": "2018 (arXiv preprint 1707.09571 posted 2017)",
+   "venue": "Physical Review Letters 120, 143001",
+   "url": "https://arxiv.org/abs/1707.09571",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Linfeng Zhang, Han Wang, Roberto Car and Weinan E computed the phase diagram of a Deep Potential water model trained on the SCAN density functional from low temperature and pressure up to roughly 2400 K and 50 GPa, correctly predicting the molecular and ionic fluid phases and all stable ice polymorphs, ordered and disordered, with the exception of ices III and XV which are stable in experiment but metastable in the model.",
+   "people": "Linfeng Zhang, Han Wang, Roberto Car, Weinan E",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Physical Review Letters 126, 236001",
+   "url": "https://doi.org/10.1103/PhysRevLett.126.236001",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Bingqing Cheng, Edgar A. Engel, Joerg Behler, Christoph Dellago and Michele Ceriotti used a neural network potential together with free-energy methods to compute the ab initio thermodynamics of liquid water and ice, obtaining melting properties and the relative stability of the two phases at first-principles accuracy including nuclear quantum effects.",
+   "people": "Bingqing Cheng, Edgar A. Engel, Jörg Behler, Christoph Dellago, Michele Ceriotti",
+   "affiliation": "",
+   "year": "2019 (arXiv preprint 1811.08630 posted 2018)",
+   "venue": "Proceedings of the National Academy of Sciences 116, 1110-1115",
+   "url": "https://doi.org/10.1073/pnas.1815117116",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Aleks Reinhardt and Bingqing Cheng computed the phase diagram of water at three hybrid density-functional levels of approximation, combining machine-learning potentials with advanced free-energy techniques and accounting for thermal fluctuations, nuclear quantum fluctuations and proton disorder; agreement with experiment is qualitative and best at pressures below roughly 8000 bar.",
+   "people": "Aleks Reinhardt, Bingqing Cheng",
+   "affiliation": "",
+   "year": "2021 (arXiv preprint 2010.13729 posted 2020)",
+   "venue": "Nature Communications 12, 588",
+   "url": "https://doi.org/10.1038/s41467-020-20821-w",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Bingqing Cheng, Guglielmo Mazzola, Chris J. Pickard and Michele Ceriotti used machine-learning interatomic potentials to overcome the system-size and timescale limits of ab initio molecular dynamics in dense hydrogen, finding evidence that the molecular-to-atomic transition in high-pressure liquid hydrogen is supercritical rather than a sharp first-order liquid-liquid transition over the range studied.",
+   "people": "Bingqing Cheng, Guglielmo Mazzola, Chris J. Pickard, Michele Ceriotti",
+   "affiliation": "",
+   "year": "2020 (arXiv preprint 1906.03341 posted 2019)",
+   "venue": "Nature 585, 217-220",
+   "url": "https://doi.org/10.1038/s41586-020-2677-y",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo G. Debenedetti, Francesco Sciortino and Gul H. Zerze presented computational evidence for a second, liquid-liquid critical point in deeply supercooled water in the TIP4P/2005 and TIP4P/Ice models, using histogram reweighting and large-system scattering calculations, with critical behaviour consistent with the three-dimensional Ising universality class.",
+   "people": "Pablo G. Debenedetti, Francesco Sciortino, Gül H. Zerze",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Science 369, 289-292",
+   "url": "https://doi.org/10.1126/science.abb9796",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Thomas E. Gartner III, Linfeng Zhang, Pablo M. Piaggi, Roberto Car, Athanassios Z. Panagiotopoulos and Pablo G. Debenedetti found signatures of a metastable liquid-liquid transition, with coexisting high-density and low-density liquid phases, in an ab initio deep neural network model of water trained on SCAN DFT data.",
+   "people": "Thomas E. Gartner III, Linfeng Zhang, Pablo M. Piaggi, Roberto Car, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Proceedings of the National Academy of Sciences 117, 26040-26046",
+   "url": "https://doi.org/10.1073/pnas.2015440117",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Jack Weis, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti and Roberto Car computed homogeneous ice nucleation rates at atmospheric pressure across a broad range of supercoolings using the seeding technique with a machine-learning model trained on DFT energies and forces, running systems of up to hundreds of thousands of atoms at ab initio accuracy.",
+   "people": "Pablo M. Piaggi, Jack Weis, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti, Roberto Car",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Proceedings of the National Academy of Sciences 119, e2207294119",
+   "url": "https://doi.org/10.1073/pnas.2207294119",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti and Roberto Car determined the phase equilibrium between liquid water and both hexagonal ice Ih and cubic ice Ic using a machine-learning potential trained on the SCAN functional, quantifying the small free-energy difference between the two ice polymorphs.",
+   "people": "Pablo M. Piaggi, Athanassios Z. Panagiotopoulos, Pablo G. Debenedetti, Roberto Car",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Journal of Chemical Theory and Computation 17, 3065-3077",
+   "url": "https://doi.org/10.1021/acs.jctc.1c00041",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Sigbjorn Loland Bore and Francesco Paesani combined the MB-pol data-driven many-body water potential with enhanced-sampling algorithms to compute water's phase diagram, obtaining close agreement with experiment for the stability fields of the ice polymorphs.",
+   "people": "Sigbjørn Løland Bore, Francesco Paesani",
+   "affiliation": "Department of Chemistry and Biochemistry, University of California, San Diego",
+   "year": "2023",
+   "venue": "Nature Communications 14, 3349",
+   "url": "https://doi.org/10.1038/s41467-023-38855-1",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Simon Batzner, Albert Musaelian, Lixin Sun, Mario Geiger, Jonathan P. Mailoa, Mordechai Kornbluth, Nicola Molinari, Tess E. Smidt and Boris Kozinsky introduced NequIP, an E(3)-equivariant graph neural network interatomic potential that matches or exceeds prior models while using up to three orders of magnitude less training data.",
+   "people": "Simon Batzner, Albert Musaelian, Lixin Sun, Mario Geiger, Jonathan P. Mailoa, Mordechai Kornbluth, Nicola Molinari, Tess E. Smidt, Boris Kozinsky",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Nature Communications 13 (2022), article 2453",
+   "url": "https://doi.org/10.1038/s41467-022-29939-5",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Albert Musaelian, Simon Batzner, Anders Johansson, Lixin Sun, Cameron J. Owen, Mordechai Kornbluth and Boris Kozinsky introduced Allegro, a strictly local equivariant deep neural network potential that represents many-body interactions through iterated tensor products of learned equivariant features without atom-centred message passing, enabling accurate simulations at very large scale.",
+   "people": "Albert Musaelian, Simon Batzner, Anders Johansson, Lixin Sun, Cameron J. Owen, Mordechai Kornbluth, Boris Kozinsky",
+   "affiliation": "",
+   "year": "2023 (arXiv preprint 2204.05249 posted 2022)",
+   "venue": "Nature Communications 14, 579",
+   "url": "https://doi.org/10.1038/s41467-023-36329-y",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Ilyes Batatia, David Peter Kovacs, Gregor N. C. Simm, Christoph Ortner and Gabor Csanyi introduced MACE, an equivariant message-passing architecture that carries higher body-order messages, overcoming the two-body limitation of conventional message-passing networks and yielding fast, accurate force fields.",
+   "people": "Ilyes Batatia, Dávid Péter Kovács, Gregor N. C. Simm, Christoph Ortner, Gábor Csányi",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Advances in Neural Information Processing Systems (NeurIPS) 2022; arXiv:2206.07697",
+   "url": "https://arxiv.org/abs/2206.07697",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Ilyes Batatia and a large collaboration released MACE-MP-0, a single general-purpose MACE model trained on roughly 150,000 inorganic crystal structures from the Materials Project, which runs stable molecular dynamics across solids, liquids, gases, reactions and interfaces out of the box and can be fine-tuned on a handful of application-specific points.",
+   "people": "Ilyes Batatia, Philipp Benner, Yuan Chiang, Alin M. Elena, Dávid P. Kovács, Janosh Riebesell, Xavier R. Advincula, Mark Asta, Matthew Avaylon, William J. Baldwin, Fabian Berger, Noam Bernstein, Arghya Bhowmik, Filippo Bigi, Samuel M. Blau, and others",
+   "affiliation": "",
+   "year": "2023 (arXiv v1 29 December 2023; revised 2024 and 2025)",
+   "venue": "arXiv:2401.00096 [physics.chem-ph]",
+   "url": "https://arxiv.org/abs/2401.00096",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Alessandro Laio and Michele Parrinello introduced metadynamics, a coarse-grained non-Markovian dynamics in which a history-dependent bias potential progressively fills the free-energy minima of selected collective variables, allowing escape from metastable states and reconstruction of multidimensional free-energy surfaces — the enabling technique for simulating nucleation as a rare event.",
+   "people": "Alessandro Laio, Michele Parrinello",
+   "affiliation": "",
+   "year": "2002",
+   "venue": "Proceedings of the National Academy of Sciences 99, 12562-12566",
+   "url": "https://doi.org/10.1073/pnas.202427399",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Alessandro Barducci, Giovanni Bussi and Michele Parrinello introduced well-tempered metadynamics, in which the deposited bias is rescaled so that the history-dependent potential converges smoothly to a tunable fraction of the free energy rather than diffusing indefinitely.",
+   "people": "Alessandro Barducci, Giovanni Bussi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2008",
+   "venue": "Physical Review Letters 100, 020603",
+   "url": "https://doi.org/10.1103/PhysRevLett.100.020603",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi, Omar Valsson and Michele Parrinello showed that enhancing fluctuations of entropy and enthalpy — used as collective variables — drives crystallization in atomistic simulations, providing a general order parameter pair for first-order freezing transitions.",
+   "people": "Pablo M. Piaggi, Omar Valsson, Michele Parrinello",
+   "affiliation": "",
+   "year": "2017",
+   "venue": "Physical Review Letters 119, 015701",
+   "url": "https://doi.org/10.1103/PhysRevLett.119.015701",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Pablo M. Piaggi and Michele Parrinello introduced multithermal-multibaric molecular simulations derived from a variational principle, in which a single simulation samples uniformly in energy and volume across a chosen region of the temperature-pressure plane, so that static properties and phase boundaries can be extracted for the whole region at once.",
+   "people": "Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2019 (arXiv preprint 1811.08253 posted 2018)",
+   "venue": "Physical Review Letters 122, 050601",
+   "url": "https://doi.org/10.1103/PhysRevLett.122.050601",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework — that reformulates metadynamics-style and generalized-ensemble methods as targeted probability-distribution reweighting.",
+   "people": "Michele Invernizzi, Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Physical Review X 10, 041034",
+   "url": "https://doi.org/10.1103/PhysRevX.10.041034",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Luigi Bonati and Michele Parrinello trained a deep neural network potential on SCAN-functional data, seeded by metadynamics sampling with a classical potential, and used a collective variable derived from the Debye structure factor to drive silicon crystallization, recovering the free-energy surface at DFT accuracy and probing the early stages of nucleation in a material whose liquid is metallic and whose solid is semiconducting.",
+   "people": "Luigi Bonati, Michele Parrinello",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Physical Review Letters 121, 265701",
+   "url": "https://doi.org/10.1103/PhysRevLett.121.265701",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Haiyang Niu, Luigi Bonati, Pablo M. Piaggi and Michele Parrinello trained a neural network potential on DFT data drawn from multithermal-multibaric simulations to compute the ab initio phase diagram of gallium, reproducing the equilibria among liquid Ga, alpha-Ga, beta-Ga and Ga-II, and showed that formation of the metastable beta-Ga phase is kinetically favoured over the thermodynamically stable alpha-Ga.",
+   "people": "Haiyang Niu, Luigi Bonati, Pablo M. Piaggi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Nature Communications 11, 2654",
+   "url": "https://doi.org/10.1038/s41467-020-16372-9",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Haiyang Niu, Pablo M. Piaggi, Michele Invernizzi and Michele Parrinello simulated the crystallization of liquid silica with enhanced-sampling molecular dynamics, resolving the nucleation pathway of a network-forming glass former.",
+   "people": "Haiyang Niu, Pablo M. Piaggi, Michele Invernizzi, Michele Parrinello",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Proceedings of the National Academy of Sciences 115, 5348-5352",
+   "url": "https://doi.org/10.1073/pnas.1803919115",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Joerg Behler and Marco Bernasconi built the first neural network interatomic potential for the phase-change memory material GeTe, reproducing DFT-quality descriptions of the liquid, crystalline and amorphous phases and opening large-scale simulation of technologically relevant crystallization.",
+   "people": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Jörg Behler, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2012",
+   "venue": "Physical Review B 85, 174103",
+   "url": "https://doi.org/10.1103/PhysRevB.85.174103",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Federico Giberti, Joerg Behler and Marco Bernasconi used the neural network potential to run large-scale molecular dynamics of GeTe crystallization, quantifying the fast crystal growth that underlies phase-change memory operation.",
+   "people": "Gabriele C. Sosso, Giacomo Miceli, Sebastiano Caravati, Federico Giberti, Jörg Behler, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2013",
+   "venue": "The Journal of Physical Chemistry Letters 4, 4241-4246",
+   "url": "https://doi.org/10.1021/jz402268v",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Omar Abou El Kheir, Luigi Bonati, Michele Parrinello and Marco Bernasconi fitted a deep neural network potential to a large DFT database for Ge2Sb2Te5 and ran molecular dynamics on systems of over 10,000 atoms for more than 100 ns to resolve the crystallization kinetics of the compound across the range of temperatures relevant to memory devices.",
+   "people": "Omar Abou El Kheir, Luigi Bonati, Michele Parrinello, Marco Bernasconi",
+   "affiliation": "",
+   "year": "2024 (arXiv preprint 2304.03109 posted 2023)",
+   "venue": "npj Computational Materials 10 (2024), article 33",
+   "url": "https://doi.org/10.1038/s41524-024-01217-6",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "claim": "Volker L. Deringer, Noam Bernstein, Gabor Csanyi, Chiheb Ben Mahmoud, Michele Ceriotti, Mark Wilson, David A. Drabold and Stephen R. Elliott used a machine-learning potential to simulate transitions between disordered phases of silicon, predicting their electronic fingerprints and showing that pressure-induced crystallization of amorphous silicon proceeds through three distinct stages.",
+   "people": "Volker L. Deringer, Noam Bernstein, Gábor Csányi, Chiheb Ben Mahmoud, Michele Ceriotti, Mark Wilson, David A. Drabold, Stephen R. Elliott",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Nature 589, 59-64",
+   "url": "https://doi.org/10.1038/s41586-020-03072-z",
+   "confidence": "verified",
+   "_domain": "ml-potentials-nucleation"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Bartók, Payne, Kondor & Csányi (2010), PRL 104, 136403 — Gaussian Approximation Potentials via Gaussian process regression on QM energies and forces. Dossier lists affiliation as 'Cavendish Laboratory, University of Cambridge' for all four authors.",
+   "correction": "Citation, authors, order, year, venue, and DOI are all correct. The affiliation field is wrong for two of the four authors. Accurate text: 'Albert P. Bartók and Mike C. Payne (Cavendish Laboratory, University of Cambridge); Risi Kondor (Center for the Mathematics of Information, California Institute of Technology); Gábor Csányi (Engineering Laboratory, University of Cambridge).' Correct URL: https://doi.org/10.1103/PhysRevLett.104.136403",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Invernizzi, Piaggi & Parrinello (2020), PRX 10, 041034 — 'presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework — that reformulates metadynamics-style and generalized-ensemble methods as targeted probability-distribution reweighting.'",
+   "correction": "The citation (authors, order, year, venue, article number, DOI) is correct, but the claim misattributes the introduction of OPES. The PRX paper's own abstract states that it adapts 'the recently developed on-the-fly probability enhanced sampling method [Invernizzi and Parrinello, J. Phys. Chem. Lett. 11.7 (2020)], which was originally introduced for metadynamics-like sampling.' Accurate replacement text: 'Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified perspective on enhanced sampling, focusing on the target probability distribution rather than the bias potential, and introduced a class of collective-variable-based bias potentials able to sample any expanded ensemble normally reached by replica exchange (OPES-expanded). Their practical implementation adapts the on-the-fly probability enhanced sampling (OPES) method, which had been introduced earlier that year by Michele Invernizzi and Michele Parrinello, \"Rethinking Metadynamics: From Bias Potentials to Probability Distributions\", Journal of Physical Chemistry Letters 11, 2731-2736 (2020).' URL for the PRX paper: https://doi.org/10.1103/PhysRevX.10.041034 ; URL for the paper that actually introduced OPES: https://doi.org/10.1021/acs.jpclett.0c00497",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "MACE-MP-0 is a general-purpose MACE model 'trained on roughly 150,000 inorganic crystal structures from the Materials Project'; cited only as arXiv:2401.00096.",
+   "correction": "Two defects. (1) The training-set figure is garbled: MACE-MP-0 was trained on the Materials Project Trajectory (MPtrj) dataset, which contains 1,580,395 DFT structures drawn from roughly 146,000 inorganic materials covering 89 elements. The ~150,000 figure is the number of MATERIALS, not structures; the number of training structures is ~1.6 million (an order of magnitude larger). The paper's own abstract says only 'a public dataset of moderate size' and gives no such count. (2) The work is no longer preprint-only. Accurate replacement text: 'Ilyes Batatia and a large collaboration released MACE-MP-0, a single general-purpose MACE model trained on the Materials Project Trajectory (MPtrj) dataset — about 1.6 million DFT structures drawn from roughly 146,000 inorganic materials — which runs stable molecular dynamics across solids, liquids, gases, chemical reactions and interfaces out of the box and can be fine-tuned on a handful of application-specific data points to reach ab initio accuracy.' Correct citation: Ilyes Batatia, Philipp Benner, Yuan Chiang, Alin M. Elena, Dávid P. Kovács et al., 'A foundation model for atomistic materials chemistry', Journal of Chemical Physics 163(18), 184110 (2025), https://doi.org/10.1063/5.0297006 — preprint arXiv:2401.00096 (v1 29 December 2023), https://arxiv.org/abs/2401.00096",
+   "_domain": "ml-potentials-nucleation"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Invernizzi, Piaggi & Parrinello (2020) 'presented a unified approach to enhanced sampling — the on-the-fly probability enhanced sampling (OPES) framework'. PRX 10, 041034.",
+   "correction": "The venue, authors, year and URL are correct, but the attribution overstates: the PRX paper did NOT introduce OPES. Its abstract explicitly states that it provides a practical implementation 'by properly adapting the iterative scheme of the recently developed on-the-fly probability enhanced sampling method [Invernizzi and Parrinello, J. Phys. Chem. Lett. 11.7 (2020)], which was originally introduced for metadynamics-like sampling.' Accurate replacement text: 'Michele Invernizzi, Pablo M. Piaggi and Michele Parrinello presented a unified approach to enhanced sampling, recasting collective-variable bias methods (umbrella sampling, metadynamics) and tempering/expanded-ensemble methods such as replica exchange within one perspective focused on the target probability distribution, and implemented it by adapting the iterative scheme of the on-the-fly probability enhanced sampling (OPES) method.' Cite as: Michele Invernizzi, Pablo M. Piaggi, Michele Parrinello, 'Unified Approach to Enhanced Sampling', Physical Review X 10, 041034 (2020), https://doi.org/10.1103/PhysRevX.10.041034. OPES itself must be credited to: Michele Invernizzi and Michele Parrinello, 'Rethinking Metadynamics: From Bias Potentials to Probability Distributions', Journal of Physical Chemistry Letters 11, 2731-2736 (2020), https://doi.org/10.1021/acs.jpclett.0c00497",
+   "_domain": "ml-potentials-nucleation"
+  }
+ ]
+}

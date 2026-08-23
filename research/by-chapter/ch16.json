@@ -1,0 +1,296 @@
+{
+ "chapter": 16,
+ "title": "Milliseconds: Disruption in Fusion Plasmas",
+ "outline": "Magnetically confined plasmas are the best-instrumented laboratory for discontinuous transitions that anyone has built. The chapter opens on the L-mode to H-mode transition, a genuine bifurcation in which edge turbulent transport collapses above a power threshold, theorized as a thermal confinement bifurcation and later reframed through self-regulating shear flow and zonal-flow predator-prey dynamics. It then turns to the disruption, an essentially irreversible collapse of plasma current and thermal energy that ends a discharge in milliseconds. Three levels of machine involvement follow, in prediction, in control, and in differentiable simulation. The chapter ends on the field's unsolved problem, which is that cross-machine generalization degrades sharply on unseen devices, precisely the regime ITER will occupy on its first day.\n\nBuilt on Shaing, Crume and Houlberg 1990 and Hinton 1991 on bifurcation models of the L to H transition with the priority question stated accurately, Diamond 1994 and Kim and Diamond 2003, Schmitz 2012 on direct observation at DIII-D, Kates-Harbeck, Svyatkovskiy and Tang in Nature 2019, Rea, Montes and Granetz on the random-forest lineage, Vega, Murari, Dormido-Canto, Rattá and Gelfusa in Nature Physics 2022 characterized accurately as to article type, Degrave, Felici and Riedmiller in Nature 2022 on learned magnetic control at TCV, Seo and Kolemen in Nature 2024 on avoiding tearing onset at DIII-D, TORAX, DisruptionBench, and de Vries and colleagues on ITER mitigation triggering requirements.\n\nLeaves open: every predictor in this chapter was trained on machines that are not ITER.",
+ "domains": [
+  "fusion-plasma"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "In April 2019, Julian Kates-Harbeck, Alexey Svyatkovskiy and William Tang published a deep-learning disruption predictor — the Fusion Recurrent Neural Network (FRNN) — trained on high-dimensional multi-channel time-series data from the JET and DIII-D tokamaks; the paper's headline claim was reliable cross-machine prediction, training on one device and forecasting on another, which is the capability ITER requires because it cannot afford to learn from its own disruptions.",
+   "people": "Julian Kates-Harbeck, Alexey Svyatkovskiy, William Tang",
+   "affiliation": "Department of Physics and Program for Evolutionary Dynamics, Harvard University (Kates-Harbeck); Princeton Plasma Physics Laboratory and Princeton Institute for Computational Science and Engineering, Princeton University (Tang); Princeton University and Microsoft (Svyatkovskiy)",
+   "year": "2019",
+   "venue": "Nature 568(7753), 526–531",
+   "url": "https://doi.org/10.1038/s41586-019-1116-4",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "The FRNN method was subsequently carried from offline benchmark into an operating plasma control system: William Tang and collaborators from PPPL, General Atomics, MIT and JET reported an FRNN-based predictor augmented with real-time 'sensitivity' scoring over additional physics channels (including n=1 mode amplitude, bolometry and safety-factor data) so the predictor indicates not only that a disruption is coming but which signals drive the alarm.",
+   "people": "William Tang, Ge Dong, Jayson Barr, Keith Erickson, Rory Conlin, Dan Boyer, Julian Kates-Harbeck, Kyle Felker, Cristina Rea, Nikolas Logan, Alexey Svyatkovskiy, Eliot Feibush, Joseph Abbatte, Mitchell Clement, Brian Grierson, Raffi Nazikian, Zhihong Lin, David Eldon, Auna Moser, Mikhail Maslov",
+   "affiliation": "Princeton Plasma Physics Laboratory; General Atomics; MIT Plasma Science and Fusion Center; UKAEA/JET",
+   "year": "2023",
+   "venue": "Contributions to Plasma Physics 63(5–6), e202200095 (preprint arXiv:2204.01289, April 2022)",
+   "url": "https://doi.org/10.1002/ctpp.202200095",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "In February 2022 a DeepMind–EPFL Swiss Plasma Center team led by Jonas Degrave and Federico Felici, with Martin Riedmiller as senior author, showed that a single deep reinforcement-learning agent could learn to command all of the TCV tokamak's magnetic control coils directly, tracking plasma position, current and shape across a range of configurations — including sustaining two separate plasma 'droplets' simultaneously — replacing the conventional hand-tuned cascade of separate controllers.",
+   "people": "Jonas Degrave, Federico Felici, Jonas Buchli, Michael Neunert, Brendan Tracey, Francesco Carpanese, Timo Ewalds, Roland Hafner, Abbas Abdolmaleki, Diego de las Casas, Craig Donner, Leslie Fritz, Cristian Galperti, Andrea Huber, James Keeling, Maria Tsimpoukelli, Jackie Kay, Antoine Merle, Jean-Marc Moret, Seb Noury, Federico Pesamosca, David Pfau, Olivier Sauter, Cristian Sommariva, Stefano Coda, Basil Duval, Ambrogio Fasoli, Pushmeet Kohli, Koray Kavukcuoglu, Demis Hassabis, Martin Riedmiller",
+   "affiliation": "DeepMind, London; Swiss Plasma Center, École Polytechnique Fédérale de Lausanne (EPFL)",
+   "year": "2022",
+   "venue": "Nature 602(7897), 414–419",
+   "url": "https://doi.org/10.1038/s41586-021-04301-9",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "The same DeepMind–EPFL collaboration published a follow-up that is unusually candid about the gap between the Nature demonstration and a deployable controller: Brendan D. Tracey and colleagues catalogue the practical failure modes of RL tokamak magnetic control — control accuracy, steady-state error, sim-to-real transfer and training cost — and report engineering fixes, which is the paper to cite when separating the 2022 result from press-release framing.",
+   "people": "Brendan D. Tracey, Andrea Michi, Yuri Chervonyi, Ian Davies, Cosmin Paduraru, Nevena Lazic, Federico Felici, Timo Ewalds, Craig Donner, Cristian Galperti, Jonas Buchli, Michael Neunert, Andrea Huber, Jonathan Evens, Paula Kurylowicz, Daniel J. Mankowitz, Martin Riedmiller",
+   "affiliation": "Google DeepMind; Swiss Plasma Center, EPFL",
+   "year": "2024",
+   "venue": "Fusion Engineering and Design 200, 114161 (preprint arXiv:2307.11546, July 2023)",
+   "url": "https://doi.org/10.1016/j.fusengdes.2024.114161",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "In February 2024 Jaemin Seo, Egemen Kolemen and colleagues at Princeton University and the Princeton Plasma Physics Laboratory reported a reinforcement-learning controller that avoids tearing instability on DIII-D: a multimodal neural model estimates the instantaneous likelihood of tearing from several diagnostics, that model serves as the training environment for an RL agent, and in live DIII-D experiments the agent held tearing likelihood below a set threshold even at low safety factor and low torque while preserving H-mode performance.",
+   "people": "Jaemin Seo, SangKyeun Kim, Azarakhsh Jalalvand, Rory Conlin, Andrew Rothstein, Joseph Abbate, Keith Erickson, Josiah Wai, Ricardo Shousha, Egemen Kolemen",
+   "affiliation": "Department of Mechanical and Aerospace Engineering, Princeton University; Princeton Plasma Physics Laboratory; Department of Astrophysical Sciences, Princeton University; Department of Physics, Chung-Ang University, Seoul",
+   "year": "2024",
+   "venue": "Nature 626(8000), 746–751",
+   "url": "https://doi.org/10.1038/s41586-024-07024-9",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "A companion result from the same Princeton/PPPL group tackled the other great fusion discontinuity, the edge localized mode: SangKyeun Kim, Egemen Kolemen and an international team used machine-learning-assisted, real-time-adaptive optimization of 3D magnetic perturbations to suppress ELMs on both DIII-D and KSTAR while retaining reactor-relevant core confinement, addressing the long-standing penalty that ELM-suppressing 3D fields normally degrade fusion performance.",
+   "people": "SangKyeun Kim, Ricardo Shousha, S. M. Yang, Qiming Hu, S. H. Hahn, Azarakhsh Jalalvand, Jong-Kyu Park, Nikolas C. Logan, Andrew O. Nelson, Yong-Su Na, Raffi Nazikian, R. Wilcox, R. Hong, T. Rhodes, Carlos Paz-Soldan, Y. M. Jeon, M. W. Kim, W. H. Ko, J. H. Lee, A. Battey, G. Yu, A. Bortolon, J. Snipes, Egemen Kolemen",
+   "affiliation": "Princeton University and Princeton Plasma Physics Laboratory; Korea Institute of Fusion Energy (KSTAR); General Atomics (DIII-D); Columbia University; Seoul National University",
+   "year": "2024",
+   "venue": "Nature Communications 15(1), 3990 (preprint arXiv:2405.05452)",
+   "url": "https://doi.org/10.1038/s41467-024-48415-w",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Before the DIII-D tearing work, Jaemin Seo and Yong-Su Na at Seoul National University had already demonstrated deep reinforcement learning for tokamak scenario control on KSTAR, training an agent in a learned plasma-response model to design feedforward trajectories that hit a target normalized beta — an early proof that RL trained on a surrogate could transfer to a real device.",
+   "people": "Jaemin Seo, Yong-Su Na, B. Kim, C. Y. Lee, M. S. Park, S. J. Park, Y. H. Lee",
+   "affiliation": "Department of Nuclear Engineering, Seoul National University; Korea Institute of Fusion Energy",
+   "year": "2021",
+   "venue": "Nuclear Fusion 61(10), 106010",
+   "url": "https://doi.org/10.1088/1741-4326/ac121b",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Cristina Rea and colleagues at MIT's Plasma Science and Fusion Center took the opposite methodological route to deep learning and won an operational milestone with it: their random-forest predictor DPRF ran live inside the DIII-D Plasma Control System for over 900 discharges across four months of 2018 operation, making it one of the first machine-learning disruption predictors to run in real time on a working tokamak.",
+   "people": "Cristina Rea, Kevin J. Montes, Keith G. Erickson, Robert S. Granetz, R. Alex Tinguely",
+   "affiliation": "MIT Plasma Science and Fusion Center; Princeton Plasma Physics Laboratory",
+   "year": "2019",
+   "venue": "Nuclear Fusion 59(9), 096016",
+   "url": "https://doi.org/10.1088/1741-4326/ab28bf",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Kevin J. Montes, Cristina Rea and Robert S. Granetz trained random forests on databases of roughly a million real-time-available parameter samples across some ten thousand discharges from each of Alcator C-Mod, DIII-D and EAST, providing the field's canonical multi-machine baseline against which deep-learning disruption predictors are compared.",
+   "people": "Kevin J. Montes, Cristina Rea, Robert S. Granetz, R. Alex Tinguely, Nick Eidietis, Orso M. Meneghini, D. L. Chen, B. Shen, B. J. Xiao, Keith Erickson, Mark D. Boyer",
+   "affiliation": "MIT Plasma Science and Fusion Center; General Atomics; Institute of Plasma Physics, Chinese Academy of Sciences (EAST); Princeton Plasma Physics Laboratory",
+   "year": "2019",
+   "venue": "Nuclear Fusion 59(9), 096015",
+   "url": "https://doi.org/10.1088/1741-4326/ab1df4",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "J. X. Zhu and Cristina Rea's hybrid deep-learning architecture directly targets the transfer problem that ITER poses, showing that a predictor trained on existing devices can be adapted to a new machine using only a very limited quantity of that machine's disruptive data — an explicit acknowledgement that naive cross-machine transfer does not work well enough on its own.",
+   "people": "J. X. Zhu, Cristina Rea, Kevin Montes, Robert S. Granetz, Ryan Sweeney, R. Alex Tinguely",
+   "affiliation": "MIT Plasma Science and Fusion Center",
+   "year": "2021",
+   "venue": "Nuclear Fusion 61(2), 026007 (published online 22 December 2020)",
+   "url": "https://doi.org/10.1088/1741-4326/abc664",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "A Huazhong University of Science and Technology group led by Wei Zheng and Zhongyong Chen demonstrated parameter-based transfer learning for disruption prediction across J-TEXT and EAST, quantifying how much target-machine data a pretrained model needs — evidence that the practical unit of progress in cross-machine prediction is transfer efficiency, not raw accuracy on a single device.",
+   "people": "Wei Zheng, Fengming Xue, Zhongyong Chen, Dalong Chen, Bihao Guo, Chengshuo Shen, Xinkun Ai, Nengchao Wang, Ming Zhang, Yonghua Ding, Zhipeng Chen, Zhoujun Yang, Biao Shen, Bingjia Xiao, Yuan Pan",
+   "affiliation": "International Joint Research Laboratory of Magnetic Confinement Fusion and Plasma Physics, Huazhong University of Science and Technology; Institute of Plasma Physics, Chinese Academy of Sciences",
+   "year": "2023",
+   "venue": "Communications Physics 6(1), 181",
+   "url": "https://doi.org/10.1038/s42005-023-01296-9",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "The European counterweight to the American deep-learning programme is the JET-based effort of Jesús Vega and Andrea Murari, whose 2022 Nature Physics review sets out how AI disruption predictors have actually performed on JET over two decades and argues for approaches that remain interpretable and can be deployed from the first discharges of a new device — the most useful single source for separating validated results from demonstrations.",
+   "people": "J. Vega, A. Murari, S. Dormido-Canto, G. A. Rattá, M. Gelfusa (with JET Contributors)",
+   "affiliation": "Laboratorio Nacional de Fusión, CIEMAT, Madrid; Consorzio RFX / CNR, Padua; UNED, Madrid; University of Rome Tor Vergata",
+   "year": "2022",
+   "venue": "Nature Physics 18(7), 741–750",
+   "url": "https://doi.org/10.1038/s41567-022-01602-2",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Teddy Craciunescu and Andrea Murari applied nonlinear-dynamics change-point detection to JET signals, treating the approach to disruption as a detectable change in the underlying dynamics of the plasma rather than as a pattern-matching classification problem — the closest published bridge between the tokamak disruption literature and the critical-transitions / early-warning-signal tradition.",
+   "people": "Teddy Craciunescu, Andrea Murari (with JET Contributors)",
+   "affiliation": "National Institute for Laser, Plasma and Radiation Physics, Bucharest; Consorzio RFX, Padua",
+   "year": "2023",
+   "venue": "Nonlinear Dynamics 111(4), 3509–3523 (published online 31 October 2022)",
+   "url": "https://doi.org/10.1007/s11071-022-08009-x",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Lucas Spangher and Cristina Rea introduced DisruptionBench, a standardized benchmarking framework for machine-learning disruption prediction, motivated by the observation that reported accuracies across the literature are not comparable because they use different datasets, alarm definitions and evaluation protocols — the strongest published caution against taking any single headline disruption-prediction number at face value.",
+   "people": "Lucas Spangher, Matteo Bonotto, William Arnold, Dhruva Chayapathy, Tommaso Gallingani, Alexander Spangher, Francesco Cannarile, Daniele Bigoni, Eliana De Marchi, Cristina Rea",
+   "affiliation": "MIT Plasma Science and Fusion Center; Eni S.p.A.; University of Southern California",
+   "year": "2025",
+   "venue": "Journal of Fusion Energy 44(1), 26 (preprint 2024)",
+   "url": "https://doi.org/10.1007/s10894-025-00495-2",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Allen M. Wang, Cristina Rea, Alessandro Pau and colleagues from MIT and EPFL used learned plasma-dynamics models with uncertainty estimates to design robust tokamak rampdown trajectories and validated them in predict-first experiments on TCV, extending AI beyond disruption prediction into the safe termination of the discharge — the phase where a large fraction of disruptions actually occur.",
+   "people": "Allen M. Wang, Alessandro Pau, Cristina Rea, Oswin So, Charles Dawson, Olivier Sauter, Mark D. Boyer, Anna Vu, Cristian Galperti, Chuchu Fan, Antoine Merle, Yoeri Poels, Cristina Venturini, Federico Felici, Stefano Marchioni (with the TCV Team)",
+   "affiliation": "MIT Plasma Science and Fusion Center; Swiss Plasma Center, EPFL",
+   "year": "2025",
+   "venue": "Nature Communications 16(1), 8877",
+   "url": "https://doi.org/10.1038/s41467-025-63917-x",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Google DeepMind released TORAX, an open-source differentiable tokamak transport simulator written in JAX, whose just-in-time compilation and automatic differentiation are designed to make the simulator itself trainable-through — the infrastructure step that lets reinforcement learning, gradient-based trajectory optimization and neural surrogates operate inside a physics model rather than beside it.",
+   "people": "Jonathan Citrin, Ian Goodfellow, Akhil Raju, Jeremy Chen, Jonas Degrave, Craig Donner, Federico Felici, Philippe Hamel, Andrea Huber, Dmitry Nikulin, David Pfau, Brendan Tracey, Martin Riedmiller, Pushmeet Kohli",
+   "affiliation": "Google DeepMind; Swiss Plasma Center, EPFL",
+   "year": "2024",
+   "venue": "arXiv preprint arXiv:2406.06718 (submitted 10 June 2024)",
+   "url": "https://arxiv.org/abs/2406.06718",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "The bifurcation at the heart of modern tokamak operation was discovered by accident: in 1982 Fritz Wagner and the ASDEX team at the Max Planck Institute for Plasma Physics reported that neutral-beam-heated divertor discharges above a power threshold jumped abruptly into a regime of roughly doubled energy confinement, which became known as H-mode.",
+   "people": "F. Wagner, G. Becker, K. Behringer, D. Campbell, A. Eberhagen, W. Engelhardt, G. Fussmann, O. Gehre, J. Gernhardt, G. v. Gierke, G. Haas, M. Huang, F. Karger, M. Keilhacker, O. Klüber, M. Kornherr, K. Lackner, G. Lisitano, G. G. Lister, H. M. Mayer, D. Meisel, E. R. Müller, H. Murmann, H. Niedermeyer, W. Poschenrieder, H. Rapp, H. Röhr, F. Schneider, G. Siller, E. Speth, A. Stäbler, K. H. Steuer, G. Venus, O. Vollmer, Z. Yü",
+   "affiliation": "Max-Planck-Institut für Plasmaphysik, Garching (ASDEX tokamak)",
+   "year": "1982",
+   "venue": "Physical Review Letters 49(19), 1408–1412",
+   "url": "https://doi.org/10.1103/PhysRevLett.49.1408",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Ker-Chung Shaing, E. C. Crume Jr. and W. A. Houlberg gave the L–H transition its first explicit bifurcation model, deriving a discontinuous jump in poloidal rotation that suppresses turbulent fluctuations — establishing the transition as a genuine bifurcation of the plasma's dynamical state rather than a smooth crossover.",
+   "people": "K. C. Shaing, E. C. Crume Jr., W. A. Houlberg",
+   "affiliation": "Oak Ridge National Laboratory",
+   "year": "1990",
+   "venue": "Physics of Fluids B: Plasma Physics 2(6), 1492–1498",
+   "url": "https://doi.org/10.1063/1.859473",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Frederick L. Hinton formalized the L–H transition as a thermal confinement bifurcation, in which the plasma's heat-transport equation admits two stable solution branches over a range of heating power so that crossing the threshold forces a discontinuous jump between confinement states.",
+   "people": "F. L. Hinton",
+   "affiliation": "General Atomics, San Diego",
+   "year": "1991",
+   "venue": "Physics of Fluids B: Plasma Physics 3(3), 696–704",
+   "url": "https://doi.org/10.1063/1.859866",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Patrick H. Diamond and co-authors reframed the L–H transition as self-regulating shear-flow turbulence, in which the turbulence generates the very sheared flow that quenches it — the feedback loop that makes the transition sharp and that underlies all later predator-prey descriptions of confinement bifurcations.",
+   "people": "P. H. Diamond, Y.-M. Liang, B. A. Carreras, P. W. Terry",
+   "affiliation": "University of California San Diego; Oak Ridge National Laboratory; University of Wisconsin–Madison",
+   "year": "1994",
+   "venue": "Physical Review Letters 72(16), 2565–2568",
+   "url": "https://doi.org/10.1103/PhysRevLett.72.2565",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Eun-jin Kim and Patrick H. Diamond showed that zonal flows trigger the L–H transition and produce a characteristic transient, oscillatory phase before a steep pressure gradient locks in a quiescent H-mode — the model that predicts an observable limit-cycle precursor at the tipping point.",
+   "people": "Eun-jin Kim, P. H. Diamond",
+   "affiliation": "University of California San Diego",
+   "year": "2003",
+   "venue": "Physical Review Letters 90(18), 185006",
+   "url": "https://doi.org/10.1103/PhysRevLett.90.185006",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Lothar Schmitz and colleagues at UCLA and General Atomics supplied the direct experimental confirmation on DIII-D, observing zonal-flow predator-prey oscillations in a narrow layer just inside the separatrix in which turbulence is periodically suppressed whenever the shearing rate transiently exceeds the turbulence decorrelation rate, immediately before the L- to H-mode transition.",
+   "people": "L. Schmitz, L. Zeng, T. L. Rhodes, J. C. Hillesheim, E. J. Doyle, R. J. Groebner, W. A. Peebles, K. H. Burrell, G. Wang",
+   "affiliation": "University of California, Los Angeles; General Atomics, San Diego",
+   "year": "2012",
+   "venue": "Physical Review Letters 108(15), 155002",
+   "url": "https://doi.org/10.1103/PhysRevLett.108.155002",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Machine learning has been applied directly to the L–H bifurcation threshold itself: a group at the Institute of Plasma Physics, Chinese Academy of Sciences, trained ensemble-learning regression on thousands of EAST discharges to predict the power crossing the separatrix at the onset of the first L–H transition, an approach that treats the threshold as a learnable function of plasma state rather than as an empirical scaling law.",
+   "people": "Wanli Lyu, Hui Wang, Ping Wang, Xin Lin, Dengdi Sun, Xiao Wang, Zheng Deng, Linming Shao, Qingquan Yang, Jin Tang, Guosheng Xu",
+   "affiliation": "Institute of Plasma Physics, Chinese Academy of Sciences (EAST); Anhui University",
+   "year": "2026",
+   "venue": "Plasma Physics and Controlled Fusion 68(3), 035024",
+   "url": "https://doi.org/10.1088/1361-6587/ae533c",
+   "confidence": "probable",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Neural networks have been trained to forecast edge localized modes in space and time rather than merely detect them, using two-dimensional beam-emission-spectroscopy imaging of the plasma edge — extending AI from predicting whether a discontinuity will occur to predicting where and when it will break out.",
+   "people": "Anirban Samaddar, Qian Gong, Sandeep Madireddy, Christopher Hansen, Semin Joung, David R. Smith, Yixuan Sun, Fatima Ebrahimi, Prasanna Balaprakash, Andrew Oakleigh Nelson",
+   "affiliation": "Argonne National Laboratory; Oak Ridge National Laboratory; Columbia University; University of Wisconsin–Madison; Princeton Plasma Physics Laboratory",
+   "year": "2025",
+   "venue": "Machine Learning: Science and Technology 6(3), 035041",
+   "url": "https://doi.org/10.1088/2632-2153/adfb41",
+   "confidence": "probable",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "The engineering constraint that gives all of this urgency is set out by Peter C. de Vries and the ITER Organization: ITER's disruption mitigation system must be triggered by a predictor that fires reliably and early enough for massive gas or shattered-pellet injection to act, on a machine that cannot be allowed to accumulate a training set of its own disruptions — which is why cross-machine generalization, not single-machine accuracy, is the figure of merit.",
+   "people": "P. C. de Vries, G. Pautasso, D. Humphreys, M. Lehnen, S. Maruyama, J. A. Snipes, A. Vergara, L. Zabeo",
+   "affiliation": "ITER Organization, Saint-Paul-lez-Durance; Max-Planck-Institut für Plasmaphysik, Garching; General Atomics",
+   "year": "2016",
+   "venue": "Fusion Science and Technology 69(2), 471–484",
+   "url": "https://doi.org/10.13182/FST15-176",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "claim": "Egemen Kolemen's group had prototyped machine-learning control for tearing-mode and disruption avoidance on DIII-D four years before the 2024 Nature result, establishing the research line that culminated in the reinforcement-learning tearing controller.",
+   "people": "Yichen Fu, David Eldon, Keith Erickson, Kornee Kleijwegt, Leonard Lupin-Jimenez, Mark D. Boyer, Nick Eidietis, Nathaniel Barbour, Olivier Izacard, Egemen Kolemen",
+   "affiliation": "Princeton University; Princeton Plasma Physics Laboratory; General Atomics (DIII-D)",
+   "year": "2020",
+   "venue": "Physics of Plasmas 27(2), 022501",
+   "url": "https://doi.org/10.1063/1.5125581",
+   "confidence": "verified",
+   "_domain": "fusion-plasma"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Item 4 — Tracey et al. catalogue the practical failure modes of RL tokamak magnetic control — 'control accuracy, steady-state error, sim-to-real transfer and training cost' — and report engineering fixes; Fusion Engineering and Design 200, 114161 (2024).",
+   "correction": "The citation (authors, venue, volume, article number, year, DOI, arXiv:2307.11546 of July 2023) is entirely correct, but the list of drawbacks overstates the paper's stated scope: sim-to-real transfer is not one of the drawbacks it sets out to fix. Accurate replacement text: \"The same DeepMind–EPFL collaboration published a follow-up that is unusually candid about the gap between the Nature demonstration and a deployable controller: Brendan D. Tracey and colleagues address the key drawbacks of the RL method relative to traditional feedback control — control accuracy, steady-state error, and the time required to learn new tasks — reporting up to 65% improvement in shape accuracy, a substantial reduction in the long-term bias of the plasma current, and a threefold or greater reduction in training time, validated in new experiments on the TCV tokamak.\" Correct URL: https://doi.org/10.1016/j.fusengdes.2024.114161 (preprint https://arxiv.org/abs/2307.11546). Note the published byline also carries a corporate author, 'The TCV Team', after Riedmiller.",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Item 16 — TORAX, open-source differentiable tokamak transport simulator in JAX; Citrin, Goodfellow, … Kohli, arXiv:2406.06718 (10 June 2024); JIT and autodiff make the simulator 'trainable-through', letting reinforcement learning, gradient-based trajectory optimization and neural surrogates operate inside a physics model.",
+   "correction": "The citation is exact — title, all fourteen authors in order, arXiv identifier and 10 June 2024 submission date all check out. But the paper never claims reinforcement learning or trajectory optimization as applications; neither phrase appears in the abstract or the arXiv v1 full text. Accurate replacement text: \"Google DeepMind released TORAX, an open-source, differentiable tokamak core transport simulator implemented in Python using the JAX framework, whose just-in-time compilation gives fast runtimes and whose automatic differentiation enables gradient-based optimization workflows, Jacobian-based PDE solvers, and coupling to neural-network surrogates of physics models — the infrastructure step that lets optimization and learned models operate inside a physics simulation rather than beside it.\" Correct URL: https://arxiv.org/abs/2406.06718",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Item 18 — Shaing, Crume Jr. & Houlberg 'gave the L–H transition its first explicit bifurcation model'; Physics of Fluids B 2(6), 1492–1498 (1990), doi:10.1063/1.859473.",
+   "correction": "The bibliographic record is exact (title, three authors, ORNL, volume, issue, pages, 1990, DOI), but the priority claim is wrong: the first explicit bifurcation model of the L–H transition was published a year earlier by two of the same authors. Accurate replacement text: \"Ker-Chung Shaing and E. C. Crume Jr. gave the L–H transition its first explicit bifurcation model in 1989, showing that the poloidal momentum balance equation admits bifurcated solutions so that the poloidal flow and the radial electric field jump discontinuously, suppressing turbulent fluctuations — establishing the transition as a genuine bifurcation of the plasma's dynamical state rather than a smooth crossover. Shaing, Crume Jr. and W. A. Houlberg extended the model the following year to include the resulting suppression of turbulent fluctuations.\" Correct URLs: K. C. Shaing and E. C. Crume Jr., 'Bifurcation theory of poloidal rotation in tokamaks: A model for L-H transition', Physical Review Letters 63(21), 2369–2372 (1989), https://doi.org/10.1103/PhysRevLett.63.2369; and K. C. Shaing, E. C. Crume Jr. and W. A. Houlberg, 'Bifurcation of poloidal rotation and suppression of turbulent fluctuations: A model for the L–H transition in tokamaks', Physics of Fluids B 2(6), 1492–1498 (1990), https://doi.org/10.1063/1.859473",
+   "_domain": "fusion-plasma"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Summary prose — 'a state change theorized as a thermal-confinement bifurcation (Shaing 1990, Hinton 1991)'.",
+   "correction": "The label 'thermal-confinement bifurcation' belongs to Hinton 1991 only; Shaing, Crume and Houlberg's model is a bifurcation of poloidal rotation and the radial electric field, not of the heat-transport equation, and its priority date is 1989. Accurate replacement text: \"...a state change theorized first as a bifurcation of poloidal rotation and the radial electric field (Shaing and Crume 1989; Shaing, Crume and Houlberg 1990) and then as a thermal-confinement bifurcation (Hinton 1991)...\" Correct URLs: https://doi.org/10.1103/PhysRevLett.63.2369, https://doi.org/10.1063/1.859473, https://doi.org/10.1063/1.859866",
+   "_domain": "fusion-plasma"
+  }
+ ]
+}

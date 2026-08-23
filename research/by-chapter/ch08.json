@@ -1,0 +1,611 @@
+{
+ "chapter": 8,
+ "title": "Machines That Hand Back Physics",
+ "outline": "The constructive answer to Chapter 7, and the intellectual peak of the methods half of the book. The chapter runs two lineages against each other. The first is the argument about whether deep learning is renormalization. Pankaj Mehta and David Schwab proposed that stacked restricted Boltzmann machines implement variational renormalization; Maciej Koch-Janusz and Zohar Ringel rejected that reading and built an alternative in which maximizing real-space mutual information between a coarse-grained variable and its environment extracts the relevant degrees of freedom, from which they recovered the Ising correlation-length exponent as one point zero plus or minus zero point one five against an exact value of one. Doruk Efe Gökmen, Zohar Ringel, Sebastian Huber and Maciej Koch-Janusz scaled this into RSMI-NE, which reconstructs phase diagrams and identifies symmetry-breaking patterns without prior knowledge, and Robert de Mello Koch and colleagues built observables that distinguish genuine renormalization flow from whatever a trained network is actually doing. The second lineage is symbolic regression, whose output is an equation rather than a prediction, from Michael Schmidt and Hod Lipson recovering conservation laws from motion-tracking data, through Silviu-Marian Udrescu and Max Tegmark's AI Feynman, through Miles Cranmer's PySR and the graph-network recipe of imposing a sparse bottleneck and symbolically regressing the learned messages, to Cristina Cornelio and colleagues at IBM scoring candidates on derivability from background axioms rather than fit alone, which is the difference between a fitted curve and a derived law. The chapter closes on the contrast case, physics-informed neural networks and neural operators applied to Allen-Cahn and Cahn-Hilliard dynamics, which enforce known physics rather than discovering new physics and whose documented failures on stiff, sharp-interface problems are optimization-landscape failures rather than expressivity failures.\n\nBuilt on Mehta and Schwab on variational renormalization, Koch-Janusz and Ringel in Nature Physics 2018 with the extracted Ising exponent, Gökmen, Ringel, Huber and Koch-Janusz on RSMI-NE, de Mello Koch and colleagues on distinguishing renormalization flow from network behaviour, Schmidt and Lipson in Science 2009, Udrescu and Tegmark in Science Advances 2020 together with AI Feynman 2.0, Cranmer's PySR and the graph-network symbolic regression recipe with Lemos and colleagues recovering the inverse-square law and solar-system masses from thirty years of trajectories, Brunton, Proctor and Kutz on sparse identification of governing equations, Cornelio and colleagues in Nature Communications 2023, Raissi, Perdikaris and Karniadakis on physics-informed networks with Mattey and Ghosh on Allen-Cahn and Cahn-Hilliard and Krishnapriyan and colleagues on why they fail, and the Fourier Neural Operator.\n\nLeaves open: every law recovered here was already known. Whether any version of the claim that deep learning is renormalization survives is still unsettled.",
+ "domains": [
+  "symbolic-theory",
+  "rg-symbolic-verify"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Symbolic regression applied to raw motion-tracking data from double pendulums and oscillators recovered conserved quantities, Lagrangians and Hamiltonians without being given the form of the physical law, using an evolutionary search that scored candidate expressions by how well their partial-derivative relationships matched those in the data.",
+   "people": "Michael Schmidt, Hod Lipson",
+   "affiliation": "Cornell University",
+   "year": "2009",
+   "venue": "Science, vol. 324, no. 5923, pp. 81-85",
+   "url": "https://doi.org/10.1126/science.1165893",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "AI Feynman combines neural-network fitting with physics-motivated inductive biases — dimensional analysis, polynomial fits, brute-force search, and recursive decomposition using discovered symmetries and separability — to recover 100 of the 100 equations in the Feynman Lectures on Physics benchmark, versus 71 for the previous best method.",
+   "people": "Silviu-Marian Udrescu, Max Tegmark",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2020",
+   "venue": "Science Advances, vol. 6, no. 16, article eaay2631",
+   "url": "https://doi.org/10.1126/sciadv.aay2631",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "AI Feynman 2.0 generalizes the method to noisy and approximate data by returning a Pareto frontier trading accuracy against description-length complexity, and by exploiting graph modularity to discover generalized symmetries that decompose a target function into simpler subproblems.",
+   "people": "Silviu-Marian Udrescu, Andrew Tan, Jiahai Feng, Orisvaldo Neto, Tailin Wu, Max Tegmark",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2020",
+   "venue": "Advances in Neural Information Processing Systems 33 (NeurIPS 2020); arXiv:2006.10782",
+   "url": "https://arxiv.org/abs/2006.10782",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "PySR is an open-source high-performance symbolic regression package, built on the Julia backend SymbolicRegression.jl, designed for scientific discovery: it performs multi-population evolutionary search over expression trees with user-defined operators and returns a Pareto front of accuracy versus complexity. The source repository is https://github.com/MilesCranmer/PySR.",
+   "people": "Miles Cranmer",
+   "affiliation": "Princeton University and Flatiron Institute",
+   "year": "2023 (arXiv preprint)",
+   "venue": "arXiv:2305.01582 [astro-ph.IM]",
+   "url": "https://arxiv.org/abs/2305.01582",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Imposing a sparse, low-dimensional bottleneck on the message-passing function of a graph neural network forces the learned messages to align with physically meaningful quantities such as force components; symbolic regression applied to those messages then recovers the underlying force law in closed form, a method the authors demonstrated on N-body simulations and on a dark matter halo cosmology dataset where it produced a new analytic formula.",
+   "people": "Miles Cranmer, Alvaro Sanchez-Gonzalez, Peter Battaglia, Rui Xu, Kyle Cranmer, David Spergel, Shirley Ho",
+   "affiliation": "Princeton University; DeepMind; Flatiron Institute; New York University",
+   "year": "2020",
+   "venue": "Advances in Neural Information Processing Systems 33 (NeurIPS 2020); arXiv:2006.11287",
+   "url": "https://arxiv.org/abs/2006.11287",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A graph neural network trained on 30 years of observed trajectories of the Sun, planets and large moons, then distilled by symbolic regression, rediscovered Newton's law of gravitation in the form of an inverse-square force and simultaneously recovered the masses of the bodies to within an order of magnitude, without being given either the force law or the masses.",
+   "people": "Pablo Lemos, Niall Jeffrey, Miles Cranmer, Shirley Ho, Peter Battaglia",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "Machine Learning: Science and Technology, vol. 4, no. 4, article 045002",
+   "url": "https://doi.org/10.1088/2632-2153/acfa63",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "AI-Descartes couples symbolic regression with automated reasoning, so that a candidate equation is scored not only on fit to data but on whether it is logically derivable from a set of background theory axioms; the system rediscovered Kepler's third law of planetary motion, Einstein's relativistic time-dilation law, and Langmuir's adsorption equation, and can identify which axioms a derivation requires.",
+   "people": "Cristina Cornelio, Sanjeeb Dash, Vernon Austel, Tyler R. Josephson, Joao Goncalves, Kenneth L. Clarkson, Nimrod Megiddo, Bachir El Khadir, Lior Horesh",
+   "affiliation": "IBM Research",
+   "year": "2023",
+   "venue": "Nature Communications, vol. 14, article 1777",
+   "url": "https://doi.org/10.1038/s41467-023-37236-y",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Sparse identification of nonlinear dynamical systems (SINDy) recovers governing differential equations from measurement data by assuming the dynamics are sparse in a library of candidate nonlinear functions and solving a sparse regression problem, yielding parsimonious interpretable models rather than black-box predictors.",
+   "people": "Steven L. Brunton, Joshua L. Proctor, J. Nathan Kutz",
+   "affiliation": "University of Washington",
+   "year": "2016",
+   "venue": "Proceedings of the National Academy of Sciences, vol. 113, no. 15, pp. 3932-3937",
+   "url": "https://doi.org/10.1073/pnas.1517384113",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A neural network trained to maximize the mutual information between a coarse-grained block variable and the surrounding environment, subject to a compression constraint, learns the renormalization-group-relevant degrees of freedom of a statistical system; applied to the two-dimensional Ising model the network recovered the block-spin (majority-rule) coarse-graining, and applied to the dimer model it recovered the correct emergent electromagnetic-like variables.",
+   "people": "Maciej Koch-Janusz, Zohar Ringel",
+   "affiliation": "ETH Zürich; Hebrew University of Jerusalem",
+   "year": "2018",
+   "venue": "Nature Physics, vol. 14, no. 6, pp. 578-582",
+   "url": "https://doi.org/10.1038/s41567-018-0081-4",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Real-space mutual information neural estimation (RSMI-NE) scales the mutual-information coarse-graining principle to larger systems using modern variational MI estimators, and extracts relevant order parameters and coarse-graining rules directly from raw configurations of classical statistical systems without prior knowledge of the order parameter or the symmetry being broken.",
+   "people": "Doruk Efe Gökmen, Zohar Ringel, Sebastian D. Huber, Maciej Koch-Janusz",
+   "affiliation": "ETH Zürich; Hebrew University of Jerusalem",
+   "year": "2021",
+   "venue": "Physical Review Letters, vol. 127, no. 24, article 240603",
+   "url": "https://doi.org/10.1103/PhysRevLett.127.240603",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "The companion RSMI-NE paper shows that the learned coarse-graining filters encode the symmetries of the effective field theory, allowing the method to construct phase diagrams and identify the symmetry-breaking pattern of transitions in systems including the anisotropic Ising and dimer models, making the learned representation itself the interpretable output.",
+   "people": "Doruk Efe Gökmen, Zohar Ringel, Sebastian D. Huber, Maciej Koch-Janusz",
+   "affiliation": "ETH Zürich; Hebrew University of Jerusalem",
+   "year": "2021",
+   "venue": "Physical Review E, vol. 104, no. 6, article 064106",
+   "url": "https://doi.org/10.1103/PhysRevE.104.064106",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A normalizing-flow architecture whose layer structure mirrors the hierarchical spatial structure of real-space renormalization group transformations learns an invertible map between physical configurations and a latent space of effectively decoupled variables, providing a variational free-energy estimate and an explicit, tractable RG-like coarse-graining for the Ising model.",
+   "people": "Shuo-Hui Li, Lei Wang",
+   "affiliation": "Institute of Physics, Chinese Academy of Sciences",
+   "year": "2018",
+   "venue": "Physical Review Letters, vol. 121, no. 26, article 260601",
+   "url": "https://doi.org/10.1103/PhysRevLett.121.260601",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "RG-Flow builds a hierarchical flow-based generative model with a sparse prior in which latent variables are organized by scale, so that different layers of the latent representation correspond to structure at different length scales, yielding disentangled and human-inspectable representations motivated directly by renormalization group ideas.",
+   "people": "Hong-Ye Hu, Dian Wu, Yi-Zhuang You, Bruno Olshausen, Yubei Chen",
+   "affiliation": "University of California San Diego; University of California Berkeley",
+   "year": "2022",
+   "venue": "Machine Learning: Science and Technology, vol. 3, no. 3, article 035009",
+   "url": "https://doi.org/10.1088/2632-2153/ac8393",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Pankaj Mehta and David J. Schwab proposed an explicit mapping between variational renormalization group transformations and stacked restricted Boltzmann machines, arguing that successive layers of a deep network implement a coarse-graining procedure; this preprint launched the RG-deep-learning correspondence literature, though the exactness and generality of the claimed mapping have been contested in subsequent work.",
+   "people": "Pankaj Mehta, David J. Schwab",
+   "affiliation": "",
+   "year": "2014 (arXiv preprint; no journal version)",
+   "venue": "arXiv:1410.3831 [stat.ML]",
+   "url": "https://arxiv.org/abs/1410.3831",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A feedforward neural network trained to classify raw Monte Carlo spin configurations of the two-dimensional Ising model by phase learns to detect the transition and encodes magnetization-like structure in its weights, and the same approach detects transitions in models with no conventional local order parameter, such as the Ising gauge theory.",
+   "people": "Juan Carrasquilla, Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2017",
+   "venue": "Nature Physics, vol. 13, no. 5, pp. 431-434",
+   "url": "https://doi.org/10.1038/nphys4035",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "The 'learning by confusion' scheme locates a phase transition without labels by deliberately mislabeling data at a proposed critical point and scanning that point across the parameter range; the classifier's performance traces a characteristic W shape whose central peak marks the true transition, making the method applicable where the order parameter is unknown.",
+   "people": "Evert P. L. van Nieuwenburg, Ye-Hua Liu, Sebastian D. Huber",
+   "affiliation": "ETH Zürich",
+   "year": "2017",
+   "venue": "Nature Physics, vol. 13, no. 5, pp. 435-439",
+   "url": "https://doi.org/10.1038/nphys4037",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Unsupervised methods applied to Ising configurations show that the leading principal component of principal component analysis corresponds directly to the magnetization order parameter, and that the latent variable of a variational autoencoder learns an equivalent representation, demonstrating that an interpretable order parameter can emerge without any labels or prior physical input.",
+   "people": "Sebastian J. Wetzel",
+   "affiliation": "Heidelberg University",
+   "year": "2017",
+   "venue": "Physical Review E, vol. 96, no. 2, article 022140",
+   "url": "https://doi.org/10.1103/PhysRevE.96.022140",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Inspecting the weights of a neural network trained to distinguish phases yields explicit analytic order parameters: for the Ising model the network recovers the magnetization, and for SU(2) lattice gauge theory it recovers the Polyakov loop, demonstrating that a trained classifier's internal structure can be read out as a closed-form physical quantity rather than left as a black box.",
+   "people": "Sebastian J. Wetzel, Manuel Scherzer",
+   "affiliation": "Heidelberg University",
+   "year": "2017",
+   "venue": "Physical Review B, vol. 96, no. 18, article 184410",
+   "url": "https://doi.org/10.1103/PhysRevB.96.184410",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Siamese neural networks trained to map configurations related by a symmetry or a conserved dynamics to the same output learn representations whose interpretation yields conserved quantities and symmetry invariants in closed form, with the interpretation step performed by symbolic regression and automated reasoning tools.",
+   "people": "Sebastian J. Wetzel, Roger G. Melko, Joseph Scott, Maysum Panju, Vijay Ganesh",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2020",
+   "venue": "Physical Review Research, vol. 2, no. 3, article 033499",
+   "url": "https://doi.org/10.1103/PhysRevResearch.2.033499",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "An unsupervised method based on diffusion maps applied to raw configurations distinguishes topologically ordered phases from trivial ones without any local order parameter or prior labeling, addressing the case where the Landau symmetry-breaking paradigm and its associated order parameters do not apply.",
+   "people": "Joaquin F. Rodriguez-Nieva, Mathias S. Scheurer",
+   "affiliation": "Harvard University",
+   "year": "2019",
+   "venue": "Nature Physics, vol. 15, no. 8, pp. 790-795",
+   "url": "https://doi.org/10.1038/s41567-019-0512-x",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A neural-network method estimates the intrinsic dimension of a dynamical system directly from raw video of the system in motion, thereby recovering the number of independent state variables needed to describe it — for example returning four for a double pendulum — before any equation is fitted, addressing the step that precedes symbolic regression.",
+   "people": "Boyuan Chen, Kuang Huang, Sunand Raghupathi, Ishaan Chandratreya, Qiang Du, Hod Lipson",
+   "affiliation": "Columbia University",
+   "year": "2022",
+   "venue": "Nature Computational Science, vol. 2, pp. 433-442",
+   "url": "https://doi.org/10.1038/s43588-022-00281-6",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "The AI Poincaré method discovers conserved quantities from observed trajectories by measuring the local intrinsic dimensionality of the manifold the trajectory explores in phase space, correctly identifying the number of conservation laws in systems including the Kepler problem and a relativistic charged particle without prior physical assumptions.",
+   "people": "Ziming Liu, Max Tegmark",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2021",
+   "venue": "Physical Review Letters, vol. 126, no. 18, article 180604",
+   "url": "https://doi.org/10.1103/PhysRevLett.126.180604",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "An automated method discovers symmetries that are hidden by a bad choice of coordinates, learning the coordinate transformation that manifests the symmetry; the method rediscovered the transformation revealing the hidden symmetry of the Schwarzschild metric and other cases where the symmetry is not apparent in the original variables.",
+   "people": "Ziming Liu, Max Tegmark",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2022",
+   "venue": "Physical Review Letters, vol. 128, no. 18, article 180201",
+   "url": "https://doi.org/10.1103/PhysRevLett.128.180201",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Kolmogorov-Arnold Networks place learnable univariate spline activation functions on network edges instead of fixed activations on nodes, which the authors argue makes the learned function decomposable and human-readable; they demonstrate extracting closed-form expressions and rediscovering known relations in physics and mathematics from trained KANs.",
+   "people": "Ziming Liu, Yixuan Wang, Sachin Vaidya, Fabian Ruehle, James Halverson, Marin Soljačić, Thomas Y. Hou, Max Tegmark",
+   "affiliation": "Massachusetts Institute of Technology; California Institute of Technology; Northeastern University",
+   "year": "arXiv preprint 2024; published ICLR 2025",
+   "venue": "International Conference on Learning Representations (ICLR) 2025; arXiv:2404.19756",
+   "url": "https://arxiv.org/abs/2404.19756",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Physics-informed neural networks embed the residual of a governing partial differential equation into the training loss via automatic differentiation, enabling both forward solution and inverse parameter identification from sparse data; the paper's discrete-time formulation is demonstrated on the Allen-Cahn equation, a canonical phase-separation model.",
+   "people": "Maziar Raissi, Paris Perdikaris, George Em Karniadakis",
+   "affiliation": "Brown University; University of Pennsylvania",
+   "year": "2019",
+   "venue": "Journal of Computational Physics, vol. 378, pp. 686-707",
+   "url": "https://doi.org/10.1016/j.jcp.2018.10.045",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "A sequential, backward-compatible training scheme for physics-informed neural networks addresses the failure of standard PINNs on the Allen-Cahn and Cahn-Hilliard equations, whose stiff dynamics and sharp moving interfaces defeat single-shot training over the whole space-time domain.",
+   "people": "Revanth Mattey, Susanta Ghosh",
+   "affiliation": "Michigan Technological University",
+   "year": "2022",
+   "venue": "Computer Methods in Applied Mechanics and Engineering, vol. 390, article 114474",
+   "url": "https://doi.org/10.1016/j.cma.2021.114474",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Physics-informed neural networks fail on problems only slightly more complex than standard demonstrations, and the authors show the cause is not network expressivity but the optimization landscape: the soft PDE-residual penalty makes the problem ill-conditioned, with curriculum regularization and sequence-to-sequence training reducing error by one to two orders of magnitude. This is an important limitation on claims that PINNs constitute physics discovery.",
+   "people": "Aditi S. Krishnapriyan, Amir Gholami, Shandian Zhe, Robert M. Kirby, Michael W. Mahoney",
+   "affiliation": "",
+   "year": "2021",
+   "venue": "Advances in Neural Information Processing Systems 34 (NeurIPS 2021); arXiv:2109.01050",
+   "url": "https://arxiv.org/abs/2109.01050",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "The Fourier Neural Operator learns mappings between infinite-dimensional function spaces by parameterizing the integral kernel directly in Fourier space, giving a resolution-invariant surrogate that can be trained at one discretization and evaluated at another, and reporting speedups of up to three orders of magnitude over traditional solvers on Navier-Stokes problems.",
+   "people": "Zongyi Li, Nikola Kovachki, Kamyar Azizzadenesheli, Burigede Liu, Kaushik Bhattacharya, Andrew Stuart, Anima Anandkumar",
+   "affiliation": "California Institute of Technology",
+   "year": "arXiv preprint 2020; published ICLR 2021",
+   "venue": "International Conference on Learning Representations (ICLR) 2021; arXiv:2010.08895",
+   "url": "https://arxiv.org/abs/2010.08895",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Neural operators combined with a convolutional autoencoder learn the evolution of two-phase microstructures governed by phase-field (Cahn-Hilliard type) dynamics, with the autoencoder compressing the high-dimensional microstructure field to a low-dimensional latent space in which the operator learns the temporal dynamics of spinodal decomposition.",
+   "people": "Vivek Oommen, Khemraj Shukla, Somdatta Goswami, Rémi Dingreville, George Em Karniadakis",
+   "affiliation": "Brown University; Sandia National Laboratories",
+   "year": "2022",
+   "venue": "npj Computational Materials, vol. 8, article 190",
+   "url": "https://doi.org/10.1038/s41524-022-00876-7",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "J. Doyne Farmer and John J. Sidorowich introduced local approximation methods for forecasting chaotic time series by reconstructing the dynamics from delay-embedded data, an early demonstration that a system's equations of motion can be recovered empirically from observation alone. Note: this is a conceptual precursor to data-driven law discovery, not work on symbolic regression or order parameters; no verified Farmer publication was found in the symbolic-regression or critical-phenomena machine learning literature.",
+   "people": "J. Doyne Farmer, John J. Sidorowich",
+   "affiliation": "Los Alamos National Laboratory",
+   "year": "1987",
+   "venue": "Physical Review Letters, vol. 59, no. 8, pp. 845-848",
+   "url": "https://doi.org/10.1103/PhysRevLett.59.845",
+   "confidence": "verified",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "claim": "Original claim of an exact mapping from Kadanoff's variational renormalization group onto stacked Restricted Boltzmann Machines, illustrated on the nearest-neighbour Ising model in one and two dimensions. Concludes only that deep learning \"may be employing a generalized RG-like scheme\" — the paper's own hedge is weaker than the title.",
+   "people": "Pankaj Mehta; David J. Schwab",
+   "affiliation": "Mehta: Department of Physics, Boston University, Boston, MA. Schwab: Department of Physics, Northwestern University, Evanston, IL (both read directly off the v1 title page)",
+   "year": "2014 (arXiv v1, 14 October 2014; never journal-published — no journal reference or DOI in arXiv metadata as of this check)",
+   "venue": "arXiv preprint, stat.ML / cond-mat.dis-nn (arXiv:1410.3831)",
+   "url": "https://arxiv.org/abs/1410.3831",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Argues that physics-derived properties (symmetry, locality, compositionality, polynomial log-probability) explain deep learning's efficiency, and in its appendix presents a counterexample intended to show the Mehta-Schwab RG-to-deep-belief-network mapping is invalid.",
+   "people": "Henry W. Lin; Max Tegmark; David Rolnick",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 29 August 2016 (arXiv v1); final arXiv version 3 August 2017; journal publication 2017",
+   "venue": "Journal of Statistical Physics (DOI 10.1007/s10955-017-1836-5); preprint arXiv:1608.08225",
+   "url": "https://arxiv.org/abs/1608.08225",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Direct rebuttal to Lin and Tegmark. Argues their claims \"are incorrect and stem from a misunderstanding of the variational RG procedure proposed by Kadanoff,\" and that their counterexample is in fact compatible with the 1410.3831 mapping. Note the author order is reversed relative to the 2014 paper: Schwab first, Mehta second. IMPORTANT: this is an arXiv-only comment, 3 KB, single version, with no journal reference or DOI — it is not a published rebuttal.",
+   "people": "David J. Schwab; Pankaj Mehta",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "2016 (arXiv v1, 12 September 2016; no later versions)",
+   "venue": "arXiv preprint, cond-mat.dis-nn / cs.LG / stat.ML (arXiv:1609.03541)",
+   "url": "https://arxiv.org/abs/1609.03541",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "The strongest empirical critique. Introduces an RSMI-based neural algorithm that identifies RG-relevant degrees of freedom, and states in the main text that on the dimer model the filters obtained by the RSMI method \"are orthogonal to those obtained using Kullback-Leibler (KL) divergence,\" concluding that \"standard RBMs minimizing the KL-divergence do not generally perform RG, thereby contradicting prior claims\" — with Mehta and Schwab 2014 cited at that point. The supplementary section \"Comparison with Contrastive divergence trained RBMs\" shows a CD-trained network coupling strongly to spin pairs that are physically irrelevant.",
+   "people": "Maciej Koch-Janusz; Zohar Ringel",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata and ar5iv full text only)",
+   "year": "Preprint 20 April 2017 (arXiv v1), revised 24 September 2018; journal publication 2018",
+   "venue": "Nature Physics 14, 578-582 (2018), DOI 10.1038/s41567-018-0081-4; preprint arXiv:1704.06279",
+   "url": "https://arxiv.org/abs/1704.06279",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Independent empirical critique on flow direction. An unsupervised RBM trained on Ising spin configurations at various temperatures generates a flow along which the temperature approaches the critical value — i.e. toward the critical point — whereas conventional RG flow for the Ising model moves away from it. A coarse-graining RBM should flow away from criticality, not toward it.",
+   "people": "Satoshi Iso; Shotaro Shiba; Sumito Yokoo",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 22 January 2018; journal publication 2018",
+   "venue": "Physical Review E 97, 053304 (2018), DOI 10.1103/PhysRevE.97.053304; preprint arXiv:1801.07172",
+   "url": "https://arxiv.org/abs/1801.07172",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "This is the Robert de Mello Koch paper the brief asks for. Proposes that correlation functions between hidden and visible neurons are \"capable of diagnosing RG-like coarse graining\" — i.e. an observable that can distinguish RG flow from what a trained RBM actually does. Compares single RBM layers to single RG steps on the Ising model, finds RG-like patterns in the trained correlators but also reports important differences between the two.",
+   "people": "Ellen de Mello Koch; Robert de Mello Koch; Ling Cheng",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 12 June 2019 (arXiv v1), revised 10 June 2020; journal publication 2020",
+   "venue": "IEEE Access, vol. 8 (2020), DOI 10.1109/ACCESS.2020.3000901; preprint arXiv:1906.05212",
+   "url": "https://arxiv.org/abs/1906.05212",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Follow-up extending the RBM/RG comparison from nearest-neighbour to long-range Ising lattices. Two negative results: \"the RBM flow for the long ranged model does not converge to the correct values for the spin and energy scaling dimension,\" and stacked RBM flows move toward low temperatures while RG flows move toward high temperatures. CAUTION FOR CITATION: Robert de Mello Koch is NOT an author here. Also, the arXiv metadata misspells the first author as \"Ellen de Melllo Koch\" with three l's; the correct surname is de Mello Koch.",
+   "people": "Ellen de Mello Koch; Anita de Mello Koch; Nicholas Kastanos; Ling Cheng",
+   "affiliation": "Not verified from the sources consulted; the Phys. Rev. E abstract page returned HTTP 403 and PubMed returned only a cookie notice",
+   "year": "Preprint 7 February 2020; journal publication 2020",
+   "venue": "Physical Review E 102, 013307 (2020), DOI 10.1103/PhysRevE.102.013307; preprint arXiv:2002.02664",
+   "url": "https://arxiv.org/abs/2002.02664",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Later paper from the same group on why unsupervised deep networks generalize, continuing the RG-flavoured analysis. Included because it is the third instalment of the de Mello Koch line of work; no journal reference or DOI appears in the arXiv metadata, so treat it as a preprint.",
+   "people": "Anita de Mello Koch; Ellen de Mello Koch; Robert de Mello Koch",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "2020 (arXiv v1, 7 December 2020)",
+   "venue": "arXiv preprint (arXiv:2012.03531)",
+   "url": "https://arxiv.org/abs/2012.03531",
+   "confidence": "probable",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "A graph network is trained to simulate the dynamics of the Solar System's Sun, planets and large moons from 30 years of observed trajectory data; symbolic regression is then applied to the learned edge function, and the best-fitting force expression is Newton's law of universal gravitation. The masses of the bodies were not observed and were re-fit using the discovered equation, giving \"a nearly perfect fit to the true masses.\" The only assumptions are translational and rotational equivariance plus Newton's second and third laws. Dataset covers 31 objects.",
+   "people": "Pablo Lemos; Niall Jeffrey; Miles Cranmer; Shirley Ho; Peter Battaglia",
+   "affiliation": "Affiliation footnotes on the published paper list: University of Sussex; University College London; Laboratoire de Physique de l'Ecole Normale Superieure, ENS/Universite PSL/CNRS/Sorbonne, Paris; Department of Astrophysical Sciences, Princeton University; Flatiron Institute Center for Computational Astrophysics; Center for Cosmology and Particle Physics, New York University; Carnegie Mellon University; DeepMind, London. Lemos is the corresponding author with a umontreal.ca address. The exact footnote-to-author assignment for Jeffrey/Cranmer/Ho was not fully legible in the scan, so do not assign individual institutions without re-checking.",
+   "year": "Preprint 4 February 2022 (arXiv); received 3 April 2023, accepted 15 September 2023, published 9 October 2023",
+   "venue": "Machine Learning: Science and Technology 4, 045002 (2023), DOI 10.1088/2632-2153/acfa63; preprint arXiv:2202.02306",
+   "url": "https://doi.org/10.1088/2632-2153/acfa63",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "SINDy. Combines sparsity-promoting regression with a library of candidate nonlinear functions to recover governing differential equations directly from measurement data, on the assumption that the dynamics are governed by only a few active terms.",
+   "people": "Steven L. Brunton; Joshua L. Proctor; J. Nathan Kutz",
+   "affiliation": "Not verified from the sources consulted; the PNAS article page returned HTTP 403",
+   "year": "Preprint 11 September 2015 (arXiv:1509.03580); journal publication 2016",
+   "venue": "PNAS 113(15), 3932-3937, DOI 10.1073/pnas.1517384113",
+   "url": "https://doi.org/10.1073/pnas.1517384113",
+   "confidence": "probable",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Preprint version of SINDy. NOTE THE TITLE DIFFERENCE: the preprint is titled \"Discovering governing equations from data: Sparse identification of nonlinear dynamical systems\" (colon, and 'Sparse' capitalised), whereas the PNAS version is \"Discovering governing equations from data by sparse identification of nonlinear dynamical systems.\" Citing the preprint title against the PNAS venue is a common error.",
+   "people": "Steven L. Brunton; Joshua L. Proctor; J. Nathan Kutz",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "2015 (arXiv v1, 11 September 2015)",
+   "venue": "arXiv preprint (arXiv:1509.03580), journal_ref field points to 10.1073/pnas.1517384113",
+   "url": "https://arxiv.org/abs/1509.03580",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "The grokking paper. Networks trained on small algorithmically generated datasets can improve \"from random chance level to perfect generalization,\" and this improvement \"can happen well past the point of overfitting.\" Smaller datasets require increasing amounts of optimization before generalization occurs. The paper describes the phenomenon but offers no mechanism. All five authors were at OpenAI; correspondence address in the arXiv comments field is alethea@openai.com.",
+   "people": "Alethea Power; Yuri Burda; Harri Edwards; Igor Babuschkin; Vedant Misra",
+   "affiliation": "OpenAI (inferred from the correspondence address alethea@openai.com in the arXiv comments field and the MATH-AI workshop listing; individual affiliations not separately verified)",
+   "year": "arXiv preprint 6 January 2022, single version. An earlier version appeared at the 1st Mathematical Reasoning in General Artificial Intelligence (MATH-AI) Workshop at ICLR 2021 — so the work predates the 2022 arXiv date.",
+   "venue": "arXiv preprint (arXiv:2201.02177); earlier at ICLR 2021 MATH-AI workshop",
+   "url": "https://arxiv.org/abs/2201.02177",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Reverse-engineers the algorithm learned by small transformers on modular addition (a + b mod 113): the network \"uses discrete Fourier transforms and trigonometric identities to convert addition to rotation about a circle,\" confirmed by activation and weight analysis plus ablations in Fourier space. THE THREE PHASES, verbatim from the abstract, are \"memorization, circuit formation, and cleanup.\" The concluding claim is that grokking \"rather than being a sudden shift, arises from the gradual amplification of structured mechanisms encoded in the weights, followed by the later removal of memorizing components.\"",
+   "people": "Neel Nanda; Lawrence Chan; Tom Lieberum; Jess Smith; Jacob Steinhardt",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata, ICLR virtual page, OpenReview listing)",
+   "year": "arXiv v1 12 January 2023; ICLR 2023; arXiv v3 19 October 2023",
+   "venue": "ICLR 2023, in-person oral presentation (top 25% of papers per the ICLR virtual site); OpenReview id 9XFSbDPmdW; preprint arXiv:2301.05217",
+   "url": "https://openreview.net/forum?id=9XFSbDPmdW",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "The core jamming paper. Predicts and empirically tests an analogy between the deep-network loss landscape and the energy landscape of repulsive ellipses: a phase transition delimits the over- and under-parametrized regimes where fitting can or cannot be achieved, sharing direct similarities with the jamming transition by which particles form a disordered solid as density increases. Reports that the ability of fully connected networks to fit random data is independent of depth, and that at the critical point the per-datum quantity Delta is power-law distributed with exponents theta approximately 0.3 and gamma approximately 0.2, suggesting a hierarchical landscape and avalanche-like learning dynamics.",
+   "people": "Mario Geiger; Stefano Spigler; Stéphane d'Ascoli; Levent Sagun; Marco Baity-Jesi; Giulio Biroli; Matthieu Wyart",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 25 September 2018 (arXiv v1), v4 17 June 2019; journal publication 2019",
+   "venue": "Physical Review E 100, 012115 (2019), DOI 10.1103/PhysRevE.100.012115; preprint arXiv:1809.09349",
+   "url": "https://arxiv.org/abs/1809.09349",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Companion paper connecting the jamming transition to generalization: generalization error shows three distinct regimes as parameter count increases, with a cusp at the transition. TITLE CHANGED BETWEEN PREPRINT AND JOURNAL: the arXiv title is \"A jamming transition from under- to over-parametrization affects loss landscape and generalization\"; the published J. Phys. A title is \"A jamming transition from under- to over-parametrization affects generalization in deep learning.\" Marco Baity-Jesi is not an author on this one.",
+   "people": "Stefano Spigler; Mario Geiger; Stéphane d'Ascoli; Levent Sagun; Giulio Biroli; Matthieu Wyart",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 22 October 2018 (arXiv v1), v5 18 June 2019; journal publication 28 October 2019",
+   "venue": "Journal of Physics A: Mathematical and Theoretical 52(47), 474001 (2019), DOI 10.1088/1751-8121/ab4c8b; preprint arXiv:1810.09665",
+   "url": "https://arxiv.org/abs/1810.09665",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Third paper in the Wyart-group jamming sequence, giving the scaling description: output fluctuations from initialization scale as N^(-1/4) and generalization error decays as N^(-1/2) until the jamming transition; ensembling several networks of intermediate size just beyond N* gives the smallest generalization error. Validated on MNIST and CIFAR. Nine authors — much larger list than the other two, and it brings in the Neural Tangent Kernel people (Jacot, Gabriel, Hongler).",
+   "people": "Mario Geiger; Arthur Jacot; Stefano Spigler; Franck Gabriel; Levent Sagun; Stéphane d'Ascoli; Giulio Biroli; Clément Hongler; Matthieu Wyart",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 6 January 2019 (arXiv v1), v5 8 October 2019; journal publication 2020",
+   "venue": "Journal of Statistical Mechanics: Theory and Experiment, DOI 10.1088/1742-5468/ab633c; preprint arXiv:1901.01608",
+   "url": "https://arxiv.org/abs/1901.01608",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "RSMI-NE, the Phys. Rev. Lett. half of the pair. Identifies relevant coarse-grained degrees of freedom by maximising real-space mutual information, and demonstrates identification of field-theory operators on an interacting model where the emergent degrees of freedom differ fundamentally from the microscopic constituents. Surname carries a diacritic: Gökmen, not Gokmen.",
+   "people": "Doruk Efe Gökmen; Zohar Ringel; Sebastian D. Huber; Maciej Koch-Janusz",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 27 January 2021 (arXiv v1), v3 19 October 2021; journal publication 6 December 2021",
+   "venue": "Physical Review Letters 127, 240603 (2021), DOI 10.1103/PhysRevLett.127.240603; preprint arXiv:2101.11633",
+   "url": "https://arxiv.org/abs/2101.11633",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "The Phys. Rev. E companion, and the paper that actually names the algorithm: combines variational lower bounds on mutual information with differentiable coarse-graining to give \"an unsupervised neural-network based algorithm, the RSMI-NE, efficiently extracting the relevant degrees of freedom.\" Extracts phase diagrams and order parameters, and identifies symmetries from ensembles of coarse-graining transformations. Same four authors, same order. Both PRL and PRE papers are 2021, published within weeks of each other — cite both, not one for both claims.",
+   "people": "Doruk Efe Gökmen; Zohar Ringel; Sebastian D. Huber; Maciej Koch-Janusz",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 31 March 2021 (arXiv v1), v3 18 October 2021; journal publication 2021",
+   "venue": "Physical Review E 104, 064106 (2021), DOI 10.1103/PhysRevE.104.064106; preprint arXiv:2103.16887",
+   "url": "https://arxiv.org/abs/2103.16887",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Closes the loop between the information-theoretic and field-theoretic notions of relevance: degrees of freedom identified as relevant by Information Bottleneck compression correspond to the operators with the lowest scaling dimensions. This is the paper that justifies calling the RSMI approach an RG rather than just a compression scheme.",
+   "people": "Amit Gordon; Aditya Banerjee; Maciej Koch-Janusz; Zohar Ringel",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 2 December 2020; journal publication 2021",
+   "venue": "Physical Review Letters 126, 240601 (2021), DOI 10.1103/PhysRevLett.126.240601; preprint arXiv:2012.01447",
+   "url": "https://arxiv.org/abs/2012.01447",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Mehta and Schwab's own book-length review, written with five co-authors five years after the 2014 preprint. Useful as the place where the two authors restate the RBM/RG position in a peer-reviewed venue after the Lin-Tegmark exchange, since the 2016 comment itself was never published.",
+   "people": "Pankaj Mehta; Marin Bukov; Ching-Hao Wang; Alexandre G. R. Day; Clint Richardson; Charles K. Fisher; David J. Schwab",
+   "affiliation": "Not verified from the sources consulted (arXiv metadata only)",
+   "year": "Preprint 23 March 2018 (arXiv v1), v3 27 May 2019; journal publication 2019",
+   "venue": "Physics Reports 810, 1-124 (2019), DOI 10.1016/j.physrep.2019.03.001; preprint arXiv:1803.08823",
+   "url": "https://arxiv.org/abs/1803.08823",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "A single-author Caltech thesis giving a detailed re-examination of Kadanoff block renormalization of the 2D nearest-neighbour Ising model against RBM learning. Reports that the RG flow is successfully learned for the 1D case but finds quantitative inconsistencies when comparing RBM weight layers to spin renormalization in the nearest-neighbour system. Lower-weight source than the journal papers above, but it is the most explicit line-by-line replication attempt I found.",
+   "people": "Kelsie Taylor",
+   "affiliation": "California Institute of Technology (inferred from the caltechthesis DOI prefix 10.7907; not separately verified)",
+   "year": "2023 (arXiv v1, 21 August 2023)",
+   "venue": "arXiv preprint (arXiv:2308.11075), thesis DOI 10.7907/ztpg-z092",
+   "url": "https://arxiv.org/abs/2308.11075",
+   "confidence": "probable",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "NEGATIVE RESULT, recorded so it is not re-searched. The brief asks for \"Marylou Gabrié or others on the Mehta-Schwab dispute.\" I checked Gabrié's sole-authored review, the most plausible candidate, in full text via ar5iv: it contains no occurrence of \"renormalization\" and no reference to Mehta and Schwab or to any RG/deep-learning mapping. Searches for Gabrié combined with renormalization group, RBM and the Mehta-Schwab mapping returned nothing attributable to Gabrié. Do not cite Gabrié on this dispute without new evidence; use Koch-Janusz and Ringel, Iso et al., or the de Mello Koch papers instead.",
+   "people": "Marylou Gabrié",
+   "affiliation": "Not verified from the sources consulted",
+   "year": "Preprint 3 November 2019, v2 5 March 2020; journal publication 2020",
+   "venue": "Journal of Physics A: Mathematical and Theoretical (2020), DOI 10.1088/1751-8121/ab7f65; preprint arXiv:1911.00890",
+   "url": "https://arxiv.org/abs/1911.00890",
+   "confidence": "verified",
+   "_domain": "rg-symbolic-verify"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Lemos, Jeffrey, Cranmer, Ho, Battaglia (MLST 4:045002, 2023) rediscovered Newton's gravitation from 30 years of solar-system trajectories and 'recovered the masses of the bodies to within an order of magnitude'",
+   "correction": "The bibliographic data (Machine Learning: Science and Technology, vol. 4, no. 4, article 045002, 2023, DOI 10.1088/2632-2153/acfa63) is correct, but the accuracy figure is wrong and badly understates the result. Accurate text: 'A graph neural network trained on 30 years of observed trajectories of the Sun, planets and large moons, then distilled by symbolic regression, rediscovered Newton's law of gravitation and simultaneously inferred the masses of the bodies, with a mean percent error of about 9.1% from the learned simulator and about 1.6% after the masses were re-fitted using the discovered symbolic force law — without being given either the force law or the masses.' URL: https://doi.org/10.1088/2632-2153/acfa63 (preprint: https://arxiv.org/abs/2202.02306). 'Within an order of magnitude' appears nowhere in the paper and should not be printed.",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "AI-Descartes (Cornelio, Dash, Austel, Josephson, Goncalves, Clarkson, Megiddo, El Khadir, Horesh), Nature Communications 14:1777 (2023); rediscovered Kepler's third law, relativistic time dilation, Langmuir's adsorption equation; affiliation 'IBM Research'",
+   "correction": "Title, author list and order, venue (Nature Communications, vol. 14, article 1777, 2023), DOI 10.1038/s41467-023-37236-y and all three rediscovered laws are confirmed. Only the affiliation is wrong: the paper is not uniformly IBM Research. Accurate text: 'Cristina Cornelio, Sanjeeb Dash, Vernon Austel, Kenneth L. Clarkson, Nimrod Megiddo, Bachir El Khadir and Lior Horesh (IBM Research), with Tyler R. Josephson (University of Maryland, Baltimore County) and Joao Goncalves.' URL unchanged: https://doi.org/10.1038/s41467-023-37236-y",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "SINDy — Brunton, Proctor, Kutz, PNAS 113(15):3932-3937 (2016), sparse regression over a library of candidate nonlinear functions; affiliation 'University of Washington'",
+   "correction": "Title ('Discovering governing equations from data by sparse identification of nonlinear dynamical systems'), authors, order, venue, pages, year and DOI 10.1073/pnas.1517384113 are all confirmed. Affiliation is wrong for one author. Accurate text: 'Steven L. Brunton and J. Nathan Kutz (University of Washington); Joshua L. Proctor (Institute for Disease Modeling, Bellevue, Washington).' URL unchanged: https://doi.org/10.1073/pnas.1517384113",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Companion RSMI-NE paper (Phys. Rev. E 104:064106, 2021) constructs phase diagrams and identifies symmetry-breaking patterns 'in systems including the anisotropic Ising and dimer models'",
+   "correction": "Authors, title ('Symmetries and phase diagrams with real-space mutual information neural estimation'), venue, volume, article number, year and DOI 10.1103/PhysRevE.104.064106 are confirmed. The model list is wrong: the anisotropic Ising model is not studied. Accurate text: '...identify the symmetry-breaking pattern of transitions in systems including the two-dimensional Ising model (ferromagnetic and antiferromagnetic), the interacting dimer model with its BKT transition, and a non-equilibrium one-dimensional chipping-and-aggregation model, making the learned representation itself the interpretable output.' URL unchanged: https://doi.org/10.1103/PhysRevE.104.064106",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Carrasquilla & Melko, Nature Physics 13(5):431-434 (2017): a feedforward neural network classifies raw Ising configurations, and 'the same approach detects transitions in models with no conventional local order parameter, such as the Ising gauge theory'",
+   "correction": "Authors, title ('Machine learning phases of matter'), venue, volume, issue, pages, year and DOI 10.1038/nphys4035 are confirmed, but the claim overstates what the feedforward network did. The abstract states the network must be 'modified to a convolutional neural network' to handle topological phases with no conventional order parameter. Accurate text: 'A standard feed-forward neural network trained on raw Monte Carlo spin configurations of the two-dimensional Ising model detects the transition and encodes magnetization-like structure; the same network also handles non-trivial states such as Coulomb phases, but detecting topological phases with no conventional order parameter — the Ising lattice gauge theory — required modifying the architecture to a convolutional neural network.' URL unchanged: https://doi.org/10.1038/nphys4035",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Wetzel, Melko, Scott, Panju, Ganesh, Phys. Rev. Research 2(3):033499 (2020): siamese networks yield conserved quantities and symmetry invariants, 'with the interpretation step performed by symbolic regression and automated reasoning tools'",
+   "correction": "Authors, order, title, venue, article number, year and DOI 10.1103/PhysRevResearch.2.033499 are confirmed, but the interpretation method is fabricated. The paper interprets the network's bottleneck using ridge regression on polynomial features of increasing degree; symbolic regression is named only as a future direction ('Future directions of this work include an upgrade of the polynomial regression to symbolic regression'), and no automated-reasoning or SAT/SMT solver is used. Accurate text: 'Siamese neural networks trained to map data points belonging to the same event, field configuration, or trajectory to the same output learn the relevant symmetry invariants and conserved quantities; the authors read these out in closed form by applying polynomial ridge regression to the network's low-dimensional bottleneck, demonstrated on events in special relativity, transformations of electromagnetic fields, and motion in a central potential.' URL unchanged: https://doi.org/10.1103/PhysRevResearch.2.033499",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "AI Poincaré (Liu & Tegmark), Phys. Rev. Lett. 126(18):180604 (2021): discovers conserved quantities via local intrinsic dimensionality of the trajectory manifold, 'correctly identifying the number of conservation laws in systems including the Kepler problem and a relativistic charged particle'",
+   "correction": "Authors, title ('Machine Learning Conservation Laws from Trajectories'), venue, volume, issue, article number, year and DOI 10.1103/PhysRevLett.126.180604 are confirmed, and the Kepler problem is genuinely one of the test systems (3 conserved quantities: energy, angular momentum, Runge-Lenz vector). The 'relativistic charged particle' is not among the systems tested and appears to be fabricated. The five Hamiltonian systems are the harmonic oscillator, the Kepler problem, the double pendulum, a magnetic mirror, and the gravitational three-body problem. Accurate text: 'The AI Poincaré method discovers conserved quantities from observed trajectories by measuring the local intrinsic dimensionality of the manifold the trajectory explores in phase space, correctly identifying the number of conservation laws in five Hamiltonian systems including the Kepler problem, a magnetic mirror and the gravitational three-body problem, without prior physical assumptions.' URL unchanged: https://doi.org/10.1103/PhysRevLett.126.180604",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Farmer & Sidorowich, Phys. Rev. Lett. 59(8):845-848 (1987), local approximation forecasting of chaotic time series as 'an early demonstration that a system's equations of motion can be recovered empirically from observation alone'",
+   "correction": "Bibliographic data is fully correct: J. Doyne Farmer and John J. Sidorowich, 'Predicting chaotic time series', Physical Review Letters, vol. 59, no. 8, pp. 845-848 (1987), DOI 10.1103/PhysRevLett.59.845. The characterization overstates the result: the paper builds local linear and polynomial approximations to the dynamics on a delay-embedded attractor for the purpose of prediction; it does not recover equations of motion in closed or symbolic form. Accurate text: 'J. Doyne Farmer and John J. Sidorowich introduced local approximation methods for forecasting chaotic time series, fitting piecewise linear and polynomial models to the dynamics reconstructed from delay-embedded data — an early demonstration that a system's dynamics can be approximated empirically from observation alone, though not in symbolic or closed form.' URL unchanged: https://doi.org/10.1103/PhysRevLett.59.845. The dossier's own caveat is right: Farmer must be framed as prehistory, not as symbolic-regression or order-parameter work.",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "REFUTED",
+   "claim": "Open question: 'a definitive primary source in which a machine learning system autonomously produces accurate critical exponents was not confirmed'",
+   "correction": "This open question is answered by a paper already in the dossier. Koch-Janusz and Ringel (Nature Physics 14, 578-582, 2018) state in their abstract: 'We demonstrate RG flow and extract the Ising critical exponent.' The body reports the correlation-length exponent nu = 1.0 +/- 0.15 for the 2D Ising model (exact value 1), obtained by finite-size data collapse across successive RSMI-driven RG steps, with the critical point located to about 1% from the divergent RG flow. The dossier's framing is still partly right — the exponent is extracted by finite-size scaling applied to the machine-learned RG flow rather than emitted autonomously by the network — but the flat statement that no primary source was confirmed is wrong and should be replaced with that citation and that caveat. URL: https://doi.org/10.1038/s41567-018-0081-4",
+   "_domain": "symbolic-theory"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Lin, Tegmark & Rolnick, 'Why does deep and cheap learning work so well?' — 'in its appendix presents a counterexample intended to show the Mehta-Schwab RG-to-deep-belief-network mapping is invalid'; preprint 29 Aug 2016 (arXiv v1) by Lin, Tegmark and Rolnick; final version 3 Aug 2017; published J. Stat. Phys. 2017, DOI 10.1007/s10955-017-1836-5.",
+   "correction": "TWO ERRORS — this is the item the book must not print as written.\n\n(1) The counterexample is NOT in the appendix of the version being cited. I downloaded and text-extracted arXiv v4 (the final version, internally dated 21 July 2017, identical in content to the Journal of Statistical Physics paper): it contains ZERO occurrences of the string 'counterexample', and its only appendix is 'Appendix A: The polynomial no-flattening theorem'. The RG critique that survives into the published paper is main-text Section III.5 'Distillation and renormalization', which says only: 'Although the connection between RG and machine learning has been studied or alluded to repeatedly [...Mehta and Schwab 2014...], there are significant misconceptions in the literature concerning the connection which we will now attempt to clear up.' The explicit counterexample was REMOVED before publication. It existed only in the 2016 preprint versions: in v1 (internally dated 31 August 2016) it is appendix section V.A, titled 'Why matching partition functions do not imply matching probability distributions', introduced in the main text as 'Appendix A, where we construct a counter-example to a recent claim [32] that a so-called \"exact\" RG is equiv[alent]...'; in the 29 September 2016 version it had been renumbered to 'Appendix B: Why renormalization is not unsupervised learning'.\n\n(2) The 2016 preprint has only TWO authors. Both the v1 PDF (31 Aug 2016) and the 29 Sept 2016 PDF carry the byline 'Henry W. Lin and Max Tegmark' (Harvard Physics; MIT Physics & MIT Kavli Institute). David Rolnick appears only from the 2017 revision onward, with 'Dept. of Mathematics, Massachusetts Institute of Technology'.\n\nACCURATE TEXT: 'Henry W. Lin and Max Tegmark, \"Why does deep and cheap learning work so well?\", arXiv:1608.08225v1 (29 August 2016), Appendix A. Published, with David Rolnick added as third author and the counterexample appendix removed, as Henry W. Lin, Max Tegmark and David Rolnick, \"Why Does Deep and Cheap Learning Work So Well?\", Journal of Statistical Physics 168(6), 1223-1247 (2017), DOI 10.1007/s10955-017-1836-5.' Volume/issue/pages verified via Crossref, and independently corroborated by the bibliography of Mehta et al., Physics Reports 810 (2019). URL for the preprint: https://arxiv.org/abs/1608.08225v1 ; for the published version: https://doi.org/10.1007/s10955-017-1836-5",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "E. de Mello Koch, A. de Mello Koch, Kastanos & Cheng, 'Short sighted deep learning', Phys. Rev. E 102, 013307 (2020), arXiv:2002.02664; 'the RBM flow for the long ranged model does not converge to the correct values for the spin and energy scaling dimension'; stacked RBM flow moves toward low temperature while RG flow moves toward high temperature; Robert de Mello Koch is NOT an author; arXiv metadata misspells lead author 'Ellen de Melllo Koch'.",
+   "correction": "All substantive content verified — both quotations are verbatim exact, the four-author list and order are correct, Robert de Mello Koch is confirmed absent, and the arXiv metadata typo 'Ellen de Melllo Koch' (three l's) is confirmed present. Two refinements:\n\n(1) TITLE DIFFERS BETWEEN PREPRINT AND JOURNAL, which the dossier did not flag. Crossref for DOI 10.1103/PhysRevE.102.013307 gives the published title as 'Short-sighted deep learning' (HYPHENATED); the arXiv title is 'Short sighted deep learning' (unhyphenated). Cite the hyphenated form against the Phys. Rev. E venue.\n\n(2) The dossier's open question about the published spelling is resolved: Crossref lists the published authors as 'Ellen de Mello Koch, Anita de Mello Koch, Nicholas Kastanos, Ling Cheng' — correctly spelled, two l's. The three-l form is an arXiv-only defect and must be hand-corrected in any auto-generated BibTeX.\n\nACCURATE CITATION: 'Ellen de Mello Koch, Anita de Mello Koch, Nicholas Kastanos and Ling Cheng, \"Short-sighted deep learning\", Physical Review E 102, 013307 (2020), DOI 10.1103/PhysRevE.102.013307.' Published 10 July 2020.",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Mehta, Bukov, Wang, Day, Richardson, Fisher & Schwab, 'A high-bias, low-variance introduction to Machine Learning for physicists', Physics Reports 810, 1-124 (2019), arXiv:1803.08823 — 'useful as the place where the two authors restate the RBM/RG position in a peer-reviewed venue after the Lin-Tegmark exchange'.",
+   "correction": "The bibliographic data is exactly right; the CHARACTERIZATION IS NOT SUPPORTED and must not be printed as written.\n\nBibliography verified: seven authors in the stated order (Pankaj Mehta, Marin Bukov, Ching-Hao Wang, Alexandre G. R. Day, Clint Richardson, Charles K. Fisher, David J. Schwab), journal_ref 'Physics Reports 810 (2019) 1-124', DOI 10.1016/j.physrep.2019.03.001, v1 2018-03-23, v3 2019-05-27, 122 pages, 78 figures, 20 Python notebooks.\n\nBut I downloaded and text-extracted the full 116-page v3 and searched it: 'renormalization' appears only EIGHT times, of which five are bibliography entries and two are generic statistical-physics background. There is exactly ONE substantive mention of the mapping, in the deep Boltzmann machine discussion, and it is a soft aside, not a restatement: 'This basic logic is reminiscent of renormalization procedures that seek to decorrelate layers at each step (Li and Wang, 2018; Mehta and Schwab, 2014; Vidal, 2007).' Mehta & Schwab 2014 is cited there alongside two unrelated works and nowhere defended. Lin, Tegmark and Rolnick (2017) appears ONLY in the reference list, never in the body; Schwab & Mehta's 2016 comment is not cited at all; Koch-Janusz and Ringel (2017) appears only in the reference list. The review contains no section on RG and deep learning and takes no position on the dispute.\n\nACCURATE TEXT: 'Mehta and Schwab's later co-authored review makes only one passing reference to the connection, calling the layer-by-layer decorrelation of a deep Boltzmann machine \"reminiscent of renormalization procedures\"; it neither restates nor defends the 2014 mapping, and does not engage the Lin-Tegmark exchange.' Cite as Pankaj Mehta, Marin Bukov, Ching-Hao Wang, Alexandre G. R. Day, Clint Richardson, Charles K. Fisher and David J. Schwab, 'A high-bias, low-variance introduction to Machine Learning for physicists', Physics Reports 810, 1-124 (2019), DOI 10.1016/j.physrep.2019.03.001. URL: https://doi.org/10.1016/j.physrep.2019.03.001 . A consequence for the book: there appears to be NO peer-reviewed venue in which Mehta and Schwab restate the RG position after 2016, which strengthens rather than weakens the dossier's warning about the unpublished comment.",
+   "_domain": "rg-symbolic-verify"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Kelsie Taylor, 'A Deep Dive into the Connections Between the Renormalization Group and Deep Learning in the Ising Model', arXiv:2308.11075 (21 Aug 2023), Caltech thesis, DOI 10.7907/ztpg-z092; RG flow successfully learned for the 1D case but quantitative inconsistencies when comparing RBM weight layers to spin renormalization in the nearest-neighbour system.",
+   "correction": "Content verified; the description of the document type understates what it is and should be sharpened.\n\nVerified from arXiv: single author Kelsie Taylor, published 2023-08-21, single version, DOI 10.7907/ztpg-z092. Abstract confirms both reported findings verbatim: 'For the 1D Ising model, we successfully used Adam optimization on a correlation length loss function to learn the group flow, yielding results consistent with the analytical model for infinite N' and 'we directly compared the weights of each layer from the learning to Ising spin renormalization, but found quantitative inconsistencies for the simple case of nearest-neighbor Ising models.'\n\nCORRECTION: the comments field reads '103 pages, 87 figures, Senior Thesis, Advisors: Maria Spiropulu and Joseph Lykken'. This is an UNDERGRADUATE senior thesis, not a doctoral one. 'A Caltech thesis' will be read by most readers as a PhD thesis and overstates the source's weight. Also note the Caltech affiliation, which the dossier marked as inferred from the DOI prefix, is confirmed by the named advisors (both Caltech/Fermilab).\n\nACCURATE TEXT: 'Kelsie Taylor, \"A Deep Dive into the Connections Between the Renormalization Group and Deep Learning in the Ising Model\", Caltech senior thesis, 2023, arXiv:2308.11075, DOI 10.7907/ztpg-z092.' URL: https://arxiv.org/abs/2308.11075",
+   "_domain": "rg-symbolic-verify"
+  }
+ ]
+}

@@ -1,0 +1,350 @@
+{
+ "chapter": 19,
+ "title": "The Statistical Mechanics of Learning",
+ "outline": "Turning the instrument on itself, with a lineage most machine learning practitioners have never read. John Hopfield mapped associative memory onto a spin system in 1982, making statistical mechanics literally rather than metaphorically applicable to a learning machine, and Daniel Amit, Hanoch Gutfreund and Haim Sompolinsky used replica theory to show that such a network undergoes a genuine first-order transition at a critical memory load of roughly 0.138 patterns per neuron, above which retrieval collapses into a spin glass state. Elizabeth Gardner then moved the question from a fixed learning rule to the geometry of the space of solutions, computing the volume of weight configurations satisfying a set of constraints and, with Bernard Derrida, the optimal capacity of two patterns per weight, more than an order of magnitude above the Hebbian value. That calculation remains the template for nearly every capacity result since, and Gardner did the work before she was thirty and before her death in 1988. Through the late 1980s and 1990s the framework extended to generalization, where learning curves were shown to jump discontinuously to perfect generalization when weights are discrete. The chapter is careful with the word proof, since the replica method with a replica-symmetric ansatz is a non-rigorous calculation rather than a theorem, a distinction the secondary literature routinely loses.\n\nBuilt on Hopfield 1982, Ackley, Hinton and Sejnowski on the Boltzmann machine and its learning rule from clamped and free-running correlations, Amit, Gutfreund and Sompolinsky on the capacity transition at roughly 0.138 patterns per neuron, Gardner on the space of interactions with Gardner and Derrida on optimal capacity, Seung, Sompolinsky and Tishby together with Györgyi on first-order transitions in learning curves, the 2024 Nobel Prize in Physics to Hopfield and Hinton, and Zdeborová and Krzakala on the thresholds separating impossible, hard and easy inference.\n\nLeaves open: discontinuous jumps to perfect generalization were derived from theory decades before anyone gave the phenomenon a name.",
+ "domains": [
+  "ml-as-physics"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "John J. Hopfield introduced a recurrent network of two-state neurons with symmetric connections whose dynamics descend a Lyapunov 'energy' function identical in form to that of an Ising spin system, so that stored memories are the energy minima; this paper made statistical mechanics directly applicable to neural computation and reported an empirical storage limit of about 0.15N patterns for N neurons.",
+   "people": "John J. Hopfield",
+   "affiliation": "Division of Chemistry and Biology, California Institute of Technology, and Bell Laboratories",
+   "year": "1982",
+   "venue": "Proceedings of the National Academy of Sciences, vol. 79, no. 8, pp. 2554-2558",
+   "url": "https://doi.org/10.1073/pnas.79.8.2554",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "David H. Ackley, Geoffrey E. Hinton and Terrence J. Sejnowski defined the Boltzmann machine, a network of stochastic binary units whose equilibrium states follow the Boltzmann distribution, and derived a learning rule based on the difference between correlations in a clamped 'wake' phase and a free-running 'sleep' phase — importing simulated annealing and thermal equilibrium from statistical physics into machine learning.",
+   "people": "David H. Ackley, Geoffrey E. Hinton, Terrence J. Sejnowski",
+   "affiliation": "",
+   "year": "1985",
+   "venue": "Cognitive Science, vol. 9, no. 1, pp. 147-169",
+   "url": "https://doi.org/10.1207/s15516709cog0901_7",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Daniel J. Amit, Hanoch Gutfreund and Haim Sompolinsky applied replica mean-field theory to the Hopfield model in the saturation limit where the number of stored patterns p grows proportionally to network size N (p = alpha*N), and showed that despite the model's spin-glass character, dynamically stable retrieval states almost fully correlated with individual stored patterns exist below a critical load — the first analytic proof that associative memory survives as a distinct thermodynamic phase.",
+   "people": "Daniel J. Amit, Hanoch Gutfreund, Haim Sompolinsky",
+   "affiliation": "The Hebrew University of Jerusalem",
+   "year": "1985",
+   "venue": "Physical Review Letters, vol. 55, no. 14, pp. 1530-1533",
+   "url": "https://doi.org/10.1103/PhysRevLett.55.1530",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "In the full-length treatment of the Hopfield model near saturation, Daniel J. Amit, Hanoch Gutfreund and Haim Sompolinsky mapped the complete phase diagram in the load-temperature plane and located the critical storage capacity at zero temperature, above which retrieval states abruptly disappear and the network enters a spin-glass phase; below the critical load the network retrieves patterns with an error of less than about 1.5 percent. This critical value, conventionally quoted as alpha_c approximately 0.138, is the canonical 'memory cliff' of associative memory.",
+   "people": "Daniel J. Amit, Hanoch Gutfreund, Haim Sompolinsky",
+   "affiliation": "The Hebrew University of Jerusalem",
+   "year": "1987",
+   "venue": "Annals of Physics, vol. 173, no. 1, pp. 30-67",
+   "url": "https://www.sciencedirect.com/science/article/abs/pii/0003491687900923",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Elizabeth Gardner reframed neural network capacity as a question about the geometry of weight space rather than about any particular learning rule, computing the typical fractional volume of the space of couplings that correctly stores a given set of random patterns as stable states. This volume shrinks continuously to zero at a critical pattern density, and the construction — now universally called the Gardner volume — became the standard method for computing capacity in learning systems.",
+   "people": "Elizabeth Gardner",
+   "affiliation": "University of Edinburgh",
+   "year": "1988",
+   "venue": "Journal of Physics A: Mathematical and General, vol. 21, no. 1, pp. 257-270",
+   "url": "https://doi.org/10.1088/0305-4470/21/1/030",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Elizabeth Gardner and Bernard Derrida computed the maximum number of random patterns an optimal neural network can store as a function of the allowed fraction of bit errors and of a stability margin K, obtaining a critical line alpha_c(K) with alpha_c(0) = 2 — the celebrated result that an optimally trained perceptron can store two patterns per weight, twice the Hebbian-rule capacity.",
+   "people": "Elizabeth Gardner, Bernard Derrida",
+   "affiliation": "University of Edinburgh (Gardner)",
+   "year": "1988",
+   "venue": "Journal of Physics A: Mathematical and General, vol. 21, no. 1, pp. 271-284",
+   "url": "https://doi.org/10.1088/0305-4470/21/1/031",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Elizabeth Gardner died in 1988, roughly nine months into a five-year fellowship at the University of Edinburgh, having produced her work on disordered systems and neural networks before the age of 30 while she was ill with cancer, which she chose to bear quietly. Her 1985 work on disordered systems contained the first description of what is now called the Gardner transition.",
+   "people": "Elizabeth Gardner",
+   "affiliation": "University of Edinburgh",
+   "year": "1988",
+   "venue": "University of Edinburgh, Higgs Centre for Theoretical Physics — International Women's Day 2022 feature",
+   "url": "https://higgs.ph.ed.ac.uk/outreach/international-womens-day-2022/",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Haim Sompolinsky, Naftali Tishby and H. Sebastian Seung showed with equilibrium statistical mechanics that when the training error is a smooth function of continuously varying weights the generalization error decays asymptotically as the inverse of the number of examples, but that for networks with discrete weights the generalization error can undergo a discontinuous transition to perfect generalization — a first-order phase transition in learning itself.",
+   "people": "Haim Sompolinsky, Naftali Tishby, Hyunjune Sebastian Seung",
+   "affiliation": "",
+   "year": "1990",
+   "venue": "Physical Review Letters, vol. 65, no. 13, pp. 1683-1686",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/10042332/",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Géza Györgyi showed that a perceptron with binary synaptic weights learning from examples undergoes a first-order transition at a critical number of examples: below it the generalization error reaches a minimal positive value, and at the transition the network abruptly freezes into the state of the teacher perceptron with error identically zero. This is the cleanest early example of an all-or-nothing learning transition.",
+   "people": "Géza Györgyi",
+   "affiliation": "",
+   "year": "1990",
+   "venue": "Physical Review A, vol. 41, no. 12, pp. 7097-7100",
+   "url": "https://doi.org/10.1103/PhysRevA.41.7097",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "H. Sebastian Seung, Haim Sompolinsky and Naftali Tishby gave the definitive statistical-mechanical treatment of learning from examples in feedforward networks, treating stochastic training as sampling from a Gibbs distribution over weights at an effective temperature. Smooth networks obey an inverse power-law learning curve; unrealizable rules can produce spin-glass phases with many degenerate minima; and nonsmooth networks display qualitatively different, sometimes discontinuous, learning curves.",
+   "people": "Hyunjune Sebastian Seung, Haim Sompolinsky, Naftali Tishby",
+   "affiliation": "",
+   "year": "1992",
+   "venue": "Physical Review A, vol. 45, no. 8, pp. 6056-6091",
+   "url": "https://doi.org/10.1103/PhysRevA.45.6056",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Timothy L. H. Watkin, Albrecht Rau and Michael Biehl wrote the standard review of the statistical mechanics of learning a rule, framing supervised learning as an inverse problem in a strongly interacting disordered system analogous to a spin glass and consolidating the replica-method learning-curve results of the preceding decade.",
+   "people": "Timothy L. H. Watkin, Albrecht Rau, Michael Biehl",
+   "affiliation": "Department of Physics, University of Oxford",
+   "year": "1993",
+   "venue": "Reviews of Modern Physics, vol. 65, no. 2, pp. 499-556",
+   "url": "https://doi.org/10.1103/RevModPhys.65.499",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 2024 was awarded jointly to John J. Hopfield (Princeton University) and Geoffrey E. Hinton (University of Toronto) 'for foundational discoveries and inventions that enable machine learning with artificial neural networks'. The Nobel committee's own framing credits Hopfield with a network described in a manner equivalent to the energy of a physical spin system, and credits Hinton with using tools from statistical physics in 1983-1985 to create the Boltzmann machine. Hopfield was born in 1933 in Chicago and received his PhD from Cornell University in 1958; Hinton was born in 1947 in London and received his PhD from the University of Edinburgh in 1978.",
+   "people": "John J. Hopfield, Geoffrey E. Hinton",
+   "affiliation": "Princeton University (Hopfield); University of Toronto (Hinton)",
+   "year": "2024",
+   "venue": "The Royal Swedish Academy of Sciences, Nobel Prize in Physics 2024",
+   "url": "https://www.nobelprize.org/prizes/physics/2024/summary/",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Dmitry Krotov and John J. Hopfield introduced dense associative memory, replacing the quadratic Hopfield energy with a higher-order polynomial or rapidly growing interaction function, which raises storage capacity from linear in the number of neurons to superlinear (polynomial in the degree of the interaction). They established a duality between dense associative memory and feedforward networks with one hidden layer, and identified two operating regimes: a feature-matching regime and a prototype regime, with the crossover between them controlled by the sharpness of the energy function.",
+   "people": "Dmitry Krotov, John J. Hopfield",
+   "affiliation": "",
+   "year": "2016",
+   "venue": "Advances in Neural Information Processing Systems 29 (NeurIPS 2016), pp. 1172-1180; arXiv:1606.01164",
+   "url": "https://arxiv.org/abs/1606.01164",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Pankaj Mehta and David J. Schwab constructed a formal mapping between Kadanoff's variational renormalization group and stacked Restricted Boltzmann Machines, arguing that successive layers of a deep network implement RG-style coarse-graining and that deep learning therefore extracts relevant features the way RG extracts relevant operators. The correspondence was illustrated on the Ising model.",
+   "people": "Pankaj Mehta, David J. Schwab",
+   "affiliation": "",
+   "year": "2014",
+   "venue": "arXiv preprint arXiv:1410.3831 [stat.ML]",
+   "url": "https://arxiv.org/abs/1410.3831",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Maciej Koch-Janusz and Zohar Ringel challenged the assumption that ordinary RBM training performs renormalization, and instead built a neural network that maximizes real-space mutual information between coarse-grained blocks and their environment in order to identify the relevant degrees of freedom and iterate RG steps without prior knowledge of the system; the method recovers the Ising critical exponent in one and two dimensions.",
+   "people": "Maciej Koch-Janusz, Zohar Ringel",
+   "affiliation": "",
+   "year": "2018",
+   "venue": "Nature Physics, vol. 14, no. 6, pp. 578-582 (arXiv:1704.06279, 2017)",
+   "url": "https://doi.org/10.1038/s41567-018-0081-4",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Ellen de Mello Koch, Robert de Mello Koch and Ling Cheng tested the RG/deep-learning correspondence empirically by comparing a single layer of an RBM trained on the Ising model to a single step of RG flow, and constructed observables that expose important differences between renormalization group flow and deep learning — a direct empirical check on the 'exact mapping' claim.",
+   "people": "Ellen de Mello Koch, Robert de Mello Koch, Ling Cheng",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "IEEE Access, vol. 8 (arXiv:1906.05212, 2019)",
+   "url": "https://doi.org/10.1109/ACCESS.2020.3000901",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Aurélien Decelle, Florent Krzakala, Cristopher Moore and Lenka Zdeborová used the cavity method to obtain an asymptotically exact phase diagram for community detection in the stochastic block model, establishing a detectability/undetectability transition below which no algorithm can recover communities better than chance, and a separate easy/hard transition where belief propagation fails while the information-theoretic solution still exists. This is the canonical statistical-to-computational gap in inference.",
+   "people": "Aurélien Decelle, Florent Krzakala, Cristopher Moore, Lenka Zdeborová",
+   "affiliation": "",
+   "year": "2011",
+   "venue": "Physical Review E, vol. 84, no. 6, art. 066106 (arXiv:1109.3041)",
+   "url": "https://doi.org/10.1103/PhysRevE.84.066106",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Lenka Zdeborová and Florent Krzakala wrote the definitive review of the statistical physics of inference, systematizing the thresholds that separate regimes where inference is impossible, possible-but-computationally-hard, and easy — and connecting spin-glass concepts (clustering, condensation, replica symmetry breaking) to message-passing algorithms across signal processing, learning and community detection.",
+   "people": "Lenka Zdeborová, Florent Krzakala",
+   "affiliation": "",
+   "year": "2016",
+   "venue": "Advances in Physics, vol. 65, no. 5, pp. 453-552 (arXiv:1511.02476, 2015)",
+   "url": "https://doi.org/10.1080/00018732.2016.1211393",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Jean Barbier, Florent Krzakala, Nicolas Macris, Léo Miolane and Lenka Zdeborová rigorously proved decades-old statistical-physics conjectures for the optimal estimation error in high-dimensional generalized linear models with random data matrices, and characterized exactly the parameter regions where the generalized approximate message-passing algorithm attains that optimum — thereby making the boundary between the 'hard' and 'easy' phases of learning a theorem rather than a conjecture.",
+   "people": "Jean Barbier, Florent Krzakala, Nicolas Macris, Léo Miolane, Lenka Zdeborová",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Proceedings of the National Academy of Sciences, vol. 116, no. 12, pp. 5451-5460 (arXiv:1708.03395, 2017)",
+   "url": "https://doi.org/10.1073/pnas.1802705116",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Lenka Zdeborová argued in a Nature Physics commentary that understanding deep learning is also a job for physicists, making the case that the tools built for disordered systems — replica calculations, message passing, phase diagrams — are the natural instruments for explaining why deep networks generalize.",
+   "people": "Lenka Zdeborová",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "Nature Physics, vol. 16, pp. 602-604",
+   "url": "https://doi.org/10.1038/s41567-020-0929-2",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Mikhail Belkin, Daniel Hsu, Siyuan Ma and Soumik Mandal identified the 'double descent' risk curve: as model capacity grows, test error first follows the classical U-shaped bias-variance curve, peaks sharply at the interpolation threshold where the model exactly fits the training data, and then descends again as capacity increases further, often to a lower error than the classical optimum. The peak sits precisely at the transition point between the underparametrized and overparametrized regimes.",
+   "people": "Mikhail Belkin, Daniel Hsu, Siyuan Ma, Soumik Mandal",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Proceedings of the National Academy of Sciences, vol. 116, no. 32, pp. 15849-15854 (arXiv:1812.11118, 2018)",
+   "url": "https://doi.org/10.1073/pnas.1903070116",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Preetum Nakkiran, Gal Kaplun, Yamini Bansal, Tristan Yang, Boaz Barak and Ilya Sutskever demonstrated double descent empirically across modern deep learning tasks and showed it occurs not only as a function of model size but also as a function of training epochs. They defined 'effective model complexity' to unify the two, and identified regimes in which increasing — even quadrupling — the number of training samples actively hurts test performance.",
+   "people": "Preetum Nakkiran, Gal Kaplun, Yamini Bansal, Tristan Yang, Boaz Barak, Ilya Sutskever",
+   "affiliation": "",
+   "year": "2020",
+   "venue": "International Conference on Learning Representations (ICLR) 2020; journal version Journal of Statistical Mechanics: Theory and Experiment, vol. 2021, art. 124003 (arXiv:1912.02292, 2019)",
+   "url": "https://doi.org/10.1088/1742-5468/ac3a74",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Mario Geiger, Stefano Spigler, Stéphane d'Ascoli, Levent Sagun, Marco Baity-Jesi, Giulio Biroli and Matthieu Wyart proposed that the loss landscape of a deep network is governed by a jamming transition analogous to that of repulsive particles: a sharp phase boundary in the number of parameters separates an underparametrized regime where the training data cannot be fitted from an overparametrized regime where it can, with characteristic critical behaviour in the Hessian spectrum near the transition. They also found that the capacity of fully connected networks to memorize random data is independent of depth.",
+   "people": "Mario Geiger, Stefano Spigler, Stéphane d'Ascoli, Levent Sagun, Marco Baity-Jesi, Giulio Biroli, Matthieu Wyart",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Physical Review E, vol. 100, art. 012115 (arXiv:1809.09349, 2018)",
+   "url": "https://doi.org/10.1103/PhysRevE.100.012115",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Stefano Spigler, Mario Geiger, Stéphane d'Ascoli, Levent Sagun, Giulio Biroli and Matthieu Wyart showed that the jamming transition from under- to over-parametrization directly controls generalization: as network width grows, the test error decays, then rises to a cusp exactly at the transition, then slowly decays again. Classical overfitting is localized around the jamming point, and early stopping removes the cusp entirely — connecting the physics of jamming to the double-descent peak.",
+   "people": "Stefano Spigler, Mario Geiger, Stéphane d'Ascoli, Levent Sagun, Giulio Biroli, Matthieu Wyart",
+   "affiliation": "",
+   "year": "2019",
+   "venue": "Journal of Physics A: Mathematical and Theoretical, vol. 52, art. 474001 (arXiv:1810.09665, 2018)",
+   "url": "https://doi.org/10.1088/1751-8121/ab4c8b",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Alethea Power, Yuri Burda, Harri Edwards, Igor Babuschkin and Vedant Misra reported 'grokking': neural networks trained on small algorithmically generated datasets first memorize the training set with chance-level validation accuracy, and then, after a long plateau of continued training far past the point of overfitting, abruptly jump to near-perfect generalization. Smaller training sets require progressively more optimization before this jump occurs.",
+   "people": "Alethea Power, Yuri Burda, Harri Edwards, Igor Babuschkin, Vedant Misra",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "arXiv preprint arXiv:2201.02177 [cs.LG], submitted 6 January 2022",
+   "url": "https://arxiv.org/abs/2201.02177",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Neel Nanda, Lawrence Chan, Tom Lieberum, Jess Smith and Jacob Steinhardt reverse-engineered grokking in small transformers trained on modular addition, showing the network learns to compute discrete Fourier transforms and use trigonometric identities to turn addition into rotation on a circle. Defining progress measures from that mechanism, they split training into three continuous phases — memorization, circuit formation, and cleanup — demonstrating that the apparently abrupt transition in test accuracy is the visible surface of a smooth underlying reorganization.",
+   "people": "Neel Nanda, Lawrence Chan, Tom Lieberum, Jess Smith, Jacob Steinhardt",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "The Eleventh International Conference on Learning Representations (ICLR 2023), oral presentation (arXiv:2301.05217)",
+   "url": "https://arxiv.org/abs/2301.05217",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Jason Wei and sixteen coauthors defined an 'emergent ability' of a large language model as one that is not present in smaller models but is present in larger ones, and therefore cannot be predicted by extrapolating the performance curve of smaller models. They catalogued dozens of tasks on which performance stays at random baseline until a critical model scale and then rises sharply.",
+   "people": "Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph, Sebastian Borgeaud, Dani Yogatama, Maarten Bosma, Denny Zhou, Donald Metzler, Ed H. Chi, Tatsunori Hashimoto, Oriol Vinyals, Percy Liang, Jeff Dean, William Fedus",
+   "affiliation": "",
+   "year": "2022",
+   "venue": "Transactions on Machine Learning Research (TMLR), 2022 (arXiv:2206.07682, submitted 15 June 2022)",
+   "url": "https://arxiv.org/abs/2206.07682",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "Rylan Schaeffer, Brando Miranda and Sanmi Koyejo argued that emergent abilities are an artifact of metric choice rather than a change in model behaviour: nonlinear or discontinuous metrics (such as exact-match accuracy) manufacture apparent sharp transitions, while linear or continuous metrics on the same models and outputs yield smooth, predictable improvement. They supported this with controlled experiments on GPT-3/InstructGPT, a meta-analysis of BIG-Bench tasks, and a demonstration that emergence can be induced at will in vision models by switching metrics.",
+   "people": "Rylan Schaeffer, Brando Miranda, Sanmi Koyejo",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "Advances in Neural Information Processing Systems 36 (NeurIPS 2023) (arXiv:2304.15004, submitted 28 April 2023)",
+   "url": "https://arxiv.org/abs/2304.15004",
+   "confidence": "verified",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "claim": "The Schaeffer-Miranda-Koyejo rebuttal to emergent abilities received a NeurIPS 2023 outstanding paper award, which is why the 'mirage' framing became the standard counterweight to Wei et al. in subsequent discussion.",
+   "people": "Rylan Schaeffer, Brando Miranda, Sanmi Koyejo",
+   "affiliation": "",
+   "year": "2023",
+   "venue": "NeurIPS 2023 conference proceedings",
+   "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/adc98a266f45005c403b8311ca7e8bd7-Abstract-Conference.html",
+   "confidence": "probable",
+   "_domain": "ml-as-physics"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Ackley, Hinton, Sejnowski 1985, Cognitive Science 9(1):147-169, DOI 10.1207/s15516709cog0901_7 — Boltzmann machine; learning rule from clamped 'wake' phase minus free-running 'sleep' phase.",
+   "correction": "Bibliographic data fully confirmed via Crossref (title 'A Learning Algorithm for Boltzmann Machines'; authors, order, journal, volume, issue, pages, year all correct; DOI resolves). One factual anachronism: the 1985 paper uses the terms 'clamped' (phase+) and 'free-running'/'unclamped' (phase-) phases. The 'wake'/'sleep' vocabulary belongs to Hinton, Dayan, Frey and Neal's wake-sleep algorithm for the Helmholtz machine (Science, 1995), not to Ackley-Hinton-Sejnowski 1985. Replace with: '...and derived a learning rule based on the difference between unit correlations measured in a clamped phase and in a free-running phase.' URL unchanged: https://doi.org/10.1207/s15516709cog0901_7",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Amit, Gutfreund, Sompolinsky 1985, PRL 55(14):1530-1533 — replica mean-field theory of the Hopfield model at p = alpha*N; 'the first analytic proof that associative memory survives as a distinct thermodynamic phase.'",
+   "correction": "Citation fully confirmed via Crossref: 'Storing Infinite Numbers of Patterns in a Spin-Glass Model of Neural Networks', Daniel J. Amit, Hanoch Gutfreund, H. Sompolinsky, Phys. Rev. Lett. 55(14), 1530-1533 (1985); DOI resolves. The word 'proof' overstates the work: the replica method with a replica-symmetric ansatz is a non-rigorous (and, in the spin-glass regime, replica-symmetry-breaking-corrected) calculation, not a proof; rigorous versions came later (e.g. Talagrand, Bovier-Gayrard). Replace 'the first analytic proof that' with 'the first analytic demonstration that' or 'the first replica-theoretic calculation showing that'. URL unchanged: https://doi.org/10.1103/PhysRevLett.55.1530",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Gardner and Derrida 1988, J. Phys. A 21(1):271-284 — alpha_c(K) with alpha_c(0) = 2, 'twice the Hebbian-rule capacity'.",
+   "correction": "Citation fully confirmed via Crossref: 'Optimal storage properties of neural network models', E. Gardner and B. Derrida, J. Phys. A 21(1), 271-284 (1988); DOI 10.1088/0305-4470/21/1/031 resolves. The comparison is factually wrong: alpha_c = 2 is roughly fourteen times, not twice, the Hebbian capacity. The Hebbian (Hopfield) rule stores alpha_c ≈ 0.138 patterns per neuron (Amit-Gutfreund-Sompolinsky), so 2 / 0.138 ≈ 14.5. (alpha_c = 2 coincides with Cover's 1965 counting result that a perceptron with N inputs can realise 2N random dichotomies; that is the correct comparison to draw, not a factor of two over Hebb.) Replace with: '...obtaining a critical line alpha_c(K) with alpha_c(0) = 2 — the celebrated result that an optimally trained perceptron can store two patterns per weight, more than an order of magnitude above the roughly 0.138 patterns per neuron achieved by the Hebbian rule.' URL unchanged: https://doi.org/10.1088/0305-4470/21/1/031",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Watkin, Rau, Biehl 1993, Rev. Mod. Phys. 65(2):499-556 — standard review 'The statistical mechanics of learning a rule'. Affiliation given as 'Department of Physics, University of Oxford'.",
+   "correction": "Bibliographic data fully confirmed via Crossref (title, three authors in the given order, RMP 65(2), 499-556, 1993; DOI 10.1103/RevModPhys.65.499 resolves). The affiliation field is wrong as a blanket statement: Watkin and Rau were at the Department of Physics, University of Oxford, but Michael Biehl was at the Institut für Theoretische Physik, Universität Würzburg. Replace the affiliation with: 'Department of Physics, University of Oxford (Watkin, Rau); Institut für Theoretische Physik, Universität Würzburg (Biehl)'. (Note: I could not fetch the APS article page directly — it returned HTTP 403 — so the Würzburg attribution rests on Biehl's documented affiliation history rather than on the printed byline; verify against the PDF before print.) URL unchanged: https://doi.org/10.1103/RevModPhys.65.499",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Krotov and Hopfield 2016, NeurIPS 29, pp. 1172-1180, arXiv:1606.01164 — dense associative memory; capacity raised 'from linear in the number of neurons to superlinear (polynomial in the degree of the interaction)'; duality with one-hidden-layer feedforward networks; feature-matching vs prototype regimes controlled by the sharpness of the energy function.",
+   "correction": "Paper, authors, venue and page range confirmed (dblp lists NIPS 2016, pp. 1172-1180; arXiv:1606.01164 'Dense Associative Memory for Pattern Recognition', submitted 3 June 2016). The parenthetical is garbled: capacity is polynomial in N with an exponent set by the interaction degree, not 'polynomial in the degree of the interaction'. The paper gives K_max = alpha_n * N^(n-1) for a rectified-polynomial energy of power n. Replace with: '...which raises storage capacity from linear in the number of neurons N to polynomial, K_max ~ N^(n-1) for an interaction of power n.' The duality claim and the sharpness-controlled feature-to-prototype crossover are both confirmed against the paper text. URL unchanged: https://arxiv.org/abs/1606.01164",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Koch-Janusz and Ringel 2018, Nature Physics 14(6):578-582 (arXiv:1704.06279) — challenged the assumption that ordinary RBM training performs RG; real-space mutual-information network; 'recovers the Ising critical exponent in one and two dimensions.'",
+   "correction": "Citation confirmed via Crossref and arXiv (title 'Mutual information, neural networks and the renormalization group'; Nature Physics 14, 578-582, 2018). The challenge to RBM-as-RG is confirmed in the paper text, which states that prior work assumes training by Kullback-Leibler divergence and shows the RSMI filters for the dimer model are orthogonal to the KL-derived ones. The last sub-clause misstates the result. The abstract reads: 'We apply the algorithm to classical statistical physics problems in one and two dimensions. We demonstrate RG flow and extract the Ising critical exponent.' The one-and-two-dimensions scope attaches to the demonstrations, not to the exponent; and it is a single exponent, not exponents. Replace with: '...the method demonstrates RG flow on classical statistical-physics problems in one and two dimensions and extracts the Ising critical exponent.' URL unchanged: https://doi.org/10.1038/s41567-018-0081-4",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Nanda, Chan, Lieberum, Smith, Steinhardt 2023, ICLR 2023 'oral presentation' (arXiv:2301.05217) — reverse-engineering grokking in modular addition; three phases (memorization, circuit formation, cleanup).",
+   "correction": "Paper, author list and order, arXiv ID (2301.05217, submitted 12 January 2023), and every scientific claim confirmed against the paper: discrete Fourier transforms and trigonometric identities converting addition to rotation about a circle, and the three continuous phases memorization / circuit formation / cleanup. The 'oral presentation' designation could NOT be verified — OpenReview (both openreview.net and its API) returned a bot-verification challenge and iclr.cc returned 404, and ICLR 2023 labelled accepted papers 'notable-top-5%' / 'notable-top-25%' rather than 'oral' in its decision metadata. Drop the unverified descriptor: cite as 'The Eleventh International Conference on Learning Representations (ICLR 2023) (arXiv:2301.05217)'. URL unchanged: https://arxiv.org/abs/2301.05217",
+   "_domain": "ml-as-physics"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "'Jason Wei and sixteen coauthors' defined emergent abilities; TMLR 2022, arXiv:2206.07682, submitted 15 June 2022.",
+   "correction": "The author count is wrong. The arXiv record lists sixteen authors in total — Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph, Sebastian Borgeaud, Dani Yogatama, Maarten Bosma, Denny Zhou, Donald Metzler, Ed H. Chi, Tatsunori Hashimoto, Oriol Vinyals, Percy Liang, Jeff Dean, William Fedus — so Wei has fifteen coauthors, not sixteen. Replace with: 'Jason Wei and fifteen coauthors defined an emergent ability...'. Everything else checks out: title 'Emergent Abilities of Large Language Models', TMLR 2022, arXiv:2206.07682 v1 submitted 15 June 2022. URL unchanged: https://arxiv.org/abs/2206.07682",
+   "_domain": "ml-as-physics"
+  }
+ ]
+}

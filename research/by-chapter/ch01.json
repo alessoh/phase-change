@@ -1,0 +1,362 @@
+{
+ "chapter": 1,
+ "title": "The Sharpest Thing in Nature",
+ "outline": "The book opens on the boiling point, because everything difficult about the subject is already present there. Josiah Willard Gibbs supplied the framework of thermodynamic potentials and coexistence in 1878, Paul Ehrenfest supplied the classification in 1933, and Lev Landau supplied the order parameter and the language of symmetry breaking in 1937. The chapter establishes precisely what a first-order transition is, why latent heat implies a discontinuous first derivative, and why modern usage retains Ehrenfest's first-order category while replacing his second order with the word continuous, since real continuous transitions diverge as power laws rather than jumping by a finite amount. It then states the problem the rest of the book answers. A neural network is a smooth differentiable interpolator. A phase transition is a singularity in the thermodynamic limit. Finite systems have no true singularities at all, only rounded crossovers that sharpen with size, which means that every machine learning result in this field is inferring an idealization from data that does not contain it.\n\nBuilt on Gibbs on heterogeneous equilibrium, Ehrenfest's 1933 Amsterdam classification with Tilman Sauer's 2016 translation and commentary, Landau's 1937 order parameter theory, and the finite-size rounding of transitions.\n\nLeaves open: if no finite simulation contains a genuine singularity, what exactly is a network detecting when it announces a critical temperature?",
+ "domains": [
+  "foundations"
+ ],
+ "verifiedClaims": [
+  {
+   "claim": "Josiah Willard Gibbs established the thermodynamic framework for phase equilibria and coexistence in \"On the equilibrium of heterogeneous substances,\" the work that defines chemical potential, the phase rule, surface (interfacial) free energy, and the reversible work of forming a new phase — the thermodynamic ancestor of the nucleation barrier. The full memoir appeared in the Transactions of the Connecticut Academy of Arts and Sciences (vol. 3, 108-248 in 1876 and 343-524 in 1878); Gibbs published a long abstract in the American Journal of Science in 1878.",
+   "people": "Josiah Willard Gibbs",
+   "affiliation": "Yale College",
+   "year": "1878",
+   "venue": "American Journal of Science, ser. 3, vol. 16, no. 96, pp. 441-458 (abstract of the Transactions of the Connecticut Academy memoir, 1876-1878)",
+   "url": "https://doi.org/10.2475/ajs.s3-16.96.441",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Paul Ehrenfest proposed classifying phase transitions by the order of the lowest derivative of the thermodynamic potential that is discontinuous: a first-order transition has a discontinuity in the first derivative (hence latent heat and a jump in entropy and volume), a second-order transition has continuous first derivatives but a discontinuous second derivative (specific heat, compressibility, thermal expansion). The paper is \"Phasenumwandlungen im ueblichen und erweiterten Sinn, classifiziert nach den entsprechenden Singularitaeten des thermodynamischen Potentiales,\" Proceedings of the Royal Academy of Sciences at Amsterdam 36, 153-157 (1933), issued simultaneously as Communications from the Kamerlingh Onnes Laboratory, Leiden, Supplement No. 75b. An English translation with historical commentary by Tilman Sauer appeared in 2016. Books must note that Ehrenfest's higher-order categories are now obsolete: continuous transitions generically show power-law divergences, not finite jumps, so modern usage is \"first-order\" versus \"continuous.\"",
+   "people": "Paul Ehrenfest; Tilman Sauer (translator and commentator)",
+   "affiliation": "Leiden University (Ehrenfest)",
+   "year": "1933 (original); 2016 (translation and commentary)",
+   "venue": "Proc. Royal Acad. Amsterdam 36, 153-157 (1933), Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b; translation in European Physical Journal Special Topics (2016), doi:10.1140/epjst/e2016-60344-y",
+   "url": "https://arxiv.org/abs/1612.03062",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Lev Davidovich Landau introduced the order parameter and the expansion of the free energy in powers of it near a continuous transition, deriving mean-field critical exponents (beta = 1/2, gamma = 1, delta = 3, alpha = 0 with a jump in specific heat) and the rule that a continuous transition requires the low-symmetry phase's symmetry group to be a subgroup of the high-symmetry phase's. Originally published in Russian as \"K teorii fazovykh perekhodov,\" Zhurnal Eksperimental'noi i Teoreticheskoi Fiziki 7, 19-32 (1937), with a German version in Physikalische Zeitschrift der Sowjetunion 11, 26 (1937). The standard English text is in Collected Papers of L. D. Landau, edited by D. ter Haar (Pergamon, 1965), pp. 193-216.",
+   "people": "Lev Davidovich Landau",
+   "affiliation": "",
+   "year": "1937 (original); 1965 (English collected papers)",
+   "venue": "Zh. Eksp. Teor. Fiz. 7, 19-32 (1937); English translation in Collected Papers of L. D. Landau (Pergamon, 1965), pp. 193-216",
+   "url": "https://doi.org/10.1016/B978-0-08-010586-4.50034-1",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Ernst Ising solved the one-dimensional version of the model his doctoral supervisor Wilhelm Lenz had proposed and found no phase transition at any nonzero temperature; Ising incorrectly extrapolated this conclusion to higher dimensions. The paper is \"Beitrag zur Theorie des Ferromagnetismus,\" Zeitschrift fuer Physik 31, 253-258 (1925). A book should credit Lenz with the model and Ising with the one-dimensional solution, and should not repeat the myth that Ising proved there is no transition in two dimensions.",
+   "people": "Ernst Ising",
+   "affiliation": "University of Hamburg",
+   "year": "1925",
+   "venue": "Zeitschrift fuer Physik 31, 253-258",
+   "url": "https://doi.org/10.1007/BF02980577",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Rudolf Peierls gave the first argument that the two-dimensional Ising model does order at low temperature, by bounding the entropy versus energy cost of domain-wall contours — the \"Peierls argument,\" still the standard textbook proof that a transition exists. Published as \"On Ising's model of ferromagnetism,\" Mathematical Proceedings of the Cambridge Philosophical Society 32, 477-481 (1936).",
+   "people": "Rudolf Peierls",
+   "affiliation": "",
+   "year": "1936",
+   "venue": "Mathematical Proceedings of the Cambridge Philosophical Society 32(3), 477-481",
+   "url": "https://doi.org/10.1017/S0305004100019174",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Lars Onsager obtained the exact partition function of the two-dimensional square-lattice Ising model in zero field, demonstrating a genuine continuous phase transition with a logarithmically divergent specific heat (alpha = 0, log) and the exact critical temperature given by sinh(2J/kT_c) = 1, i.e. kT_c/J = 2/ln(1 + sqrt(2)) ~ 2.269. This was the first exact demonstration that a microscopic model produces non-mean-field critical behaviour, and it killed the assumption that critical exponents are classical. Published as \"Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition,\" Physical Review 65, 117-149 (1 February 1944).",
+   "people": "Lars Onsager",
+   "affiliation": "Yale University",
+   "year": "1944",
+   "venue": "Physical Review 65, 117-149",
+   "url": "https://doi.org/10.1103/PhysRev.65.117",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Chen Ning Yang published the first derivation of the spontaneous magnetization of the two-dimensional Ising model, giving the order-parameter exponent beta = 1/8. Onsager had announced the result in 1948 without publishing a proof, so the exponent should be attributed to Yang's 1952 paper (with Onsager's priority acknowledged), not to the 1944 Onsager paper. Published as \"The Spontaneous Magnetization of a Two-Dimensional Ising Model,\" Physical Review 85, 808-816 (1952).",
+   "people": "Chen Ning Yang",
+   "affiliation": "Institute for Advanced Study, Princeton",
+   "year": "1952",
+   "venue": "Physical Review 85(5), 808-816",
+   "url": "https://doi.org/10.1103/PhysRev.85.808",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Edward Armand Guggenheim showed that the liquid-gas coexistence curves of eight different substances (neon, argon, krypton, xenon, nitrogen, oxygen, carbon monoxide, methane) collapse onto a single curve when scaled by critical parameters, and that the curve is fitted by an exponent near 1/3 rather than the van der Waals mean-field value 1/2. This is the classic experimental evidence for universality and for non-classical exponents, predating the renormalization group by a quarter century. Published as \"The Principle of Corresponding States,\" Journal of Chemical Physics 13(7), 253-261 (1945).",
+   "people": "Edward Armand Guggenheim",
+   "affiliation": "",
+   "year": "1945",
+   "venue": "The Journal of Chemical Physics 13(7), 253-261",
+   "url": "https://doi.org/10.1063/1.1724033",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Benjamin Widom proposed the scaling hypothesis for the equation of state near a critical point — that the singular part of the free energy is a generalized homogeneous function of temperature and field — from which the scaling relations among critical exponents (including alpha + 2*beta + gamma = 2, later called the Rushbrooke relation, and gamma = beta*(delta - 1), the Widom relation) follow. Published as \"Equation of State in the Neighborhood of the Critical Point,\" Journal of Chemical Physics 43(11), 3898-3905 (1965). Scaling here is phenomenological; it is Wilson's renormalization group that later explains why it holds.",
+   "people": "Benjamin Widom",
+   "affiliation": "",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3898-3905",
+   "url": "https://doi.org/10.1063/1.1696618",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Leo Philip Kadanoff introduced the block-spin construction: divide an Ising lattice into cells large compared with the lattice spacing but small compared with the correlation length, replace each cell by a single effective spin, and argue that the coarse-grained system is again an Ising model with rescaled coupling and field. This gave a physical rationale for Widom scaling and is the conceptual seed of the renormalization group. Published as \"Scaling laws for Ising models near T_c,\" Physics Physique Fizika 2, 263-272 (1966) — note the unusual short-lived journal name, often miscited simply as \"Physics.\"",
+   "people": "Leo Philip Kadanoff",
+   "affiliation": "University of Illinois, Urbana",
+   "year": "1966",
+   "venue": "Physics Physique Fizika 2(6), 263-272",
+   "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.2.263",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Kenneth Geddes Wilson turned Kadanoff's block-spin picture into a systematic calculational method by casting coarse-graining as a differential flow in the space of coupling constants, with critical points appearing as fixed points of the flow and critical exponents as eigenvalues of the linearized flow about the fixed point. Universality follows because distinct microscopic Hamiltonians flow to the same fixed point. Published as a pair of companion papers: \"Renormalization Group and Critical Phenomena. I. Renormalization Group and the Kadanoff Scaling Picture,\" Physical Review B 4, 3174-3183, and \"II. Phase-Space Cell Analysis of Critical Behavior,\" Physical Review B 4, 3184-3205, both 1971.",
+   "people": "Kenneth Geddes Wilson",
+   "affiliation": "Cornell University",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3174-3183 and 3184-3205",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3174",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Kenneth G. Wilson and Michael E. Fisher introduced the epsilon expansion, computing critical exponents in d = 4 - epsilon dimensions as a controlled perturbative series about the upper critical dimension four, where mean-field theory becomes exact. Setting epsilon = 1 gives usable three-dimensional exponents. Published as \"Critical Exponents in 3.99 Dimensions,\" Physical Review Letters 28(4), 240-243, issue dated 24 January 1972.",
+   "people": "Kenneth G. Wilson, Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(4), 240-243",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.240",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Michael Ellis Fisher wrote the standard introductory review of the renormalization group approach to critical behaviour, covering the dependence of exponents on dimensionality d, on the number of order-parameter components n, and on the range and anisotropy of interactions — that is, the precise content of a universality class. Published as \"The renormalization group in the theory of critical behavior,\" Reviews of Modern Physics 46, 597-616 (1 October 1974). Note a common citation error: Reviews of Modern Physics 47, 543 (1975) is the erratum, not the article.",
+   "people": "Michael Ellis Fisher",
+   "affiliation": "Cornell University",
+   "year": "1974",
+   "venue": "Reviews of Modern Physics 46(4), 597-616",
+   "url": "https://doi.org/10.1103/RevModPhys.46.597",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 1982 was awarded to Kenneth G. Wilson alone, \"for his theory for critical phenomena in connection with phase transitions.\" Wilson was a professor of physics at Cornell University, where he did the prizewinning work. Michael E. Fisher and Leo P. Kadanoff, whose work was essential to the development, did not share the prize — a point books frequently get wrong; the three were, however, jointly awarded the Wolf Prize in Physics in 1980.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University",
+   "year": "1982",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/1982/summary/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Norman David Mermin and Herbert Wagner proved that continuous symmetries cannot be spontaneously broken at any nonzero temperature in one- or two-dimensional systems with sufficiently short-range interactions, ruling out conventional long-range order in the 2D Heisenberg and XY models. This theorem is the obstacle that the Berezinskii-Kosterlitz-Thouless mechanism circumvents, since BKT order is topological rather than conventional. Published as \"Absence of Ferromagnetism or Antiferromagnetism in One- or Two-Dimensional Isotropic Heisenberg Models,\" Physical Review Letters 17(22), 1133-1136 (1966).",
+   "people": "Norman David Mermin, Herbert Wagner",
+   "affiliation": "",
+   "year": "1966",
+   "venue": "Physical Review Letters 17(22), 1133-1136",
+   "url": "https://doi.org/10.1103/PhysRevLett.17.1133",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Vadim Lvovich Berezinskii independently identified the destruction of long-range order by topological excitations in two-dimensional systems with continuous symmetry, publishing before Kosterlitz and Thouless. The paper is \"Destruction of Long-range Order in One-dimensional and Two-dimensional Systems having a Continuous Symmetry Group. I. Classical Systems,\" Soviet Physics JETP 32(3), 493 (March 1971); Russian original ZhETF 59(3), 907 (1971). This is why the transition is properly called the Berezinskii-Kosterlitz-Thouless (BKT) transition; Berezinskii died in 1980 and was therefore ineligible for the 2016 Nobel Prize.",
+   "people": "Vadim Lvovich Berezinskii",
+   "affiliation": "",
+   "year": "1971",
+   "venue": "Soviet Physics JETP 32(3), 493-500 (Russian original: Zhurnal Eksperimental'noi i Teoreticheskoi Fiziki 59(3), 907)",
+   "url": "http://jetp.ras.ru/cgi-bin/e/index/e/32/3/p493?a=list",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Michael Kosterlitz and David James Thouless defined topological order for two-dimensional systems that have no conventional long-range order, and described a transition driven by the unbinding of vortex-antivortex pairs: below the transition vortices are bound in neutral pairs, above it they are free, destroying superfluid stiffness. The transition is infinite-order in the Ehrenfest sense — the free energy is non-analytic but all derivatives are continuous, and the correlation length diverges exponentially rather than as a power law. Published as \"Ordering, metastability and phase transitions in two-dimensional systems,\" Journal of Physics C: Solid State Physics 6(7), 1181-1203 (1973). Kosterlitz supplied the renormalization-group treatment the following year in J. Phys. C 7, 1046-1060 (1974).",
+   "people": "John Michael Kosterlitz, David James Thouless",
+   "affiliation": "University of Birmingham",
+   "year": "1973",
+   "venue": "Journal of Physics C: Solid State Physics 6(7), 1181-1203",
+   "url": "https://doi.org/10.1088/0022-3719/6/7/010",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 2016 was awarded \"for theoretical discoveries of topological phase transitions and topological phases of matter,\" with one half to David J. Thouless (University of Washington, Seattle) and the other half jointly to F. Duncan M. Haldane (Princeton University) and J. Michael Kosterlitz (Brown University). Books must get the split right: it was one-half / one-quarter / one-quarter, not an equal three-way division.",
+   "people": "David J. Thouless, F. Duncan M. Haldane, J. Michael Kosterlitz",
+   "affiliation": "University of Washington (Thouless); Princeton University (Haldane); Brown University (Kosterlitz)",
+   "year": "2016",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/2016/summary/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John A. Hertz formulated the theory of zero-temperature (quantum) critical points by using Hubbard-Stratonovich functional integral transformations to build a quantum generalization of the Landau-Ginzburg-Wilson functional in which the order-parameter field depends on imaginary time as well as space. This introduces the dynamical critical exponent z and the effective dimension d + z, so that quantum critical points in three dimensions can sit at or above the upper critical dimension. Published as \"Quantum critical phenomena,\" Physical Review B 14(3), 1165-1184 (1 August 1976). The framework, extended by A. J. Millis in 1993, is standard as \"Hertz-Millis theory.\"",
+   "people": "John A. Hertz",
+   "affiliation": "The James Franck Institute and Department of Physics, University of Chicago",
+   "year": "1976",
+   "venue": "Physical Review B 14(3), 1165-1184",
+   "url": "https://doi.org/10.1103/PhysRevB.14.1165",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Subir Sachdev wrote the standard monograph on quantum phase transitions — transitions at absolute zero driven by a non-thermal control parameter such as pressure, magnetic field, or doping, where quantum rather than thermal fluctuations drive the change, and where the quantum critical point governs a fan-shaped finite-temperature region of anomalous behaviour. The book is Quantum Phase Transitions, Cambridge University Press; first edition 1999 (written while Sachdev was at Yale University), second edition 2011 (Harvard University), ISBN 978-0-521-51468-2. An accessible companion is Sachdev and Bernhard Keimer, \"Quantum criticality,\" Physics Today 64(2), 29-35 (2011), doi:10.1063/1.3554314.",
+   "people": "Subir Sachdev",
+   "affiliation": "Harvard University (2nd edition); Yale University (1st edition)",
+   "year": "1999 (1st ed.); 2011 (2nd ed.)",
+   "venue": "Cambridge University Press, 2nd edition (2011)",
+   "url": "https://doi.org/10.1017/CBO9780511973765",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Simon Ralph Broadbent and John Michael Hammersley founded percolation theory, introducing the distinction between a random \"medium\" and a deterministic \"fluid\" and establishing the existence of a sharp critical probability p_c above which an infinite connected cluster appears. Percolation is the canonical purely geometric continuous phase transition, with its own critical exponents and universality classes and no Hamiltonian or temperature. Published as \"Percolation processes. I. Crystals and mazes,\" Mathematical Proceedings of the Cambridge Philosophical Society 53(3), 629-641 (July 1957).",
+   "people": "Simon Ralph Broadbent, John Michael Hammersley",
+   "affiliation": "",
+   "year": "1957",
+   "venue": "Mathematical Proceedings of the Cambridge Philosophical Society 53(3), 629-641",
+   "url": "https://doi.org/10.1017/S0305004100032680",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Samuel Frederick Edwards and Philip Warren Anderson introduced the first theory of spin glasses, proposing that in dilute magnetic alloys the RKKY interaction oscillates in sign with distance so that there is no net ferro- or antiferromagnetic order, yet below a freezing temperature the spins lock into definite random directions. Their order parameter q — the time-averaged local magnetization squared, averaged over sites — is the Edwards-Anderson order parameter, and it explains the cusp observed experimentally in the susceptibility. Published as \"Theory of spin glasses,\" Journal of Physics F: Metal Physics 5(5), 965-974 (May 1975); a second part appeared in J. Phys. F 6, 1927 (1976).",
+   "people": "Samuel Frederick Edwards, Philip Warren Anderson",
+   "affiliation": "Cavendish Laboratory, University of Cambridge",
+   "year": "1975",
+   "venue": "Journal of Physics F: Metal Physics 5(5), 965-974",
+   "url": "https://doi.org/10.1088/0305-4608/5/5/017",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "David Sherrington and Scott Kirkpatrick introduced the infinite-range (mean-field) spin glass: an Ising model in which every pair of spins is coupled by an independent Gaussian random interaction. Solving it by the replica trick with a replica-symmetric ansatz, they found both spin-glass and ferromagnetic phases — but the solution gives a negative entropy at zero temperature, an unphysical result that signalled the breakdown of replica symmetry and set the problem Parisi later solved. Published as \"Solvable Model of a Spin-Glass,\" Physical Review Letters 35(26), 1792-1796 (1975).",
+   "people": "David Sherrington, Scott Kirkpatrick",
+   "affiliation": "",
+   "year": "1975",
+   "venue": "Physical Review Letters 35(26), 1792-1796",
+   "url": "https://doi.org/10.1103/PhysRevLett.35.1792",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Giorgio Parisi showed that the mean-field spin glass requires an infinite number of order parameters — a full function q(x) on the interval [0,1] rather than a single number — obtained by breaking the permutation symmetry among replicas in a nested, hierarchical (ultrametric) way. This is replica symmetry breaking, and it describes a rugged free-energy landscape with many pure states organized in a hierarchy. Published as \"Infinite Number of Order Parameters for Spin-Glasses,\" Physical Review Letters 43(23), 1754-1756 (received 22 June 1979, published 3 December 1979), with the explicit scheme in \"A sequence of approximated solutions to the S-K model for spin glasses,\" Journal of Physics A: Mathematical and General 13(4), L115-L121 (1980). The solution's correctness was proved rigorously by Michel Talagrand in 2006, building on Francesco Guerra's 2003 interpolation bound.",
+   "people": "Giorgio Parisi",
+   "affiliation": "",
+   "year": "1979 (PRL); 1980 (J. Phys. A)",
+   "venue": "Physical Review Letters 43(23), 1754-1756; Journal of Physics A 13(4), L115-L121",
+   "url": "https://doi.org/10.1103/PhysRevLett.43.1754",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "The Nobel Prize in Physics 2021 was awarded \"for groundbreaking contributions to our understanding of complex systems,\" divided with one half jointly to Syukuro Manabe and Klaus Hasselmann for physical modelling of Earth's climate, and the other half to Giorgio Parisi (Sapienza University of Rome) \"for the discovery of the interplay of disorder and fluctuations in physical systems from atomic to planetary scales.\" Parisi's citation dates the key discovery to around 1980. Books should not describe this as a prize shared equally three ways, nor as a prize for spin glasses alone.",
+   "people": "Giorgio Parisi, Syukuro Manabe, Klaus Hasselmann",
+   "affiliation": "Sapienza University of Rome (Parisi)",
+   "year": "2021",
+   "venue": "Nobel Prize in Physics, Royal Swedish Academy of Sciences",
+   "url": "https://www.nobelprize.org/prizes/physics/2021/parisi/facts/",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Philip Warren Anderson argued that the reductionist hypothesis does not imply a constructionist one: at each level of complexity entirely new properties appear, and the science of one level is not simply applied science of the level below. Broken symmetry — exactly the phenomenon that defines a phase transition — is his central example of how new organizing principles emerge at larger scales. Published as \"More Is Different: Broken symmetry and the nature of the hierarchical structure of science,\" Science 177(4047), 393-396, 4 August 1972. This is the canonical citation for emergence in phase-transition writing.",
+   "people": "Philip Warren Anderson",
+   "affiliation": "Bell Telephone Laboratories, Murray Hill, New Jersey",
+   "year": "1972",
+   "venue": "Science 177(4047), 393-396",
+   "url": "https://doi.org/10.1126/science.177.4047.393",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Max Volmer and Alfred Weber laid the foundation of classical nucleation theory, treating the formation of a nucleus in a supersaturated phase as a competition between a favourable bulk free-energy term proportional to volume and an unfavourable interfacial term proportional to surface area, producing a free-energy barrier at a critical nucleus size and a nucleation rate exponential in that barrier. Published as \"Keimbildung in uebersaettigten Gebilden,\" Zeitschrift fuer Physikalische Chemie 119U(1), 277-301 (1926).",
+   "people": "Max Volmer, Alfred Weber",
+   "affiliation": "",
+   "year": "1926",
+   "venue": "Zeitschrift fuer Physikalische Chemie 119U(1), 277-301",
+   "url": "https://doi.org/10.1515/zpch-1926-11927",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Richard Becker and Werner Doering gave the kinetic formulation of classical nucleation theory, treating nucleation as a birth-and-death process in cluster size space and deriving the steady-state nucleation rate including the Zeldovich non-equilibrium correction factor. The resulting Becker-Doering equations remain the standard kinetic model of nucleation. Published as \"Kinetische Behandlung der Keimbildung in uebersaettigten Daempfen,\" Annalen der Physik 416(8), 719-752 (1935).",
+   "people": "Richard Becker, Werner Doering (Döring)",
+   "affiliation": "",
+   "year": "1935",
+   "venue": "Annalen der Physik 416(8), 719-752",
+   "url": "https://doi.org/10.1002/andp.19354160806",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "David Turnbull and John Chipman Fisher adapted classical nucleation theory to condensed systems, supplying the rate expression with an activation term for the transport of atoms across the nucleus-matrix interface — the form used for crystallization from melts and solutions, and the basis for Turnbull's later experiments showing that liquid metals can be supercooled to roughly 0.8 of their melting temperature before nucleating. Published as \"Rate of Nucleation in Condensed Systems,\" Journal of Chemical Physics 17(1), 71-73 (1949).",
+   "people": "David Turnbull, John Chipman Fisher",
+   "affiliation": "",
+   "year": "1949",
+   "venue": "The Journal of Chemical Physics 17(1), 71-73",
+   "url": "https://doi.org/10.1063/1.1747055",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "Wilhelm Ostwald formulated the rule of stages (Ostwald's Stufenregel): a supersaturated or supercooled system does not necessarily transform directly into the thermodynamically most stable phase, but tends first to form the least stable phase whose free energy is nearest to that of the parent phase, then transforms stepwise toward stability. This is a kinetic, not a thermodynamic, principle, and it underlies polymorph selection in crystallization. Published as \"Studien ueber die Bildung und Umwandlung fester Koerper. 1. Abhandlung: Uebersaettigung und Ueberkaltung,\" Zeitschrift fuer Physikalische Chemie 22U(1), 289-330 (1897).",
+   "people": "Wilhelm Ostwald",
+   "affiliation": "University of Leipzig",
+   "year": "1897",
+   "venue": "Zeitschrift fuer Physikalische Chemie 22U(1), 289-330",
+   "url": "https://doi.org/10.1515/zpch-1897-2233",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Werner Cahn and John Edward Hilliard introduced the square-gradient free-energy functional for a system of nonuniform composition, F = N_V * integral over V of [f_0(c) + kappa*(grad c)^2] dV, where f_0 is the homogeneous free energy per molecule and kappa the gradient-energy coefficient. This is the basis of all diffuse-interface and phase-field modelling of transitions. Published as \"Free Energy of a Nonuniform System. I. Interfacial Free Energy,\" Journal of Chemical Physics 28(2), 258-267 (1958). Part III of the series, \"Nucleation in a Two-Component Incompressible Fluid,\" J. Chem. Phys. 31(3), 688-699 (1959), doi:10.1063/1.1730447, derives the critical nucleus as a saddle point of this functional and shows the classical sharp-interface nucleus fails near the spinodal.",
+   "people": "John Werner Cahn, John Edward Hilliard",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1958",
+   "venue": "The Journal of Chemical Physics 28(2), 258-267",
+   "url": "https://doi.org/10.1063/1.1744102",
+   "confidence": "verified",
+   "_domain": "foundations"
+  },
+  {
+   "claim": "John Werner Cahn established the theory of spinodal decomposition: inside the spinodal region, where the second derivative of free energy with respect to composition is negative, a homogeneous solution is unstable to infinitesimal composition fluctuations, so phase separation proceeds by spontaneous continuous amplification of long-wavelength fluctuations with no nucleation barrier and no critical nucleus — in sharp contrast to nucleation and growth in the metastable region between the binodal and the spinodal. Cahn derived the fastest-growing wavelength that sets the characteristic microstructural scale, and showed that elastic energy from composition-dependent molar volume shifts the true limit of metastability away from the chemical spinodal. Published as \"On spinodal decomposition,\" Acta Metallurgica 9(9), 795-801 (1961); the cubic-crystal extension is Acta Metallurgica 10(3), 179-183 (1962).",
+   "people": "John Werner Cahn",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1961",
+   "venue": "Acta Metallurgica 9(9), 795-801",
+   "url": "https://doi.org/10.1016/0001-6160(61)90182-1",
+   "confidence": "verified",
+   "_domain": "foundations"
+  }
+ ],
+ "corrections": [
+  {
+   "status": "CORRECTED",
+   "claim": "Ehrenfest 1933, 'Phasenumwandlungen im ueblichen und erweiterten Sinn...', Proc. Royal Acad. Amsterdam 36, 153-157, Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b; English translation and commentary by Tilman Sauer, EPJ Special Topics (2016), doi:10.1140/epjst/e2016-60344-y",
+   "correction": "The Ehrenfest original is exactly right (Proc. Royal Acad. Amsterdam 36, 153-157, 1933; Commun. Kamerlingh Onnes Lab. Leiden Suppl. 75b), and arXiv:1612.03062 resolves to Sauer's translation. But the Sauer translation year and volume are wrong. Correct text: 'An English translation with historical commentary by Tilman Sauer, \"A look back at the Ehrenfest classification,\" European Physical Journal Special Topics 226, 539-549 (2017), doi:10.1140/epjst/e2016-60344-y (posted as arXiv:1612.03062 in December 2016).' Correct URL: https://doi.org/10.1140/epjst/e2016-60344-y (preprint: https://arxiv.org/abs/1612.03062). Separately, a caution on the editorial gloss: the dossier asserts books 'must note that Ehrenfest's higher-order categories are now obsolete.' Sauer's own commentary does not say this — it notes the He I / He II lambda-point logarithmic divergence forced modification but argues the framework 'remains important' and proved fruitful. Safer wording: Ehrenfest's higher-order categories do not describe real continuous transitions, which show power-law divergences rather than finite jumps, so modern usage is 'first-order' versus 'continuous.'",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Widom 1965, 'Equation of State in the Neighborhood of the Critical Point,' Journal of Chemical Physics 43(11), 3898-3905; scaling relations including 'alpha + 2*beta + gamma = 2, later called the Rushbrooke relation' and gamma = beta*(delta-1)",
+   "correction": "The citation is exactly right (Widom, J. Chem. Phys. 43(11), 3898-3905, published 1 December 1965; doi 10.1063/1.1696618; Widom was at the Department of Chemistry, Cornell University). The word 'later' is chronologically wrong: Rushbrooke's inequality predates Widom's paper. Correct text: 'from which the scaling relations among critical exponents follow as equalities — including alpha + 2*beta + gamma = 2, which G. S. Rushbrooke had already established in 1963 as the inequality alpha + 2*beta + gamma >= 2 (\"On the Thermodynamics of the Critical Region for the Ising Problem,\" Journal of Chemical Physics 39(3), 842-843, doi:10.1063/1.1734338), and gamma = beta*(delta - 1), the Widom relation.'",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Berezinskii, Soviet Physics JETP 32(3), 493-500 (March 1971); 'Russian original ZhETF 59(3), 907 (1971)'; Berezinskii died in 1980 and was ineligible for the 2016 Nobel",
+   "correction": "The English translation, page range, title, and the 1980 death (23 June 1980, Moscow; born 15 July 1935, Kiev) are all correct, and the JETP URL resolves to the right article. The Russian original year is wrong: ZhETF volume 59 is a 1970 volume. Correct text: 'The paper is \"Destruction of Long-range Order in One-dimensional and Two-dimensional Systems having a Continuous Symmetry Group. I. Classical Systems,\" Soviet Physics JETP 32(3), 493-500 (March 1971); Russian original Zh. Eksp. Teor. Fiz. 59(3), 907-920 (1970), received 31 March 1970.' Correct URL: http://jetp.ras.ru/cgi-bin/e/index/e/32/3/p493?a=list. Note for the author: the jetp.ras.ru database and INSPIRE both stamp the Russian line '1971' by propagating the translation date, so a book citing 1970 should not be 'corrected' back by a copyeditor consulting those two sources; Wikipedia and the paper's own submission date give 1970.",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "2021 Nobel Prize in Physics awarded 'for groundbreaking contributions to our understanding of complex systems,' one half jointly to Manabe and Hasselmann, other half to Parisi (Sapienza University of Rome)",
+   "correction": "The division, laureates, Parisi's individual motivation, affiliation, and the 'around 1980' dating are all correct, but the overall prize citation is misquoted — the official wording contains 'physical.' Correct text: 'The Nobel Prize in Physics 2021 was awarded \"for groundbreaking contributions to our understanding of complex physical systems,\" divided with one half jointly to Syukuro Manabe and Klaus Hasselmann \"for the physical modelling of Earth's climate, quantifying variability and reliably predicting global warming,\" and the other half to Giorgio Parisi (Sapienza University of Rome) \"for the discovery of the interplay of disorder and fluctuations in physical systems from atomic to planetary scales.\"' Correct URL for the full citation: https://www.nobelprize.org/prizes/physics/2021/summary/ (Parisi-specific page: https://www.nobelprize.org/prizes/physics/2021/parisi/facts/).",
+   "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Turnbull and 'John Chipman Fisher' 1949, 'Rate of Nucleation in Condensed Systems,' Journal of Chemical Physics 17(1), 71-73",
+   "correction": "The author's name is fabricated. The co-author is John Crocker Fisher (born 19 December 1919, Ithaca NY; died 2 May 2018), Sc.D. MIT 1947, of General Electric Research Laboratory, who managed GE's physical metallurgy section. 'John Chipman' is an entirely different person — the MIT metallurgist and steelmaking chemist — and conflating the two would put a wrong name for a real man in print. Correct text: 'David Turnbull and John Crocker Fisher adapted classical nucleation theory to condensed systems... Published as \"Rate of Nucleation in Condensed Systems,\" Journal of Chemical Physics 17(1), 71-73 (1949).' Everything else in the item checks out: the paper exists with that exact title, JCP volume 17, issue 1, pages 71-73, 1949, authors ordered Turnbull then Fisher, and the URL https://doi.org/10.1063/1.1747055 resolves to it. Note for the author: a stray erratum, JCP 17(4), 429 (1949), also exists, and some secondary databases circulate a wrong DOI (10.1063/1.1747279) and a wrong issue number (No. 4) for this paper — cite 10.1063/1.1747055 and issue 1. The supercooling figure (liquid metals to roughly 0.8 T_m) is accurate.",
+   "_domain": "foundations"
+  }
+ ]
+}

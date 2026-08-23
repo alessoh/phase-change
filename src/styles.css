@@ -1,0 +1,515 @@
+/*
+ * The Ising Lab - application chrome.
+ *
+ * The palette is deliberately narrow: a near-black ground, two greys of panel,
+ * one blue accent, and three status hues reserved for meaning (green = the
+ * control behaved, amber = read this carefully, red = falsification). Every
+ * token declared here is also read by the panel components through var(),
+ * whose literal fallbacks match these values exactly, so the instrument looks
+ * the same whether or not this stylesheet has loaded.
+ *
+ * No web fonts. Everything below is a system stack, which is the only way to
+ * guarantee the application renders identically offline.
+ */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #090b10;
+  --panel: #12151c;
+  --inset: #0c0f15;
+  --border: #262c38;
+  --border-strong: #36405230;
+
+  --fg: #e9ecf1;
+  --muted: #949cab;
+  --faint: #6b7482;
+
+  --accent: #6ea8fe;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --danger: #f87171;
+
+  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --radius: 8px;
+  --gap: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 15px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(110, 168, 254, 0.35);
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shell                                                               */
+/* ------------------------------------------------------------------ */
+
+.app {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 40px 28px 72px;
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: 28px 16px 56px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Masthead                                                            */
+/* ------------------------------------------------------------------ */
+
+.masthead {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 26px;
+  margin-bottom: 26px;
+}
+
+.masthead__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 10px;
+}
+
+.masthead__title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.masthead__standfirst {
+  max-width: 74ch;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.masthead__standfirst strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.masthead__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.masthead__meta dt {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 3px;
+}
+
+.masthead__meta dd {
+  margin: 0;
+  max-width: 46ch;
+}
+
+.masthead__meta .num {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--fg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Control bar                                                         */
+/* ------------------------------------------------------------------ */
+
+.console {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: var(--gap);
+  display: grid;
+  grid-template-columns: minmax(320px, 2fr) minmax(320px, 1fr);
+  gap: 22px 32px;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .console {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.field__label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.temperature__value {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--mono);
+}
+
+.temperature__number {
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.temperature__delta {
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.temperature__delta[data-near='true'] {
+  color: var(--warn);
+}
+
+/* The slider itself. Track carries a permanent tick at the Onsager value. */
+.slider {
+  position: relative;
+  margin-top: 10px;
+}
+
+.slider input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+.slider input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2b4a8a 0%, #3f6bb5 40%, #7c4a2a 100%);
+}
+
+.slider input[type='range']::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2b4a8a 0%, #3f6bb5 40%, #7c4a2a 100%);
+}
+
+.slider input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--fg);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.slider input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--fg);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.slider input[type='range']:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.slider__tc {
+  position: absolute;
+  top: 2px;
+  height: 22px;
+  width: 1px;
+  background: var(--warn);
+  pointer-events: none;
+}
+
+.slider__scale {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--faint);
+  margin-top: 2px;
+}
+
+/* Segmented controls and buttons */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+}
+
+.segment {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--inset);
+}
+
+.segment button {
+  font: 600 12.5px/1 var(--mono);
+  padding: 9px 13px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-right: 1px solid var(--border);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.segment button:last-child {
+  border-right: 0;
+}
+
+.segment button:hover:not(:disabled) {
+  color: var(--fg);
+  background: rgba(110, 168, 254, 0.07);
+}
+
+.segment button[aria-pressed='true'] {
+  background: rgba(110, 168, 254, 0.13);
+  color: var(--accent);
+}
+
+.segment button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.btn {
+  font: 600 13px/1 var(--sans);
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--inset);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.btn--primary:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn--stop:not(:disabled) {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Panels                                                              */
+/* ------------------------------------------------------------------ */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--gap);
+  align-items: start;
+}
+
+@media (max-width: 1180px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.panel__head h2 {
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
+.panel__head p {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 62vh;
+  background: var(--inset);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.readouts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.readouts dt {
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.readouts dd {
+  margin: 3px 0 0;
+  font-family: var(--mono);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+
+.note {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.banner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  background: rgba(248, 113, 113, 0.08);
+  color: var(--fg);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: var(--gap);
+}
+
+.banner button {
+  background: transparent;
+  border: 0;
+  color: var(--danger);
+  font: 600 12px/1 var(--sans);
+  cursor: pointer;
+}
+
+.progress {
+  height: 4px;
+  background: var(--inset);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress > div {
+  height: 100%;
+  background: var(--accent);
+  transition: width 120ms linear;
+}
+
+.colophon {
+  margin-top: 34px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 88ch;
+}
+
+.colophon p {
+  margin: 0 0 10px;
+}
+
+.colophon p:last-child {
+  margin-bottom: 0;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
