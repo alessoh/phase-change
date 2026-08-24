@@ -28,3 +28,7 @@ dist/
 *.tsbuildinfo
 
 .vercel
+
+# python
+__pycache__/
+*.pyc

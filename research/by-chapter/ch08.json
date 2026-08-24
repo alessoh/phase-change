@@ -4,7 +4,8 @@
  "outline": "The constructive answer to Chapter 7, and the intellectual peak of the methods half of the book. The chapter runs two lineages against each other. The first is the argument about whether deep learning is renormalization. Pankaj Mehta and David Schwab proposed that stacked restricted Boltzmann machines implement variational renormalization; Maciej Koch-Janusz and Zohar Ringel rejected that reading and built an alternative in which maximizing real-space mutual information between a coarse-grained variable and its environment extracts the relevant degrees of freedom, from which they recovered the Ising correlation-length exponent as one point zero plus or minus zero point one five against an exact value of one. Doruk Efe Gökmen, Zohar Ringel, Sebastian Huber and Maciej Koch-Janusz scaled this into RSMI-NE, which reconstructs phase diagrams and identifies symmetry-breaking patterns without prior knowledge, and Robert de Mello Koch and colleagues built observables that distinguish genuine renormalization flow from whatever a trained network is actually doing. The second lineage is symbolic regression, whose output is an equation rather than a prediction, from Michael Schmidt and Hod Lipson recovering conservation laws from motion-tracking data, through Silviu-Marian Udrescu and Max Tegmark's AI Feynman, through Miles Cranmer's PySR and the graph-network recipe of imposing a sparse bottleneck and symbolically regressing the learned messages, to Cristina Cornelio and colleagues at IBM scoring candidates on derivability from background axioms rather than fit alone, which is the difference between a fitted curve and a derived law. The chapter closes on the contrast case, physics-informed neural networks and neural operators applied to Allen-Cahn and Cahn-Hilliard dynamics, which enforce known physics rather than discovering new physics and whose documented failures on stiff, sharp-interface problems are optimization-landscape failures rather than expressivity failures.\n\nBuilt on Mehta and Schwab on variational renormalization, Koch-Janusz and Ringel in Nature Physics 2018 with the extracted Ising exponent, Gökmen, Ringel, Huber and Koch-Janusz on RSMI-NE, de Mello Koch and colleagues on distinguishing renormalization flow from network behaviour, Schmidt and Lipson in Science 2009, Udrescu and Tegmark in Science Advances 2020 together with AI Feynman 2.0, Cranmer's PySR and the graph-network symbolic regression recipe with Lemos and colleagues recovering the inverse-square law and solar-system masses from thirty years of trajectories, Brunton, Proctor and Kutz on sparse identification of governing equations, Cornelio and colleagues in Nature Communications 2023, Raissi, Perdikaris and Karniadakis on physics-informed networks with Mattey and Ghosh on Allen-Cahn and Cahn-Hilliard and Krishnapriyan and colleagues on why they fail, and the Fourier Neural Operator.\n\nLeaves open: every law recovered here was already known. Whether any version of the claim that deep learning is renormalization survives is still unsettled.",
  "domains": [
   "symbolic-theory",
-  "rg-symbolic-verify"
+  "rg-symbolic-verify",
+  "rg-mechanism"
  ],
  "verifiedClaims": [
   {
@@ -526,6 +527,216 @@
    "url": "https://arxiv.org/abs/1911.00890",
    "confidence": "verified",
    "_domain": "rg-symbolic-verify"
+  },
+  {
+   "claim": "Paper I of the pair that founded the modern RG. Recasts Kadanoff's block-spin scaling picture for an Ising ferromagnet in differential form, so that the scaling relations follow from renormalization-group differential equations rather than from a homogeneity hypothesis. This is the paper to cite for 'RG as a flow', as distinct from Paper II which does the actual mode elimination.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3174-3183 (1 November 1971)",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3174",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Paper II: the actual mechanism. Solves a generalized Ising model with continuously variable spin and a quartic term by a change of variable to localized wave-packet ('phase-space cell') functions, with one orthogonal set per order-of-magnitude range of momentum. Modes of momentum of order 1 are integrated out leaving |q| < 0.5, then modes between 0.25 and 0.5, and so on - i.e. octave-by-octave elimination with rescaling factor b = 2. The result is a nonlinear integral recursion formula for a sequence of effective Landau-Ginzburg potentials V^(l). This is the ancestor of momentum-shell integration; it is NOT yet the sharp-cutoff shell scheme of textbooks. Wilson solved the recursion numerically and obtained a nu for d=3 clearly different from the classical 1/2 - the result Fisher says convinced him 'a major barrier to progress had been overcome'.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3184-3205 (1 November 1971)",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3184",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The Wilson-Fisher fixed point and the birth of the epsilon expansion. Critical exponents computed for d = 4 - epsilon with epsilon small, by treating the dimensional deviation as a small non-integral parameter in Wilson's recursion relations - legitimate because d enters those relations only through the analytic factors b^(4-d) and S_d = 2 pi^(d/2)/[Gamma(d/2)(2 pi)^d], never through a lattice. Contains gamma = 1 + epsilon/6 + O(epsilon^2) for the Ising-like (n=1) case and gamma = 1 + epsilon/5 for the XY (n=2) case. Fisher, in his 1998 RMP first-person account, calls this 'the first general formula for a nonclassical exponent' and records that he was the one who proposed treating 4-d as small, and that Wilson showed the one-loop recursion relations are exact to leading order in epsilon (results independent of the arbitrary rescaling factor b), which is why they are universal. With eta = O(epsilon^2) and gamma = nu(2-eta), gamma = 1 + epsilon/6 is equivalent to nu = 1/2 + epsilon/12.",
+   "people": "Kenneth G. Wilson and Michael E. Fisher",
+   "affiliation": "Cornell University (both; Wilson in the Laboratory of Nuclear Studies, Fisher in chemistry/Baker Lab - the Cornell affiliation is verified via Fisher 1998, the departmental detail is not)",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(4), 240-243 (24 January 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.240",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The follow-up five weeks later that turned the epsilon expansion into a systematic diagrammatic series. Computes gamma, eta and the crossover index phi for classical Heisenberg models with n internal degrees of freedom as an exact expansion in epsilon = 4 - d, to order epsilon^2 for gamma and epsilon^3 for eta. Setting n = epsilon = 1 (3D Ising) gives gamma = 1.244 and eta = 0.037. Cite this, not the 3.99 paper, when the argument needs the graph-by-graph structure of the expansion rather than the existence of the fixed point.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(9), 548-551 (28 February 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.548",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The 125-page Physics Reports monograph that is the canonical source for momentum-shell RG in its streamlined, sharp-cutoff form, and for the epsilon expansion carried out systematically. Presents the modern formulation of the RG for both critical phenomena in classical statistical mechanics and quantum field theory, emphasizing principles over applications. If the book states the momentum-shell procedure as a procedure (split at Lambda/b, integrate the shell, rescale, iterate), this is the reference, with Wilson (1971b) cited for its origin. Note: Crossref records pages 75-199; a great many secondary sources cite 75-200.",
+   "people": "Kenneth G. Wilson and John Kogut",
+   "affiliation": "Cornell University (Wilson); affiliation of Kogut not verified from a source I saw",
+   "year": "1974",
+   "venue": "Physics Reports 12(2), 75-199 (1974)",
+   "url": "https://doi.org/10.1016/0370-1573(74)90023-4",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The block-spin argument. Divide the Ising model into cells that are microscopically large but much smaller than the correlation length; use the total magnetization within each cell as a collective variable; argue that the block system is again an Ising model with renormalized t and h. Kadanoff presents it as 'a partial justification for Widom's conjecture about the homogeneity of the free energy' and derives the hyperscaling form d nu' = gamma' + 2 beta. The weak point - which Wilson's Paper I is explicitly written to repair - is the assumption of a single effective coupling J between adjacent block spins; Fisher (1998) identifies precisely this, together with the unexplained power-law form of the rescaling factors, as 'the principal difficulties' in Kadanoff's picture.",
+   "people": "Leo P. Kadanoff",
+   "affiliation": "University of Illinois, Urbana (commonly recorded; not verified from a source I saw)",
+   "year": "1966",
+   "venue": "Physics Physique Fizika 2(6), 263-272 (1966)",
+   "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.2.263",
+   "confidence": "probable",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Widom's scaling form: the equation of state near the critical point is written via a function Phi(x,y), with x a measure of temperature and y of density; classical (van der Waals type) fluids have Phi constant, while in a real fluid Phi is a HOMOGENEOUS function of positive degree. This homogeneity hypothesis is what converts the previously derived exponent inequalities into equalities - e.g. gamma = beta(delta - 1) - without deriving them. Fisher calls it 'the most direct and phenomenological' route, 'a bold, new thermodynamic hypothesis'. Domb & Hunter (1965) and Patashinskii & Pokrovskii (1966) reached the same conclusion by other routes.",
+   "people": "Benjamin Widom",
+   "affiliation": "Department of Chemistry, Cornell University, Ithaca, New York (recorded in the Crossref metadata)",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3898-3905 (1965)",
+   "url": "https://doi.org/10.1063/1.1696618",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Widom's companion paper in the same issue, on surface tension and molecular correlations near the critical point. Cite this one - not the equation-of-state paper - for the hyperscaling relation d nu = 2 - alpha: Fisher (1998) fn. 88 credits the equality to 'Kadanoff (1966), Widom (1965a), and Stell (1965, unpublished)'. Widom (1965a) is 3892-3897, Widom (1965b) is 3898-3905; textbooks routinely conflate them.",
+   "people": "Benjamin Widom",
+   "affiliation": "Department of Chemistry, Cornell University, Ithaca, New York (recorded in the Crossref metadata)",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3892-3897 (1965)",
+   "url": "https://doi.org/10.1063/1.1696617",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The paper that proposed alpha' + 2 beta + gamma' = 2 as an EQUALITY (from a droplet-model partition function) and, per Fisher (1998) fn. 50, introduced 'the now generally accepted notation for the thermodynamic critical exponents' - i.e. alpha, beta, gamma, delta. Cite it when the book first names the exponents, and when distinguishing the conjectured equality from Rushbrooke's rigorous inequality that followed it.",
+   "people": "John W. Essam and Michael E. Fisher",
+   "affiliation": "Not verified from a source I saw",
+   "year": "1963",
+   "venue": "The Journal of Chemical Physics 38(4), 802-812 (1963)",
+   "url": "https://doi.org/10.1063/1.1733766",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Rushbrooke's inequality: alpha' + 2 beta + gamma' >= 2. A two-page note. Fisher's account: 'Moved by the suggested thermodynamic exponent equality, Rushbrooke (1963) quickly showed that for magnetic systems (with H -> -H symmetry) the positivity of specific heats implied by the Second Law of Thermodynamics could be used to prove rigorously the inequality.' The primes denote below-Tc exponents; scaling later implies alpha = alpha', gamma = gamma', so the distinction is now rarely made. The mechanism-level point for the book: the inequality is thermodynamics alone, the equality requires scaling, and the RG explains why the equality holds.",
+   "people": "G. S. Rushbrooke",
+   "affiliation": "Newcastle upon Tyne, UK (commonly recorded; not verified from a source I saw)",
+   "year": "1963",
+   "venue": "The Journal of Chemical Physics 39(3), 842-843 (1 August 1963)",
+   "url": "https://doi.org/10.1063/1.1734338",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Griffiths' inequality: alpha' + beta(1 + delta) >= 2, proved from convexity of the free energy - the second of the two classic thermodynamic exponent inequalities, and the one that becomes an equality under Widom scaling. Griffiths gave the fuller treatment in J. Chem. Phys. 43(6), 1958-1968 (1965), DOI 10.1063/1.1697060 (title seen in search results, DOI not independently resolved). Fisher (1998) fn. 50 additionally credits Buckingham & Gunton, Phys. Rev. 178, 848-853 (1969) with the corresponding rigorous inequalities for the CORRELATION exponents.",
+   "people": "Robert B. Griffiths",
+   "affiliation": "Carnegie Institute of Technology, Pittsburgh (commonly recorded; not verified from a source I saw)",
+   "year": "1965",
+   "venue": "Physical Review Letters 14(16), 623-624 (19 April 1965)",
+   "url": "https://doi.org/10.1103/PhysRevLett.14.623",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Fisher's relation gamma = (2 - eta) nu. Fisher (1998) fn. 50 cites 'Fisher (1959; 1962; 1964, see Eq. (5.7); 1967b)' for this relation, making this 62-page J. Math. Phys. review the standard citable source with a specific equation number. It follows from the correlation-function scaling form G(r;T) ~ D r^-(d-2+eta) g(r/xi) integrated over all space to give the susceptibility. The same paper (Eq. 2.20) extends Rushbrooke's inequality from magnets to fluids. The rigorous inequality gamma <= (2 - eta) nu was proved later in Fisher, 'Phase Transitions and Critical Phenomena', Contemporary Physics Vol. 1, Proc. Int. Symp. Trieste 1968 (IAEA, Vienna, 1969), pp. 19-46 - no DOI located.",
+   "people": "Michael E. Fisher",
+   "affiliation": "The Rockefeller Institute, New York (recorded in the Crossref metadata)",
+   "year": "1964",
+   "venue": "Journal of Mathematical Physics 5(7), 944-962 (July 1964)",
+   "url": "https://doi.org/10.1063/1.1704197",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The hyperscaling INEQUALITY nu d >= 2 - alpha, in two parts: Part I, 'Inequality for the specific heat: I. Derivation', Proc. Phys. Soc. 92, 269-275, derives a rigorous inequality relating a specific heat, the temperature derivative of the expectation of an arbitrary operator, and the mean-square fluctuation of that operator in an equilibrium ensemble; Part II, 'Inequality for the specific heat: II. Application to critical phenomena', Proc. Phys. Soc. 92, 276-284, DOI 10.1088/0370-1328/92/2/302, applies it to criticality. Josephson supplies the rigorous half; the equality d nu = 2 - alpha comes from scaling (Widom 1965a, Kadanoff 1966, Stell). Both DOIs verified against Crossref records.",
+   "people": "B. D. Josephson",
+   "affiliation": "University of Cambridge (commonly recorded; not verified from a source I saw)",
+   "year": "1967",
+   "venue": "Proceedings of the Physical Society 92(2), 269-275 (Part I) and 276-284 (Part II) (1967)",
+   "url": "https://doi.org/10.1088/0370-1328/92/2/301",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The general formulation of what the linearized RG eigenvalues MEAN. Wegner shows that the higher-order (nonlinear) contributions to the linearized RG equations are absorbed by redefining the fields as smooth nonlinear analytic functions of the physical fields - the 'nonlinear scaling fields' - after which an EXACT scaling law holds, and the deviations from pure power laws (corrections to scaling, controlled by the leading irrelevant eigenvalue, the exponent now called omega) follow as a systematic expansion. Also explains where logarithms in the free energy come from, i.e. the marginal case. Fisher (1998) reports that Wilson himself, dividing RG theory into four parts, cited 'Wegner (1972a, 1976)' for 'the formal theory of fixed points and linear and nonlinear behavior near fixed points'. Wegner's companion review, 'The Critical State, General Aspects', in Domb & Green eds., Phase Transitions and Critical Phenomena Vol. 6 (Academic, London, 1976), pp. 7-124, is the other half of that citation; I found no DOI for it.",
+   "people": "Franz J. Wegner",
+   "affiliation": "Department of Physics, Brown University, Providence, Rhode Island, on leave from the Institut fuer Festkoerperforschung, Kernforschungsanlage Juelich",
+   "year": "1972",
+   "venue": "Physical Review B 5(11), 4529-4536 (1 June 1972)",
+   "url": "https://doi.org/10.1103/PhysRevB.5.4529",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "THE standard expository citation for the RG in critical behavior - an introductory-level review with emphasis on magnetic systems, covering the dependence of exponents on dimensionality, symmetry and exchange couplings, and the calculation of scaling functions for the equation of state and critical scattering. Fisher (1998) points back to this 1974 review specifically for 'the special character of the hyperscaling relations' (fn. 87) and for the systematic account of apparent hyperscaling violations in 3D Ising series 'with hindsight enlightened by RG theory' (fn. 91). NOTE: there is an erratum, 'Erratum: The renormalization group in the theory of critical behavior', Rev. Mod. Phys. 47, 543 (1975), DOI 10.1103/RevModPhys.47.543 - verified separately; cite both.",
+   "people": "Michael E. Fisher",
+   "affiliation": "Cornell University at the time (not verified from a source I saw); Fisher moved to Maryland in 1987",
+   "year": "1974",
+   "venue": "Reviews of Modern Physics 46(4), 597-616 (1 October 1974)",
+   "url": "https://doi.org/10.1103/RevModPhys.46.597",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The single most useful citation for the eigenvalue-to-exponent correspondence stated as an equation. Fisher linearizes R_b about the fixed point, obtains eigenoperators Q_k with eigenvalues Lambda_k(b) = b^(lambda_k) (the power-law form forced by the semigroup property), writes the generalized free-energy scaling form as his Eq. (49), and then in Eq. (50) gives the correspondence in full: 2 - alpha = d/lambda_1, Delta = lambda_2/lambda_1, phi_j = lambda_j/lambda_1, and NU = 1/LAMBDA_1. He immediately adds that the sign of lambda_j determines relevance (lambda_j > 0), marginality (lambda_j = 0), or irrelevance (lambda_j < 0) of the operator Q_j and its conjugate field g_j, and notes that the first and last of Eq. (50) yield the hyperscaling relation d nu = 2 - alpha. The paper also contains Fisher's first-person account of the birth of the epsilon expansion at Cornell in September 1971 and of Wilson's 'flows in a large space'. I read the full text of this paper directly.",
+   "people": "Michael E. Fisher",
+   "affiliation": "Institute for Physical Science and Technology, University of Maryland, College Park, Maryland 20742",
+   "year": "1998",
+   "venue": "Reviews of Modern Physics 70(2), 653-681 (April 1998)",
+   "url": "https://doi.org/10.1103/RevModPhys.70.653",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Wilson's 1982 Nobel lecture (delivered 8 December 1982), presenting the RG and the epsilon expansion in his own words. Useful for the book as the author's retrospective framing of what the coarse-graining actually accomplishes - and Fisher (1998) repeatedly cites Wilson (1983) for Wilson's own account of his path from Gell-Mann-Low to Kadanoff's scaling hypothesis to the recursion formula.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University",
+   "year": "1983",
+   "venue": "Reviews of Modern Physics 55(3), 583-600 (1 July 1983)",
+   "url": "https://doi.org/10.1103/RevModPhys.55.583",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The modern pedagogical source in which I directly verified every number in the mechanism section above. Section 2.5, 'Wilson's momentum shell renormalization group', states the two RG steps explicitly (integrate Fourier components with Lambda/b <= |q| <= Lambda, then rescale), derives the one-loop recursion relations as Eqs. (44)-(45), the differential flow as Eqs. (48)-(49) with the Ising fixed point u* S_d = (2/3) epsilon Lambda^(4-d), the thermal recursion relation as Eq. (50), and then Eq. (51): nu = 1/2 + epsilon/12 + O(epsilon^2), eta = 0 + O(epsilon^2), obtained by identifying nu^-1 = 2 - epsilon/3. The field-theoretic half gives the O(n) generalization: Z-factors with the (n+2)/6 and (n+8)/6 symmetry factors (Eqs. 65-66), fixed point u* = 6 epsilon/(n+8) (Eq. 76), eta = (n+2) epsilon^2 / [2 (n+8)^2] (Eq. 77), and nu^-1 = 2 - [(n+2)/(n+8)] epsilon + O(epsilon^2) (Eq. 78), reducing to Eq. (51) at n = 1. This is where the factor of 12 is transparently 4(n+8)/(n+2) at n = 1.",
+   "people": "Uwe C. Taeuber",
+   "affiliation": "Department of Physics, Virginia Tech, Blacksburg, VA 24061-0435, USA",
+   "year": "2011 (arXiv preprint, 6 December 2011); 2012 (journal)",
+   "venue": "Nuclear Physics B Proceedings Supplements 228C, 7-34 (2012); arXiv:1112.1375; journal DOI 10.1016/j.nuclphysbps.2012.06.002",
+   "url": "https://arxiv.org/abs/1112.1375",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The comprehensive modern review of critical phenomena and RG theory - Ising and general O(N) universality classes, exponents, equation of state, amplitude ratios, two-point function, in three and two dimensions, including the technology (fixed-dimension expansion vs. epsilon expansion, minimal subtraction, Borel resummation) that turns the divergent epsilon series into numbers. Cite this for reference exponent values and for the statement that the epsilon expansion is asymptotic, not convergent. Preprint year 2000, journal year 2002 - the arXiv v1 is 10 December 2000, final v6 3 May 2002.",
+   "people": "Andrea Pelissetto and Ettore Vicari",
+   "affiliation": "Not verified from a source I saw (Rome La Sapienza and Pisa respectively, commonly recorded)",
+   "year": "2000 (arXiv v1); 2002 (journal)",
+   "venue": "Physics Reports 368(6), 549-727 (2002); arXiv:cond-mat/0012164",
+   "url": "https://doi.org/10.1016/S0370-1573(02)00219-3",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The standard resummed-exponent reference: critical exponents of the N-vector model obtained by Borel-type resummation of both the fixed-dimension and epsilon-expansion perturbative series. Use this as the citation for 'what the epsilon expansion gives once you resum it', against which the raw one-loop nu = 1/2 + epsilon/12 = 0.583 at epsilon = 1 can be judged.",
+   "people": "R. Guida and J. Zinn-Justin",
+   "affiliation": "Not verified from a source I saw (Saclay, commonly recorded)",
+   "year": "1998",
+   "venue": "Journal of Physics A: Mathematical and General 31(40), 8103-8121 (1998)",
+   "url": "https://doi.org/10.1088/0305-4470/31/40/006",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The current high-precision benchmark for the 3D Ising universality class from the conformal bootstrap: Delta_sigma = 0.5181489(10), Delta_epsilon = 1.412625(10), lambda_sigma-sigma-epsilon = 1.0518537(41), lambda_epsilon-epsilon-epsilon = 1.532435(19). NOTE: the abstract quotes SCALING DIMENSIONS, not exponents. Converting via nu = 1/(d - Delta_epsilon) with d = 3 gives nu = 1/1.587375 = 0.629971, and eta = 2 Delta_sigma - d + 2 = 0.0362978. That conversion is mine, done from the quoted numbers; the paper's abstract does not print nu or eta. Against nu = 0.629971, the raw one-loop epsilon expansion at epsilon = 1 (0.583) is about 7 percent low.",
+   "people": "Filip Kos, David Poland, David Simmons-Duffin and Alessandro Vichi",
+   "affiliation": "Not verified from a source I saw",
+   "year": "2016",
+   "venue": "Journal of High Energy Physics 2016(8), 036; arXiv:1603.04436",
+   "url": "https://doi.org/10.1007/JHEP08(2016)036",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
   }
  ],
  "corrections": [
@@ -606,6 +817,18 @@
    "claim": "Kelsie Taylor, 'A Deep Dive into the Connections Between the Renormalization Group and Deep Learning in the Ising Model', arXiv:2308.11075 (21 Aug 2023), Caltech thesis, DOI 10.7907/ztpg-z092; RG flow successfully learned for the 1D case but quantitative inconsistencies when comparing RBM weight layers to spin renormalization in the nearest-neighbour system.",
    "correction": "Content verified; the description of the document type understates what it is and should be sharpened.\n\nVerified from arXiv: single author Kelsie Taylor, published 2023-08-21, single version, DOI 10.7907/ztpg-z092. Abstract confirms both reported findings verbatim: 'For the 1D Ising model, we successfully used Adam optimization on a correlation length loss function to learn the group flow, yielding results consistent with the analytical model for infinite N' and 'we directly compared the weights of each layer from the learning to Ising spin renormalization, but found quantitative inconsistencies for the simple case of nearest-neighbor Ising models.'\n\nCORRECTION: the comments field reads '103 pages, 87 figures, Senior Thesis, Advisors: Maria Spiropulu and Joseph Lykken'. This is an UNDERGRADUATE senior thesis, not a doctoral one. 'A Caltech thesis' will be read by most readers as a PhD thesis and overstates the source's weight. Also note the Caltech affiliation, which the dossier marked as inferred from the DOI prefix, is confirmed by the named advisors (both Caltech/Fermilab).\n\nACCURATE TEXT: 'Kelsie Taylor, \"A Deep Dive into the Connections Between the Renormalization Group and Deep Learning in the Ising Model\", Caltech senior thesis, 2023, arXiv:2308.11075, DOI 10.7907/ztpg-z092.' URL: https://arxiv.org/abs/2308.11075",
    "_domain": "rg-symbolic-verify"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Rushbrooke (1963), 'On the Thermodynamics of the Critical Region for the Ising Problem', J. Chem. Phys. 39(3), 842-843, doi:10.1063/1.1734338; affiliation given as 'Newcastle upon Tyne, UK'.",
+   "correction": "Bibliography is right; the affiliation is wrong. Crossref's record for this paper carries the author entry {\"given\":\"G. S.\",\"family\":\"Rushbrooke\",\"affiliation\":[{\"name\":\"Chemistry Department, University of Oregon, Eugene, Oregon\"}]} — this two-page note was published from Oregon, not Newcastle. Rushbrooke's career home was Newcastle, which is presumably how the error crept in; if the book prints an affiliation for this paper it must say University of Oregon. Everything else checks: title, sole author, JCP 39(3), 842-843, 1 Aug 1963. Fisher (1998) fn. 50 verbatim: 'Moved by the suggested thermodynamic exponent equality, Rushbrooke (1963) quickly showed that for magnetic systems (with H -> -H symmetry) the positivity of specific heats implied by the Second Law of Thermodynamics could be used to prove rigorously the inequality alpha' + 2beta + gamma' >= 2. His proof was soon extended to fluid systems (Fisher 1964), see Eq. (2.20).'",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Fisher (1974), 'The renormalization group in the theory of critical behavior', Rev. Mod. Phys. 46(4), 597-616, doi:10.1103/RevModPhys.46.597, with erratum RMP 47, 543 (1975) — and Fisher (1998) points back to THIS 1974 review in fn. 87 for 'the special character of the hyperscaling relations' and in fn. 91 for the account of apparent hyperscaling violations 'with hindsight enlightened by RG theory'.",
+   "correction": "This is the garbled citation. The RMP article and its erratum are real and correctly described (Crossref: Michael E. Fisher, RMP 46(4), 597-616, 1 Oct 1974; erratum, RMP 47, issue 2, p. 543, 1 April 1975 — note the dossier omits the issue number, it is 47(2)). But footnotes 87 and 91 do NOT point to it. Read verbatim from the full text: '87 See (Fisher, 1974a) where the special character of the hyperscaling relations is stressed' and '91 As expounded systematically in (Fisher, 1974a) with hindsight enlightened by RG theory.' Fisher's own bibliography defines 1974a and 1974b as DIFFERENT papers: 'Fisher, M. E., 1974a, General Scaling Theory for Critical Points, Proceedings of the Nobel Symp. XXIV, Aspenasgarden, Lerum, Sweden, June 1973, in Collective Properties of Physical Systems, edited by B. Lundqvist and S. Lundqvist (Academic, New York), pp. 16-37' versus 'Fisher, M. E., 1974b, The Renormalization Group in the Theory of Critical Phenomena, Rev. Mod. Phys. 46, 597-616.' So fns. 87 and 91 cite the Nobel Symposium XXIV article, not the RMP review. (Fn. 138, which does cite the RMP, correctly writes 'Fisher (1974b)'.) Two consequences for the book: do not cite RMP 46, 597 as Fisher's source for the special character of hyperscaling or for the 3D-Ising hyperscaling-violation postmortem — cite Fisher 1974a, the Nobel Symposium article, or drop the footnote attribution. Second, smaller point: the published RMP title is 'The renormalization group in the theory of critical BEHAVIOR' per Crossref and per the erratum's own title; Fisher's 1998 bibliography renders it '...critical PHENOMENA'. Use the Crossref form.",
+   "_domain": "rg-mechanism"
   }
  ]
 }

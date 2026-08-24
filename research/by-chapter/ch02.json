@@ -4,7 +4,9 @@
  "outline": "The Ising model is the spine of this chapter and of the book, since it is also the system the companion application runs live. Wilhelm Lenz proposed the model, Ernst Ising solved it in one dimension in 1925 and wrongly generalized his negative conclusion, Rudolf Peierls showed in 1936 that two dimensions must order, and Lars Onsager solved it exactly in 1944, proving that critical exponents are not classical. Edward Guggenheim had already noticed in 1945 that eight different fluids collapse onto one coexistence curve. Benjamin Widom's scaling hypothesis, Leo Kadanoff's block-spin construction and Kenneth Wilson's renormalization group explained why. The chapter closes by making explicit the structural analogy that recurs throughout the book, which is that coarse-graining discards irrelevant detail, and so, in a different sense, does representation learning.\n\nBuilt on Ising 1925 with the Lenz attribution, Peierls 1936, Onsager 1944 and the exact critical temperature, Yang's 1952 spontaneous magnetization, Guggenheim 1945, Widom 1965 with the correct Rushbrooke attribution, Kadanoff 1966, Wilson 1971, the Wilson and Fisher epsilon expansion of 1972, and the 1982 Nobel Prize awarded to Wilson alone.\n\nLeaves open: if universality means that microscopic detail is irrelevant, what is a machine learning from microscopic configurations?",
  "domains": [
   "foundations",
-  "rigorous-foundations"
+  "rigorous-foundations",
+  "exact-machinery",
+  "rg-mechanism"
  ],
  "verifiedClaims": [
   {
@@ -596,6 +598,436 @@
    "url": "https://doi.org/10.4007/annals.2013.177.1.8",
    "confidence": "verified",
    "_domain": "rigorous-foundations"
+  },
+  {
+   "claim": "Original memoir in which Clapeyron reformulated Carnot's argument analytically and derived the relation between the latent heat of a phase change and the slope of the coexistence curve — the ancestor of dp/dT = L/(T*Delta V). Published in the Journal de l'Ecole Royale Polytechnique, vingt-troisieme cahier, Tome XIV. No DOI exists; a facsimile is held by the Bibliotheque nationale de France (Gallica).",
+   "people": "Benoit Paul Emile Clapeyron",
+   "affiliation": "Ecole des Ponts et Chaussees / Ecole Polytechnique, Paris",
+   "year": "1834",
+   "venue": "Memoire sur la puissance motrice de la chaleur, Journal de l'Ecole Royale Polytechnique, Tome XIV (23e cahier), pp. 153-190",
+   "url": "https://gallica.bnf.fr/ark:/12148/bpt6k3414331n.image",
+   "confidence": "probable",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Clausius's founding paper of thermodynamics, in two parts, where the Carnot-Clapeyron relation is recast on the basis of the two laws and put into the modern form now called the Clausius-Clapeyron relation; Part II carries DOI 10.1002/andp.18501550403 (Ann. Phys. 155(4), 500-524). Crossref confirms both parts. Note the volume is Annalen der Physik 155 (also catalogued as vol. 79 of the old series).",
+   "people": "Rudolf Clausius",
+   "affiliation": "Royal Artillery and Engineering School, Berlin",
+   "year": "1850",
+   "venue": "Annalen der Physik 155(3), 368-397 (Part I) and 155(4), 500-524 (Part II)",
+   "url": "https://doi.org/10.1002/andp.18501550306",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Modern, citable, DOI-bearing pedagogical treatment of the Clausius-Clapeyron equation dp/dT = L/(T*Delta V), including the standard approximations (ideal-gas vapour, Delta V approximately equal to V_gas) and where they break down against measured saturation vapour pressure. Useful when the book needs a present-day reference rather than the 1850 original.",
+   "people": "Demetris Koutsoyiannis",
+   "affiliation": "National Technical University of Athens",
+   "year": "2012",
+   "venue": "European Journal of Physics 33(2), 295-305",
+   "url": "https://doi.org/10.1088/0143-0807/33/2/295",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Standard graduate textbook source for the Clausius-Clapeyron relation and first-order coexistence within a statistical-mechanics course; the companion volume is Statistical Physics of Fields (DOI 10.1017/CBO9780511815881), which carries the Ginzburg criterion and the upper critical dimension. Cambridge assigns a DOI to the electronic edition, so this is citable with a DOI unlike Callen or Landau-Lifshitz.",
+   "people": "Mehran Kardar",
+   "affiliation": "Massachusetts Institute of Technology",
+   "year": "2007",
+   "venue": "Statistical Physics of Particles, Cambridge University Press (print ISBN 9780521873420)",
+   "url": "https://doi.org/10.1017/CBO9780511815898",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Part I of the Yang-Lee theory. Establishes that for a finite system the grand partition function is a polynomial in the fugacity z with no zeros on the positive real axis, hence the free energy is analytic and there is no singularity; that in the thermodynamic limit the zeros may migrate onto and pinch the positive real z axis; and that the free energy is analytic throughout any region of the complex z plane containing no zeros, so a phase transition occurs exactly at a pinch point. AUTHOR ORDER: Yang first, Lee second. Crossref confirms 'C. N. Yang, T. D. Lee'.",
+   "people": "Chen Ning Yang, Tsung-Dao Lee",
+   "affiliation": "Institute for Advanced Study, Princeton; Columbia University",
+   "year": "1952",
+   "venue": "Physical Review 87(3), 404-409 (issue of 1 August 1952)",
+   "url": "https://doi.org/10.1103/PhysRev.87.404",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Part II of the Yang-Lee theory. Introduces the lattice gas and proves its exact equivalence to the Ising model in a magnetic field, and proves the Lee-Yang circle theorem: for a ferromagnetic Ising system all zeros of the partition function in the complex fugacity (equivalently complex magnetic-field) plane lie on the unit circle |z| = 1, i.e. at purely imaginary values of the field. AUTHOR ORDER IS REVERSED FROM PART I: Lee first, Yang second. Crossref confirms 'T. D. Lee, C. N. Yang'.",
+   "people": "Tsung-Dao Lee, Chen Ning Yang",
+   "affiliation": "Columbia University; Institute for Advanced Study, Princeton",
+   "year": "1952",
+   "venue": "Physical Review 87(3), 410-419 (issue of 1 August 1952)",
+   "url": "https://doi.org/10.1103/PhysRev.87.410",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The standard modern generalisation of the Lee-Yang circle theorem, extending it well beyond the Ising case to one-component and multicomponent ferromagnets with quite general single-spin measures. This is the reference to cite when the book claims the circle theorem is not a peculiarity of the Ising model.",
+   "people": "Elliott H. Lieb, Alan D. Sokal",
+   "affiliation": "Princeton University; New York University (at time of publication)",
+   "year": "1981",
+   "venue": "Communications in Mathematical Physics 80(2), 153-179",
+   "url": "https://doi.org/10.1007/BF01213009",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The best single review of the whole partition-function-zeros programme: Yang-Lee zeros in complex fugacity, Fisher zeros in complex temperature, the density of zeros and how its pinching angle encodes the order of the transition, and extensions to nonequilibrium steady states. Its Section 12 is where Fisher zeros are defined and Fisher's 1965 Boulder lectures are credited. Preprint arXiv:cond-mat/0510278 (2005); journal version same year.",
+   "people": "Ioana Bena, Michel Droz, Adam Lipowski",
+   "affiliation": "University of Geneva; Adam Mickiewicz University, Poznan",
+   "year": "2005",
+   "venue": "International Journal of Modern Physics B 19, 4269-4329",
+   "url": "https://doi.org/10.1142/S0217979205032759",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Fisher's Boulder lecture notes, the origin of what is now universally called the Fisher zeros: the proposal to study phase transitions via the zeros of the CANONICAL partition function in the plane of complex TEMPERATURE, complementing Yang and Lee's zeros in complex fugacity. In a finite system these zeros lie off the positive real temperature axis; they close in on it in the thermodynamic limit. There is no DOI and no journal version. Cite as: M. E. Fisher, 'The Nature of Critical Points', in Lectures in Theoretical Physics, Vol. 7c: Statistical Physics, Weak Interactions, Field Theory, ed. W. E. Brittin (University of Colorado Press, Boulder, 1965), pp. 1-159. Lectures were delivered at the 1964 Boulder Summer Institute for Theoretical Physics; the volume appeared in 1965.",
+   "people": "Michael E. Fisher",
+   "affiliation": "The Rockefeller Institute, New York (as printed on the lectures)",
+   "year": "1965",
+   "venue": "Lectures in Theoretical Physics, Vol. 7c, ed. W. E. Brittin, University of Colorado Press, Boulder, pp. 1-159",
+   "url": "https://books.google.com/books/about/Lectures_in_Theoretical_Physics_Vol_7c.html?id=W6-lXwAACAAJ",
+   "confidence": "probable",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Identifies the Yang-Lee edge — the endpoint of the arc of zeros on the unit circle above T_c — as a genuine critical point in its own right, with its own exponent sigma, and shows it is governed by a non-unitary i*phi-cubed field theory with upper critical dimension 6. The result that turns 'zeros on a circle' from a curiosity into a universality class.",
+   "people": "Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1978",
+   "venue": "Physical Review Letters 40(25), 1610-1613 (19 June 1978)",
+   "url": "https://doi.org/10.1103/PhysRevLett.40.1610",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Direct experimental observation of Lee-Yang zeros, obtained by measuring the quantum coherence of a probe spin coupled to an Ising-type bath in an NMR system, which encodes the partition function at complex magnetic field. Cite this if the book wants to answer the objection that complex-field zeros are a purely formal device.",
+   "people": "Xinhua Peng, Hui Zhou, Bo-Bo Wei, Jiangyu Cui, Jiangfeng Du, Ren-Bao Liu",
+   "affiliation": "University of Science and Technology of China, Hefei; Chinese University of Hong Kong",
+   "year": "2015",
+   "venue": "Physical Review Letters 114(1), 010601 (5 January 2015)",
+   "url": "https://doi.org/10.1103/PhysRevLett.114.010601",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The first statement of the finite-size scaling idea: at a critical point the singular behaviour of a bounded system is rounded and shifted, and both the shift and the rounding are controlled by the ratio of the correlation length to the system size. The precursor to the 1972 Fisher-Barber paper.",
+   "people": "Michael E. Fisher, Arthur E. Ferdinand",
+   "affiliation": "Cornell University",
+   "year": "1967",
+   "venue": "Physical Review Letters 19(4), 169-172 (24 July 1967)",
+   "url": "https://doi.org/10.1103/PhysRevLett.19.169",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Exact solution for the specific heat of a FINITE two-dimensional Ising lattice (n by m, torus and other boundary conditions). This is the concrete demonstration that a finite Ising system has no singularity at all — the specific heat is a smooth, bounded, analytic function of temperature whose peak grows only as log(L) and sits at a shifted pseudo-critical temperature. The exact worked example a graduate reader can check against their own simulation.",
+   "people": "Arthur E. Ferdinand, Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1969",
+   "venue": "Physical Review 185(2), 832-846 (10 September 1969)",
+   "url": "https://doi.org/10.1103/PhysRev.185.832",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "THE canonical finite-size scaling citation. States the scaling theory with distinct exponents lambda for the critical-point shift and theta = 1/nu for the rounding, so that the width of the rounded region scales as L^(-1/nu) and the peak height as a power of L; verified against exact results for d-dimensional spherical models and ideal Bose fluids with various boundary conditions, and checked against Ising data and helium-film experiments. This is the standard citable statement that a finite system has no true singularity and that the rounding scales as a power of the system size. The book-length companion statement is M. N. Barber, 'Finite-size scaling', in Phase Transitions and Critical Phenomena, Vol. 8, ed. C. Domb and J. L. Lebowitz (Academic Press, London, 1983), pp. 145-266 — no DOI located for that chapter.",
+   "people": "Michael E. Fisher, Michael N. Barber",
+   "affiliation": "Cornell University",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(23), 1516-1519 (5 June 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.1516",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Introduces the fourth-order cumulant of the order-parameter block distribution — the Binder cumulant — whose curves for different L cross at T_c, giving the workhorse numerical method for locating a critical point from finite lattices without knowing the exponents in advance. Directly usable in an Ising-simulation chapter.",
+   "people": "Kurt Binder",
+   "affiliation": "Institut fuer Festkoerperforschung, Kernforschungsanlage Juelich",
+   "year": "1981",
+   "venue": "Zeitschrift fuer Physik B Condensed Matter 43(2), 119-140",
+   "url": "https://doi.org/10.1007/BF01293604",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Establishes that finite-size scaling functions and their amplitudes are themselves universal, given a fixed shape, boundary conditions and aspect ratio — the result that licenses quantitative collapse of data from different lattice sizes onto one curve. NOTE: Crossref misprints the first author as 'Valdimir Privman'; the correct spelling is Vladimir Privman.",
+   "people": "Vladimir Privman, Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1984",
+   "venue": "Physical Review B 30(1), 322-327 (1 July 1984)",
+   "url": "https://doi.org/10.1103/PhysRevB.30.322",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Priority note for the Ginzburg criterion. Levanyuk, as sole author and a year before Ginzburg, gave the fluctuation-magnitude estimate that bounds the validity of Landau theory near a second-order transition, in the context of critical opalescence and light scattering. Because of this the criterion is more accurately called the Levanyuk-Ginzburg criterion. English translation Sov. Phys. JETP 9(3), 571 (September 1959); Russian original ZhETF 36(3), 810 (1959); received 8 July 1958. No DOI; the JETP archive hosts the scan at the URL given.",
+   "people": "Anatoly P. Levanyuk",
+   "affiliation": "USSR Academy of Sciences",
+   "year": "1959",
+   "venue": "Soviet Physics JETP 9(3), 571 [ZhETF 36(3), 810]",
+   "url": "https://jetp.ras.ru/cgi-bin/e/index/e/9/3/p571?a=list",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The Ginzburg criterion. States the self-consistency condition for mean-field (Landau) theory: the theory is valid only where fluctuations of the order parameter within a correlation volume are small compared with the order parameter itself. This bounds the reduced temperature outside which mean-field exponents hold and inside which they must fail, with the width of the critical (Ginzburg) region scaling as the inverse sixth power of the interaction range — which is why the region is unobservably narrow in conventional superconductors and ferroelectrics but wide in short-range magnets. Russian original: Fiz. Tverd. Tela 2, 2031 (1960). English translation: 'Some remarks on phase transitions of the second kind and the microscopic theory of ferroelectric materials', Sov. Phys. Solid State 2(9), 1824-1834; indexes disagree on whether the translation is dated 1960 or 1961. No DOI.",
+   "people": "Vitaly Lazarevich Ginzburg",
+   "affiliation": "P. N. Lebedev Physical Institute, Moscow",
+   "year": "1960",
+   "venue": "Fizika Tverdogo Tela 2, 2031 (1960) [Soviet Physics Solid State 2(9), 1824-1834]",
+   "url": "https://garfield.library.upenn.edu/histcomp/fisher-me_auth-citing/node/46.html",
+   "confidence": "probable",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The standard English-language pedagogical statement of the Ginzburg criterion, with the criterion derived explicitly and used to define the marginal (upper critical) dimensionality at which mean-field theory becomes self-consistent — namely d = 4 for short-range systems with a scalar order parameter. The most quotable single source for 'when is mean-field theory allowed to be right'.",
+   "people": "Jens Als-Nielsen, Robert J. Birgeneau",
+   "affiliation": "Risoe National Laboratory, Denmark; Massachusetts Institute of Technology",
+   "year": "1977",
+   "venue": "American Journal of Physics 45(6), 554-560",
+   "url": "https://doi.org/10.1119/1.11019",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "The epsilon expansion. Computes critical exponents as a systematic series in epsilon = 4 - d, i.e. by perturbing around the upper critical dimension of the Ising universality class. The title itself ('Critical Exponents in 3.99 Dimensions') is the cleanest possible signal that d = 4 is the dimension where mean-field behaviour turns on.",
+   "people": "Kenneth G. Wilson, Michael E. Fisher",
+   "affiliation": "Cornell University",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(4), 240-243 (24 January 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.240",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Rigorous proof that for d > 4 the continuum limit of the phi-fourth field theory is trivial (free/Gaussian) and that Ising models in more than four dimensions exhibit mean-field critical behaviour. This is the theorem behind the statement 'the upper critical dimension of the Ising universality class is 4'. The independent contemporaneous proof is J. Froehlich, Nuclear Physics B 200(2), 281-296 (1982), DOI 10.1016/0550-3213(82)90088-8.",
+   "people": "Michael Aizenman",
+   "affiliation": "Princeton University",
+   "year": "1981",
+   "venue": "Physical Review Letters 47(1), 1-4 (6 July 1981)",
+   "url": "https://doi.org/10.1103/PhysRevLett.47.1",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Closes the marginal case left open for forty years: proves that in exactly d = 4 the scaling limit of the critical Ising and lambda-phi-fourth models is also Gaussian, though the approach is only logarithmically slow. This is the precise sense in which d = 4 is the upper critical dimension rather than merely a boundary. Preprint arXiv:1912.07973 (2019); journal publication 2021.",
+   "people": "Michael Aizenman, Hugo Duminil-Copin",
+   "affiliation": "Princeton University; IHES and University of Geneva",
+   "year": "2021",
+   "venue": "Annals of Mathematics 194(1), article 3",
+   "url": "https://doi.org/10.4007/annals.2021.194.1.3",
+   "confidence": "verified",
+   "_domain": "exact-machinery"
+  },
+  {
+   "claim": "Paper I of the pair that founded the modern RG. Recasts Kadanoff's block-spin scaling picture for an Ising ferromagnet in differential form, so that the scaling relations follow from renormalization-group differential equations rather than from a homogeneity hypothesis. This is the paper to cite for 'RG as a flow', as distinct from Paper II which does the actual mode elimination.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3174-3183 (1 November 1971)",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3174",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Paper II: the actual mechanism. Solves a generalized Ising model with continuously variable spin and a quartic term by a change of variable to localized wave-packet ('phase-space cell') functions, with one orthogonal set per order-of-magnitude range of momentum. Modes of momentum of order 1 are integrated out leaving |q| < 0.5, then modes between 0.25 and 0.5, and so on - i.e. octave-by-octave elimination with rescaling factor b = 2. The result is a nonlinear integral recursion formula for a sequence of effective Landau-Ginzburg potentials V^(l). This is the ancestor of momentum-shell integration; it is NOT yet the sharp-cutoff shell scheme of textbooks. Wilson solved the recursion numerically and obtained a nu for d=3 clearly different from the classical 1/2 - the result Fisher says convinced him 'a major barrier to progress had been overcome'.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1971",
+   "venue": "Physical Review B 4(9), 3184-3205 (1 November 1971)",
+   "url": "https://doi.org/10.1103/PhysRevB.4.3184",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The Wilson-Fisher fixed point and the birth of the epsilon expansion. Critical exponents computed for d = 4 - epsilon with epsilon small, by treating the dimensional deviation as a small non-integral parameter in Wilson's recursion relations - legitimate because d enters those relations only through the analytic factors b^(4-d) and S_d = 2 pi^(d/2)/[Gamma(d/2)(2 pi)^d], never through a lattice. Contains gamma = 1 + epsilon/6 + O(epsilon^2) for the Ising-like (n=1) case and gamma = 1 + epsilon/5 for the XY (n=2) case. Fisher, in his 1998 RMP first-person account, calls this 'the first general formula for a nonclassical exponent' and records that he was the one who proposed treating 4-d as small, and that Wilson showed the one-loop recursion relations are exact to leading order in epsilon (results independent of the arbitrary rescaling factor b), which is why they are universal. With eta = O(epsilon^2) and gamma = nu(2-eta), gamma = 1 + epsilon/6 is equivalent to nu = 1/2 + epsilon/12.",
+   "people": "Kenneth G. Wilson and Michael E. Fisher",
+   "affiliation": "Cornell University (both; Wilson in the Laboratory of Nuclear Studies, Fisher in chemistry/Baker Lab - the Cornell affiliation is verified via Fisher 1998, the departmental detail is not)",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(4), 240-243 (24 January 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.240",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The follow-up five weeks later that turned the epsilon expansion into a systematic diagrammatic series. Computes gamma, eta and the crossover index phi for classical Heisenberg models with n internal degrees of freedom as an exact expansion in epsilon = 4 - d, to order epsilon^2 for gamma and epsilon^3 for eta. Setting n = epsilon = 1 (3D Ising) gives gamma = 1.244 and eta = 0.037. Cite this, not the 3.99 paper, when the argument needs the graph-by-graph structure of the expansion rather than the existence of the fixed point.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University (Fisher 1998 places Wilson at Cornell 1965-1972)",
+   "year": "1972",
+   "venue": "Physical Review Letters 28(9), 548-551 (28 February 1972)",
+   "url": "https://doi.org/10.1103/PhysRevLett.28.548",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The 125-page Physics Reports monograph that is the canonical source for momentum-shell RG in its streamlined, sharp-cutoff form, and for the epsilon expansion carried out systematically. Presents the modern formulation of the RG for both critical phenomena in classical statistical mechanics and quantum field theory, emphasizing principles over applications. If the book states the momentum-shell procedure as a procedure (split at Lambda/b, integrate the shell, rescale, iterate), this is the reference, with Wilson (1971b) cited for its origin. Note: Crossref records pages 75-199; a great many secondary sources cite 75-200.",
+   "people": "Kenneth G. Wilson and John Kogut",
+   "affiliation": "Cornell University (Wilson); affiliation of Kogut not verified from a source I saw",
+   "year": "1974",
+   "venue": "Physics Reports 12(2), 75-199 (1974)",
+   "url": "https://doi.org/10.1016/0370-1573(74)90023-4",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The block-spin argument. Divide the Ising model into cells that are microscopically large but much smaller than the correlation length; use the total magnetization within each cell as a collective variable; argue that the block system is again an Ising model with renormalized t and h. Kadanoff presents it as 'a partial justification for Widom's conjecture about the homogeneity of the free energy' and derives the hyperscaling form d nu' = gamma' + 2 beta. The weak point - which Wilson's Paper I is explicitly written to repair - is the assumption of a single effective coupling J between adjacent block spins; Fisher (1998) identifies precisely this, together with the unexplained power-law form of the rescaling factors, as 'the principal difficulties' in Kadanoff's picture.",
+   "people": "Leo P. Kadanoff",
+   "affiliation": "University of Illinois, Urbana (commonly recorded; not verified from a source I saw)",
+   "year": "1966",
+   "venue": "Physics Physique Fizika 2(6), 263-272 (1966)",
+   "url": "https://doi.org/10.1103/PhysicsPhysiqueFizika.2.263",
+   "confidence": "probable",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Widom's scaling form: the equation of state near the critical point is written via a function Phi(x,y), with x a measure of temperature and y of density; classical (van der Waals type) fluids have Phi constant, while in a real fluid Phi is a HOMOGENEOUS function of positive degree. This homogeneity hypothesis is what converts the previously derived exponent inequalities into equalities - e.g. gamma = beta(delta - 1) - without deriving them. Fisher calls it 'the most direct and phenomenological' route, 'a bold, new thermodynamic hypothesis'. Domb & Hunter (1965) and Patashinskii & Pokrovskii (1966) reached the same conclusion by other routes.",
+   "people": "Benjamin Widom",
+   "affiliation": "Department of Chemistry, Cornell University, Ithaca, New York (recorded in the Crossref metadata)",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3898-3905 (1965)",
+   "url": "https://doi.org/10.1063/1.1696618",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Widom's companion paper in the same issue, on surface tension and molecular correlations near the critical point. Cite this one - not the equation-of-state paper - for the hyperscaling relation d nu = 2 - alpha: Fisher (1998) fn. 88 credits the equality to 'Kadanoff (1966), Widom (1965a), and Stell (1965, unpublished)'. Widom (1965a) is 3892-3897, Widom (1965b) is 3898-3905; textbooks routinely conflate them.",
+   "people": "Benjamin Widom",
+   "affiliation": "Department of Chemistry, Cornell University, Ithaca, New York (recorded in the Crossref metadata)",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 43(11), 3892-3897 (1965)",
+   "url": "https://doi.org/10.1063/1.1696617",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The paper that proposed alpha' + 2 beta + gamma' = 2 as an EQUALITY (from a droplet-model partition function) and, per Fisher (1998) fn. 50, introduced 'the now generally accepted notation for the thermodynamic critical exponents' - i.e. alpha, beta, gamma, delta. Cite it when the book first names the exponents, and when distinguishing the conjectured equality from Rushbrooke's rigorous inequality that followed it.",
+   "people": "John W. Essam and Michael E. Fisher",
+   "affiliation": "Not verified from a source I saw",
+   "year": "1963",
+   "venue": "The Journal of Chemical Physics 38(4), 802-812 (1963)",
+   "url": "https://doi.org/10.1063/1.1733766",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Rushbrooke's inequality: alpha' + 2 beta + gamma' >= 2. A two-page note. Fisher's account: 'Moved by the suggested thermodynamic exponent equality, Rushbrooke (1963) quickly showed that for magnetic systems (with H -> -H symmetry) the positivity of specific heats implied by the Second Law of Thermodynamics could be used to prove rigorously the inequality.' The primes denote below-Tc exponents; scaling later implies alpha = alpha', gamma = gamma', so the distinction is now rarely made. The mechanism-level point for the book: the inequality is thermodynamics alone, the equality requires scaling, and the RG explains why the equality holds.",
+   "people": "G. S. Rushbrooke",
+   "affiliation": "Newcastle upon Tyne, UK (commonly recorded; not verified from a source I saw)",
+   "year": "1963",
+   "venue": "The Journal of Chemical Physics 39(3), 842-843 (1 August 1963)",
+   "url": "https://doi.org/10.1063/1.1734338",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Griffiths' inequality: alpha' + beta(1 + delta) >= 2, proved from convexity of the free energy - the second of the two classic thermodynamic exponent inequalities, and the one that becomes an equality under Widom scaling. Griffiths gave the fuller treatment in J. Chem. Phys. 43(6), 1958-1968 (1965), DOI 10.1063/1.1697060 (title seen in search results, DOI not independently resolved). Fisher (1998) fn. 50 additionally credits Buckingham & Gunton, Phys. Rev. 178, 848-853 (1969) with the corresponding rigorous inequalities for the CORRELATION exponents.",
+   "people": "Robert B. Griffiths",
+   "affiliation": "Carnegie Institute of Technology, Pittsburgh (commonly recorded; not verified from a source I saw)",
+   "year": "1965",
+   "venue": "Physical Review Letters 14(16), 623-624 (19 April 1965)",
+   "url": "https://doi.org/10.1103/PhysRevLett.14.623",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Fisher's relation gamma = (2 - eta) nu. Fisher (1998) fn. 50 cites 'Fisher (1959; 1962; 1964, see Eq. (5.7); 1967b)' for this relation, making this 62-page J. Math. Phys. review the standard citable source with a specific equation number. It follows from the correlation-function scaling form G(r;T) ~ D r^-(d-2+eta) g(r/xi) integrated over all space to give the susceptibility. The same paper (Eq. 2.20) extends Rushbrooke's inequality from magnets to fluids. The rigorous inequality gamma <= (2 - eta) nu was proved later in Fisher, 'Phase Transitions and Critical Phenomena', Contemporary Physics Vol. 1, Proc. Int. Symp. Trieste 1968 (IAEA, Vienna, 1969), pp. 19-46 - no DOI located.",
+   "people": "Michael E. Fisher",
+   "affiliation": "The Rockefeller Institute, New York (recorded in the Crossref metadata)",
+   "year": "1964",
+   "venue": "Journal of Mathematical Physics 5(7), 944-962 (July 1964)",
+   "url": "https://doi.org/10.1063/1.1704197",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The hyperscaling INEQUALITY nu d >= 2 - alpha, in two parts: Part I, 'Inequality for the specific heat: I. Derivation', Proc. Phys. Soc. 92, 269-275, derives a rigorous inequality relating a specific heat, the temperature derivative of the expectation of an arbitrary operator, and the mean-square fluctuation of that operator in an equilibrium ensemble; Part II, 'Inequality for the specific heat: II. Application to critical phenomena', Proc. Phys. Soc. 92, 276-284, DOI 10.1088/0370-1328/92/2/302, applies it to criticality. Josephson supplies the rigorous half; the equality d nu = 2 - alpha comes from scaling (Widom 1965a, Kadanoff 1966, Stell). Both DOIs verified against Crossref records.",
+   "people": "B. D. Josephson",
+   "affiliation": "University of Cambridge (commonly recorded; not verified from a source I saw)",
+   "year": "1967",
+   "venue": "Proceedings of the Physical Society 92(2), 269-275 (Part I) and 276-284 (Part II) (1967)",
+   "url": "https://doi.org/10.1088/0370-1328/92/2/301",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The general formulation of what the linearized RG eigenvalues MEAN. Wegner shows that the higher-order (nonlinear) contributions to the linearized RG equations are absorbed by redefining the fields as smooth nonlinear analytic functions of the physical fields - the 'nonlinear scaling fields' - after which an EXACT scaling law holds, and the deviations from pure power laws (corrections to scaling, controlled by the leading irrelevant eigenvalue, the exponent now called omega) follow as a systematic expansion. Also explains where logarithms in the free energy come from, i.e. the marginal case. Fisher (1998) reports that Wilson himself, dividing RG theory into four parts, cited 'Wegner (1972a, 1976)' for 'the formal theory of fixed points and linear and nonlinear behavior near fixed points'. Wegner's companion review, 'The Critical State, General Aspects', in Domb & Green eds., Phase Transitions and Critical Phenomena Vol. 6 (Academic, London, 1976), pp. 7-124, is the other half of that citation; I found no DOI for it.",
+   "people": "Franz J. Wegner",
+   "affiliation": "Department of Physics, Brown University, Providence, Rhode Island, on leave from the Institut fuer Festkoerperforschung, Kernforschungsanlage Juelich",
+   "year": "1972",
+   "venue": "Physical Review B 5(11), 4529-4536 (1 June 1972)",
+   "url": "https://doi.org/10.1103/PhysRevB.5.4529",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "THE standard expository citation for the RG in critical behavior - an introductory-level review with emphasis on magnetic systems, covering the dependence of exponents on dimensionality, symmetry and exchange couplings, and the calculation of scaling functions for the equation of state and critical scattering. Fisher (1998) points back to this 1974 review specifically for 'the special character of the hyperscaling relations' (fn. 87) and for the systematic account of apparent hyperscaling violations in 3D Ising series 'with hindsight enlightened by RG theory' (fn. 91). NOTE: there is an erratum, 'Erratum: The renormalization group in the theory of critical behavior', Rev. Mod. Phys. 47, 543 (1975), DOI 10.1103/RevModPhys.47.543 - verified separately; cite both.",
+   "people": "Michael E. Fisher",
+   "affiliation": "Cornell University at the time (not verified from a source I saw); Fisher moved to Maryland in 1987",
+   "year": "1974",
+   "venue": "Reviews of Modern Physics 46(4), 597-616 (1 October 1974)",
+   "url": "https://doi.org/10.1103/RevModPhys.46.597",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The single most useful citation for the eigenvalue-to-exponent correspondence stated as an equation. Fisher linearizes R_b about the fixed point, obtains eigenoperators Q_k with eigenvalues Lambda_k(b) = b^(lambda_k) (the power-law form forced by the semigroup property), writes the generalized free-energy scaling form as his Eq. (49), and then in Eq. (50) gives the correspondence in full: 2 - alpha = d/lambda_1, Delta = lambda_2/lambda_1, phi_j = lambda_j/lambda_1, and NU = 1/LAMBDA_1. He immediately adds that the sign of lambda_j determines relevance (lambda_j > 0), marginality (lambda_j = 0), or irrelevance (lambda_j < 0) of the operator Q_j and its conjugate field g_j, and notes that the first and last of Eq. (50) yield the hyperscaling relation d nu = 2 - alpha. The paper also contains Fisher's first-person account of the birth of the epsilon expansion at Cornell in September 1971 and of Wilson's 'flows in a large space'. I read the full text of this paper directly.",
+   "people": "Michael E. Fisher",
+   "affiliation": "Institute for Physical Science and Technology, University of Maryland, College Park, Maryland 20742",
+   "year": "1998",
+   "venue": "Reviews of Modern Physics 70(2), 653-681 (April 1998)",
+   "url": "https://doi.org/10.1103/RevModPhys.70.653",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "Wilson's 1982 Nobel lecture (delivered 8 December 1982), presenting the RG and the epsilon expansion in his own words. Useful for the book as the author's retrospective framing of what the coarse-graining actually accomplishes - and Fisher (1998) repeatedly cites Wilson (1983) for Wilson's own account of his path from Gell-Mann-Low to Kadanoff's scaling hypothesis to the recursion formula.",
+   "people": "Kenneth G. Wilson",
+   "affiliation": "Cornell University",
+   "year": "1983",
+   "venue": "Reviews of Modern Physics 55(3), 583-600 (1 July 1983)",
+   "url": "https://doi.org/10.1103/RevModPhys.55.583",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The modern pedagogical source in which I directly verified every number in the mechanism section above. Section 2.5, 'Wilson's momentum shell renormalization group', states the two RG steps explicitly (integrate Fourier components with Lambda/b <= |q| <= Lambda, then rescale), derives the one-loop recursion relations as Eqs. (44)-(45), the differential flow as Eqs. (48)-(49) with the Ising fixed point u* S_d = (2/3) epsilon Lambda^(4-d), the thermal recursion relation as Eq. (50), and then Eq. (51): nu = 1/2 + epsilon/12 + O(epsilon^2), eta = 0 + O(epsilon^2), obtained by identifying nu^-1 = 2 - epsilon/3. The field-theoretic half gives the O(n) generalization: Z-factors with the (n+2)/6 and (n+8)/6 symmetry factors (Eqs. 65-66), fixed point u* = 6 epsilon/(n+8) (Eq. 76), eta = (n+2) epsilon^2 / [2 (n+8)^2] (Eq. 77), and nu^-1 = 2 - [(n+2)/(n+8)] epsilon + O(epsilon^2) (Eq. 78), reducing to Eq. (51) at n = 1. This is where the factor of 12 is transparently 4(n+8)/(n+2) at n = 1.",
+   "people": "Uwe C. Taeuber",
+   "affiliation": "Department of Physics, Virginia Tech, Blacksburg, VA 24061-0435, USA",
+   "year": "2011 (arXiv preprint, 6 December 2011); 2012 (journal)",
+   "venue": "Nuclear Physics B Proceedings Supplements 228C, 7-34 (2012); arXiv:1112.1375; journal DOI 10.1016/j.nuclphysbps.2012.06.002",
+   "url": "https://arxiv.org/abs/1112.1375",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The comprehensive modern review of critical phenomena and RG theory - Ising and general O(N) universality classes, exponents, equation of state, amplitude ratios, two-point function, in three and two dimensions, including the technology (fixed-dimension expansion vs. epsilon expansion, minimal subtraction, Borel resummation) that turns the divergent epsilon series into numbers. Cite this for reference exponent values and for the statement that the epsilon expansion is asymptotic, not convergent. Preprint year 2000, journal year 2002 - the arXiv v1 is 10 December 2000, final v6 3 May 2002.",
+   "people": "Andrea Pelissetto and Ettore Vicari",
+   "affiliation": "Not verified from a source I saw (Rome La Sapienza and Pisa respectively, commonly recorded)",
+   "year": "2000 (arXiv v1); 2002 (journal)",
+   "venue": "Physics Reports 368(6), 549-727 (2002); arXiv:cond-mat/0012164",
+   "url": "https://doi.org/10.1016/S0370-1573(02)00219-3",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The standard resummed-exponent reference: critical exponents of the N-vector model obtained by Borel-type resummation of both the fixed-dimension and epsilon-expansion perturbative series. Use this as the citation for 'what the epsilon expansion gives once you resum it', against which the raw one-loop nu = 1/2 + epsilon/12 = 0.583 at epsilon = 1 can be judged.",
+   "people": "R. Guida and J. Zinn-Justin",
+   "affiliation": "Not verified from a source I saw (Saclay, commonly recorded)",
+   "year": "1998",
+   "venue": "Journal of Physics A: Mathematical and General 31(40), 8103-8121 (1998)",
+   "url": "https://doi.org/10.1088/0305-4470/31/40/006",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "claim": "The current high-precision benchmark for the 3D Ising universality class from the conformal bootstrap: Delta_sigma = 0.5181489(10), Delta_epsilon = 1.412625(10), lambda_sigma-sigma-epsilon = 1.0518537(41), lambda_epsilon-epsilon-epsilon = 1.532435(19). NOTE: the abstract quotes SCALING DIMENSIONS, not exponents. Converting via nu = 1/(d - Delta_epsilon) with d = 3 gives nu = 1/1.587375 = 0.629971, and eta = 2 Delta_sigma - d + 2 = 0.0362978. That conversion is mine, done from the quoted numbers; the paper's abstract does not print nu or eta. Against nu = 0.629971, the raw one-loop epsilon expansion at epsilon = 1 (0.583) is about 7 percent low.",
+   "people": "Filip Kos, David Poland, David Simmons-Duffin and Alessandro Vichi",
+   "affiliation": "Not verified from a source I saw",
+   "year": "2016",
+   "venue": "Journal of High Energy Physics 2016(8), 036; arXiv:1603.04436",
+   "url": "https://doi.org/10.1007/JHEP08(2016)036",
+   "confidence": "verified",
+   "_domain": "rg-mechanism"
   }
  ],
  "corrections": [
@@ -694,6 +1126,54 @@
    "claim": "Overall: 'All five citation clusters resolve cleanly to primary sources, and the chronology the chapter asserts holds up.'",
    "correction": "No citation in this dossier is hallucinated or garbled — all 27 works exist, every DOI and arXiv identifier resolves to the exact work named, every author list and ordering (including the two deliberate author-order traps) is correct, and all quoted abstract passages except one are verbatim. But three claims would print falsehoods: (1) Rushbrooke's affiliation on the 1963 paper is University of Oregon, not Newcastle; (2) the Guerra sign-convention gloss is inverted; (3) Essam and Fisher's scaling identity came from a heuristic model partition function, not from the Pade analysis. Two further items need wording fixes: the Widom homogeneity is in temperature and density, not temperature and field; and the 1406.4858 'quotation' is a paraphrase. Four of the dossier's own open questions are now resolved from primary records: primed exponents mean below Tc (Essam-Fisher abstract); Rushbrooke does cite Essam and Fisher (his first reference); the two 1963 papers are dated 15 Feb and 1 Aug; and Essam and Fisher were at the Wheatstone Physics Laboratory, King's College, London. Millis's affiliation remains genuinely unverifiable without the printed page.",
    "_domain": "rigorous-foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Clapeyron, 'Memoire sur la puissance motrice de la chaleur', Journal de l'Ecole Royale Polytechnique, Tome XIV (23e cahier), pp. 153-190 (1834); Gallica facsimile at ark:/12148/bpt6k3414331n. Affiliation given as 'Ecole des Ponts et Chaussees / Ecole Polytechnique, Paris'.",
+   "correction": "Citation and page range CONFIRMED: the BnF catalogue record cb40936143n (the record behind the Gallica ark in the dossier URL) describes 'Mémoire sur la puissance motrice de la chaleur' by Clapeyron as a facsimile of an extract from the Journal de l'École polytechnique (1834), 1 vol. (pp. 153-190) — matching Tome XIV, 23e cahier. Two corrections. (1) AFFILIATION IS ANACHRONISTIC: per MacTutor and concurring biographies, Clapeyron graduated from the École Polytechnique in 1818, trained at the École des Mines, spent 1820-1830 in Russia, and in 1834 was a railway engineer in Paris; he was appointed professor at the École des Ponts et Chaussées only in 1844. Do not print 'École des Ponts et Chaussées' as his 1834 affiliation. (2) Gallica itself returned HTTP 403 to my fetch, and the digitised object is the 2006 Jacques Gabay facsimile reprint (ISBN 978-2-87647-283-9), not a scan of the original 1834 printing — accurate to describe as 'facsimile', but nobody in this chain has read the original title page, so the exact journal title form ('Journal de l'École Royale Polytechnique' vs 'de l'École polytechnique') remains unverified. The dossier's own warning stands: the modern form dp/dT = L/(T·ΔV) is Clausius's, not Clapeyron's.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "UNVERIFIABLE",
+   "claim": "Kardar 2007, Statistical Physics of Particles, CUP, DOI 10.1017/CBO9780511815898 — described as the 'standard graduate textbook source for the Clausius-Clapeyron relation and first-order coexistence'; companion Statistical Physics of Fields DOI 10.1017/CBO9780511815881 carries the Ginzburg criterion and upper critical dimension.",
+   "correction": "Bibliographic half is CONFIRMED: Crossref gives 10.1017/CBO9780511815898 = Mehran Kardar, 'Statistical Physics of Particles', Cambridge University Press, monograph, 2007, print ISBN 9780521873420 / electronic 9780511815898; and 10.1017/CBO9780511815881 = 'Statistical Physics of Fields', CUP 2007, print ISBN 9780521873413. TOPICAL CLAIM NOT VERIFIED: I could not confirm that 'Statistical Physics of Particles' actually treats the Clausius-Clapeyron relation. The Cambridge index PDF and the book's full table of contents were unreachable (assets.cambridge.org refused the connection; the Cambridge Higher Education page does not print the TOC), and targeted searches surfaced no Clausius-Clapeyron section or index entry — the book's phase-coexistence material is the van der Waals / Maxwell-construction treatment in the interacting-particles chapter. Check the index before citing Kardar for Clausius-Clapeyron specifically; Callen or Reichl is the conventional textbook home for it. The 'Fields' half of the claim (Ginzburg criterion, upper critical dimension d=4 in the Landau-Ginzburg chapter) is well corroborated.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Yang & Lee 1952 Part I, 'Statistical Theory of Equations of State and Phase Transitions. I. Theory of Condensation', Phys. Rev. 87(3), 404-409, author order Yang then Lee; affiliations 'Institute for Advanced Study, Princeton; Columbia University'.",
+   "correction": "Bibliography CONFIRMED by Crossref: 'C. N. Yang, T. D. Lee' in that order, Physical Review 87(3), 404-409, 1 August 1952; DOI 10.1103/PhysRev.87.404 resolves to it. The physics claim (finite-system polynomial with no positive-real zeros, analyticity in any zero-free region of the complex fugacity plane, transition at a pinch point) is a correct description of Part I. AFFILIATION IS WRONG: both papers carry a single affiliation, 'Institute for Advanced Study, Princeton, New Jersey', for both authors. T. D. Lee was at the Institute for Advanced Study 1951-1953 and did not join Columbia until 1953, so 'Columbia University' must not be printed against either 1952 paper.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Lee & Yang 1952 Part II, 'Statistical Theory of Equations of State and Phase Transitions. II. Lattice Gas and Ising Model', Phys. Rev. 87(3), 410-419, author order REVERSED (Lee then Yang); affiliations 'Columbia University; Institute for Advanced Study, Princeton'.",
+   "correction": "The load-bearing detail is CONFIRMED: Crossref returns 'T. D. Lee, C. N. Yang' in that order for 10.1103/PhysRev.87.410, Physical Review 87(3), 410-419, 1 August 1952 — the author-order flip between Parts I and II is real and correctly flagged. Lattice-gas/Ising equivalence and the circle theorem are indeed Part II. Same affiliation error as Part I: the printed affiliation is 'Institute for Advanced Study, Princeton, New Jersey' for both authors; Lee was not yet at Columbia in August 1952.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Lieb & Sokal 1981, 'A general Lee-Yang theorem for one-component and multicomponent ferromagnets', Comm. Math. Phys. 80(2), 153-179, DOI 10.1007/BF01213009; affiliations 'Princeton University; New York University (at time of publication)'.",
+   "correction": "Bibliography CONFIRMED twice over: Crossref gives Elliott H. Lieb, Alan D. Sokal, Communications in Mathematical Physics 80(2), 153-179, June 1981. AFFILIATION IS WRONG: I extracted the first page of the published PDF (Project Euclid cmp/1103919874), which prints '1 Departments of Mathematics and Physics, Princeton University, Princeton, NJ 08544, USA' and '2 Department of Physics, Princeton University, Princeton, NJ 08544, USA'. Sokal was at PRINCETON, not NYU, at time of publication. The paper's own abstract also supports the dossier's topical claim ('any measure on R^n possessing the Lee-Yang property retains that property when multiplied by a ferromagnetic pair interaction'; Newman's theorem as a corollary; two-component result; anisotropic N>=3 result) — note the N>=3 result is conditional on sufficient anisotropy, so 'quite general single-spin measures' should be scoped to the one- and two-component cases.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Ginzburg 1960, 'Some remarks on phase transitions of the second kind and the microscopic theory of ferroelectric materials', Fiz. Tverd. Tela 2, 2031 (1960) [Sov. Phys. Solid State 2(9), 1824-1834]; no DOI; Ginzburg region width scaling as the inverse sixth power of the interaction range.",
+   "correction": "Substance CONFIRMED, one date to fix. The dossier's own cited URL (the ISI/HistCite record at garfield.library.upenn.edu) returns verbatim: 'GINZBURG VL / SOME REMARKS ON PHASE TRANSITIONS OF THE 2ND KIND AND THE MICROSCOPIC THEORY OF FERROELECTRIC MATERIALS / SOVIET PHYSICS-SOLID STATE 2 (9): 1824-1834 / Date 1961'. So the source the dossier cites dates the TRANSLATION 1961, not 1960. The dominant convention in the physics literature — including Ginzburg's own Nobel lecture bibliography — is 'Fiz. Tverd. Tela 2, 2031 (1960) [Sov. Phys. Solid State 2, 1824 (1961)]'. Print it that way: Russian original 1960, English translation 1961. No DOI exists for either version and I could not obtain a scan of either, so the Russian page number 2031 rests on citation consensus. The physics (Gi ~ (a/r0)^6 in three dimensions, hence unobservably narrow in conventional superconductors, wide in short-range magnets) is standard and correctly stated.",
+   "_domain": "exact-machinery"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Rushbrooke (1963), 'On the Thermodynamics of the Critical Region for the Ising Problem', J. Chem. Phys. 39(3), 842-843, doi:10.1063/1.1734338; affiliation given as 'Newcastle upon Tyne, UK'.",
+   "correction": "Bibliography is right; the affiliation is wrong. Crossref's record for this paper carries the author entry {\"given\":\"G. S.\",\"family\":\"Rushbrooke\",\"affiliation\":[{\"name\":\"Chemistry Department, University of Oregon, Eugene, Oregon\"}]} — this two-page note was published from Oregon, not Newcastle. Rushbrooke's career home was Newcastle, which is presumably how the error crept in; if the book prints an affiliation for this paper it must say University of Oregon. Everything else checks: title, sole author, JCP 39(3), 842-843, 1 Aug 1963. Fisher (1998) fn. 50 verbatim: 'Moved by the suggested thermodynamic exponent equality, Rushbrooke (1963) quickly showed that for magnetic systems (with H -> -H symmetry) the positivity of specific heats implied by the Second Law of Thermodynamics could be used to prove rigorously the inequality alpha' + 2beta + gamma' >= 2. His proof was soon extended to fluid systems (Fisher 1964), see Eq. (2.20).'",
+   "_domain": "rg-mechanism"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Fisher (1974), 'The renormalization group in the theory of critical behavior', Rev. Mod. Phys. 46(4), 597-616, doi:10.1103/RevModPhys.46.597, with erratum RMP 47, 543 (1975) — and Fisher (1998) points back to THIS 1974 review in fn. 87 for 'the special character of the hyperscaling relations' and in fn. 91 for the account of apparent hyperscaling violations 'with hindsight enlightened by RG theory'.",
+   "correction": "This is the garbled citation. The RMP article and its erratum are real and correctly described (Crossref: Michael E. Fisher, RMP 46(4), 597-616, 1 Oct 1974; erratum, RMP 47, issue 2, p. 543, 1 April 1975 — note the dossier omits the issue number, it is 47(2)). But footnotes 87 and 91 do NOT point to it. Read verbatim from the full text: '87 See (Fisher, 1974a) where the special character of the hyperscaling relations is stressed' and '91 As expounded systematically in (Fisher, 1974a) with hindsight enlightened by RG theory.' Fisher's own bibliography defines 1974a and 1974b as DIFFERENT papers: 'Fisher, M. E., 1974a, General Scaling Theory for Critical Points, Proceedings of the Nobel Symp. XXIV, Aspenasgarden, Lerum, Sweden, June 1973, in Collective Properties of Physical Systems, edited by B. Lundqvist and S. Lundqvist (Academic, New York), pp. 16-37' versus 'Fisher, M. E., 1974b, The Renormalization Group in the Theory of Critical Phenomena, Rev. Mod. Phys. 46, 597-616.' So fns. 87 and 91 cite the Nobel Symposium XXIV article, not the RMP review. (Fn. 138, which does cite the RMP, correctly writes 'Fisher (1974b)'.) Two consequences for the book: do not cite RMP 46, 597 as Fisher's source for the special character of hyperscaling or for the 3D-Ising hyperscaling-violation postmortem — cite Fisher 1974a, the Nobel Symposium article, or drop the footnote attribution. Second, smaller point: the published RMP title is 'The renormalization group in the theory of critical BEHAVIOR' per Crossref and per the erratum's own title; Fisher's 1998 bibliography renders it '...critical PHENOMENA'. Use the Crossref form.",
+   "_domain": "rg-mechanism"
   }
  ]
 }

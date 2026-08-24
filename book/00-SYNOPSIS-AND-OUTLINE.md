@@ -2,7 +2,7 @@
 
 ## Artificial Intelligence and the Physics of Phase Change
 
-**Status:** DRAFT FOR APPROVAL. Nothing beyond this document has been written.
+**Status:** APPROVED 2026-08-22. Title, two-chapter closing arc, and the deliberate duplication of the GNoME and A-Lab criticism across Chapters 15 and 18 all confirmed by the author.
 **Audience:** Graduate students and researchers in physics, chemistry, materials science, and machine learning.
 **Length:** Twenty chapters at roughly 3,500 words each, approximately 70,000 words, plus a reference list with URLs and a glossary at the back of the book.
 

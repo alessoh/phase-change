@@ -4,6 +4,7 @@
  "outline": "First-order transitions do not happen when thermodynamics says they should. They wait. This chapter covers the kinetics that the rest of the book depends on and that most treatments of machine learning in physics skip. Max Volmer and Alfred Weber, then Richard Becker and Werner Döring, then David Turnbull and John Fisher built classical nucleation theory around a free energy barrier arising from competition between a favorable volume term and a costly interfacial term. Ostwald's step rule predicts that the phase which forms first is often not the stable one. John Cahn and John Hilliard treated the opposite limit, spinodal decomposition, where no barrier exists. The chapter also introduces the glass and jamming transitions, where a system falls out of equilibrium entirely and whether a true thermodynamic transition underlies the kinetic arrest remains contested. That material is placed here deliberately, because Chapter 20 argues that neural networks jam, and a reader who has never met the physical jamming transition cannot judge whether the analogy is load-bearing. The chapter ends by quantifying the problem that motivates four later chapters, which is that barriers many times the thermal energy make the transition a rare event that brute-force molecular dynamics will essentially never observe.\n\nBuilt on Volmer and Weber 1926, Becker and Döring, Turnbull and Fisher 1949, Ostwald's step rule, supercooling and metastability, Cahn and Hilliard on spinodal decomposition, and the glass and jamming transitions as the case where equilibrium thermodynamics stops applying.\n\nLeaves open: if the event never happens on a timescale we can simulate, how can any amount of data teach a machine what it looks like?",
  "domains": [
   "foundations",
+  "nucleation-exact",
   "glass-jamming",
   "ml-potentials-nucleation"
  ],
@@ -327,6 +328,256 @@
    "url": "https://doi.org/10.1016/0001-6160(61)90182-1",
    "confidence": "verified",
    "_domain": "foundations"
+  },
+  {
+   "claim": "Founding paper of classical nucleation theory: nucleus formation in supersaturated systems, introducing the capillarity/critical-nucleus argument that a droplet must exceed a critical size before it grows. Title translates as 'Nucleation in supersaturated structures'; commonly cited in English as 'Nucleus formation in supersaturated systems'. Z. Phys. Chem. volume is 119U (the 'U' denotes De Gruyter's retro-digitized series), issue 1, pages 277-301.",
+   "people": "M. Volmer; A. Weber",
+   "affiliation": "Volmer: Institute of Physical Chemistry, Technische Hochschule Berlin (Weber's affiliation not stated in the metadata I could access)",
+   "year": "1926",
+   "venue": "Zeitschrift für Physikalische Chemie 119U(1), 277-301",
+   "url": "https://doi.org/10.1515/zpch-1926-11927",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "First kinetic (rate) treatment of nucleation in supersaturated vapours, predating and feeding into Becker-Döring. 'Keimbildungsgeschwindigkeit in übersättigten Dämpfen', Z. Phys. Chem. 125U(1), 236-242. Useful if the chapter wants to show that the kinetic prefactor problem was posed before 1935.",
+   "people": "L. Farkas",
+   "affiliation": "Not verified from the source I could access",
+   "year": "1927",
+   "venue": "Zeitschrift für Physikalische Chemie 125U(1), 236-242",
+   "url": "https://doi.org/10.1515/zpch-1927-12513",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The kinetic theory of nucleation: the cluster-population master equation and steady-state flux over the barrier that yields the Becker-Döring nucleation rate, J = A exp(-ΔG*/kT). CAUTION on the volume number: Annalen der Physik continuous vol. 416 = Band 24 of the 5. Folge, so 'Ann. Phys. 24, 719 (1935)' and 'Ann. Phys. 416, 719 (1935)' are the same paper. Issue 8, pages 719-752.",
+   "people": "R. Becker; W. Döring",
+   "affiliation": "Becker held the theoretical physics chair at Technische Hochschule Berlin and moved to Göttingen in the mid-1930s; Döring was his doctoral student. The paper's masthead affiliation was NOT verifiable (Wiley returned 403), so do not state an institution as fact.",
+   "year": "1935",
+   "venue": "Annalen der Physik 416(8), 719-752",
+   "url": "https://doi.org/10.1002/andp.19354160806",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Transposes the vapour-condensation rate theory to condensed systems, using absolute-reaction-rate theory to supply the kinetic prefactor: I = A exp[-Kσ³/((ΔF_V)²kT)] with A = n(kT/h)exp(-ΔF_A/kT), where ΔF_A is the activation free energy for transporting an atom across the liquid-crystal interface. This is the paper that made nucleation theory usable for solidification. J. Chem. Phys. 17(1), 71-73. Note an errata was published at J. Chem. Phys. 17(4), 429 (1949) — see https://pubs.aip.org/aip/jcp/article/17/4/429/200784/Errata-Rate-of-Nucleation-in-Condensed-Systems .",
+   "people": "David Turnbull; John C. Fisher",
+   "affiliation": "Research Laboratory, General Electric Company, Schenectady, New York",
+   "year": "1949",
+   "venue": "The Journal of Chemical Physics 17(1), 71-73",
+   "url": "https://doi.org/10.1063/1.1747055",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The droplet experiment itself: microscopic observation of the solidification of small metal droplets. Dispersing a melt into many tiny non-communicating droplets means most droplets contain no catalytic impurity, so homogeneous nucleation becomes observable. This is the experimental companion Turnbull cites (as ref. 2) for the supercooling data tabulated in his 1950 J. Appl. Phys. paper. J. Appl. Phys. 21(8), 804-810.",
+   "people": "David Turnbull; R. E. Cech",
+   "affiliation": "Research Laboratory, General Electric Company, Schenectady, New York",
+   "year": "1950",
+   "venue": "Journal of Applied Physics 21(8), 804-810",
+   "url": "https://doi.org/10.1063/1.1699763",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "THE supercooling paper — I read the reprint text and Table I directly. Maximum supercooling (ΔT_-)max in kelvin, with T0 in kelvin and the ratio (ΔT_-)max/T0: mercury 234.3 K / 58 K / 0.247; gallium 303 / 76 / 0.250; tin 505.7 / 105 / 0.208; bismuth 544 / 90 / 0.166; lead 600.7 / 80 / 0.133; antimony 903 / 135 / 0.150; aluminium 931.7 / 130 / 0.140; germanium 1231.7 / 227 / 0.184; silver 1233.7 / 227 / 0.184; gold 1336 / 230 / 0.172; copper 1356 / 236 / 0.174; manganese 1493 / 308 / 0.206; nickel 1725 / 319 / 0.185; cobalt 1763 / 330 / 0.187; iron 1803 / 295 / 0.164; palladium 1828 / 332 / 0.182; platinum 2043 / 370 / 0.181; water 273.2 / 39 / 0.143. Text states: 'For most metals (ΔT_-)max is of the order of 0.18 times the absolute melting temperature, T0', reproducible to ±5 percent, and later '≈0.185 with maximum deviations of ±0.02 ... the ratio ranges from 0.133 for lead to 0.250 for gallium.' Nucleation was measurable only over narrow bands: 59-63 degrees of supercooling for mercury, 100-115 for tin; fitted prefactors A = 10^30.4 (tin) and 10^30.9 (mercury) per cm³ per s, against 10^33 expected for homogeneous nucleation and 10^25 for surface-catalysed. 4-micron mercury droplets solidify at ~10^-5 s^-1 at ΔT = 60 K. Table II gives derived crystal-melt interfacial energies in erg/cm²: mercury 24.4, water 32.1, gallium 55.9, tin 54.5, bismuth 54.4, lead 33.3, antimony 101, aluminium 93, germanium 181, silver 126, gold 132, copper 177, manganese 206, nickel 255, cobalt 234, iron 204, palladium 209, platinum 240. J. Appl. Phys. 21(10), 1022-1028, received 13 April 1950.",
+   "people": "David Turnbull",
+   "affiliation": "Research Laboratory, General Electric Company, Schenectady, New York",
+   "year": "1950",
+   "venue": "Journal of Applied Physics 21(10), 1022-1028",
+   "url": "https://doi.org/10.1063/1.1699435",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The definitive mercury-droplet kinetics study. Droplets 2-8 microns in diameter coated with mercury laurate solidify at rates proportional to droplet VOLUME (homogeneous nucleation); droplets coated with mercury acetate solidify at rates proportional to droplet AREA (heterogeneous nucleation) — the cleanest experimental separation of the two mechanisms. J. Chem. Phys. 20(3), 411-424. An erratum appeared at J. Chem. Phys. 20(11), 1824 (1952).",
+   "people": "David Turnbull",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1952",
+   "venue": "The Journal of Chemical Physics 20(3), 411-424",
+   "url": "https://doi.org/10.1063/1.1700435",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Equation-level, open-access source for the classical barrier that I verified by reading the text. Eq. (3): ΔG_n = n ΔG^nuc + n^(2/3) A σ; Eq. (5): n* = (-(2/3) Aσ/ΔG^nuc)³; Eq. (6): ΔG* = (4/27)(Aσ)³/(ΔG^nuc)², with A = (36π Ω1²)^(1/3) for a spherical cluster of monomer volume Ω1. Substituting A and ΔG^nuc = Ω1 Δg_v recovers exactly r* = 2γ/|Δg_v| and ΔG* = 16πγ³/(3 Δg_v²). Also has the clean Fig. 1/Fig. 2 distinction between the metastable (nucleation, G'' > 0) and unstable (spinodal, G'' < 0) regimes, which is precisely the framing a chapter deriving the barrier needs. ASM Handbook vol. 22A 'Fundamentals of Modeling for Metals Processing', D. U. Furrer and S. L. Semiatin (eds.), pp. 203-219; preprint on arXiv.",
+   "people": "Emmanuel Clouet",
+   "affiliation": "CEA Saclay, Service de Recherches de Métallurgie Physique, France",
+   "year": "2009 (handbook chapter); arXiv preprint posted 2010",
+   "venue": "ASM Handbook, Volume 22A: Fundamentals of Modeling for Metals Processing, pp. 203-219; arXiv:1001.4131",
+   "url": "https://arxiv.org/abs/1001.4131",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The standard graduate monograph on nucleation — the reference to cite for the full CNT derivation (critical radius, barrier, Zeldovich factor, heterogeneous contact-angle factor) in book form. Pergamon Materials Series vol. 15, 756 pp., ISBN 978-0-08-042147-6 / 0-08-042147-4.",
+   "people": "K. F. Kelton; A. Lindsay Greer",
+   "affiliation": "Kelton: Washington University in St. Louis; Greer: University of Cambridge",
+   "year": "2010",
+   "venue": "Pergamon Materials Series, Vol. 15 (Elsevier/Pergamon)",
+   "url": "https://www.sciencedirect.com/bookseries/pergamon-materials-series/vol/15/suppl/C",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Standard review-article citation for CNT and its extensions, comparing theory against experiments that directly measure nucleation rates; covers condensation, cavitation and crystallization from the melt. J. Phys.: Condens. Matter 4(38), 7627-7650.",
+   "people": "David W. Oxtoby",
+   "affiliation": "James Franck Institute and Department of Chemistry, University of Chicago",
+   "year": "1992",
+   "venue": "Journal of Physics: Condensed Matter 4(38), 7627-7650",
+   "url": "https://doi.org/10.1088/0953-8984/4/38/001",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Modern review setting classical nucleation theory beside the nonclassical alternatives (density-functional and diffuse-interface approaches). Good single citation for 'the classical pathway is giving way to nonclassical pathways'. Cryst. Growth Des. 16(11), 6663-6681. I verified title, authors, journal, volume, pages and DOI, but could NOT open the full text to confirm it states the barrier in the exact r* = 2γ/Δg_v form — use Clouet or Kelton & Greer if you need the equation attributed to a specific page.",
+   "people": "S. Karthika; T. K. Radhakrishnan; P. Kalaichelvi",
+   "affiliation": "Department of Chemical Engineering, National Institute of Technology Tiruchirappalli, India",
+   "year": "2016",
+   "venue": "Crystal Growth & Design 16(11), 6663-6681",
+   "url": "https://doi.org/10.1021/acs.cgd.6b00794",
+   "confidence": "probable",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Original statement of the step rule (Stufenregel): a supersaturated or supercooled system does not go directly to the most stable state but passes through the least stable state whose free energy is nearest to the starting state. Full title 'Studien über die Bildung und Umwandlung fester Körper. 1. Abhandlung: Übersättigung und Überkaltung' ('Studies on the formation and transformation of solid bodies. First paper: supersaturation and supercooling'). Z. Phys. Chem. 22U(1), 289-330.",
+   "people": "Wilhelm Ostwald",
+   "affiliation": "University of Leipzig",
+   "year": "1897",
+   "venue": "Zeitschrift für Physikalische Chemie 22U(1), 289-330",
+   "url": "https://doi.org/10.1515/zpch-1897-2233",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Short, widely cited modern theoretical discussion of Ostwald's step rule, deriving it from irreversible thermodynamics — the standard 'why does the metastable phase appear first' citation. J. Phys. Chem. 88(24), 5768-5769.",
+   "people": "R. A. van Santen",
+   "affiliation": "Eindhoven University of Technology (the paper is deposited in the TU/e research portal)",
+   "year": "1984",
+   "venue": "The Journal of Physical Chemistry 88(24), 5768-5769",
+   "url": "https://doi.org/10.1021/j150668a002",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Direct atomic-scale experimental confirmation of Ostwald's rule of stages: in situ high-resolution electron microscopy at high temperature shows an amorphous olivine-type metal phosphate crystallizing to the stable phase through transient metastable crystalline intermediates. The best modern empirical citation for the step rule. Nature Physics 5(1), 68-73.",
+   "people": "Sung-Yoon Chung; Young-Min Kim; Jin-Gyu Kim; Youn-Joong Kim",
+   "affiliation": "Korea Basic Science Institute and Korean institutions (Chung later at KAIST / Sungkyunkwan; exact 2009 masthead affiliations not verified line-by-line)",
+   "year": "2009",
+   "venue": "Nature Physics 5(1), 68-73",
+   "url": "https://doi.org/10.1038/nphys1148",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The gradient-energy free-energy functional F = ∫[f(c) + κ|∇c|²]dV — the origin of the diffuse-interface description of an interface and the direct ancestor of every phase-field model. 'Free Energy of a Nonuniform System. I. Interfacial Free Energy', J. Chem. Phys. 28(2), 258-267. Combined with the diffusion equation this gives the Cahn-Hilliard equation, ∂c/∂t = ∇·(M∇(∂f/∂c - 2κ∇²c)).",
+   "people": "John W. Cahn; John E. Hilliard",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1958",
+   "venue": "The Journal of Chemical Physics 28(2), 258-267",
+   "url": "https://doi.org/10.1063/1.1744102",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Part III of the same series: nucleation in a two-component incompressible fluid, worked with the diffuse-interface functional rather than the sharp-interface capillarity approximation. This is the paper to cite for the result that as the spinodal is approached the critical nucleus becomes large and diffuse and the barrier goes continuously to zero — i.e. the precise sense in which classical nucleation theory fails at the nucleation/spinodal crossover. J. Chem. Phys. 31(3), 688-699.",
+   "people": "John W. Cahn; John E. Hilliard",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1959",
+   "venue": "The Journal of Chemical Physics 31(3), 688-699",
+   "url": "https://doi.org/10.1063/1.1730447",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The spinodal decomposition paper: linear stability of a solid solution to infinitesimal composition fluctuations including gradient (surface tension) and elastic energy, giving the amplification-rate spectrum and the fastest-growing wavelength that sets the characteristic microstructural length scale. Acta Metallurgica 9(9), 795-801.",
+   "people": "John W. Cahn",
+   "affiliation": "General Electric Research Laboratory, Schenectady, New York",
+   "year": "1961",
+   "venue": "Acta Metallurgica 9(9), 795-801",
+   "url": "https://doi.org/10.1016/0001-6160(61)90182-1",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "'Phase Separation by Spinodal Decomposition in Isotropic Systems' — the isotropic-system companion to the 1961 paper, the version usually cited for the treatment applicable to liquids and glasses rather than cubic crystals. J. Chem. Phys. 42(1), 93-99.",
+   "people": "John W. Cahn",
+   "affiliation": "Edgar C. Bain Laboratory for Fundamental Research, United States Steel Corporation (verify masthead if you print the affiliation; Cahn moved from GE to U.S. Steel in this period)",
+   "year": "1965",
+   "venue": "The Journal of Chemical Physics 42(1), 93-99",
+   "url": "https://doi.org/10.1063/1.1695731",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Correct primary attribution for the Allen-Cahn equation: 'A microscopic theory for antiphase boundary motion and its application to antiphase domain coarsening', Acta Metallurgica 27(6), 1085-1095. The non-conserved order-parameter counterpart to Cahn-Hilliard; its key result is that the interfacial velocity is linearly proportional to the mean curvature of the boundary, with the constant of proportionality NOT containing the specific surface free energy. Author order is Allen then Cahn — 'Cahn-Allen' appears in some literature but the paper is Allen & Cahn.",
+   "people": "Samuel M. Allen; John W. Cahn",
+   "affiliation": "Allen: Department of Materials Science and Engineering, MIT; Cahn: National Bureau of Standards (now NIST). Masthead affiliations not verified line-by-line — verify before printing.",
+   "year": "1979",
+   "venue": "Acta Metallurgica 27(6), 1085-1095",
+   "url": "https://doi.org/10.1016/0001-6160(79)90196-2",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "THE specific quantified failure of CNT to cite. Argon condensation in a cryogenic supersonic nozzle at nucleation rates J = 10^(17±1) cm^-3 s^-1, over 34-53 K and 0.47-8 kPa: classical nucleation theory predicts rates 11-13 ORDERS OF MAGNITUDE LOWER than observed, while mean-field kinetic nucleation theory gets within 1 order of magnitude. The authors attribute the failure to CNT overestimating both the critical cluster size and the excess internal energy of the critical clusters. J. Chem. Phys. 132(6), 064304. Author order and full names confirmed via Crossref; the 11-13 figure comes from the published abstract as returned by the AIP/PubMed abstract text and should be re-read against the paper before quoting verbatim.",
+   "people": "Somnath Sinha; Ashutosh Bhabhe; Hartawan Laksmono; Judith Wölk; Reinhard Strey; Barbara E. Wyslouzil",
+   "affiliation": "Ohio State University (Sinha, Bhabhe, Laksmono, Wyslouzil) and Universität zu Köln, Institut für Physikalische Chemie (Wölk, Strey)",
+   "year": "2010",
+   "venue": "The Journal of Chemical Physics 132(6), 064304",
+   "url": "https://doi.org/10.1063/1.3299273",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The first parameter-free simulation prediction of an absolute crystal-nucleation rate (hard-sphere colloids), explicitly framed against CNT's need for unconstrained fitted parameters. This is the reference point for the hard-sphere rate discrepancy that follows. Nature 409, 1020-1023.",
+   "people": "Stefan Auer; Daan Frenkel",
+   "affiliation": "FOM Institute for Atomic and Molecular Physics (AMOLF), Amsterdam",
+   "year": "2001",
+   "venue": "Nature 409, 1020-1023",
+   "url": "https://doi.org/10.1038/35059035",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The hard-sphere colloid discrepancy, stated bluntly in the title: 'Simulation of nucleation in almost hard-sphere colloids: The discrepancy between experiment and simulation persists.' Independent simulation methods agree with each other and disagree with experiment. J. Chem. Phys. 134(13), 134901.",
+   "people": "Laura Filion; Ran Ni; Daan Frenkel; Marjolein Dijkstra",
+   "affiliation": "Soft Condensed Matter, Debye Institute for NanoMaterials Science, Utrecht University (Filion, Ni, Dijkstra); University of Cambridge (Frenkel)",
+   "year": "2011",
+   "venue": "The Journal of Chemical Physics 134(13), 134901",
+   "url": "https://doi.org/10.1063/1.3572059",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Quantifies the hard-sphere discrepancy in one sentence you can quote-check: 'at low super-saturations, experimentally observed nucleation rates and numerically computed ones differ by more than ten orders of magnitude.' Proposes resolving it by reading the experimental data as nucleation plus crystal growth rather than nucleation alone. Phys. Rev. Lett. 128(23), 238001; preprint arXiv:2205.06040 (2022), where I read the abstract.",
+   "people": "Wilkin Wöhler; Tanja Schilling",
+   "affiliation": "Institute of Physics, University of Freiburg, Germany",
+   "year": "2022 (preprint and journal both 2022)",
+   "venue": "Physical Review Letters 128(23), 238001",
+   "url": "https://doi.org/10.1103/PhysRevLett.128.238001",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "Authoritative recent review of the hard-sphere system, including a full account of the nucleation-rate discrepancy and the candidate explanations (polydispersity, residual charge, hydrodynamics, sedimentation, volume-fraction calibration) and why none of them closes the gap. Rev. Mod. Phys. 96, 045003. Bibliographic details verified via Crossref; I did not read the full text (file exceeded fetch limits), so attribute specific numbers to Wöhler & Schilling rather than to this review.",
+   "people": "C. Patrick Royall; Patrick Charbonneau; Marjolein Dijkstra; John Russo; Frank Smallenburg; Thomas Speck; Chantal Valeriani",
+   "affiliation": "Multi-institutional (ESPCI Paris, Duke University, Utrecht University, University of Bristol, CNRS/Université Paris-Saclay, University of Stuttgart, Universidad Complutense de Madrid)",
+   "year": "2024",
+   "venue": "Reviews of Modern Physics 96, 045003",
+   "url": "https://doi.org/10.1103/RevModPhys.96.045003",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "claim": "The two-step / nonclassical nucleation result: a metastable fluid-fluid critical point drastically changes the pathway to a crystal nucleus, lowering the barrier and raising the nucleation rate by many orders of magnitude relative to the classical single-order-parameter picture. The canonical citation for 'the reaction coordinate is not the nucleus radius'. Science 277(5334), 1975-1978.",
+   "people": "Pieter Rein ten Wolde; Daan Frenkel",
+   "affiliation": "FOM Institute for Atomic and Molecular Physics (AMOLF), Amsterdam",
+   "year": "1997",
+   "venue": "Science 277(5334), 1975-1978",
+   "url": "https://doi.org/10.1126/science.277.5334.1975",
+   "confidence": "verified",
+   "_domain": "nucleation-exact"
   },
   {
    "claim": "Kauzmann observed that extrapolating the excess entropy of a supercooled liquid below its glass transition would make it fall below the crystal's entropy at a finite temperature — the 'Kauzmann paradox' / entropy crisis that motivates the idea of an underlying ideal glass transition.",
@@ -939,6 +1190,36 @@
    "claim": "Turnbull and 'John Chipman Fisher' 1949, 'Rate of Nucleation in Condensed Systems,' Journal of Chemical Physics 17(1), 71-73",
    "correction": "The author's name is fabricated. The co-author is John Crocker Fisher (born 19 December 1919, Ithaca NY; died 2 May 2018), Sc.D. MIT 1947, of General Electric Research Laboratory, who managed GE's physical metallurgy section. 'John Chipman' is an entirely different person — the MIT metallurgist and steelmaking chemist — and conflating the two would put a wrong name for a real man in print. Correct text: 'David Turnbull and John Crocker Fisher adapted classical nucleation theory to condensed systems... Published as \"Rate of Nucleation in Condensed Systems,\" Journal of Chemical Physics 17(1), 71-73 (1949).' Everything else in the item checks out: the paper exists with that exact title, JCP volume 17, issue 1, pages 71-73, 1949, authors ordered Turnbull then Fisher, and the URL https://doi.org/10.1063/1.1747055 resolves to it. Note for the author: a stray erratum, JCP 17(4), 429 (1949), also exists, and some secondary databases circulate a wrong DOI (10.1063/1.1747279) and a wrong issue number (No. 4) for this paper — cite 10.1063/1.1747055 and issue 1. The supercooling figure (liquid metals to roughly 0.8 T_m) is accurate.",
    "_domain": "foundations"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Kelton & Greer, Pergamon Materials Series vol. 15, 756 pp., ISBN 978-0-08-042147-6 / 0-08-042147-4, 2010 — the standard graduate monograph on nucleation",
+   "correction": "All the bibliographic details are right (Pergamon Materials Series Volume 15, 756 pages, ISBN-13 9780080421476, ISBN-10 0080421474, Elsevier/Pergamon, 2010, authors Ken (K. F.) Kelton and Alan Lindsay Greer), but the dossier entry OMITS THE TITLE entirely, giving only a description. A reference list built from this entry would be unusable. The full title is 'Nucleation in Condensed Matter: Applications in Materials and Biology'. Affiliations (Kelton at Washington University in St. Louis, Greer at Cambridge) are correct as career facts but were not read off the book's title page.",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "van Santen 1984, 'The Ostwald step rule', J. Phys. Chem. 88(24), 5768-5769; author affiliated with Eindhoven University of Technology",
+   "correction": "The bibliography is right; THE AFFILIATION IS WRONG. Crossref confirms R. A. Van Santen, 'The Ostwald step rule', The Journal of Physical Chemistry volume 88, issue 24, pages 5768-5769, November 1984, DOI 10.1021/j150668a002. But the affiliation printed on the paper is Koninklijke Shell-Laboratorium, Shell Research B.V., Amsterdam, The Netherlands — NOT Eindhoven University of Technology. The dossier inferred Eindhoven from the paper sitting in the TU/e research portal, which hosts it only because van Santen moved to TU/e later (1986). This is exactly the failure mode the dossier warned about elsewhere. Do not print 'Eindhoven' for this paper. The substantive claim is CONFIRMED: the paper relates Ostwald's step rule to irreversible thermodynamics and argues the step rule minimizes entropy production.",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Cahn, 'Phase Separation by Spinodal Decomposition in Isotropic Systems', J. Chem. Phys. 42(1), 93-99 (1965); affiliation Edgar C. Bain Laboratory for Fundamental Research, United States Steel Corporation, with the note that 'Cahn moved from GE to U.S. Steel in this period'",
+   "correction": "The bibliography is right; THE AFFILIATION AND THE CAREER CLAIM ARE WRONG. Crossref confirms 'Phase Separation by Spinodal Decomposition in Isotropic Systems', John W. Cahn, JCP volume 42, issue 1, pages 93-99, January 1965, DOI 10.1063/1.1695731. But John W. Cahn never worked at U.S. Steel's Edgar C. Bain Laboratory. His documented chronology is General Electric, Schenectady 1954-1964; MIT Department of Metallurgy 1964-1978; National Bureau of Standards from 1977; University of Washington affiliate from 1984 (confirmed by his Wikipedia entry, the NAE Memorial Tributes vol. 22 entry, and obituary coverage — none of which mention U.S. Steel). He moved from GE to MIT in 1964, not to U.S. Steel. I could not open the printed masthead of JCP 42, 93 (AIP returns 403 and ADS blocks fetch), so the correct affiliation is GE or MIT depending on the submission date — DO NOT PRINT ANY AFFILIATION for this paper without reading the masthead, and delete the U.S. Steel parenthetical.",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "Royall, Charbonneau, Dijkstra, Russo, Smallenburg, Speck & Valeriani, Rev. Mod. Phys. 96, 045003 (2024); multi-institutional (ESPCI Paris, Duke, Utrecht, Bristol, CNRS/Paris-Saclay, Stuttgart, Complutense Madrid)",
+   "correction": "Bibliography confirmed: 'Colloidal hard spheres: Triumphs, challenges, and mysteries', author order exactly as the dossier lists, Reviews of Modern Physics volume 96, issue 4, article number 045003, 12 November 2024, DOI 10.1103/RevModPhys.96.045003. THE AFFILIATION LIST IS INCOMPLETE: Crossref gives Royall at ESPCI Paris and University of Bristol, Charbonneau at Duke, Dijkstra at Utrecht, Russo at Sapienza University of Rome, Smallenburg at Université Paris-Saclay, Speck at Universität Stuttgart, Valeriani at Universidad Complutense de Madrid. The dossier's list omits Sapienza University of Rome (John Russo) — Bristol is Royall's second affiliation, not Russo's. Also note the dossier's own caveat is sound: it did not read the full text, so do not attribute the ten-orders-of-magnitude number or the enumeration of failed explanations (polydispersity, residual charge, hydrodynamics, sedimentation, volume-fraction calibration) to this review as verified content — cite Wöhler & Schilling for the number.",
+   "_domain": "nucleation-exact"
+  },
+  {
+   "status": "CORRECTED",
+   "claim": "ten Wolde & Frenkel, Science 277(5334), 1975-1978 (1997): a metastable fluid-fluid critical point drastically changes the pathway to a crystal nucleus, lowering the barrier and raising the rate by many orders of magnitude; 'the canonical citation for the reaction coordinate is not the nucleus radius'",
+   "correction": "The bibliography is exactly right — Crossref confirms Pieter Rein ten Wolde; Daan Frenkel, Science volume 277, issue 5334, pages 1975-1978, 26 September 1997, DOI 10.1126/science.277.5334.1975 — and the physics is right: the abstract states that in simulations of homogeneous crystal nucleation, the presence of a metastable fluid-fluid critical point drastically changes the pathway for formation of a crystal nucleus, and that close to that critical point the free-energy barrier is strongly reduced so the nucleation rate increases by many orders of magnitude. THE PROBLEM IS THE MISSING TITLE AND THE RESULTING SCOPE DRIFT: the paper is 'Enhancement of Protein Crystal Nucleation by Critical Density Fluctuations', and the result is obtained for a model of globular proteins with short-range attractive interactions, not for nucleation in general. The dossier presents it as a generic 'two-step / nonclassical nucleation result' with no title given; a chapter citing it should print the title and say 'in a model of globular proteins with short-range attractions'. The 'reaction coordinate is not the nucleus radius' line is a defensible gloss but is the chapter's phrasing, not the paper's — do not put it in quotation marks.",
+   "_domain": "nucleation-exact"
   },
   {
    "status": "CORRECTED",

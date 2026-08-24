@@ -3,7 +3,8 @@
  "title": "Learning Without Being Told",
  "outline": "Removing the labels. Evert van Nieuwenburg, Ye-Hua Liu and Sebastian Huber built the confusion scheme, which deliberately mislabels data at a proposed boundary and reads the true transition off a characteristic W-shaped performance curve, an idea whose cleverness lies in extracting signal from induced failure. Lei Wang showed that principal component analysis alone recovers the Ising order parameter, and Sebastian Wetzel carried the comparison through autoencoders and variational autoencoders. The chapter also covers diffusion maps for topological order and anomaly detection for phases nobody thought to label.\n\nBuilt on van Nieuwenburg, Liu and Huber in Nature Physics 2017, Wang in Phys. Rev. B 2016, Wetzel on principal component analysis and variational autoencoders, and Rodriguez-Nieva and Scheurer on unsupervised topological detection.\n\nLeaves open: an unsupervised method that finds a boundary has still not said what changes across it.",
  "domains": [
-  "ml-phase-detection"
+  "ml-phase-detection",
+  "ising-ml-bridge"
  ],
  "verifiedClaims": [
   {
@@ -305,6 +306,216 @@
    "url": "https://doi.org/10.1080/23746149.2020.1797528",
    "confidence": "verified",
    "_domain": "ml-phase-detection"
+  },
+  {
+   "claim": "THE CORE SUPERVISED PROTOCOL. Fully connected feed-forward net implemented in TensorFlow: input layer = raw Monte Carlo spin configuration (sigma_i = +/-1, N = L^2 values, no preprocessing), one hidden layer of 100 sigmoid neurons, and a two-unit output layer; cross-entropy cost with an L2 regularization term; trained with Adam. Training data: Monte Carlo configurations over a broad range of temperatures above and below T_c on the square-lattice ferromagnetic Ising model H = -J sum_<ij> sigma_i^z sigma_j^z, J = 1. LABELS ARE BINARY AND SUPERVISED BY THE KNOWN T_c: each configuration is tagged 'low-temperature' or 'high-temperature' according to whether its sampling temperature lies below or above the Onsager value T_c/J = 2/ln(1+sqrt2). The network correctly classifies 94% of an uncorrelated test set at N = L^2 = 10^2, rising to 99% at L = 40. Identical success with antiferromagnetic couplings H = +J sum sigma_i sigma_j, i.e. for an order parameter with ordering wavevector q = (pi/a, pi/a). The paper does NOT claim to discover T_c on the training lattice.",
+   "people": "Juan Carrasquilla; Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics, Waterloo (Carrasquilla); Department of Physics and Astronomy, University of Waterloo and Perimeter Institute (Melko)",
+   "year": "2017 journal; arXiv v1 5 May 2016; received 27 June 2016, accepted 11 January 2017, published online 13 February 2017, issue date May 2017",
+   "venue": "Nature Physics 13, 431-434 (2017)",
+   "url": "https://doi.org/10.1038/nphys4035",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "HOW T_c IS EXTRACTED, AND THE ONE-HALF CROSSING. Carrasquilla and Melko extract a critical temperature not on the lattice they trained on but on an unseen one: the square-lattice-trained network is fed Monte Carlo configurations of the TRIANGULAR-lattice ferromagnetic Ising model (L = 30), with no information about the Hamiltonian, the lattice structure, or even the locality of interactions. The two output neurons are averaged over the test set at each temperature and plotted against T; T_c is estimated from their crossing point, giving T_c/J = 3.63581 against the exact 4/ln3 = 3.640957 (arXiv v1 value, single size). Because the two softmax outputs are complementary and sum to one, the crossing is precisely the point where each output equals 0.5 - this is the origin of the 'output crosses one-half' criterion; the arXiv text says 'crossing point of the low- and high-temperature outputs' rather than writing 0.5 explicitly. The analytically constructed three-perceptron toy network, given the same task with no knowledge of either critical temperature, returns T_c/J = 3.63403, under 1% from the exact value.",
+   "people": "Juan Carrasquilla; Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2017 (arXiv 1605.01735v1, 2016)",
+   "venue": "Nature Physics 13, 431-434 (2017)",
+   "url": "https://arxiv.org/abs/1605.01735",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "FINITE-SIZE SCALING IN THE PUBLISHED VERSION (NOT IN arXiv v1). The Nature Physics version adds a finite-size-scaling analysis absent from the arXiv preprint: system sizes up to L = 60, with the averaged output F^T for the ferromagnetic class shown to collapse when plotted against the scaling variable t*L^(1/nu), t the reduced temperature. The collapse yields T_c = 2.266 +/- 0.002 and nu = 1.0 +/- 0.2, consistent with the exact 2/ln(1+sqrt2) = 2.269 and the exact 2D Ising nu = 1; the triangular-lattice estimate quoted from the same 100-unit network is T_c = 3.65(1). USE WITH CARE: I could not read the paywalled published text directly. These numbers are quoted verbatim by two independent later papers that had the published version in hand - Chertenkov, Burovski & Shchur, PRE 108, L032102 (2023), which states the L <= 60 data collapse and the values 2.266 +/- 0.002 and nu = 1.0 +/- 0.2, and Kim & Kim, PRE 98, 022138 (2018), which quotes 'T_c = 2.266(2) with nu = 1.0(2)' and 'T_c = 3.65(1)' as the 100-unit network results of Carrasquilla2017.",
+   "people": "Juan Carrasquilla; Roger G. Melko (values as reported by Vladislav Chertenkov, Evgeni Burovski, Lev Shchur; and by Dongkyu Kim, Dong-Hee Kim)",
+   "affiliation": "Perimeter Institute / University of Waterloo",
+   "year": "2017 (published version only)",
+   "venue": "Nature Physics 13, 431-434 (2017); confirmed in Phys. Rev. E 108, L032102 (2023) and Phys. Rev. E 98, 022138 (2018)",
+   "url": "https://doi.org/10.1103/PhysRevE.108.L032102",
+   "confidence": "probable",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "WHAT THE ISING NETWORK IS READING, IN THE ORIGINAL PAPER ITSELF. Carrasquilla and Melko construct an analytic toy replacement for the hidden layer: three Heaviside perceptrons with weight matrix W = (1/(N(1+eps))) * [[1..1],[-1..-1],[1..1]] and bias b = (eps/(1+eps))*(-1,-1,1)^T, so that Wx + b = (1/(1+eps)) * (m(x)-eps, -m(x)-eps, m(x)+eps) where m(x) = (1/N) sum_i sigma_i is exactly the magnetization; eps in (0,1) is a magnetization threshold. Two perceptrons fire on polarized states, the third on 'polarized-up or unpolarized'. They then train a real 3-sigmoid network numerically and show that during training the components of W_t x + b_t become approximately linear functions of m(x), concluding 'These results clearly support our claim about the neural network's ability to encode and learn the magnetization in the hidden layer.' Their own summary sentence: neural networks 'encode information about conventional ordered phases by learning the order parameter of the phase'. A t-SNE embedding of the training set shows two low-T (up/down) lobes and one high-T region separated by a hyperplane.",
+   "people": "Juan Carrasquilla; Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2017",
+   "venue": "Nature Physics 13, 431-434 (2017), supplementary material (Appendices A-B of arXiv:1605.01735)",
+   "url": "https://arxiv.org/abs/1605.01735",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE COULOMB PHASE TEST. Two-dimensional square ice, H = J sum_v Q_v^2 with vertex charge Q_v = sum_{i in v} sigma_i^z and Ising spins on the bonds. The two classes are T = 0 ground states (an extensively degenerate Coulomb phase, power-law spin-spin correlations, no bulk magnetization or any local order parameter) versus high-temperature states (exponentially decaying correlations). Trained on raw configurations with the same standard fully connected 100-hidden-unit network, at N = 2 x 16 x 16 spins it separates the two classes with 99% accuracy, with no information about the underlying lattice. The authors' reading: 'the learning capabilities of neural networks go beyond the simple ability to encode order parameters, extending to the detection of subtle differences in higher-order correlation functions.' This is the surprise - a plain shallow classifier separating states that differ only in the functional form of their correlations.",
+   "people": "Juan Carrasquilla; Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2017",
+   "venue": "Nature Physics 13, 431-434 (2017)",
+   "url": "https://arxiv.org/abs/1605.01735",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE TORIC-CODE / ISING GAUGE THEORY TEST, AND THE NEGATIVE RESULT. Two-dimensional Ising lattice gauge theory H = -J sum_p prod_{i in p} sigma_i^z, spins on the bonds of a square lattice, ground-state manifold the same as the toric code, exponentially decaying spin-spin correlations. The standard fully connected network FAILS: it cannot exceed 50% accuracy, 'equivalent to simply guessing'. A convolutional network succeeds: 64 filters of size 2x2 convolved on each of the two sublattices, unit stride, no padding, periodic boundary conditions, ReLU, then a 64-unit fully connected ReLU layer with dropout, then a two-output softmax; trained on configurations at T = 0 and T = infinity it reaches 100% accuracy on a 1x10^4-configuration test set. The surprise is what the supplement then shows: (i) flipping one spin every m = 2 (m = 8) plaquettes preserves the topological order but violates local constraints, and accuracy collapses to 50% (55%); (ii) cutting ground states into 4 pieces and restitching pieces from different states destroys the extended closed-loop structure and the topological degeneracy while preserving local constraints almost everywhere - and the CNN still classifies these as ground states with high confidence. Conclusion: 'local constraints are the only features that the CNN relies on'. An analytic toy CNN with 16 2x2 filters per sublattice that literally enumerates the 8 satisfied and 8 unsatisfied plaquette configurations also reaches 100%. So the network is not detecting topological order; it is detecting the Hamiltonian's local energetic constraints.",
+   "people": "Juan Carrasquilla; Roger G. Melko",
+   "affiliation": "Perimeter Institute for Theoretical Physics; University of Waterloo",
+   "year": "2017",
+   "venue": "Nature Physics 13, 431-434 (2017), main text and Appendix C",
+   "url": "https://arxiv.org/abs/1605.01735",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "LEARNING BY CONFUSION - THE EXACT SCHEME. Data lie in a parameter range (a,b) containing an unknown critical point c. Propose a trial critical point c', label everything below c' as 0 and everything above as 1, train a fresh network N_{c'} on that deliberately-part-wrong labelling, then evaluate its total performance P(c') on the entire data set. Sweeping c' from a to b produces the universal W-SHAPE: P = 1 at c' = a and c' = b (the net assigns one label to everything and is right by construction), P = 1 again at c' = c (the correct labelling), and two minima in between where the net learns the majority label and scores P(c') = 1 - min(c-c', c'-a)/(c-a) for a < c' < c. The middle peak always sits at the correct c; asymmetric placement of c distorts the depths of the two minima but not the peak position. CONTROL: trained on unstructured random data against a fictitious tuning parameter the middle peak disappears and the W becomes a V, so the peak is evidence of real structure. Systems: (1) Kitaev chain, input = the largest 10 entanglement-spectrum eigenvalues for L = 20 with L_A = L_B = 10, transition recovered at mu = -2t; (2) two-dimensional classical Ising, network with L^2 input and L^2 hidden neurons and 2 outputs trained on L x L configurations - the peak deviates from T_c for L = 10 by finite-size effects and sits exactly at k_B T_c ~ 2.27 J for L = 20; (3) many-body localization in a random-field Heisenberg chain, L = 12, 64 entanglement-spectrum levels, 10^5 disorder realizations per field strength, giving h_c ~ 3J. A separate 'blanking' test shows a supervised net trained with a window of width up to w = 3t blanked out around the transition still locates it.",
+   "people": "Evert P. L. van Nieuwenburg; Ye-Hua Liu; Sebastian D. Huber",
+   "affiliation": "Institute for Theoretical Physics, ETH Zurich",
+   "year": "2017 journal; arXiv v1 6 October 2016",
+   "venue": "Nature Physics 13, 435-439 (2017)",
+   "url": "https://doi.org/10.1038/nphys4037",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "UNSUPERVISED BASELINE: PCA FINDS THE MAGNETIZATION. Wang collects 100 uncorrelated Wolff-sampled square-lattice Ising configurations at each of T/J = 1.6, 1.7, ..., 2.9 into an M x N matrix X with M = 1400, and solves X^T X w_l = lambda_l w_l. Exactly ONE dominant explained-variance ratio appears, and the weight vector of the first principal component is flat across all lattice sites - i.e. the first principal component IS the uniform magnetization (1/N) sum_i sigma_i. Projecting onto the first two components separates the samples into three clusters (two ordered, one paramagnetic) that sharpen as N goes 20^2, 40^2, 80^2. For the conserved-order-parameter Ising model (same Hamiltonian, sum_i sigma_i identically zero, so magnetization is useless) there are FOUR leading components with weights cos(theta_i), cos(phi_i), sin(theta_i), sin(phi_i), and the nonlinear combination sum_{l=1..4} y_l^2 is proportional to a structure factor S detecting domain-wall orientational order - a quantity Wang states was unknown to him before the learner found it. He explicitly flags the limitation: PCA is linear, so topological order, duality, Wilson loops and string order remain out of reach.",
+   "people": "Lei Wang",
+   "affiliation": "Institute of Physics, Chinese Academy of Sciences, Beijing",
+   "year": "2016 (arXiv v1 1 June 2016; published 2 November 2016)",
+   "venue": "Phys. Rev. B 94, 195105 (2016)",
+   "url": "https://doi.org/10.1103/PhysRevB.94.195105",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE CRITICAL EXAMINATION - PRECISELY WHAT FAILED AND WHERE. Hu, Singh and Scalettar apply PCA (and an autoencoder) to the square-lattice Ising ferromagnet, triangular-lattice Ising antiferromagnet, Blume-Capel model, a biquadratic-exchange spin-one Ising (BSI) model, and the 2D XY model. SUCCESSES: PCA locates transition temperatures with reasonable accuracy; strong first-order transitions are distinguishable from second-order ones by the evolution of the principal-component distribution; a crossover is distinguishable from a true transition; principal components map onto Fourier modes and order parameters and their size dependence yields critical exponents; in the frustrated triangular antiferromagnet the components point to incipient orders. FAILURES, MODEL BY MODEL: (a) BSI model - feeding raw {S_i} produces NO dominant principal component and a complete mixture of all temperatures in the projection, because the order lives in the checkerboard arrangement of S_i^2 (the 'charge') while PCA averages the S_i = +/-1 variables to zero; feeding {S_i^2} restores a dominant component. (b) 2D XY model - feeding raw local vorticity (plaquette winding number +1, 0, -1) again gives no dominant component, because equal numbers of vortices and antivortices cancel; feeding ABSOLUTE vorticity (1 if a vortex or antivortex is present, 0 otherwise) recovers a dominant component, but the signal 'appears more like a crossover than a true phase transition', and the authors write that seeing the vortex-antivortex unbinding transition 'may be difficult in PCA or any machine learning technique'. They also establish that the BSI model has no phase transition and a macroscopic ground-state degeneracy. Overall lesson: the answer depends on which representation (bare spins vs bond, triangle, plaquette or vorticity variables) is fed in, and one is not recoverable from the other.",
+   "people": "Wenjian Hu; Rajiv R. P. Singh; Richard T. Scalettar",
+   "affiliation": "Department of Physics (and Department of Computer Science), University of California, Davis",
+   "year": "2017 (arXiv v1 31 March 2017; published 19 June 2017)",
+   "venue": "Phys. Rev. E 95, 062122 (2017)",
+   "url": "https://doi.org/10.1103/PhysRevE.95.062122",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "PCA TO VARIATIONAL AUTOENCODERS ON THE ISING MODEL. Wetzel samples the 2D Ising model on L = 28 (N = 784) with periodic boundaries, 50,000 configurations for the ferromagnet over T in [0,5] (10,000 for the antiferromagnet), and the 3D XY model on L = 14 (N = 2744). He compares four unsupervised methods with a single latent variable each: PCA, kernel PCA, a plain autoencoder, and a variational autoencoder (one fully connected 256-neuron hidden layer in encoder and in decoder). Result: the latent parameter of all four correlates cleanly with the magnetization, i.e. the learned latent variable IS the known order parameter; PCA is the most accurate, the VAE close behind, the plain autoencoder inaccurate (which is his stated motivation for the variational version). Separately he shows the mean-squared-error reconstruction loss, averaged at fixed temperature, changes character at T_c and proposes it as a 'universal identifier for phase transitions' requiring no order parameter. The latent representations cluster, allowing phases to be identified without prior knowledge of their existence or of the Hamiltonian.",
+   "people": "Sebastian Johann Wetzel",
+   "affiliation": "Institut fuer Theoretische Physik, Universitaet Heidelberg",
+   "year": "2017 (arXiv v1 7 March 2017; published 18 August 2017)",
+   "venue": "Phys. Rev. E 96, 022140 (2017)",
+   "url": "https://doi.org/10.1103/PhysRevE.96.022140",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE SHARPEST PUBLISHED ANSWER TO 'MAGNETIZATION OR ENERGY?'. Wetzel and Scherzer build a 'correlation probing neural network': a fully convolutional localization subnetwork whose output neurons have a FIXED receptive field, an averaging layer that destroys all spatial information, and a fully connected prediction subnetwork. Restricting the receptive field restricts which spin correlations the decision function can possibly contain. Trained on 2D Ising configurations sampled below T = 1.6 and above T = 2.9 (L = 28): (i) at receptive field 1x1 the decision function is provably D(S) = F((1/N) sum_i sigma_i), since sigma_i^2 = 1 kills all higher Taylor terms; its latent prediction xi is PERFECTLY correlated with |m| and NOT correlated with the average product of neighbouring spins, and its P = 0.5 crossing gives only T = 2.5 +/- 0.5. (ii) At receptive field 1x2 the latent prediction is perfectly correlated with the average nearest-neighbour product - the expected energy per site - and NOT with the norm of the average spin; crossing gives T = 2.25 +/- 0.25, and the loss drops sharply relative to 1x1. (iii) Enlarging the receptive field from 1x2 all the way to the full 28x28 (equivalent to an unrestricted CNN) produces NO further drop in training or validation loss. Conclusion stated in the abstract: 'the neural network predicts the phase by the magnetization and the expected energy per spin' - and nothing beyond nearest-neighbour correlations is used. The same pipeline applied to SU(2) lattice gauge theory reconstructs the Polyakov loop as the decision function.",
+   "people": "Sebastian Johann Wetzel; Manuel Scherzer",
+   "affiliation": "Institut fuer Theoretische Physik, Universitaet Heidelberg",
+   "year": "2017 (arXiv v1 16 May 2017; published 8 November 2017)",
+   "venue": "Phys. Rev. B 96, 184410 (2017)",
+   "url": "https://doi.org/10.1103/PhysRevB.96.184410",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE MAGNETIZATION STORY DEPENDS ON THE MONTE CARLO UPDATE. Suchsland and Wessel note that the Carrasquilla-Melko low-temperature training set was generated with the Wolff cluster algorithm, which yields strongly polarized low-T configurations containing NO extended domain walls (EDW) - and that this is what makes the 'network learns the magnetization' picture hold. Once a significant fraction of EDW configurations is included in the low-T set (as happens naturally with local spin updates), a fully connected network's hidden-layer activations show 'no clear overall relation' to the magnetization except at large |m|, and instead exhibit 'traces of a linear relation between the activations and the configurational energy'; the network 'performs the classification task based on a combined representation of the energy and the magnetization'. They further show a shallow CNN with N_k = 8 fixed 2x2 ReLU filters (a layout modelled on Carrasquilla-Melko) handles EDW configurations efficiently precisely because its filters can pick up local contributions to BOTH the magnetization and the local configurational energy. They also combine learning-by-confusion with a simple threshold-value classifier as a diagnostic for what a network has learned, and contrast bare-spin against vortex-preprocessed inputs for the 2D XY model.",
+   "people": "Philippe Suchsland; Stefan Wessel",
+   "affiliation": "Institut fuer Theoretische Festkoerperphysik, JARA-FIT and JARA-HPC, RWTH Aachen University",
+   "year": "2018 (arXiv v1 27 February 2018; published 31 May 2018)",
+   "venue": "Phys. Rev. B 97, 174435 (2018)",
+   "url": "https://doi.org/10.1103/PhysRevB.97.174435",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "MAGNETIZATION IN FULLY CONNECTED LAYERS, INTERNAL ENERGY IN CONVOLUTIONAL ONES. Kashiwa, Kikuchi and Tomiya train networks on 2D Ising and Potts configurations labelled by TEMPERATURE (20 target couplings K = 0.05, 0.10, ..., 1.0 at L = 16), never telling the network which phase a configuration is in, and then dissect the trained weights. For a fully connected network (hidden layer reduced from 80 to 5 and then 3 units) the first-layer outputs x_a = w_ai sigma_i + b_a are cleanly correlated with the magnetization per site of the input configuration, and the second-layer weights change structure at the exact critical coupling K_c = 0.4407. For a convolutional network (filters of size 2,2,4 with 64, 32, 3 channels, giving N_h = 3 hidden units) the picture flips: 'We clearly see the transition in what the neural network has learned. The first-layer outputs are now proportional to the internal energy rather than the magnetization of input configurations.' Their explanation: the internal energy varies far more strongly with temperature than |m| away from T_c, so a network optimizing temperature prediction prefers it - which is also why the CNN attains roughly twice the temperature-prediction accuracy of the fully connected net.",
+   "people": "Kouji Kashiwa; Yuta Kikuchi; Akio Tomiya",
+   "affiliation": "Fukuoka Institute of Technology (Kashiwa); RIKEN BNL Research Center, Brookhaven National Laboratory (Kikuchi, Tomiya)",
+   "year": "2019 (arXiv v1 4 December 2018; published August 2019)",
+   "venue": "Prog. Theor. Exp. Phys. 2019, 083A04",
+   "url": "https://doi.org/10.1093/ptep/ptz082",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE SMALLEST NETWORK, AND THE EXPLICIT ONE-HALF DEFINITION. Kim and Kim reduce the hidden layer to TWO neurons with weights fixed by Z_2 symmetry so that the hidden arguments are +/-(y - mu) with y = (1/N) sum_i s_i, and the output is q = [1 + tanh(Lambda z)]/2 with only two trainable parameters Lambda and mu. They define the pseudotransition temperature explicitly by <q>_{T*} = 1/2, the averaged output crossing one half. Solving the training problem analytically they find that the learned parameters encode the SCALING DIMENSION of the order parameter: Lambda_L ~ L^{2 Delta_sigma} and mu_L - ln3 ~ L^{-2 Delta_sigma} with Delta_sigma = beta/nu. Numerically, extrapolating T*_L for the square lattice gives T*_infinity = 2.267(1) with nu = 0.94(2) - matching the 100-unit network's 2.266(2) with nu = 1.0(2); the same square-lattice-trained network gives T_c ~ 3.637 on the triangular lattice (vs 3.65(1) from the 100-unit net) and a clean collapse at the exact 4/ln3 with nu = 1. This is the mechanism behind the transferability across lattices: same universality class, same scaling dimension. Applied instead to the 3D Ising model, the 2D-trained network's output curves develop NO crossing at all and converge to a wrong T*_infinity ~ 4.4695; using the correct 3D Delta_sigma = 0.51815 and nu = 0.63 recovers T_c = 4.51152(1).",
+   "people": "Dongkyu Kim; Dong-Hee Kim",
+   "affiliation": "Department of Physics and Photon Science, Gwangju Institute of Science and Technology (GIST), Gwangju, Korea",
+   "year": "2018 (arXiv v1 6 April 2018; published 31 August 2018)",
+   "venue": "Phys. Rev. E 98, 022138 (2018)",
+   "url": "https://doi.org/10.1103/PhysRevE.98.022138",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE ONE-HALF CRITERION STATED IN WORDS, AND FITTING PROCEDURE. The companion paper to Carrasquilla-Melko, by the same group plus Ch'ng and Khatami, is the place where the criterion is written out plainly: 'The predicted critical temperatures ... are taken as temperatures at which the network is maximally confused, i.e., when the average output crosses 0.5', and 'the network is maximally confused (average is 0.5) at the transition temperatures'. Practical detail worth quoting in a book: because the averaged output is noisy, they fit a third-degree polynomial to the data near the 0.5 crossing to locate it. The physical setting is a three-dimensional convolutional network trained on determinantal-quantum-Monte-Carlo auxiliary-field configurations of the 3D Hubbard model (spatial 4^3 or 8^3 sites, 200 imaginary-time slices, 32/16/8 feature maps, dropout 0.5, softmax readout), which reproduces the Neel phase boundary at half filling and is then TRANSFER-LEARNED into the sign-problematic doped region, predicting magnetic order out to at least 5% doping.",
+   "people": "Kelvin Ch'ng; Juan Carrasquilla; Roger G. Melko; Ehsan Khatami",
+   "affiliation": "San Jose State University (Ch'ng, Khatami); Perimeter Institute and University of Waterloo (Carrasquilla, Melko)",
+   "year": "2017 (arXiv v1 8 September 2016; published 30 August 2017)",
+   "venue": "Phys. Rev. X 7, 031038 (2017)",
+   "url": "https://doi.org/10.1103/PhysRevX.7.031038",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "INTERPRETABLE KERNEL METHODS - THE DECISION FUNCTION IS m^2, AND THE GAUGE THEORY NEEDS DEGREE FOUR. Ponte and Melko replace neural networks with support vector machines using polynomial kernels K(sigma,sigma') = (sigma . sigma' + c_0)^k, so the decision function can be written down explicitly. For the 2D Ising model at T from 1.6 to 2.9: the linear kernel k = 1 fails outright (a linear boundary cannot separate three clusters, and its learned coefficients are structureless random numbers), while the quadratic kernel k = 2 reaches about 97% mean test accuracy at L = 40 with only a few dozen training samples, and its decision function d(sigma), plotted against temperature, coincides with the squared magnetization per spin m^2 = (sum_a sigma_a / N)^2 after fixing an overall scale and offset. For the conserved-order-parameter Ising model the quadratic SVM's coefficient map reproduces Wang's analytic structure factor. For the 2D Ising gauge theory at T = 0 versus T = infinity: EVERY polynomial kernel of degree less than 4 gives about 50% accuracy - pure guessing - while degree 4 converges to 100%, showing the classifier must literally reconstruct the four-spin plaquette term of the Hamiltonian to evaluate whether the local constraints are satisfied. Larger L needs more training samples to find that decision function.",
+   "people": "Pedro Ponte; Roger G. Melko",
+   "affiliation": "Department of Physics and Astronomy, University of Waterloo, and Perimeter Institute for Theoretical Physics",
+   "year": "2017 (arXiv v1 19 April 2017; published 27 November 2017)",
+   "venue": "Phys. Rev. B 96, 205146 (2017)",
+   "url": "https://doi.org/10.1103/PhysRevB.96.205146",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE KOSTERLITZ-THOULESS CASE: THE NETWORK CHEATS WITH THE MAGNETIZATION. Beach, Golubeva and Melko ask whether a network can classify phases from TOPOLOGICAL DEFECTS rather than a bulk order parameter, using the 2D classical XY model. Findings: a single-layer network does NOT correctly classify the phases of the XY model; a convolutional network classifies easily, but it does so 'by learning the global magnetization' - a finite-size pseudo-order-parameter, not the vortices; 'significant feature engineering of the raw spin states is required to convincingly claim that features of the vortex configurations are responsible for learning the transition temperature'. They then design a deep network that can learn vortices without feature engineering, and find that detecting vortices does not necessarily give the best classification accuracy, especially for lattices below roughly 1000 spins. This is the sharpest single demonstration that high classification accuracy is not evidence that the network has found the physically correct mechanism.",
+   "people": "Matthew J. S. Beach; Anna Golubeva; Roger G. Melko",
+   "affiliation": "Department of Physics and Astronomy, University of Waterloo; Perimeter Institute for Theoretical Physics (Melko)",
+   "year": "2018 (arXiv v1 26 October 2017; published 25 January 2018)",
+   "venue": "Phys. Rev. B 97, 045207 (2018)",
+   "url": "https://doi.org/10.1103/PhysRevB.97.045207",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE ONE-HALF CROSSING IS NOT A RELIABLE ESTIMATOR IN GENERAL. Chertenkov, Burovski and Shchur redo the supervised classification for two models in two universality classes - the 2D Ising model and the 2D Baxter-Wu model - across six architectures: a fully connected network, a CNN, and ResNet-10/18/34/50. They confirm the Carrasquilla-Melko phenomenology (output near 1 at low T, near 0 at high T, transition region narrowing with L) but find that the equal-prediction point F^T = 1/2 is systematically shifted into the paramagnetic phase for the fully connected network at all lattice sizes for both models, and shifted non-systematically for the ResNets (for ResNet-50 on the Ising model, L = 96, 144, 216 shift one way and L = 48, 72 the other). Their explicit conclusion: 'F^T = 1/2 is not a reliable finite-size estimate of the critical temperature T_c, in general'; it happens to work for a CNN on Ising data, which is the Carrasquilla-Melko case. They propose instead the VARIANCE of the network output function, whose peak sits in the critical region and whose peak WIDTH obeys finite-size scaling governed by nu, and extract T_c to within one standard error using a Ferdinand-Fisher fit (e.g. FCNN 2.2691(4), CNN 2.2687(4) for Ising).",
+   "people": "Vladislav Chertenkov; Evgeni Burovski; Lev Shchur",
+   "affiliation": "Landau Institute for Theoretical Physics, Chernogolovka; HSE University, Moscow",
+   "year": "2023 (arXiv v1 5 May 2023; published 19 September 2023)",
+   "venue": "Phys. Rev. E 108, L032102 (2023)",
+   "url": "https://doi.org/10.1103/PhysRevE.108.L032102",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "WHAT THESE NETWORKS CONVERGE TO, ANALYTICALLY. Arnold and Schaefer derive closed-form expressions for the OPTIMAL output of three widely used neural-network methods for detecting phase transitions - including the Carrasquilla-Melko supervised scheme and the van Nieuwenburg learning-by-confusion scheme - in the limit of infinite model capacity, i.e. what a sufficiently large, well-trained network is approximating. The optimal predictions depend explicitly on the underlying data distributions, which is what reveals 'the inner workings of the considered methods'. Practically, evaluating the analytic expressions locates phase transitions directly from experimentally accessible data with no network training at all, and is faster. Validated numerically on topological, quantum, and many-body-localization transitions. This is the paper to cite when a book wants to say what the classifier is 'really' computing rather than what it happens to have learned.",
+   "people": "Julian Arnold; Frank Schaefer",
+   "affiliation": "Department of Physics, University of Basel; CSAIL and Department of Mathematics, MIT (Schaefer)",
+   "year": "2022 (arXiv v1 14 February 2022; published 28 September 2022)",
+   "venue": "Phys. Rev. X 12, 031044 (2022)",
+   "url": "https://doi.org/10.1103/PhysRevX.12.031044",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE OTHER CONTEMPORANEOUS CNN PAPER, OFTEN OMITTED. Tanaka and Tomiya trained a CNN on 2D Ising configurations labelled by DISCRETIZED INVERSE TEMPERATURE (not by phase), showed it finds the feature of the phase transition with no a priori information about it, defined a new order parameter constructed from the CNN itself that yields a well-approximated critical inverse temperature consistent with the exact value, and found empirically that the ReLU activation in the convolution layer is important for detecting the transition. This is the paper Kashiwa, Kikuchi and Tomiya later dissect; it establishes the temperature-regression variant of the protocol alongside the Carrasquilla-Melko phase-classification variant.",
+   "people": "Akinori Tanaka; Akio Tomiya",
+   "affiliation": "RIKEN (Tanaka); Central China Normal University / RIKEN BNL (Tomiya)",
+   "year": "2017 (arXiv v1 28 September 2016; published 15 June 2017)",
+   "venue": "J. Phys. Soc. Jpn. 86, 063001 (2017)",
+   "url": "https://doi.org/10.7566/JPSJ.86.063001",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
+  },
+  {
+   "claim": "THE PROTOCOL RUN ON REAL EXPERIMENTAL DATA. Rem, Kaeming, Tarnowski, Asteria, Flaeschner, Becker, Sengstock and Weitenberg applied artificial neural networks to single-shot momentum-space density images from ultracold-atom experiments rather than to Monte Carlo configurations, mapping out the two-dimensional topological phase diagram of the Haldane model and characterizing the superfluid-to-Mott-insulator transition in an inhomogeneous Bose-Hubbard system. Useful as the endpoint of the chapter's arc: the same supervised-classification idea, with experimental images as the raw configurations.",
+   "people": "Benno S. Rem; Niklas Kaeming; Matthias Tarnowski; Luca Asteria; Nick Flaeschner; Christoph Becker; Klaus Sengstock; Christof Weitenberg",
+   "affiliation": "Institut fuer Laserphysik / Institute for Quantum Physics, Universitaet Hamburg",
+   "year": "2019 (arXiv:1809.05519, 2018; published September 2019)",
+   "venue": "Nature Physics 15, 917-920 (2019)",
+   "url": "https://doi.org/10.1038/s41567-019-0554-0",
+   "confidence": "verified",
+   "_domain": "ising-ml-bridge"
   }
  ],
  "corrections": [
