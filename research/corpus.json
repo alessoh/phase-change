@@ -4479,6 +4479,15 @@
     "venue": "Physics of Plasmas 27(2), 022501",
     "url": "https://doi.org/10.1063/1.5125581",
     "confidence": "verified"
+   },
+   {
+    "claim": "Ker-Chung Shaing and E. C. Crume Jr. published the first explicit bifurcation model of the L-H transition, showing that the poloidal momentum balance equation admits bifurcated solutions so that the poloidal flow and the radial electric field jump discontinuously, with turbulent fluctuations suppressed as a consequence. Verified against the Crossref record, which gives the title as \"Bifurcation theory of poloidal rotation in tokamaks: A model for L-H transition\" and lists only Shaing and Crume as authors; W. A. Houlberg joins for the 1990 Physics of Fluids B paper, not this one.",
+    "people": "K. C. Shaing, E. C. Crume Jr.",
+    "affiliation": "Oak Ridge National Laboratory",
+    "year": "1989",
+    "venue": "Physical Review Letters 63(21), 2369-2372",
+    "url": "https://doi.org/10.1103/PhysRevLett.63.2369",
+    "confidence": "verified"
    }
   ],
   "openQuestions": [
@@ -4625,6 +4634,11 @@
     "claim": "Summary prose — 'a state change theorized as a thermal-confinement bifurcation (Shaing 1990, Hinton 1991)'.",
     "status": "CORRECTED",
     "correction": "The label 'thermal-confinement bifurcation' belongs to Hinton 1991 only; Shaing, Crume and Houlberg's model is a bifurcation of poloidal rotation and the radial electric field, not of the heat-transport equation, and its priority date is 1989. Accurate replacement text: \"...a state change theorized first as a bifurcation of poloidal rotation and the radial electric field (Shaing and Crume 1989; Shaing, Crume and Houlberg 1990) and then as a thermal-confinement bifurcation (Hinton 1991)...\" Correct URLs: https://doi.org/10.1103/PhysRevLett.63.2369, https://doi.org/10.1063/1.859473, https://doi.org/10.1063/1.859866"
+   },
+   {
+    "claim": "Ker-Chung Shaing and E. C. Crume Jr. published the first explicit bifurcation model of the L-H transition, showing that ",
+    "status": "CONFIRMED",
+    "correction": "Verified directly against api.crossref.org/works/10.1103/PhysRevLett.63.2369"
    }
   ]
  },

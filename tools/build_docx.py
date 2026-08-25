@@ -286,11 +286,33 @@ def add_rich_paragraph(doc, text, mathconv, style=None):
 # markdown parsing
 # --------------------------------------------------------------------------
 
-def strip_inline_markdown(text):
+MATH_SPAN_RE = re.compile(r"\$\$.+?\$\$|\$[^$]+?\$")
+
+
+def _strip_emphasis(text):
+    """Strip markdown emphasis and link syntax from ordinary prose."""
     text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
     text = re.sub(r"(?<!\w)\*(?!\s)(.+?)(?<!\s)\*(?!\w)", r"\1", text)
     text = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1 \2", text)
     return text
+
+
+def strip_inline_markdown(text):
+    """Strip emphasis from prose while leaving math spans untouched.
+
+    The italic pattern would otherwise eat the asterisks in expressions such as
+    the renormalization-group fixed point condition, silently corrupting the
+    LaTeX so the equation fails to convert to OMML. Math spans are skipped
+    rather than substituted through.
+    """
+    parts = []
+    last = 0
+    for match in MATH_SPAN_RE.finditer(text):
+        parts.append(_strip_emphasis(text[last:match.start()]))
+        parts.append(match.group(0))
+        last = match.end()
+    parts.append(_strip_emphasis(text[last:]))
+    return "".join(parts)
 
 
 def parse_chapter(path):
@@ -406,6 +428,42 @@ def sort_key(entry):
     return entry.lower()
 
 
+def add_glossary(doc, path, mathconv):
+    """Render the glossary with bold headwords and its section headings intact.
+
+    The generic paragraph path strips ** markers without applying bold, which
+    would leave every headword visually identical to its definition, and it
+    skips lines beginning with #, which would silently drop the section
+    headings. Both matter for a reference section a reader scans rather than
+    reads, so the glossary gets its own renderer.
+    """
+    doc.add_page_break()
+    doc.add_heading("Glossary", level=1)
+    with io.open(path, encoding="utf-8") as fh:
+        lines = fh.read().splitlines()
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("# "):
+            continue
+        if line.startswith("## "):
+            add_section_heading(doc, line[3:].strip())
+            continue
+        match = re.match(r"\*\*(.+?)\*\*\s*(.*)$", line)
+        if match:
+            para = doc.add_paragraph()
+            para.paragraph_format.first_line_indent = Inches(0)
+            para.paragraph_format.space_before = Pt(8)
+            _disable_contextual_spacing(para)
+            head = para.add_run(match.group(1))
+            head.bold = True
+            rest = strip_inline_markdown(match.group(2))
+            if rest:
+                add_text_run(para, " " + rest)
+            continue
+        para = add_rich_paragraph(doc, strip_inline_markdown(line), mathconv)
+        para.paragraph_format.first_line_indent = Inches(0)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--chapters", nargs="*", type=int)
@@ -452,15 +510,7 @@ def main():
 
     glossary = os.path.join(BOOK, "97-GLOSSARY.md")
     if os.path.exists(glossary):
-        doc.add_page_break()
-        doc.add_heading("Glossary", level=1)
-        with io.open(glossary, encoding="utf-8") as fh:
-            for line in fh:
-                line = line.strip()
-                if not line or line.startswith("#"):
-                    continue
-                para = add_rich_paragraph(doc, strip_inline_markdown(line), mathconv)
-                para.paragraph_format.first_line_indent = Inches(0)
+        add_glossary(doc, glossary, mathconv)
 
     out = os.path.join(OUTDIR, "The-Discontinuous-World.docx")
     doc.save(out)
