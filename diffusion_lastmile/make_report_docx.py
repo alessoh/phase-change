@@ -20,7 +20,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt
 
-from evaluate import RES
+from evaluate import RES, ZONE_DECODERS, ZONE_LAMS, ZONE_ORDER_LAMS
 
 FIG = os.path.join(RES, "figures")
 
@@ -399,8 +399,11 @@ def main():
     para(doc,
          "Every setting was chosen on the 60 validation routes and then frozen; nothing was tuned on either test set. The "
          "three zone-order methods (zone diffusion, the one-shot zone model and the history control) each received the same "
-         f"grid of {gs.get('hier', 12)} settings, three zone decoders times four order-penalty weights, and the zone-change "
-         f"heuristic received {gs.get('zone', 12)} penalty weights spanning 1/16 to 128. The chosen penalty lies at the "
+         f"grid of {gs.get('hier')} settings, {len(ZONE_DECODERS)} zone decoders times {len(ZONE_ORDER_LAMS)} order-penalty "
+         f"weights from {ZONE_ORDER_LAMS[0]:g} to {ZONE_ORDER_LAMS[-1]:g} times the median travel time, and the zone-change "
+         f"heuristic received {gs.get('zone')} penalty weights spanning 1/16 to {ZONE_LAMS[-1]:g}. A first pass with 12 "
+         "settings each put two optima on the upper edge, so every grid was widened by three settings. The chosen penalty "
+         "lies at the "
          f"{bnd.get('zone', 'n/a')} end of its grid for the zone heuristic, at the {bnd.get('zonehist', 'n/a')} end for the history "
          f"control, at the {bnd.get('hier_sup', 'n/a')} end for the one-shot zone model and at the {bnd.get('hier', 'n/a')} end "
          "for zone diffusion (\"interior\" means not on a boundary). Learned-model settings were tuned with the seed-0 models "

@@ -1,0 +1,1 @@
+{"hier": 10, "zone": 4, "zonehist": 6, "softdist": 6, "diffusion_sampling": 4} {'hier': 'hier_val_lim5_lam4_ml_s10x16', 'zone': 'zone_val_lim5_lam0.5', 'zonehist': 'zonehist_val_lim5_lam4_greedy'}

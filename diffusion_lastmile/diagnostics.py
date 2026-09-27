@@ -102,6 +102,52 @@ def zone_successor_accuracy(zex, h) -> tuple[int, int]:
     return hits, len(zex["zone_names"])
 
 
+def penalty_saturation(val, zval, tuning) -> dict:
+    """For each zone-order method, the mean number of arcs per route that leave the method's zone
+    order in the cached validation solutions, for every order-penalty weight in the tuning grid
+    (decoder fixed to the chosen one). Equal counts at the largest weights mean the penalty has
+    saturated, so differences between those settings are OR-Tools search noise."""
+    from evaluate import CACHE, ZONE_ORDER_LAMS, decode_zone_order
+    from zone_level import zone_order_penalty_matrix
+
+    out = {}
+    L = load_learned(0)
+    for method in ["zonehist", "hier_sup", "hier"]:
+        dec = tuning.get(f"{method}_decode")
+        if dec is None:
+            continue
+        if method == "zonehist":
+            hm = {ex["route_id"]: history_heatmap(zval[ex["route_id"]]) for ex in val}
+            suffix = ""
+        else:
+            kind = "zone_diffusion" if method == "hier" else "zone_supervised"
+            if kind not in L:
+                continue
+            m, p = L[kind][:2]
+            hm = {ex["route_id"]: heatmap(m, p, zval[ex["route_id"]], HIER_STEPS, HIER_SAMPLES, i) for i, ex in enumerate(val)}
+            suffix = f"_s{HIER_STEPS}x{HIER_SAMPLES}_seed0"
+        orders = {rid: decode_zone_order(zval[rid], h, dec) for rid, h in hm.items()}
+        res = {}
+        for lam in ZONE_ORDER_LAMS:
+            p = os.path.join(CACHE, f"{method}_val_lim{tuning['ortools_limit']:g}_lam{lam:g}_{dec}{suffix}.json")
+            if not os.path.exists(p):
+                continue
+            cache = json.load(open(p))
+            v = []
+            for ex in val:
+                T = ex["T"].astype(np.float64)
+                viol = (zone_order_penalty_matrix(T, ex["zones"], orders[ex["route_id"]], 1.0) - T) > 0
+                sq = np.asarray(cache[ex["route_id"]]["seq"])
+                v.append(int(viol[sq, np.roll(sq, -1)].sum()))
+            res[f"{lam:g}"] = {"mean_violating_arcs_per_route": float(np.mean(v)),
+                               "routes_without_violation": float(np.mean(np.array(v) == 0)),
+                               "val_amazon_score": tuning[method][f"lam{lam:g}_{dec}"]["amazon_score"]}
+        out[method] = {"decode": dec, "by_lam": res}
+        print(f"[diag] penalty saturation {method} ({dec}): " + ", ".join(
+            f"lam {k}: {d['mean_violating_arcs_per_route']:.2f} arcs, score {d['val_amazon_score']:.4f}" for k, d in res.items()))
+    return out
+
+
 def main():
     torch.set_num_threads(4)
     tuning = json.load(open(os.path.join(RES, "tuning.json")))
@@ -153,6 +199,7 @@ def main():
             m, p = L["zone_supervised"][:2]
             zone_acc(f"zone_supervised_seed{seed}", lambda k, z: heatmap(m, p, z, 1, 1, k))
     out["zone_successor"] = zacc
+    out["penalty_saturation"] = penalty_saturation(val, zval, tuning)
     out["zone_structure"] = {"val": zone_structure(val), "test": zone_structure(data.load_split("test"))}
     for s, d in out["zone_structure"].items():
         print(f"[diag] {s}: same-zone moves {d['same_zone_move_share'] * 100:.1f}%, contiguous zones "
@@ -182,6 +229,12 @@ def main():
         f"{zv['contiguous_zone_share'] * 100:.1f}% of zones are served in one contiguous block "
         f"({zt['contiguous_zone_share'] * 100:.1f}% on test).",
     ]
+    for method, d in out["penalty_saturation"].items():
+        br = d["by_lam"]
+        out["summary_lines"] += ["", f"Order-penalty saturation for {method} ({d['decode']} decoder, validation): mean arcs per "
+                                 "route that leave the zone order, by penalty weight: " + ", ".join(
+                                     f"{k}: {v['mean_violating_arcs_per_route']:.2f} (score {v['val_amazon_score']:.4f})"
+                                     for k, v in br.items()) + "."]
     with open(os.path.join(RES, "diagnostics.json"), "w") as f:
         json.dump(out, f, indent=1)
     print("\n".join(out["summary_lines"]))

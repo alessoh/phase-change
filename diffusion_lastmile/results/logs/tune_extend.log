@@ -1,0 +1,110 @@
+[tune] zone lam=0.0625: {'lam': 0.0625, 'amazon_score': 0.08036301068109124, 'travel_time_s': 10922.016748046875}
+[tune] zone lam=0.125: {'lam': 0.125, 'amazon_score': 0.06656660455995866, 'travel_time_s': 11006.811645507812}
+[tune] zone lam=0.25: {'lam': 0.25, 'amazon_score': 0.059389276162908004, 'travel_time_s': 11134.618286132812}
+[tune] zone lam=0.5: {'lam': 0.5, 'amazon_score': 0.054121644778144344, 'travel_time_s': 11262.848266601562}
+[tune] zone lam=1: {'lam': 1.0, 'amazon_score': 0.05500588140534865, 'travel_time_s': 11330.315055338542}
+[tune] zone lam=2: {'lam': 2.0, 'amazon_score': 0.05717808993760855, 'travel_time_s': 11322.403344726563}
+[tune] zone lam=4: {'lam': 4.0, 'amazon_score': 0.05359176760119381, 'travel_time_s': 11310.68173014323}
+[tune] zone lam=8: {'lam': 8.0, 'amazon_score': 0.058292999782753624, 'travel_time_s': 11341.346704101563}
+[tune] zone lam=16: {'lam': 16.0, 'amazon_score': 0.05510081574498456, 'travel_time_s': 11310.978393554688}
+[tune] zone lam=32: {'lam': 32.0, 'amazon_score': 0.055203643487960925, 'travel_time_s': 11324.294954427083}
+[tune] zone lam=64: {'lam': 64.0, 'amazon_score': 0.05497903273619165, 'travel_time_s': 11299.699983723958}
+[tune] zone lam=128: {'lam': 128.0, 'amazon_score': 0.05468897409853722, 'travel_time_s': 11296.843286132813}
+[ortools] zone_val_lim5_lam256: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zone lam=256: {'lam': 256.0, 'amazon_score': 0.05481794961397266, 'travel_time_s': 11293.493310546875}
+[ortools] zone_val_lim5_lam512: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zone lam=512: {'lam': 512.0, 'amazon_score': 0.05486155463688753, 'travel_time_s': 11298.236637369791}
+[ortools] zone_val_lim5_lam1024: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zone lam=1024: {'lam': 1024.0, 'amazon_score': 0.05491001487184037, 'travel_time_s': 11300.114957682292}
+[tune] zonehist lam1_greedy: {'lam': 1.0, 'decode': 'greedy', 'zone_order_tau': 0.4954240780938473, 'amazon_score': 0.047300737196218086, 'travel_time_s': 11745.010123697917}
+[tune] zonehist lam4_greedy: {'lam': 4.0, 'decode': 'greedy', 'zone_order_tau': 0.4954240780938473, 'amazon_score': 0.04502046817728632, 'travel_time_s': 11775.091658528645}
+[tune] zonehist lam16_greedy: {'lam': 16.0, 'decode': 'greedy', 'zone_order_tau': 0.4954240780938473, 'amazon_score': 0.04577816950763828, 'travel_time_s': 11774.08173828125}
+[tune] zonehist lam64_greedy: {'lam': 64.0, 'decode': 'greedy', 'zone_order_tau': 0.4954240780938473, 'amazon_score': 0.0462064162750481, 'travel_time_s': 11794.26337890625}
+[ortools] zonehist_val_lim5_lam256_greedy: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zonehist lam256_greedy: {'lam': 256.0, 'decode': 'greedy', 'zone_order_tau': 0.4954240780938473, 'amazon_score': 0.04615432051643176, 'travel_time_s': 11794.101708984375}
+[tune] zonehist lam1_ml: {'lam': 1.0, 'decode': 'ml', 'zone_order_tau': 0.3212507663663341, 'amazon_score': 0.059897691632730385, 'travel_time_s': 12144.22176920573}
+[tune] zonehist lam4_ml: {'lam': 4.0, 'decode': 'ml', 'zone_order_tau': 0.3212507663663341, 'amazon_score': 0.06137365524687085, 'travel_time_s': 12337.615006510418}
+[tune] zonehist lam16_ml: {'lam': 16.0, 'decode': 'ml', 'zone_order_tau': 0.3212507663663341, 'amazon_score': 0.060886890291741706, 'travel_time_s': 12323.181713867187}
+[tune] zonehist lam64_ml: {'lam': 64.0, 'decode': 'ml', 'zone_order_tau': 0.3212507663663341, 'amazon_score': 0.06146199422820158, 'travel_time_s': 12327.276676432291}
+[ortools] zonehist_val_lim5_lam256_ml: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zonehist lam256_ml: {'lam': 256.0, 'decode': 'ml', 'zone_order_tau': 0.3212507663663341, 'amazon_score': 0.061408654214163555, 'travel_time_s': 12325.455021158854}
+[tune] zonehist lam1_greedy2opt: {'lam': 1.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.06025439310741114, 'amazon_score': 0.05202748451085611, 'travel_time_s': 11497.539835611979}
+[tune] zonehist lam4_greedy2opt: {'lam': 4.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.06025439310741114, 'amazon_score': 0.05047175058709249, 'travel_time_s': 11467.413151041666}
+[tune] zonehist lam16_greedy2opt: {'lam': 16.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.06025439310741114, 'amazon_score': 0.05022333930151347, 'travel_time_s': 11450.794881184896}
+[tune] zonehist lam64_greedy2opt: {'lam': 64.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.06025439310741114, 'amazon_score': 0.050487752904930336, 'travel_time_s': 11470.559993489584}
+[ortools] zonehist_val_lim5_lam256_greedy2opt: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] zonehist lam256_greedy2opt: {'lam': 256.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.06025439310741114, 'amazon_score': 0.05040418129811189, 'travel_time_s': 11471.196630859375}
+[tune] hier lam1_greedy: {'lam': 1.0, 'decode': 'greedy', 'zone_order_tau': 0.5285316072440613, 'amazon_score': 0.04731801090185133, 'travel_time_s': 11785.530004882812}
+[tune] hier lam4_greedy: {'lam': 4.0, 'decode': 'greedy', 'zone_order_tau': 0.5285316072440613, 'amazon_score': 0.046229327065995994, 'travel_time_s': 11829.853198242188}
+[tune] hier lam16_greedy: {'lam': 16.0, 'decode': 'greedy', 'zone_order_tau': 0.5285316072440613, 'amazon_score': 0.046620743527797916, 'travel_time_s': 11840.20498046875}
+[tune] hier lam64_greedy: {'lam': 64.0, 'decode': 'greedy', 'zone_order_tau': 0.5285316072440613, 'amazon_score': 0.04710495906480916, 'travel_time_s': 11863.166625976562}
+[ortools] hier_val_lim5_lam256_greedy_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier lam256_greedy: {'lam': 256.0, 'decode': 'greedy', 'zone_order_tau': 0.5285316072440613, 'amazon_score': 0.047058520491172824, 'travel_time_s': 11863.259969075521}
+[tune] hier lam1_ml: {'lam': 1.0, 'decode': 'ml', 'zone_order_tau': 0.5552951582711203, 'amazon_score': 0.045716446863178765, 'travel_time_s': 11748.500056966146}
+[tune] hier lam4_ml: {'lam': 4.0, 'decode': 'ml', 'zone_order_tau': 0.5552951582711203, 'amazon_score': 0.04408059071590532, 'travel_time_s': 11748.764900716145}
+[tune] hier lam16_ml: {'lam': 16.0, 'decode': 'ml', 'zone_order_tau': 0.5552951582711203, 'amazon_score': 0.04349412764866293, 'travel_time_s': 11757.089990234375}
+[tune] hier lam64_ml: {'lam': 64.0, 'decode': 'ml', 'zone_order_tau': 0.5552951582711203, 'amazon_score': 0.04346355964340562, 'travel_time_s': 11767.944995117188}
+[ortools] hier_val_lim5_lam256_ml_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier lam256_ml: {'lam': 256.0, 'decode': 'ml', 'zone_order_tau': 0.5552951582711203, 'amazon_score': 0.043356800262584184, 'travel_time_s': 11760.028361002604}
+[tune] hier lam1_greedy2opt: {'lam': 1.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.10458071154151528, 'amazon_score': 0.05103510085927224, 'travel_time_s': 11494.573258463543}
+[tune] hier lam4_greedy2opt: {'lam': 4.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.10458071154151528, 'amazon_score': 0.05035523646923253, 'travel_time_s': 11483.778206380208}
+[tune] hier lam16_greedy2opt: {'lam': 16.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.10458071154151528, 'amazon_score': 0.04969600866260857, 'travel_time_s': 11450.036637369793}
+[tune] hier lam64_greedy2opt: {'lam': 64.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.10458071154151528, 'amazon_score': 0.05033989525103174, 'travel_time_s': 11455.709985351563}
+[ortools] hier_val_lim5_lam256_greedy2opt_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier lam256_greedy2opt: {'lam': 256.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.10458071154151528, 'amazon_score': 0.05035461558574728, 'travel_time_s': 11458.788338216145}
+[tune] hier_sup lam1_greedy: {'lam': 1.0, 'decode': 'greedy', 'zone_order_tau': 0.6120071163153448, 'amazon_score': 0.04366590645157096, 'travel_time_s': 11709.575146484374}
+[tune] hier_sup lam4_greedy: {'lam': 4.0, 'decode': 'greedy', 'zone_order_tau': 0.6120071163153448, 'amazon_score': 0.04445429304258914, 'travel_time_s': 11745.069970703125}
+[tune] hier_sup lam16_greedy: {'lam': 16.0, 'decode': 'greedy', 'zone_order_tau': 0.6120071163153448, 'amazon_score': 0.045569868836520706, 'travel_time_s': 11764.216682942708}
+[tune] hier_sup lam64_greedy: {'lam': 64.0, 'decode': 'greedy', 'zone_order_tau': 0.6120071163153448, 'amazon_score': 0.04549659177455163, 'travel_time_s': 11772.578352864582}
+[ortools] hier_sup_val_lim5_lam256_greedy_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier_sup lam256_greedy: {'lam': 256.0, 'decode': 'greedy', 'zone_order_tau': 0.6120071163153448, 'amazon_score': 0.04553833221651914, 'travel_time_s': 11772.648372395834}
+[tune] hier_sup lam1_ml: {'lam': 1.0, 'decode': 'ml', 'zone_order_tau': 0.6858344324061011, 'amazon_score': 0.03415072088791677, 'travel_time_s': 11600.955094401043}
+[tune] hier_sup lam4_ml: {'lam': 4.0, 'decode': 'ml', 'zone_order_tau': 0.6858344324061011, 'amazon_score': 0.033907875641312445, 'travel_time_s': 11602.264908854168}
+[tune] hier_sup lam16_ml: {'lam': 16.0, 'decode': 'ml', 'zone_order_tau': 0.6858344324061011, 'amazon_score': 0.03377634558864822, 'travel_time_s': 11592.480053710937}
+[tune] hier_sup lam64_ml: {'lam': 64.0, 'decode': 'ml', 'zone_order_tau': 0.6858344324061011, 'amazon_score': 0.03360100396099812, 'travel_time_s': 11600.935083007813}
+[ortools] hier_sup_val_lim5_lam256_ml_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier_sup lam256_ml: {'lam': 256.0, 'decode': 'ml', 'zone_order_tau': 0.6858344324061011, 'amazon_score': 0.033805966574344225, 'travel_time_s': 11601.741739908854}
+[tune] hier_sup lam1_greedy2opt: {'lam': 1.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.12042707272169346, 'amazon_score': 0.050999924418752854, 'travel_time_s': 11482.071549479168}
+[tune] hier_sup lam4_greedy2opt: {'lam': 4.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.12042707272169346, 'amazon_score': 0.04984255358061106, 'travel_time_s': 11442.899926757813}
+[tune] hier_sup lam16_greedy2opt: {'lam': 16.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.12042707272169346, 'amazon_score': 0.049509264064999434, 'travel_time_s': 11431.079939778645}
+[tune] hier_sup lam64_greedy2opt: {'lam': 64.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.12042707272169346, 'amazon_score': 0.049548329720318765, 'travel_time_s': 11424.514990234375}
+[ortools] hier_sup_val_lim5_lam256_greedy2opt_s10x16_seed0: 60 routes to solve with 4 workers
+  20/60 (25s)
+  40/60 (50s)
+  60/60 (75s)
+[tune] hier_sup lam256_greedy2opt: {'lam': 256.0, 'decode': 'greedy2opt', 'zone_order_tau': 0.12042707272169346, 'amazon_score': 0.04955531469113412, 'travel_time_s': 11425.40166015625}
+{"split": "val", "n_routes": 60, "ortools_limit": 5.0, "note": "All settings chosen by the mean Amazon score on the validation routes; learned-model settings were tuned with the seed-0 checkpoints and applied unchanged to seeds 1 and 2.", "grid_sizes": {"softdist": 6, "zone": 15, "diffusion_sampling": 4, "sup": 0, "zonehist": 15, "hier": 15, "hier_sup": 15}, "softdist_tau": 0.5, "zone_lam": 4.0, "boundary": {"zone": "interior", "zonehist": "interior", "hier": "upper", "hier_sup": "interior"}, "diff_steps": 10, "diff_samples": 4, "zonehist_lam": 4.0, "zonehist_decode": "greedy", "hier_lam": 256.0, "hier_decode": "ml", "hier_sup_lam": 64.0, "hier_sup_decode": "ml", "hier_steps": 10, "hier_samples": 16}
+TUNE_DONE

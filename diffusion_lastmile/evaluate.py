@@ -76,8 +76,10 @@ GAPS = [("hier", "zonehist"), ("hier", "hier_sup"), ("hier_sup", "zonehist"), ("
         ("diffusion", "sup"), ("diffusion_greedy", "sup_greedy"), ("diffusion", "softdist"), ("sup", "softdist"),
         ("diffusion", "zone")]
 ZONE_DECODERS = ["greedy", "ml", "greedy2opt"]
-ZONE_ORDER_LAMS = [1.0, 4.0, 16.0, 64.0]                       # 3 decoders x 4 = 12 settings per zone-order method
-ZONE_LAMS = [2.0 ** k for k in range(-4, 8)]                   # 1/16 ... 128: 12 settings for M_zone
+# Equal grids of 15 settings. The first pass used lam in {1, 4, 16, 64} (12 settings) and 1/16 ... 128 for
+# M_zone; because two zone-order optima landed on lam = 64, every grid was widened by 3 settings.
+ZONE_ORDER_LAMS = [1.0, 4.0, 16.0, 64.0, 256.0]                # 3 decoders x 5 = 15 settings per zone-order method
+ZONE_LAMS = [2.0 ** k for k in range(-4, 11)]                  # 1/16 ... 1024: 15 settings for M_zone
 HIER_STEPS, HIER_SAMPLES = 10, 16                              # fixed (chosen on val in round 1, see tuning_round1.json)
 
 
@@ -778,11 +780,14 @@ def report(args):
            "Every configuration evaluated in this round is listed in `results/tuning.json`; the full round-1 record, "
            "including the greedy + 2-opt zone-decoder runs that the round-1 file omitted, is in `results/tuning_round1.json`.", "",
            "| Method | Settings tried (this round) | Chosen | Position in grid | Validation score of chosen |", "|---|---|---|---|---|"]
+    zl = f"zone-change penalty lam in {{1/16, 1/8, ..., {ZONE_LAMS[-1]:g}}} ({len(ZONE_LAMS)})"
+    zo = (f"{len(ZONE_DECODERS)} zone decoders x lam in {{{', '.join(f'{v:g}' for v in ZONE_ORDER_LAMS)}}} "
+          f"({len(ZONE_DECODERS) * len(ZONE_ORDER_LAMS)})")
     for m, desc, chosen in [
-        ("zone", "zone-change penalty lam in {1/16, ..., 128} (12)", f"lam {t.get('zone_lam', 0):g}"),
-        ("zonehist", "3 zone decoders x lam in {1, 4, 16, 64} (12)", f"{t.get('zonehist_decode')}, lam {t.get('zonehist_lam', 0):g}"),
-        ("hier_sup", "3 zone decoders x lam in {1, 4, 16, 64} (12)", f"{t.get('hier_sup_decode')}, lam {t.get('hier_sup_lam', 0):g}"),
-        ("hier", "3 zone decoders x lam in {1, 4, 16, 64} (12)", f"{t.get('hier_decode')}, lam {t.get('hier_lam', 0):g}"),
+        ("zone", zl, f"lam {t.get('zone_lam', 0):g}"),
+        ("zonehist", zo, f"{t.get('zonehist_decode')}, lam {t.get('zonehist_lam', 0):g}"),
+        ("hier_sup", zo, f"{t.get('hier_sup_decode')}, lam {t.get('hier_sup_lam', 0):g}"),
+        ("hier", zo, f"{t.get('hier_decode')}, lam {t.get('hier_lam', 0):g}"),
     ]:
         if m not in t:
             continue
