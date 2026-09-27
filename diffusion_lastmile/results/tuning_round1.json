@@ -1,0 +1,221 @@
+{
+ "note": "Every validation configuration tried in round 1, re-scored from the archived OR-Tools caches (results/cache_round1). '2opt1' in a cache name is the greedy2opt zone decoder, whose results were omitted from the round-1 tuning.json. softdist and stop-level diffusion sampling settings are copied from the round-1 tuning.json (they need no OR-Tools cache). The round-1 models were retrained in round 2, so these numbers belong to the round-1 checkpoints.",
+ "softdist": {
+  "0.02": {
+   "amazon_score": 0.10260827207737452,
+   "travel_time_s": 11401.953318417942
+  },
+  "0.05": {
+   "amazon_score": 0.098729660054485,
+   "travel_time_s": 11329.234984375536
+  },
+  "0.1": {
+   "amazon_score": 0.09543658153864414,
+   "travel_time_s": 11300.91831147708
+  },
+  "0.2": {
+   "amazon_score": 0.09549390894420659,
+   "travel_time_s": 11250.499983057256
+  },
+  "0.5": {
+   "amazon_score": 0.09398901183805113,
+   "travel_time_s": 11252.734981607397
+  },
+  "1.0": {
+   "amazon_score": 0.09408984913368282,
+   "travel_time_s": 11258.706629318247
+  }
+ },
+ "diffusion_sampling": {
+  "5x1": {
+   "steps": 5,
+   "samples": 1,
+   "amazon_score": 0.08958408629919329,
+   "amazon_score_no2opt": 0.10151685435350885,
+   "travel_time_s": 11575.369966200242,
+   "runtime_s": 0.24179847235003157
+  },
+  "10x1": {
+   "steps": 10,
+   "samples": 1,
+   "amazon_score": 0.08447617616606103,
+   "amazon_score_no2opt": 0.09629358427332194,
+   "travel_time_s": 11600.993299785256,
+   "runtime_s": 0.3825277287833766
+  },
+  "20x1": {
+   "steps": 20,
+   "samples": 1,
+   "amazon_score": 0.08334147628922879,
+   "amazon_score_no2opt": 0.09905118101192142,
+   "travel_time_s": 11629.689958870908,
+   "runtime_s": 0.7631394563666921
+  },
+  "10x4": {
+   "steps": 10,
+   "samples": 4,
+   "amazon_score": 0.07966220978998916,
+   "amazon_score_no2opt": 0.09168239002872015,
+   "travel_time_s": 11526.288312167922,
+   "runtime_s": 1.4404211191833383
+  }
+ },
+ "configs": {
+  "hier": {
+   "hier_val_lim5_lam1_2opt1_s10x4": {
+    "lam": 1.0,
+    "decode": "greedy2opt",
+    "samples": 4,
+    "amazon_score": 0.05554836578573301,
+    "travel_time_s": 11517.251619466146
+   },
+   "hier_val_lim5_lam1_greedy_s10x16": {
+    "lam": 1.0,
+    "decode": "greedy",
+    "samples": 16,
+    "amazon_score": 0.04480775297792112,
+    "travel_time_s": 11807.303426106771
+   },
+   "hier_val_lim5_lam1_greedy_s10x4": {
+    "lam": 1.0,
+    "decode": "greedy",
+    "samples": 4,
+    "amazon_score": 0.04889099443548443,
+    "travel_time_s": 11806.876814778645
+   },
+   "hier_val_lim5_lam1_ml_s10x16": {
+    "lam": 1.0,
+    "decode": "ml",
+    "samples": 16,
+    "amazon_score": 0.04200997553778855,
+    "travel_time_s": 11722.760034179688
+   },
+   "hier_val_lim5_lam1_ml_s10x4": {
+    "lam": 1.0,
+    "decode": "ml",
+    "samples": 4,
+    "amazon_score": 0.04684576443555339,
+    "travel_time_s": 11803.26846516927
+   },
+   "hier_val_lim5_lam4_2opt1_s10x4": {
+    "lam": 4.0,
+    "decode": "greedy2opt",
+    "samples": 4,
+    "amazon_score": 0.053966847092944185,
+    "travel_time_s": 11506.728190104166
+   },
+   "hier_val_lim5_lam4_greedy_s10x16": {
+    "lam": 4.0,
+    "decode": "greedy",
+    "samples": 16,
+    "amazon_score": 0.04611609604968211,
+    "travel_time_s": 11839.44833984375
+   },
+   "hier_val_lim5_lam4_greedy_s10x4": {
+    "lam": 4.0,
+    "decode": "greedy",
+    "samples": 4,
+    "amazon_score": 0.051665640855928174,
+    "travel_time_s": 11898.396704101562
+   },
+   "hier_val_lim5_lam4_ml_s10x16": {
+    "lam": 4.0,
+    "decode": "ml",
+    "samples": 16,
+    "amazon_score": 0.04096885806450128,
+    "travel_time_s": 11736.918204752605
+   },
+   "hier_val_lim5_lam4_ml_s10x4": {
+    "lam": 4.0,
+    "decode": "ml",
+    "samples": 4,
+    "amazon_score": 0.04703935322426962,
+    "travel_time_s": 11851.48671061198
+   }
+  },
+  "zone": {
+   "zone_val_lim5_lam0.5": {
+    "lam": 0.5,
+    "decode": null,
+    "samples": null,
+    "amazon_score": 0.05410506340036066,
+    "travel_time_s": 11264.213305664063
+   },
+   "zone_val_lim5_lam1": {
+    "lam": 1.0,
+    "decode": null,
+    "samples": null,
+    "amazon_score": 0.05607852820525381,
+    "travel_time_s": 11328.421728515625
+   },
+   "zone_val_lim5_lam2": {
+    "lam": 2.0,
+    "decode": null,
+    "samples": null,
+    "amazon_score": 0.05717808993760855,
+    "travel_time_s": 11322.403344726563
+   },
+   "zone_val_lim5_lam4": {
+    "lam": 4.0,
+    "decode": null,
+    "samples": null,
+    "amazon_score": 0.05443362225678699,
+    "travel_time_s": 11312.10340983073
+   }
+  },
+  "zonehist": {
+   "zonehist_val_lim5_lam1_2opt1": {
+    "lam": 1.0,
+    "decode": "greedy2opt",
+    "samples": null,
+    "amazon_score": 0.05198168983467417,
+    "travel_time_s": 11496.06153157552
+   },
+   "zonehist_val_lim5_lam1_greedy": {
+    "lam": 1.0,
+    "decode": "greedy",
+    "samples": null,
+    "amazon_score": 0.04720455462460517,
+    "travel_time_s": 11748.625130208333
+   },
+   "zonehist_val_lim5_lam1_ml": {
+    "lam": 1.0,
+    "decode": "ml",
+    "samples": null,
+    "amazon_score": 0.059832867234303415,
+    "travel_time_s": 12144.396769205729
+   },
+   "zonehist_val_lim5_lam4_2opt1": {
+    "lam": 4.0,
+    "decode": "greedy2opt",
+    "samples": null,
+    "amazon_score": 0.05044366750347454,
+    "travel_time_s": 11462.886507161458
+   },
+   "zonehist_val_lim5_lam4_greedy": {
+    "lam": 4.0,
+    "decode": "greedy",
+    "samples": null,
+    "amazon_score": 0.04482769160390706,
+    "travel_time_s": 11767.888338216146
+   },
+   "zonehist_val_lim5_lam4_ml": {
+    "lam": 4.0,
+    "decode": "ml",
+    "samples": null,
+    "amazon_score": 0.06091504089426169,
+    "travel_time_s": 12329.2783203125
+   }
+  }
+ },
+ "counts": {
+  "hier": 10,
+  "zone": 4,
+  "zonehist": 6,
+  "softdist": 6,
+  "diffusion_sampling": 4
+ },
+ "hier_best": "hier_val_lim5_lam4_ml_s10x16",
+ "zone_best": "zone_val_lim5_lam0.5",
+ "zonehist_best": "zonehist_val_lim5_lam4_greedy"
+}

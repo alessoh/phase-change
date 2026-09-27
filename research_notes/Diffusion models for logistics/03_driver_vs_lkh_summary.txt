@@ -1,0 +1,5 @@
+processed 1000 routes in 2415s
+ALL: routes=1000 mean_stops=147.9 drv/opt travel ratio mean=1.149 median=1.138 TW stops=9897 late drv=167 (1.687%) late opt=583 (5.891%) routes with TW=1000 zone re-entries drv mean=0.80 opt mean=13.13 opt challenge score mean=0.0776
+High: routes=445 mean_stops=141.0 drv/opt travel ratio mean=1.151 median=1.136 TW stops=4292 late drv=69 (1.608%) late opt=207 (4.823%) routes with TW=445 zone re-entries drv mean=0.85 opt mean=13.09 opt challenge score mean=0.0744
+Medium: routes=543 mean_stops=153.6 drv/opt travel ratio mean=1.148 median=1.139 TW stops=5556 late drv=96 (1.728%) late opt=375 (6.749%) routes with TW=543 zone re-entries drv mean=0.77 opt mean=13.17 opt challenge score mean=0.0803
+Low: routes=12 mean_stops=144.9 drv/opt travel ratio mean=1.133 median=1.122 TW stops=49 late drv=2 (4.082%) late opt=1 (2.041%) routes with TW=12 zone re-entries drv mean=0.92 opt mean=13.00 opt challenge score mean=0.0709

@@ -1,0 +1,18 @@
+{
+ "n_train_total": 6112,
+ "n_high": 2718,
+ "n_eval_total": 3052,
+ "split_sizes": {
+  "train": 2508,
+  "val": 60,
+  "heldout": 150,
+  "test": 300
+ },
+ "tour_edge_coverage": {
+  "val": 0.975463203180828,
+  "heldout": 0.973935708009602,
+  "test": 0.9753508840964122,
+  "train": 0.9751887196690253
+ },
+ "k": 16
+}
