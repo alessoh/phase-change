@@ -13,13 +13,22 @@ and two levels:
     zone        edges between the zones of a route (zone_level.py)
 
 Training is resumable and time-boxed so that it can run in chunks shorter than the shell's
-10-minute limit. The runs reported in results/ used, for each seed s in 0, 1, 2:
+10-minute limit. The runs reported in results/ used, for each seed s in 0, 1, 2 (run_training.sh,
+6 single-threaded runs at a time on 4 cores):
 
-    timeout 590 python train.py --level stop --objective diffusion  --seed s --max-minutes 9
-    timeout 590 python train.py --level stop --objective supervised --seed s --max-minutes 9
-    timeout 590 python train.py --level zone --objective diffusion  --seed s --max-minutes 9
-    timeout 590 python train.py --level zone --objective supervised --seed s --max-minutes 9
-    (each repeated until the log says "training finished"; run_training.sh does this)
+    timeout 590 python train.py --level stop --objective diffusion  --seed s --threads 1 --max-minutes 8.5
+    timeout 590 python train.py --level stop --objective supervised --seed s --threads 1 --max-minutes 8.5
+    timeout 590 python train.py --level zone --objective diffusion  --seed s --threads 1 --max-minutes 8.5
+    timeout 590 python train.py --level zone --objective supervised --seed s --threads 1 --max-minutes 8.5
+    (each repeated until the log says "training finished")
+
+plus the spec-budget replicate (one single-threaded run; the other 3 cores ran validation OR-Tools jobs):
+
+    timeout 590 python train.py --level stop --objective diffusion --seed 0 --tag budget --total-steps 3000 \
+        --threads 1 --max-minutes 8.5
+
+Since round 3 the checkpoint and log also record process CPU time (train_cpu_seconds); older
+checkpoints only have wall-clock time (train_seconds).
 
 with the per-level defaults below (stop: 7,000 steps, 64 hidden units, batch 8; zone: 2,500
 steps, 128 hidden units, batch 16; 12 layers in both). The full configuration is fixed when a
@@ -57,11 +66,13 @@ LEVEL_DEFAULTS = {
 }
 
 
-def default_ckpt(level: str, objective: str, seed: int) -> str:
-    """checkpoints/{level}_{objective}_seed{seed}.pt (the directory can be overridden with the
-    DIFFLM_CKPT_DIR environment variable, which the smoke tests use)."""
+def default_ckpt(level: str, objective: str, seed: int, tag: str = "") -> str:
+    """checkpoints/{level}_{objective}[_{tag}]_seed{seed}.pt (the directory can be overridden with
+    the DIFFLM_CKPT_DIR environment variable, which the smoke tests use). tag="budget" is the
+    spec-budget replicate (see README, "Training compute")."""
     d = os.environ.get("DIFFLM_CKPT_DIR", os.path.join(HERE, "checkpoints"))
-    return os.path.join(d, f"{level}_{objective}_seed{seed}.pt")
+    mid = f"_{tag}" if tag else ""
+    return os.path.join(d, f"{level}_{objective}{mid}_seed{seed}.pt")
 
 
 def build_model(cfg: dict) -> EdgeDenoiser:
@@ -108,7 +119,8 @@ def main(argv=None):
                     help="stop: edges between stops; zone: edges between zones")
     ap.add_argument("--objective", choices=["diffusion", "supervised"], default="diffusion",
                     help="diffusion: Bernoulli edge diffusion; supervised: one-shot classifier ablation")
-    ap.add_argument("--ckpt", default=None, help="default checkpoints/{level}_{objective}_seed{seed}.pt")
+    ap.add_argument("--ckpt", default=None, help="default checkpoints/{level}_{objective}[_{tag}]_seed{seed}.pt")
+    ap.add_argument("--tag", default="", help="optional run tag in the default checkpoint name (e.g. budget)")
     ap.add_argument("--hidden", type=int, default=None, help="default: per level (stop 64, zone 128)")
     ap.add_argument("--layers", type=int, default=None, help="default: 12")
     ap.add_argument("--batch", type=int, default=None, help="default: per level (stop 8, zone 16)")
@@ -130,7 +142,7 @@ def main(argv=None):
     torch.set_num_threads(a.threads)
     t_start = time.time()
     if a.ckpt is None:
-        a.ckpt = default_ckpt(a.level, a.objective, a.seed)
+        a.ckpt = default_ckpt(a.level, a.objective, a.seed, a.tag)
     prefix = "" if a.level == "stop" else "zone_"
 
     os.makedirs(os.path.dirname(os.path.abspath(a.ckpt)), exist_ok=True)
@@ -176,6 +188,7 @@ def main(argv=None):
         perm = rng.permutation(len(train))
         gen = torch.Generator().manual_seed(cfg["seed"])
         train_seconds = 0.0
+        train_cpu_seconds = 0.0
         print(f"[train] new {cfg['level']}/{cfg['objective']} model, seed {cfg['seed']}, "
               f"{count_parameters(model):,} parameters, {len(train)} High-quality routes, {cfg['total_steps']} steps")
     else:
@@ -190,13 +203,16 @@ def main(argv=None):
         gen = torch.Generator()
         gen.set_state(ck["gen_state"])
         train_seconds = ck.get("train_seconds", 0.0)
+        # CPU time was only recorded from round 3 on; None marks checkpoints that lack it
+        train_cpu_seconds = ck.get("train_cpu_seconds") if ck.get("train_cpu_seconds") is not None else (
+            0.0 if step == 0 else None)
     ema.eval()
 
     def save(tag=""):
         state = {"cfg": cfg, "model": model.state_dict(), "ema": ema.state_dict(), "opt": opt.state_dict(),
                  "step": step, "epoch": epoch, "pos": pos, "np_rng": rng.bit_generator.state, "perm": perm,
                  "torch_rng": torch.get_rng_state(), "gen_state": gen.get_state(),
-                 "train_seconds": train_seconds, "threads": a.threads}
+                 "train_seconds": train_seconds, "train_cpu_seconds": train_cpu_seconds, "threads": a.threads}
         tmp = a.ckpt + ".tmp"
         torch.save(state, tmp)
         os.replace(tmp, a.ckpt)
@@ -210,6 +226,7 @@ def main(argv=None):
         if (time.time() - t_start) / 60.0 > a.max_minutes:
             break
         t0 = time.time()
+        c0 = time.process_time()
         if pos + cfg["batch"] > len(perm):
             epoch += 1
             pos = 0
@@ -232,10 +249,13 @@ def main(argv=None):
                 be.copy_(bm)
         step += 1
         train_seconds += time.time() - t0
+        if train_cpu_seconds is not None:
+            train_cpu_seconds += time.process_time() - c0
         run_losses.append(loss.item())
         if step % 50 == 0:
             rec = {"step": step, "epoch": epoch, "loss": float(np.mean(run_losses)), "lr": lr_at(step, cfg),
-                   "train_minutes": train_seconds / 60.0, "sec_per_step": (time.time() - t_chunk) / 50}
+                   "train_minutes": train_seconds / 60.0, "sec_per_step": (time.time() - t_chunk) / 50,
+                   "train_cpu_minutes": None if train_cpu_seconds is None else train_cpu_seconds / 60.0}
             t_chunk = time.time()
             run_losses = []
             if step % 500 == 0 or step == cfg["total_steps"]:
@@ -250,8 +270,11 @@ def main(argv=None):
     if step >= cfg["total_steps"]:
         vl = val_loss(ema, proc, val, cfg)
         with open(log_path, "a") as f:
-            f.write(json.dumps({"step": step, "final": True, "val_loss_ema": vl, "train_minutes": train_seconds / 60.0}) + "\n")
-        print(f"[train] training finished: {step} steps, {train_seconds / 60.0:.1f} minutes, val loss (EMA) {vl:.4f}")
+            f.write(json.dumps({"step": step, "final": True, "val_loss_ema": vl, "train_minutes": train_seconds / 60.0,
+                                "train_cpu_minutes": None if train_cpu_seconds is None else train_cpu_seconds / 60.0})
+                    + "\n")
+        cpu_txt = "" if train_cpu_seconds is None else f", {train_cpu_seconds / 60.0:.1f} CPU-minutes"
+        print(f"[train] training finished: {step} steps, {train_seconds / 60.0:.1f} minutes{cpu_txt}, val loss (EMA) {vl:.4f}")
     else:
         print(f"[train] chunk done at step {step}/{cfg['total_steps']}; run again to continue")
 

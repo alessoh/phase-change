@@ -1,5 +1,8 @@
 # Diffusion models for last-mile delivery sequencing (Amazon Last Mile data)
 
+> **Latest results:** the numbers in the sections below come from an earlier single-seed run. The final three-seed evaluation, which adds a supervised non-diffusion control, is in `results/summary.md` (regenerate with `python make_summary.py`). In that evaluation the supervised control matches or beats diffusion at both the stop and zone level.
+
+
 This folder is a research prototype that tests one idea on real data: a diffusion model trained only on routes that experienced drivers executed well should be able to generate a sensible delivery sequence for a new, unseen route, without anyone writing down the rules that drivers follow. The model is compared side by side with classical operations-research methods and with a non-learned control on the same routes, using the real travel times and the official scoring rule of the 2021 Amazon Last Mile Routing Research Challenge.
 
 No synthetic or fictitious data is used anywhere. Every route, stop, zone, travel time and driver sequence comes from the public challenge dataset.

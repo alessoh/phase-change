@@ -69,3 +69,20 @@
   150/150 (190s)
 [ortools] hier_heldout_lim5_lam256_ml_s10x16_seed1: 150 routes to solve with 4 workers
   20/150 (25s)
+  40/150 (50s)
+  60/150 (75s)
+  80/150 (100s)
+  100/150 (125s)
+  120/150 (150s)
+  140/150 (175s)
+  150/150 (190s)
+[ortools] hier_heldout_lim5_lam256_ml_s10x16_seed2: 150 routes to solve with 4 workers
+  20/150 (25s)
+  40/150 (50s)
+  60/150 (75s)
+  80/150 (100s)
+  100/150 (125s)
+  120/150 (150s)
+  140/150 (175s)
+  150/150 (190s)
+[run] wrote per-route results for 150 routes

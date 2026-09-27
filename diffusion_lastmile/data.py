@@ -10,8 +10,13 @@ What this script produces (under data/processed/):
     val.pkl      small High-quality split used to monitor the training loss (the final
                  checkpoint is always the one evaluated; val is NOT used to select checkpoints)
                  and to tune every setting of every method (evaluate.py tune)
-    heldout.pkl  High-quality training-set routes that are never trained on (secondary test)
-    test.pkl     routes sampled from the SEPARATE official evaluation dataset (primary test)
+    heldout.pkl  High-quality training-set routes that are never trained on (secondary test;
+                 REUSED: it was already scored in round 1 of this study, see README)
+    test.pkl     routes sampled from the SEPARATE official evaluation dataset (REUSED: also
+                 scored in round 1, before models were retrained and grids re-tuned)
+    fresh.pkl    (preprocess-fresh) a further random sample of evaluation-dataset routes that is
+                 disjoint from test.pkl and was first evaluated only after every setting of every
+                 method had been frozen: the FINAL test set
 and results/splits.json with the route ids of every split.
 
 Each processed route is a dict of numpy arrays (see build_example) holding node features,
@@ -21,6 +26,7 @@ a sparse directed k-nearest-neighbour graph with edge features, the Bernoulli ed
 Usage:
     python data.py download
     python data.py preprocess [--k 16] [--n-test 300] [--n-heldout 150] [--n-val 60]
+    python data.py preprocess-fresh [--n-fresh 300] [--seed 1]
 """
 from __future__ import annotations
 
@@ -331,6 +337,42 @@ def preprocess(k: int, n_test: int, n_heldout: int, n_val: int, seed: int) -> No
     print("[preprocess] done")
 
 
+def preprocess_fresh(n_fresh: int, seed: int) -> None:
+    """Draw the final test set: n_fresh evaluation-dataset routes, uniformly at random (own seed),
+    from the evaluation routes that are NOT in the (reused) test split. Adds "fresh" to
+    results/splits.json and writes data/processed/fresh.pkl with the same k as the other splits."""
+    sp_path = os.path.join(RESULTS_DIR, "splits.json")
+    splits = json.load(open(sp_path))
+    k = splits["k"]
+    rd = json.load(open(os.path.join(RAW_DIR, "route_data.json")))
+    er = json.load(open(os.path.join(RAW_DIR, "eval_route_data.json")))
+    ea = json.load(open(os.path.join(RAW_DIR, "eval_actual_sequences.json")))
+    used = set(splits["test"])
+    pool = sorted(r for r in er if r not in used)
+    rng = np.random.default_rng(seed)
+    fresh = [pool[i] for i in rng.permutation(len(pool))[:n_fresh]]
+    assert not (set(fresh) & used), "fresh routes overlap the reused test split"
+    assert not (set(fresh) & set(rd)), "fresh routes overlap training-dataset routes"
+    print(f"[fresh] {len(pool)} evaluation routes not in the reused test split; drew {len(fresh)} (seed {seed})")
+    tt = _extract_travel_times(os.path.join(RAW_DIR, "eval_travel_times.json"), set(fresh))
+    out = [build_example(rid, er[rid], ea[rid]["actual"], tt[rid], k=k) for rid in fresh]
+    cov = float(np.mean([e["tour_edge_coverage"] for e in out]))
+    print(f"  fresh: {len(out)} routes, mean fraction of tour edges inside the sparse graph = {cov:.4f}")
+    with open(os.path.join(PROC_DIR, "fresh.pkl"), "wb") as f:
+        pickle.dump(out, f, protocol=pickle.HIGHEST_PROTOCOL)
+    splits["fresh"] = fresh
+    splits["fresh_seed"] = seed
+    with open(sp_path, "w") as f:
+        json.dump(splits, f, indent=1)
+    st_path = os.path.join(RESULTS_DIR, "data_stats.json")
+    st = json.load(open(st_path))
+    st["split_sizes"]["fresh"] = len(fresh)
+    st["tour_edge_coverage"]["fresh"] = cov
+    st["n_eval_not_in_test"] = len(pool)
+    with open(st_path, "w") as f:
+        json.dump(st, f, indent=1)
+
+
 def load_split(name: str) -> list:
     with open(os.path.join(PROC_DIR, f"{name}.pkl"), "rb") as f:
         return pickle.load(f)
@@ -347,11 +389,16 @@ def main(argv=None):
     p.add_argument("--n-heldout", type=int, default=150)
     p.add_argument("--n-val", type=int, default=60)
     p.add_argument("--seed", type=int, default=0)
+    q = sub.add_parser("preprocess-fresh")
+    q.add_argument("--n-fresh", type=int, default=300)
+    q.add_argument("--seed", type=int, default=1)
     a = ap.parse_args(argv)
     if a.cmd == "download":
         download(a.force)
-    else:
+    elif a.cmd == "preprocess":
         preprocess(a.k, a.n_test, a.n_heldout, a.n_val, a.seed)
+    else:
+        preprocess_fresh(a.n_fresh, a.seed)
 
 
 if __name__ == "__main__":

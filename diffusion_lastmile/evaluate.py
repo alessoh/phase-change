@@ -1,21 +1,31 @@
 """Evaluate all methods side by side on held-out routes.
 
 Stages
-    python evaluate.py round1                # rebuild the complete round-1 validation tuning record
-                                             # from results/cache_round1 (results/tuning_round1.json)
+    python evaluate.py round1                # OPTIONAL: rebuild the complete round-1 validation tuning
+                                             # record from results/cache_round1 (results/tuning_round1.json);
+                                             # skipped when that archive is absent (clean checkout)
     python evaluate.py tune                  # choose every setting of every method on the 60
-                                             # validation routes (never on test); equal 12-point grids
-                                             # for the three zone-order methods and the zone heuristic
-    python evaluate.py run --split test      # 300 routes of the separate official evaluation dataset
-    python evaluate.py run --split heldout   # 150 High-quality training-dataset routes never trained on
-    python evaluate.py budget --split test   # sensitivity: OR-Tools baselines with a longer time limit
+                                             # validation routes (never on a test split); equal 21-point
+                                             # grids for the three zone-order methods and the zone heuristic
+    python evaluate.py run --split fresh     # FINAL test: 300 evaluation-dataset routes that were never
+                                             # evaluated before the settings were frozen (data.py preprocess-fresh)
+    python evaluate.py run --split test      # REUSED: 300 evaluation-dataset routes, also scored in round 1
+    python evaluate.py run --split heldout   # REUSED: 150 High-quality training-dataset routes, also round 1
+    python evaluate.py budget --split fresh  # sensitivity: OR-Tools baselines with a longer time limit
     python evaluate.py report                # results/results.json + results/summary.md
-    python evaluate.py export                # EMA weights of all 12 models -> results/models
+    python evaluate.py export                # EMA weights of all finished models -> results/models
+
+Models are read from checkpoints/ (full resumable checkpoints written by train.py) or, when a
+checkpoint is absent there, from the exported EMA weights in results/models/*_ema.pt, so the
+evaluation can be reproduced without retraining.
 
 Learned methods (each trained with seeds 0, 1 and 2, see train.py):
     diffusion / diffusion_greedy   stop-level Bernoulli edge diffusion, greedy decode (+ 2-opt)
     sup / sup_greedy               the SAME network trained as a one-shot supervised edge classifier
                                    (ablation control for the diffusion process), same decoder
+    diffusion_budget(_greedy)      stop-level diffusion retrained within the specification's training
+                                   budget (seed 0 only, 3,000 steps, train.py --tag budget); it uses
+                                   the sampling settings tuned for the full model (no own tuning)
     hier                           zone-level edge diffusion -> zone order -> OR-Tools
     hier_sup                       the SAME zone network trained one-shot supervised -> same pipeline
 Seed 0 results are stored under the plain method key, seeds 1 and 2 under "<key>@1", "<key>@2".
@@ -51,6 +61,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.environ.get("DIFFLM_RESULTS", os.path.join(HERE, "results"))  # override only for smoke tests
 CACHE = os.path.join(RES, "cache")
 CACHE_R1 = os.path.join(HERE, "results", "cache_round1")
+MODELS = os.path.join(HERE, "results", "models")
+SPLITS = ["fresh", "test", "heldout"]
 
 METHOD_LABELS = {
     "driver": "M_driver (actual driver sequence)",
@@ -64,22 +76,27 @@ METHOD_LABELS = {
     "sup": "M_supervised greedy + 2-opt (one-shot GNN ablation)",
     "diffusion_greedy": "M_diffusion greedy (no 2-opt)",
     "diffusion": "M_diffusion greedy + 2-opt",
+    "diffusion_budget_greedy": "M_diffusion, spec-budget model, greedy (no 2-opt)",
+    "diffusion_budget": "M_diffusion, spec-budget model, greedy + 2-opt",
     "hier_sup": "M_supervised_zone (one-shot zone GNN + OR-Tools, 5 s)",
     "hier": "M_diffusion_zone (zone diffusion + OR-Tools, 5 s)",
 }
 METHOD_ORDER = list(METHOD_LABELS)
 LEARNED = ["sup_greedy", "sup", "diffusion_greedy", "diffusion", "hier_sup", "hier"]
 ORTOOLS_METHODS = ["ortools", "zone", "zonehist", "hier_sup", "hier"]
-REFERENCES = ["diffusion", "hier"]
+REFERENCES = ["diffusion", "hier", "hier_sup"]
 # (a, b): paired gaps a - b that are reported for every seed (learned methods paired seed by seed)
 GAPS = [("hier", "zonehist"), ("hier", "hier_sup"), ("hier_sup", "zonehist"), ("hier", "zone"),
         ("diffusion", "sup"), ("diffusion_greedy", "sup_greedy"), ("diffusion", "softdist"), ("sup", "softdist"),
-        ("diffusion", "zone")]
+        ("diffusion", "zone"), ("hier_sup", "zone"), ("diffusion_budget", "diffusion")]
 ZONE_DECODERS = ["greedy", "ml", "greedy2opt"]
-# Equal grids of 15 settings. The first pass used lam in {1, 4, 16, 64} (12 settings) and 1/16 ... 128 for
-# M_zone; because two zone-order optima landed on lam = 64, every grid was widened by 3 settings.
-ZONE_ORDER_LAMS = [1.0, 4.0, 16.0, 64.0, 256.0]                # 3 decoders x 5 = 15 settings per zone-order method
-ZONE_LAMS = [2.0 ** k for k in range(-4, 11)]                  # 1/16 ... 1024: 15 settings for M_zone
+# Equal grids of 21 settings. Round 2 first used lam in {1, 4, 16, 64} (12 settings) and 1/16 ... 128 for
+# M_zone; two zone-order optima landed on lam = 64, so every grid was widened by 3 settings (lam 256, M_zone
+# up to 1024). The zone-diffusion optimum then landed on lam = 256, the new upper edge, so round 3 widened
+# every grid by another 6 settings (lam 1024 and 4096; M_zone up to 65536). All widening used the
+# validation split only.
+ZONE_ORDER_LAMS = [1.0, 4.0, 16.0, 64.0, 256.0, 1024.0, 4096.0]  # 3 decoders x 7 = 21 settings per zone-order method
+ZONE_LAMS = [2.0 ** k for k in range(-4, 17)]                    # 1/16 ... 65536: 21 settings for M_zone
 HIER_STEPS, HIER_SAMPLES = 10, 16                              # fixed (chosen on val in round 1, see tuning_round1.json)
 
 
@@ -94,6 +111,15 @@ def base_method(key: str) -> str:
 # ----------------------------------------------------------------------------------------
 # models and helpers
 # ----------------------------------------------------------------------------------------
+def model_path(level: str, obj: str, seed: int, tag: str = "") -> str | None:
+    """Full checkpoint in checkpoints/ if present, else the exported EMA weights in results/models."""
+    p = default_ckpt(level, obj, seed, tag)
+    if os.path.exists(p):
+        return p
+    q = os.path.join(MODELS, os.path.basename(p).replace(".pt", "_ema.pt"))
+    return q if os.path.exists(q) and "DIFFLM_CKPT_DIR" not in os.environ else None
+
+
 def load_model(ckpt_path: str):
     ck = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     model = build_model(ck["cfg"])
@@ -102,17 +128,19 @@ def load_model(ckpt_path: str):
     return model, make_process(ck["cfg"]), ck
 
 
-def load_learned(seed: int) -> dict:
+def load_learned(seed: int, budget: bool = False) -> dict:
     """{'stop_diffusion': (model, proc, ck, path), ...} for the checkpoints of one seed that exist."""
     out = {}
-    for level in ["stop", "zone"]:
-        for obj in ["diffusion", "supervised"]:
-            p = default_ckpt(level, obj, seed)
-            if os.path.exists(p):
-                m, proc, ck = load_model(p)
-                if ck["step"] < ck["cfg"]["total_steps"]:
-                    raise SystemExit(f"{p} is not fully trained ({ck['step']}/{ck['cfg']['total_steps']} steps)")
-                out[f"{level}_{obj}"] = (m, proc, ck, p)
+    runs = [(lvl, obj, "") for lvl in ["stop", "zone"] for obj in ["diffusion", "supervised"]]
+    if seed == 0 and budget:
+        runs.append(("stop", "diffusion", "budget"))
+    for level, obj, tag in runs:
+        p = model_path(level, obj, seed, tag)
+        if p is not None:
+            m, proc, ck = load_model(p)
+            if ck["step"] < ck["cfg"]["total_steps"]:
+                raise SystemExit(f"{p} is not fully trained ({ck['step']}/{ck['cfg']['total_steps']} steps)")
+            out[f"{level}_{obj}" + (f"_{tag}" if tag else "")] = (m, proc, ck, p)
     return out
 
 
@@ -226,6 +254,10 @@ def run_fast_methods(ex, learned_by_seed, cfg, route_seed=0) -> tuple[dict, dict
         if "stop_supervised" in L:
             m, proc = L["stop_supervised"][:2]
             heat_methods(mkey("sup", seed), lambda: heatmap(m, proc, ex, 1, 1, route_seed))
+        if "stop_diffusion_budget" in L:
+            m, proc = L["stop_diffusion_budget"][:2]
+            heat_methods("diffusion_budget",
+                         lambda: heatmap(m, proc, ex, cfg["diff_steps"], cfg["diff_samples"], route_seed))
     return res, seqs
 
 
@@ -390,6 +422,10 @@ def round1(args):
     Round 1 of this study published a tuning.json from which the 'greedy + 2-opt' zone-decoder
     runs had been removed; their cached solutions remained. This stage re-scores every cached
     validation run, so the record lists every configuration that was actually tried."""
+    if not os.path.isdir(CACHE_R1):
+        print(f"[round1] {os.path.relpath(CACHE_R1, HERE)} is absent (it is a git-ignored archive of an earlier "
+              "round); this optional stage is skipped")
+        return
     val = data.load_split("val")
     pub_path = os.path.join(CACHE_R1, "tuning_round1_as_published.json")
     pub = json.load(open(pub_path)) if os.path.exists(pub_path) else {}
@@ -568,13 +604,38 @@ def run(args):
         exs = exs[: args.limit]
     zsplit = {z["route_id"]: z for z in data.load_split("zone_" + args.split)}
     torch.set_num_threads(args.threads)
-    learned = {s: load_learned(s) for s in seeds}
+    learned = {s: load_learned(s, budget=(args.split == "fresh")) for s in seeds}
 
     per_route, seq_store = [], {}
     costs, prep = {}, {}
+    old = None
+    if args.reuse_fast:
+        # Reuse the non-OR-Tools methods of an earlier run of this split when everything they depend on
+        # (sampling settings, SoftDist tau, seeds, checkpoints) is unchanged; OR-Tools methods are always
+        # re-read from their caches (and solved if their settings changed).
+        pp, sp_ = (os.path.join(RES, f"{k}_{args.split}.json") for k in ["per_route", "sequences"])
+        if os.path.exists(pp) and os.path.exists(sp_):
+            ob = json.load(open(pp))
+            same = (all(ob["info"]["config"].get(k) == cfg.get(k) for k in ["softdist_tau", "diff_steps", "diff_samples"])
+                    and ob["info"]["seeds"] == seeds and [r["route_id"] for r in ob["per_route"]] == [e["route_id"] for e in exs]
+                    and all({k: v["step"] for k, v in ob["info"]["checkpoints"].get(str(sd), {}).items()}
+                            == {k: v[2]["step"] for k, v in learned[sd].items()} for sd in seeds))
+            if same:
+                old = ({r["route_id"]: r for r in ob["per_route"]}, json.load(open(sp_)))
+                print(f"[run] reusing the non-OR-Tools methods of the previous {args.split} run", flush=True)
+            else:
+                print("[run] --reuse-fast: previous run differs, recomputing everything", flush=True)
+    fast_keys = None
     t0 = time.time()
     for i, ex in enumerate(exs):
-        res, seqs = run_fast_methods(ex, learned, cfg, route_seed=i)
+        if old is not None:
+            orow, oseq = old[0][ex["route_id"]], old[1][ex["route_id"]]
+            if fast_keys is None:
+                fast_keys = [k for k in orow if isinstance(orow[k], dict) and base_method(k) not in ORTOOLS_METHODS]
+            res = {k: orow[k] for k in fast_keys}
+            seqs = {k: oseq[k] for k in fast_keys}
+        else:
+            res, seqs = run_fast_methods(ex, learned, cfg, route_seed=i)
         per_route.append({"route_id": ex["route_id"], "n_stops": len(ex["stop_ids"]) - 1,
                           "station_code": ex["station_code"], **res})
         seq_store[ex["route_id"]] = {m: np.asarray(s).tolist() for m, s in seqs.items()}
@@ -593,6 +654,7 @@ def run(args):
 
     def ckinfo(c, p):
         return {"path": os.path.relpath(p, HERE), "step": c["step"], "train_minutes": c.get("train_seconds", 0) / 60,
+                "train_cpu_minutes": (c["train_cpu_seconds"] / 60 if c.get("train_cpu_seconds") is not None else None),
                 "threads": c.get("threads"), "model_cfg": c["cfg"]}
 
     info = {"split": args.split, "config": cfg, "seeds": seeds,
@@ -650,19 +712,134 @@ def budget_summary(split, per_route):
     b = json.load(open(p))
     out = {"limit_s": b["limit_s"], "methods": {}}
     for m, rows in b["methods"].items():
+        if not all(r["route_id"] in rows for r in per_route):
+            continue
         long = np.array([rows[r["route_id"]]["amazon_score"] for r in per_route])
         short = np.array([r[m]["amazon_score"] for r in per_route])
-        hier = np.array([r["hier"]["amazon_score"] for r in per_route])
-        out["methods"][m] = {"mean_long": float(long.mean()), "ci95_long": bootstrap_ci(long), "mean_5s": float(short.mean()),
-                             "long_minus_5s": {"mean": float((long - short).mean()), "ci95": bootstrap_ci(long - short)},
-                             "hier5s_minus_long": {"mean": float((hier - long).mean()), "ci95": bootstrap_ci(hier - long),
-                                                   "better_rate": float(np.mean(hier < long))},
-                             "runtime_median_s": float(np.median([v["runtime_s"] for v in rows.values()]))}
+        d = {"mean_long": float(long.mean()), "ci95_long": bootstrap_ci(long), "mean_5s": float(short.mean()),
+             "long_minus_5s": {"mean": float((long - short).mean()), "ci95": bootstrap_ci(long - short)},
+             "runtime_median_s": float(np.median([v["runtime_s"] for v in rows.values()]))}
+        for ref in ["hier", "hier_sup"]:
+            if ref in per_route[0]:
+                x = np.array([r[ref]["amazon_score"] for r in per_route])
+                d[f"{ref}5s_minus_long"] = {"mean": float((x - long).mean()), "ci95": bootstrap_ci(x - long),
+                                            "better_rate": float(np.mean(x < long))}
+        out["methods"][m] = d
     return out
 
 
+# ----------------------------------------------------------------------------------------
+# training compute accounting
+# ----------------------------------------------------------------------------------------
+# How the runs were executed (the checkpoints of rounds 1 and 2 predate CPU-time recording).
+EXEC_MAIN = ("single-threaded; run_training.sh ran 6 such runs at a time on the 4-core machine, so each run received "
+             "about 4/6 of a core")
+PARALLEL_SHARE = 4.0 / 6.0
+BENCH_PATH = os.path.join(RES, "train_cpu_benchmark.json")
+
+
+def benchmark(args):
+    """Measure single-threaded training CPU seconds per optimisation step for every level/objective
+    on an otherwise idle machine (a short throw-away run of train.py in a temporary directory).
+    Used only to cross-check the compute accounting of runs that did not record CPU time."""
+    import subprocess
+    import sys
+    import tempfile
+
+    out = {"note": "process CPU seconds per step of train.py --threads 1, measured on an idle machine over a "
+                   f"{args.bench_minutes:g}-minute throw-away run (includes batching and augmentation, excludes loading)",
+           "per_step_cpu_s": {}}
+    for level in ["stop", "zone"]:
+        for obj in ["diffusion", "supervised"]:
+            with tempfile.TemporaryDirectory() as d:
+                ck = os.path.join(d, "bench.pt")
+                subprocess.run([sys.executable, os.path.join(HERE, "train.py"), "--level", level, "--objective", obj,
+                                "--seed", "0", "--threads", "1", "--ckpt", ck, "--max-minutes", str(args.bench_minutes),
+                                "--save-every-min", "100"], check=True, stdout=subprocess.DEVNULL)
+                c = torch.load(ck, map_location="cpu", weights_only=False)
+                v = c["train_cpu_seconds"] / c["step"]
+                out["per_step_cpu_s"][f"{level}_{obj}"] = {"cpu_s_per_step": v, "steps_measured": c["step"],
+                                                           "wall_s_per_step": c["train_seconds"] / c["step"]}
+                print(f"[benchmark] {level}/{obj}: {v:.3f} CPU s per step over {c['step']} steps", flush=True)
+    with open(BENCH_PATH, "w") as f:
+        json.dump(out, f, indent=1)
+
+
+def training_compute() -> dict:
+    bench = json.load(open(BENCH_PATH))["per_step_cpu_s"] if os.path.exists(BENCH_PATH) else {}
+    runs = []
+
+    def add(label, p, group, fallback_share, threads_note):
+        ck = torch.load(p, map_location="cpu", weights_only=False)
+        cfg = ck["cfg"]
+        wall = ck.get("train_seconds", 0.0) / 60
+        cpu = ck.get("train_cpu_seconds")
+        b = bench.get(f"{cfg.get('level', 'stop')}_{cfg.get('objective', 'diffusion')}")
+        row = {"run": label, "group": group, "steps": ck["step"], "wall_minutes": wall, "threads": ck.get("threads"),
+               "execution": threads_note,
+               "cpu_minutes_measured": None if cpu is None else cpu / 60,
+               "cpu_minutes_from_wall": wall * fallback_share,
+               "cpu_minutes_from_benchmark": None if b is None else ck["step"] * b["cpu_s_per_step"] / 60}
+        row["cpu_minutes"] = row["cpu_minutes_measured"] if cpu is not None else row["cpu_minutes_from_wall"]
+        row["cpu_minutes_basis"] = "measured" if cpu is not None else "estimated (wall x share of a core)"
+        runs.append(row)
+
+    for level in ["zone", "stop"]:
+        for obj in ["diffusion", "supervised"]:
+            for seed in [0, 1, 2]:
+                p = model_path(level, obj, seed)
+                if p:
+                    add(f"{level}/{obj} seed {seed}", p, "main (round 2)", PARALLEL_SHARE, EXEC_MAIN)
+    p = model_path("stop", "diffusion", 0, "budget")
+    if p:
+        add("stop/diffusion seed 0, spec-budget replicate (3,000 steps)", p, "spec-budget replicate (round 3)", 1.0,
+            "single-threaded on its own core (process CPU time recorded)")
+    for name in ["diffusion", "zone_diffusion"]:
+        p = os.path.join(HERE, "checkpoints", "round1", f"{name}.pt")
+        if os.path.exists(p):
+            add(f"round 1 {'zone' if 'zone' in name else 'stop'}/diffusion (discarded)", p, "round 1 (discarded)", 4.0,
+                "4 torch threads, shared machine; CPU given as the upper bound 4 x wall")
+    tot = {}
+    for r in runs:
+        tot.setdefault(r["group"], 0.0)
+        tot[r["group"]] += r["cpu_minutes"]
+    budget_pipeline = [r for r in runs if r["run"] in ("zone/diffusion seed 0",) or r["group"].startswith("spec-budget")]
+    return {"runs": runs, "totals_cpu_minutes": tot, "total_cpu_minutes": float(sum(tot.values())),
+            "spec_budget_cpu_minutes": [45, 90],
+            "spec_budget_pipeline": {"runs": [r["run"] for r in budget_pipeline],
+                                     "cpu_minutes": float(sum(r["cpu_minutes"] for r in budget_pipeline))},
+            "benchmark": bench}
+
+
+# ----------------------------------------------------------------------------------------
+# stage: report
+# ----------------------------------------------------------------------------------------
+SPLIT_TITLES = {
+    "fresh": "FINAL test set: fresh evaluation-dataset routes, first evaluated after all settings were frozen",
+    "test": "REUSED test set: evaluation-dataset routes already scored in round 1",
+    "heldout": "REUSED held-out set: High-quality training-dataset routes already scored in round 1",
+}
+HEADLINE_GAPS = [
+    ("diffusion - sup", "Stop level, greedy + 2-opt: diffusion minus one-shot supervised (same network)"),
+    ("diffusion_greedy - sup_greedy", "Stop level, greedy only: diffusion minus one-shot supervised"),
+    ("hier - hier_sup", "Zone level + OR-Tools: diffusion minus one-shot supervised (same network)"),
+    ("hier - zonehist", "Zone level + OR-Tools: diffusion minus history-only control"),
+    ("hier_sup - zonehist", "Zone level + OR-Tools: one-shot supervised minus history-only control"),
+    ("diffusion - softdist", "Stop level + 2-opt: diffusion minus SoftDist (non-learned)"),
+    ("hier - zone", "Zone diffusion + OR-Tools minus M_zone heuristic"),
+    ("hier_sup - zone", "One-shot zone GNN + OR-Tools minus M_zone heuristic"),
+]
+
+
+def _verdict(ci):
+    return "A better" if ci[1] < 0 else ("B better" if ci[0] > 0 else "no significant difference")
+
+
 def report(args):
-    results = {"description": "Diffusion vs. baselines on Amazon Last Mile routes (see README.md)", "splits": {}}
+    results = {"description": "Diffusion vs. baselines on Amazon Last Mile routes (see README.md)", "splits": {},
+               "split_status": {"fresh": "final, untouched until all settings were frozen",
+                                "test": "reused (already evaluated in round 1)",
+                                "heldout": "reused (already evaluated in round 1)"}}
     tuning = json.load(open(os.path.join(RES, "tuning.json")))
     results["tuning_on_val"] = tuning
     r1p = os.path.join(RES, "tuning_round1.json")
@@ -671,13 +848,12 @@ def report(args):
     dgp = os.path.join(RES, "diagnostics.json")
     if os.path.exists(dgp):
         results["diagnostics"] = json.load(open(dgp))
-    md = ["# Results: diffusion-generated delivery sequences vs. baselines", "",
-          "All numbers are produced by `python evaluate.py report` from the per-route files. Learned methods: seed 0 in the "
-          "main tables, seeds 0, 1 and 2 in the seed tables. Lower Amazon score means closer to the driver's executed "
-          "sequence; the driver scores 0. No setting was tuned on either test set.", ""]
-    split_titles = {"test": "Primary test set: routes from the separate official evaluation dataset",
-                    "heldout": "Secondary test set: High-quality training-dataset routes never used for training or tuning"}
-    for split in ["test", "heldout"]:
+    tc = training_compute()
+    results["training_compute"] = tc
+    stats = json.load(open(os.path.join(RES, "data_stats.json")))
+
+    blobs = {}
+    for split in SPLITS:
         p = os.path.join(RES, f"per_route_{split}.json")
         if not os.path.exists(p):
             continue
@@ -688,14 +864,96 @@ def report(args):
         seeds = blob["info"].get("seeds", [0])
         ss = seed_summary(per_route, seeds) if len(seeds) > 1 else None
         bs = budget_summary(split, per_route)
-        results["splits"][split] = {"info": blob["info"], "summary": summ, "seed_summary": ss, "budget_sensitivity": bs,
-                                    "per_route": per_route}
-        md += [f"## {split_titles[split]} ({summ['n_routes']} routes)", ""]
+        results["splits"][split] = {"status": results["split_status"][split], "info": blob["info"], "summary": summ,
+                                    "seed_summary": ss, "budget_sensitivity": bs, "per_route": per_route}
+        blobs[split] = (summ, ss, bs, blob, methods, seeds)
+
+    md = ["# Results: diffusion-generated delivery sequences vs. baselines", "",
+          "All numbers are produced by `python evaluate.py report` from the per-route files. Lower Amazon score means closer "
+          "to the driver's executed sequence; the driver scores 0. Every setting of every method was chosen on the 60 "
+          "validation routes; no setting was selected by a test score.", ""]
+    md += ["## Status of the test sets (read this first)", ""]
+    if "fresh" in blobs:
+        md.append(f"* **fresh ({blobs['fresh'][0]['n_routes']} routes): the final test set.** Drawn in round 3 at random "
+                  f"(seed 1) from the {stats.get('n_eval_not_in_test', 'remaining'):,} routes of the official evaluation "
+                  "dataset that are not in the old test split, and evaluated once, after every setting of every method had "
+                  "been frozen on the validation routes. No decision in this study was informed by it. The headline numbers "
+                  "come from this set.")
+    md.append("* **test (300 routes) and heldout (150 High routes): reused, no longer untouched.** Both were already "
+              "evaluated in round 1 of this study (archived in results/cache_round1/published_outputs). After seeing those "
+              "results the models were retrained, the one-shot supervised ablations and training seeds 1 and 2 were added, "
+              "every tuning grid was widened (twice), and the tuned M_zone penalty moved from 0.5 to 4. No setting was chosen "
+              "by a test score, but the study design was revised after test results had been seen, so these sets are "
+              "reported as development results only. There are no unused High-quality routes left for a fresh held-out set.")
+    md.append("")
+
+    # headline ablation table
+    md += ["## Headline: does the diffusion process add anything over a supervised forward pass?", "",
+           "Seed-averaged paired differences in mean Amazon score (per route, each learned method's score is first averaged "
+           "over training seeds 0, 1 and 2; bootstrap 95% CI over routes). A negative value favours the first-named method "
+           "(A). The one-shot supervised model is the identical network, features, data, batch size, optimiser, schedule, "
+           "number of steps and decoder as the diffusion model; only the diffusion process is removed.", "",
+           "| A - B | " + " | ".join(f"{s} ({blobs[s][0]['n_routes']} routes)" for s in blobs) + " |",
+           "|---|" + "---|" * len(blobs)]
+    headline = {}
+    for g, title in HEADLINE_GAPS:
+        cells = []
+        for s in blobs:
+            ss = blobs[s][1]
+            if ss and g in ss["gaps"]:
+                sa = ss["gaps"][g]["seed_averaged"]
+                cells.append(f"{sa['mean_diff']:+.4f} [{sa['ci95'][0]:+.4f}, {sa['ci95'][1]:+.4f}] ({_verdict(sa['ci95'])})")
+                headline.setdefault(g, {})[s] = sa
+            else:
+                cells.append("n/a")
+        md.append(f"| {title} | " + " | ".join(cells) + " |")
+    results["headline_gaps"] = headline
+    prim = "fresh" if "fresh" in blobs else next(iter(blobs), None)
+    if prim and blobs[prim][1]:
+        ss = blobs[prim][1]
+        g1, g2, g3 = (ss["gaps"].get(k, {}).get("seed_averaged") for k in
+                      ["diffusion - sup", "diffusion_greedy - sup_greedy", "hier - hier_sup"])
+        if g1 and g2 and g3:
+            md += ["", f"Reading on the {prim} split: at stop level the diffusion model minus its one-shot supervised twin is "
+                   f"{g1['mean_diff']:+.4f} [{g1['ci95'][0]:+.4f}, {g1['ci95'][1]:+.4f}] with 2-opt and {g2['mean_diff']:+.4f} "
+                   f"[{g2['ci95'][0]:+.4f}, {g2['ci95'][1]:+.4f}] without; at zone level it is {g3['mean_diff']:+.4f} "
+                   f"[{g3['ci95'][0]:+.4f}, {g3['ci95'][1]:+.4f}]. Positive values mean the diffusion model is further from "
+                   "the driver. " + ("In every case the diffusion process is significantly worse than a single supervised "
+                                     "forward pass of the same network, and it is also slower, so the diffusion process adds "
+                                     "no measurable benefit here." if min(g1["ci95"][0], g2["ci95"][0], g3["ci95"][0]) > 0 else
+                                     "See the table for which differences are significant.")]
+    md.append("")
+
+    # training compute
+    md += ["## Training compute", "",
+           f"The specification asked for about {tc['spec_budget_cpu_minutes'][0]} to {tc['spec_budget_cpu_minutes'][1]} "
+           f"CPU-minutes of training in total. This study used about {tc['total_cpu_minutes']:,.0f} CPU-minutes, roughly "
+           f"{tc['total_cpu_minutes'] / tc['spec_budget_cpu_minutes'][1]:.0f} times the upper end, so the budget was exceeded. "
+           "The excess comes from the controls, not from the model under test: three seeds per model (to measure run-to-run "
+           "variance) and the one-shot supervised twin of every diffusion model (the ablation that tests whether the "
+           "diffusion process matters) multiply one stop-level and one zone-level run by 6, plus two discarded round-1 runs. "
+           "Rounds 1 and 2 did not record CPU time, so for those runs it is estimated from wall-clock time and the share of a "
+           "core each run received; an independent estimate (steps x single-thread CPU seconds per step measured on an idle "
+           "machine, `python evaluate.py benchmark`) is shown alongside.", "",
+           "| Run | Group | Steps | Wall min | CPU min (basis) | CPU min from benchmark | Execution |", "|---|---|---|---|---|---|---|"]
+    for r in tc["runs"]:
+        bm = "" if r["cpu_minutes_from_benchmark"] is None else f"{r['cpu_minutes_from_benchmark']:.0f}"
+        md.append(f"| {r['run']} | {r['group']} | {r['steps']:,} | {r['wall_minutes']:.1f} | {r['cpu_minutes']:.0f} "
+                  f"({r['cpu_minutes_basis']}) | {bm} | {r['execution']} |")
+    md += ["", "Totals by group: " + "; ".join(f"{k}: {v:,.0f} CPU-minutes" for k, v in tc["totals_cpu_minutes"].items())
+           + ".", "",
+           f"Spec-budget pipeline: {', '.join(tc['spec_budget_pipeline']['runs'])} use "
+           f"{tc['spec_budget_pipeline']['cpu_minutes']:.0f} CPU-minutes together, inside the specified budget. The "
+           "spec-budget stop-level replicate is reported as `M_diffusion, spec-budget model` on the final test set (it uses "
+           "the sampling settings tuned for the full model and was not tuned itself).", ""]
+
+    for split, (summ, ss, bs, blob, methods, seeds) in blobs.items():
+        md += [f"## {SPLIT_TITLES[split]} ({summ['n_routes']} routes)", ""]
         md += ["Amazon score and travel time: mean with bootstrap 95% confidence interval (10,000 resamples of routes) and "
-               "median. Travel time is the closed tour from the station back to the station on the real travel-time matrix. "
-               "Zone tau is the Kendall rank correlation between the zone order of the sequence and the driver's zone order. "
-               "Runtime is wall-clock seconds per route, reported as median and interquartile range because a few routes "
-               "have long tails.", ""]
+               "median. Learned methods: seed-0 models in this table (all seeds below). Travel time is the closed tour from "
+               "the station back to the station on the real travel-time matrix. Zone tau is the Kendall rank correlation "
+               "between the zone order of the sequence and the driver's zone order. Runtime is wall-clock seconds per route, "
+               "median and interquartile range.", ""]
         md += ["| Method | Feasible | Amazon score, mean [95% CI] | Amazon score, median | Travel time (h), mean [95% CI] "
                "| Travel time (h), median | Driver edges reproduced | Zone tau | Runtime (s), median [IQR] |",
                "|---|---|---|---|---|---|---|---|---|"]
@@ -708,13 +966,14 @@ def report(args):
                       f"{d['driver_edge_overlap']['mean'] * 100:.1f}% | {d['zone_order_tau']['mean']:.3f} | "
                       f"{rt['median']:.2f} [{rt['q25']:.2f}, {rt['q75']:.2f}] |")
         for ref, title in [("diffusion", "M_diffusion (stop-level, greedy + 2-opt, seed 0)"),
-                           ("hier", "M_diffusion_zone (zone-level diffusion + OR-Tools, seed 0)")]:
+                           ("hier", "M_diffusion_zone (zone-level diffusion + OR-Tools, seed 0)"),
+                           ("hier_sup", "M_supervised_zone (one-shot zone GNN + OR-Tools, seed 0)")]:
             if ref not in summ["paired"]:
                 continue
-            md += ["", f"Paired comparisons per route: {title} minus the other method. Negative means the diffusion "
-                   "method is better (lower score or shorter travel time).", "",
-                   "| Other method | Amazon score diff, mean [95% CI] | Diffusion better / identical on | Wilcoxon p | "
-                   "Travel time diff (min), mean [95% CI] | Diffusion shorter on | Wilcoxon p |", "|---|---|---|---|---|---|---|"]
+            md += ["", f"Paired comparisons per route: {title} minus the other method. Negative means {ref} is better "
+                   "(lower score or shorter travel time).", "",
+                   "| Other method | Amazon score diff, mean [95% CI] | Reference better / identical on | Wilcoxon p | "
+                   "Travel time diff (min), mean [95% CI] | Reference shorter on | Wilcoxon p |", "|---|---|---|---|---|---|---|"]
             for m, dd in summ["paired"][ref].items():
                 a, t = dd["amazon_score"], dd["travel_time_s"]
                 md.append(f"| {METHOD_LABELS[m]} | {fmt_gap(a)} | "
@@ -737,35 +996,37 @@ def report(args):
                    "| A - B | " + " | ".join(f"seed {s}" for s in seeds) + " | Across seeds, mean (sd) | Seed-averaged [95% CI] |",
                    "|---|" + "---|" * len(seeds) + "---|---|"]
             for g, d in ss["gaps"].items():
-                a, b = g.split(" - ")
                 sa = d["seed_averaged"]
-                md.append(f"| {a} - {b} | " + " | ".join(fmt_gap(d["per_seed"][str(s)]) for s in seeds)
+                md.append(f"| {g} | " + " | ".join(fmt_gap(d["per_seed"][str(s)]) for s in seeds)
                           + f" | {d['across_seeds']['mean']:+.4f} ({d['across_seeds']['sd']:.4f}) | "
                             f"{sa['mean_diff']:+.4f} [{sa['ci95'][0]:+.4f}, {sa['ci95'][1]:+.4f}] |")
         orm = [m for m in methods if "ortools_cpu_over_wall" in summ["methods"][m]]
         if orm:
             md += ["", "OR-Tools compute actually received (each solve runs in its own single-threaded worker process, 4 "
-                   "workers on the 4-core machine with no other jobs running): median CPU seconds per solve and the ratio of "
-                   "CPU time to wall-clock time (1.0 means the solver had a full core for its whole limit).", "",
+                   "workers on the 4-core machine): median CPU seconds per solve and the ratio of CPU time to wall-clock time "
+                   "(1.0 means the solver had a full core for its whole limit; lower values reveal contention).", "",
                    "| Method | CPU s per solve, median | CPU / wall, median | CPU / wall, minimum |", "|---|---|---|---|"]
             for m in orm:
                 d = summ["methods"][m]
                 md.append(f"| {METHOD_LABELS[m]} | {d['ortools_cpu_s']['median']:.2f} | "
                           f"{d['ortools_cpu_over_wall']['median']:.3f} | {d['ortools_cpu_over_wall']['min']:.3f} |")
-        if bs:
+        if bs and bs["methods"]:
             hr = summ["methods"]["hier"]["runtime_s"]
             md += ["", f"Compute-budget sensitivity: the OR-Tools baselines re-run with a {bs['limit_s']:g} s limit on the same "
                    f"routes. For comparison, M_diffusion_zone spends a median of {hr['median']:.2f} s per route (upper quartile "
                    f"{hr['q75']:.2f} s) on heat-map sampling, zone decoding and its 5 s search together.", "",
                    f"| Method | Mean score, 5 s | Mean score, {bs['limit_s']:g} s [95% CI] | {bs['limit_s']:g} s minus 5 s [95% CI] | "
-                   f"M_diffusion_zone (5 s) minus {bs['limit_s']:g} s run [95% CI] | M_diffusion_zone better on |",
-                   "|---|---|---|---|---|---|"]
+                   f"M_diffusion_zone (5 s) minus {bs['limit_s']:g} s run [95% CI] | M_supervised_zone (5 s) minus "
+                   f"{bs['limit_s']:g} s run [95% CI] |", "|---|---|---|---|---|---|"]
             for m, d in bs["methods"].items():
+                cells = []
+                for ref in ["hier", "hier_sup"]:
+                    x = d.get(f"{ref}5s_minus_long")
+                    cells.append("n/a" if x is None else f"{x['mean']:+.4f} [{x['ci95'][0]:+.4f}, {x['ci95'][1]:+.4f}] "
+                                                         f"(better on {x['better_rate'] * 100:.0f}%)")
                 md.append(f"| {METHOD_LABELS[m]} | {d['mean_5s']:.4f} | {d['mean_long']:.4f} [{d['ci95_long'][0]:.4f}, "
                           f"{d['ci95_long'][1]:.4f}] | {d['long_minus_5s']['mean']:+.4f} [{d['long_minus_5s']['ci95'][0]:+.4f}, "
-                          f"{d['long_minus_5s']['ci95'][1]:+.4f}] | {d['hier5s_minus_long']['mean']:+.4f} "
-                          f"[{d['hier5s_minus_long']['ci95'][0]:+.4f}, {d['hier5s_minus_long']['ci95'][1]:+.4f}] | "
-                          f"{d['hier5s_minus_long']['better_rate'] * 100:.0f}% |")
+                          f"{d['long_minus_5s']['ci95'][1]:+.4f}] | " + " | ".join(cells) + " |")
         c = blob["info"]["config"]
         md += ["", f"Settings (all chosen on the 60 validation routes, see the tuning section): diffusion sampling "
                f"{c['diff_steps']} denoising steps x {c['diff_samples']} samples with heat-maps averaged; SoftDist tau = "
@@ -774,12 +1035,14 @@ def report(args):
                f"{HIER_SAMPLES} samples), one-shot zone GNN {c.get('hier_sup_lam', 0):g} / {c.get('hier_sup_decode')}, history "
                f"{c.get('zonehist_lam', 0):g} / {c.get('zonehist_decode')}; OR-Tools limit {c['ortools_limit']:g} s per route.",
                ""]
+
     # tuning record
     t = tuning
     md += ["## Tuning record (validation split, 60 routes)", "",
-           "Every configuration evaluated in this round is listed in `results/tuning.json`; the full round-1 record, "
-           "including the greedy + 2-opt zone-decoder runs that the round-1 file omitted, is in `results/tuning_round1.json`.", "",
-           "| Method | Settings tried (this round) | Chosen | Position in grid | Validation score of chosen |", "|---|---|---|---|---|"]
+           "Every configuration evaluated is listed in `results/tuning.json`"
+           + ("; the full round-1 record is in `results/tuning_round1.json`." if os.path.exists(r1p) else ".")
+           + " 'Position in grid' says whether the chosen penalty lies on the edge of its grid.", "",
+           "| Method | Settings tried | Chosen | Position in grid | Validation score of chosen |", "|---|---|---|---|---|"]
     zl = f"zone-change penalty lam in {{1/16, 1/8, ..., {ZONE_LAMS[-1]:g}}} ({len(ZONE_LAMS)})"
     zo = (f"{len(ZONE_DECODERS)} zone decoders x lam in {{{', '.join(f'{v:g}' for v in ZONE_ORDER_LAMS)}}} "
           f"({len(ZONE_DECODERS) * len(ZONE_ORDER_LAMS)})")
@@ -802,13 +1065,24 @@ def report(args):
         md.append(f"| {METHOD_LABELS['softdist']} | tau in {{0.02, 0.05, 0.1, 0.2, 0.5, 1}} (6) | tau {t['softdist_tau']:g} | | "
                   f"{best['amazon_score']:.4f} |")
     md.append(f"| {METHOD_LABELS['sup']} | none (deterministic one-shot heat-map, same decoder) | | | |")
+    for m in ["hier", "hier_sup", "zonehist"]:
+        if m in t and f"{m}_decode" in t:
+            dec = t[f"{m}_decode"]
+            row = [f"{lam:g}: {t[m][f'lam{lam:g}_{dec}']['amazon_score']:.4f}" for lam in ZONE_ORDER_LAMS
+                   if f"lam{lam:g}_{dec}" in t[m]]
+            md.append("")
+            md.append(f"Validation score of {METHOD_LABELS[m]} by order penalty lam (chosen decoder {dec}): " + ", ".join(row) + ".")
+    if t.get("boundary", {}).get("hier") in ("upper", "lower"):
+        md += ["", f"Note: the chosen zone-diffusion penalty (lam {t.get('hier_lam', 0):g}) lies on the {t['boundary']['hier']} "
+               "edge of the grid. The penalty-saturation diagnostic below shows whether larger values can still change the "
+               "solutions."]
     if os.path.exists(r1p):
         r1 = json.load(open(r1p))
         md += ["", "Round 1 (earlier checkpoints, retrained since) tried "
                + ", ".join(f"{v} configurations for {k}" for k, v in r1["counts"].items()) + " on the same validation routes."]
     if "diagnostics" in results:
         dg = results["diagnostics"]
-        md += ["", "## Diagnostics (python diagnostics.py; results/diagnostics.json)", ""]
+        md += ["", "## Diagnostics (python diagnostics.py; results/diagnostics.json; validation and training routes only)", ""]
         for line in dg.get("summary_lines", []):
             md.append(line)
     with open(os.path.join(RES, "results.json"), "w") as f:
@@ -821,31 +1095,40 @@ def report(args):
 def export(args):
     """Copy the EMA weights and configs of every finished checkpoint to results/models (small files
     that load_model can read directly; the full resumable checkpoints stay in checkpoints/)."""
-    out_dir = os.path.join(RES, "models")
+    out_dir = args.export_dir or os.path.join(RES, "models")
     os.makedirs(out_dir, exist_ok=True)
     for seed in [0, 1, 2]:
-        for key, (_, _, ck, p) in load_learned(seed).items():
-            dst = os.path.join(out_dir, os.path.basename(p).replace(".pt", "_ema.pt"))
+        for key, (_, _, ck, p) in load_learned(seed, budget=True).items():
+            name = os.path.basename(p)
+            dst = os.path.join(out_dir, name if name.endswith("_ema.pt") else name.replace(".pt", "_ema.pt"))
+            if os.path.abspath(dst) == os.path.abspath(p):
+                print("already exported", os.path.relpath(dst, HERE))
+                continue
             torch.save({"cfg": ck["cfg"], "ema": ck["ema"], "step": ck["step"], "train_seconds": ck.get("train_seconds"),
-                        "threads": ck.get("threads")}, dst)
+                        "train_cpu_seconds": ck.get("train_cpu_seconds"), "threads": ck.get("threads")}, dst)
             print("wrote", os.path.relpath(dst, HERE))
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=["round1", "tune", "run", "budget", "report", "export"])
-    ap.add_argument("--split", default="test", choices=["test", "heldout", "val"])
+    ap.add_argument("stage", choices=["round1", "tune", "run", "budget", "report", "export", "benchmark"])
+    ap.add_argument("--split", default="fresh", choices=["fresh", "test", "heldout", "val"])
     ap.add_argument("--seeds", default="0,1,2", help="run: model seeds to evaluate")
     ap.add_argument("--ortools-limit", type=float, default=5.0)
     ap.add_argument("--budget-limit", type=float, default=10.0)
     ap.add_argument("--budget-methods", default="zone,zonehist,ortools")
+    ap.add_argument("--bench-minutes", type=float, default=1.5, help="benchmark: minutes per throw-away run")
+    ap.add_argument("--export-dir", default=None, help="export: output directory (default results/models)")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--reuse-fast", action="store_true",
+                    help="run: reuse the non-OR-Tools methods of an earlier run of the same split if their settings match")
     ap.add_argument("--parts", default="softdist,zone,diffusion,zonehist,hier,hier_sup", help="tune: which settings to (re)tune")
     a = ap.parse_args(argv)
     os.makedirs(RES, exist_ok=True)
-    {"round1": round1, "tune": tune, "run": run, "budget": budget, "report": report, "export": export}[a.stage](a)
+    {"round1": round1, "tune": tune, "run": run, "budget": budget, "report": report, "export": export,
+     "benchmark": benchmark}[a.stage](a)
 
 
 if __name__ == "__main__":

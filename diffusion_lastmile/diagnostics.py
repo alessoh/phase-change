@@ -10,7 +10,8 @@
    tuned sampling setting), the one-shot supervised ablation, the SoftDist control, and the
    plain "nearest stop" rule (argmin of the real travel time over all other nodes). Seeds 0, 1
    and 2 are reported separately.
-2. Zone structure of driver sequences (validation and test routes):
+2. Zone structure of driver sequences (training and validation routes only; no test split is
+   read by this script, so none of the motivating statistics come from test data):
    - share of consecutive stop-to-stop moves (station legs excluded) whose two stops share a zone,
    - share of zones whose stops form one contiguous block in the driver's sequence,
    - share of routes in which every zone is contiguous.
@@ -200,7 +201,7 @@ def main():
             zone_acc(f"zone_supervised_seed{seed}", lambda k, z: heatmap(m, p, z, 1, 1, k))
     out["zone_successor"] = zacc
     out["penalty_saturation"] = penalty_saturation(val, zval, tuning)
-    out["zone_structure"] = {"val": zone_structure(val), "test": zone_structure(data.load_split("test"))}
+    out["zone_structure"] = {"val": zone_structure(val), "train": zone_structure(data.load_split("train"))}
     for s, d in out["zone_structure"].items():
         print(f"[diag] {s}: same-zone moves {d['same_zone_move_share'] * 100:.1f}%, contiguous zones "
               f"{d['contiguous_zone_share'] * 100:.1f}%, routes with all zones contiguous "
@@ -212,7 +213,7 @@ def main():
         v = [d["top1"] * 100 for k, d in table.items() if k.startswith(prefix)]
         return f"{min(v):.1f}% to {max(v):.1f}%" if len(v) > 1 else (f"{v[0]:.1f}%" if v else "n/a")
 
-    zv, zt = out["zone_structure"]["val"], out["zone_structure"]["test"]
+    zv, zt = out["zone_structure"]["val"], out["zone_structure"]["train"]
     out["summary_lines"] = [
         f"Top-1 successor accuracy on the {len(val)} validation routes ({ss['nearest_stop']['n_stops']:,} stops): stop-level "
         f"diffusion {pct_range('diffusion_seed', ss)} across seeds, one-shot supervised ablation "
@@ -225,9 +226,9 @@ def main():
         f"{zacc['nearest_zone']['top1'] * 100:.1f}%.",
         "",
         f"Zone structure of driver sequences: {zv['same_zone_move_share'] * 100:.1f}% of consecutive stop-to-stop moves stay in "
-        f"the same zone on validation routes ({zt['same_zone_move_share'] * 100:.1f}% on test routes), and "
-        f"{zv['contiguous_zone_share'] * 100:.1f}% of zones are served in one contiguous block "
-        f"({zt['contiguous_zone_share'] * 100:.1f}% on test).",
+        f"the same zone on validation routes ({zt['same_zone_move_share'] * 100:.1f}% on the {zt['n_routes']:,} training "
+        f"routes), and {zv['contiguous_zone_share'] * 100:.1f}% of zones are served in one contiguous block "
+        f"({zt['contiguous_zone_share'] * 100:.1f}% on training routes). No test split is used for these statistics.",
     ]
     for method, d in out["penalty_saturation"].items():
         br = d["by_lam"]

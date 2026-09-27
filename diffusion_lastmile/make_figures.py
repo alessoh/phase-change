@@ -12,11 +12,15 @@ Outputs in results/figures/:
                                  ablation vs. the SoftDist control, driver's tour drawn on top
     zone_orders_<route>.png      driver zone order vs. zone diffusion vs. one-shot zone model vs. history
     seed_spread.png              mean Amazon score of every learned model for each training seed,
-                                 next to the non-learned baselines (test and held-out)
-    training_curves.png          training / validation loss of all 12 runs
-    score_distributions.png      per-route Amazon score and travel time by method (test split)
+                                 next to the non-learned baselines (fresh, test and held-out)
+    ablation_diffusion_vs_supervised.png  per-route score of each diffusion model against its
+                                 one-shot supervised twin (seed-averaged), stop and zone level
+    training_curves.png          training / validation loss of all 12 main runs (+ spec-budget run)
+    score_distributions.png      per-route Amazon score and travel time by method
     paired_diffusion_vs_ortools.png  per-route Amazon score, diffusion methods vs. OR-Tools
-All learned-model panels except seed_spread.png use the seed-0 checkpoints.
+Per-route figures use the FINAL (fresh) test split when it has been evaluated, else the reused
+test split. All learned-model panels except seed_spread.png and the ablation figure use the
+seed-0 checkpoints.
 """
 from __future__ import annotations
 
@@ -34,7 +38,7 @@ from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 import data  # noqa: E402
 from baselines import softdist_heatmap  # noqa: E402
-from evaluate import HIER_SAMPLES, HIER_STEPS, RES, heatmap, load_learned  # noqa: E402
+from evaluate import HIER_SAMPLES, HIER_STEPS, RES, SPLITS, heatmap, load_learned  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FIG = os.path.join(RES, "figures")
@@ -113,7 +117,7 @@ def pick_routes(per_route, k=3):
     return [per_route[order[int(q * (len(order) - 1))]] for q in np.linspace(0.25, 0.75, k)]
 
 
-def route_maps(split="test"):
+def route_maps(split="fresh"):
     per_route, seqs = load_results(split)
     if per_route is None:
         print("no results yet")
@@ -134,7 +138,7 @@ def route_maps(split="test"):
             mm = r[m]
             draw_route(ax, ex, seqs[rid][m], f"{SHORT[m]}\nscore {mm['amazon_score']:.4f} | {mm['travel_time_s'] / 3600:.2f} h | "
                                               f"{mm['driver_edge_overlap'] * 100:.0f}% driver edges")
-        fig.suptitle(f"Route {rid[8:16]} ({ex['station_code']}, {len(ex['stop_ids']) - 1} stops), {pct} percentile of the "
+        fig.suptitle(f"{split} split, route {rid[8:16]} ({ex['station_code']}, {len(ex['stop_ids']) - 1} stops), {pct} percentile of the "
                      f"zone-diffusion score. Line shade runs light (first stop) to dark (last stop); station legs omitted. "
                      f"Learned models: seed 0.", fontsize=9, color=TEXT, x=0.01, ha="left")
         fig.tight_layout(rect=(0, 0, 1, 0.96))
@@ -159,7 +163,7 @@ def route_maps(split="test"):
         json.dump(key, f, indent=1)
 
 
-def heatmap_figure(split="test"):
+def heatmap_figure(split="fresh"):
     per_route, _ = load_results(split)
     L = load_learned(0)
     if per_route is None or "stop_diffusion" not in L:
@@ -193,14 +197,14 @@ def heatmap_figure(split="test"):
         clean(ax)
         ax.legend(loc="lower left", fontsize=7.5, frameon=False)
         fig.colorbar(lc, ax=ax, shrink=0.7, label="edge score")
-    fig.suptitle(f"Stop-level edge heat-maps for route {r['route_id'][8:16]} (test split, seed-0 models); station edges "
+    fig.suptitle(f"Stop-level edge heat-maps for route {r['route_id'][8:16]} ({split} split, seed-0 models); station edges "
                  "omitted", fontsize=9, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     fig.savefig(os.path.join(FIG, f"heatmap_{r['route_id'][8:16]}.png"), dpi=140)
     plt.close(fig)
 
 
-def zone_order_figure(split="test"):
+def zone_order_figure(split="fresh"):
     """Zone tours for one route: driver, zone diffusion, one-shot zone model and history, each decoded
     with the decoder chosen for that method on validation."""
     per_route, _ = load_results(split)
@@ -245,7 +249,7 @@ def zone_order_figure(split="test"):
     plt.close(fig)
 
 
-def distributions(split="test"):
+def distributions(split="fresh"):
     per_route, _ = load_results(split)
     if per_route is None:
         return
@@ -313,13 +317,13 @@ def seed_spread():
     if not os.path.exists(R):
         return
     res = json.load(open(R))["splits"]
-    splits = [s for s in ["test", "heldout"] if s in res and res[s].get("seed_summary")]
+    splits = [s for s in SPLITS if s in res and res[s].get("seed_summary")]
     if not splits:
         return
     rows = [("Stop level, greedy + 2-opt", "diffusion", "sup", "softdist", "SoftDist + 2-opt"),
             ("Stop level, greedy only", "diffusion_greedy", "sup_greedy", "softdist_greedy", "SoftDist, no 2-opt"),
             ("Zone level + OR-Tools", "hier", "hier_sup", "zonehist", "History zone order")]
-    fig, axes = plt.subplots(1, len(splits), figsize=(6.2 * len(splits), 4.0), sharey=True)
+    fig, axes = plt.subplots(1, len(splits), figsize=(5.4 * len(splits), 4.0), sharey=True)
     for ax, split in zip(np.atleast_1d(axes), splits):
         ss = res[split]["seed_summary"]
         summ = res[split]["summary"]["methods"]
@@ -343,7 +347,8 @@ def seed_spread():
         ax.set_yticks(range(len(rows)))
         ax.set_yticklabels([r[0] for r in rows[::-1]])
         ax.set_xlabel("mean Amazon score (lower = closer to the driver)")
-        ax.set_title(f"{split} ({res[split]['summary']['n_routes']} routes)", fontsize=9, loc="left")
+        tag = "final" if split == "fresh" else "reused"
+        ax.set_title(f"{split}, {tag} ({res[split]['summary']['n_routes']} routes)", fontsize=9, loc="left")
         ax.grid(axis="x", color=GRID, lw=0.6)
         ax.set_axisbelow(True)
         ax.set_ylim(-0.6, len(rows) - 0.2)
@@ -369,16 +374,20 @@ def training_curve():
     for i, level in enumerate(["stop", "zone"]):
         for j, (obj, col) in enumerate([("diffusion", SERIES_1), ("supervised", SERIES_2)]):
             ax = axes[i, j]
-            for seed, ls in zip([0, 1, 2], ["-", "--", ":"]):
-                p = os.path.join(HERE, "checkpoints", f"{level}_{obj}_seed{seed}_log.jsonl")
+            runs = [(f"seed {seed}", f"{level}_{obj}_seed{seed}_log.jsonl", ls, col, TEXT)
+                    for seed, ls in zip([0, 1, 2], ["-", "--", ":"])]
+            if level == "stop" and obj == "diffusion":
+                runs.append(("spec-budget, 3,000 steps", "stop_diffusion_budget_seed0_log.jsonl", "-", BLUE_RAMP[2], TEXT2))
+            for lab, fn, ls, c_tr, c_va in runs:
+                p = os.path.join(HERE, "checkpoints", fn)
                 if not os.path.exists(p):
                     continue
                 recs = _read_log(p)
                 tr = [(r["step"], r["loss"]) for r in recs if "loss" in r]
                 va = [(r["step"], r["val_loss_ema"]) for r in recs if "val_loss_ema" in r and "final" not in r]
-                ax.plot(*zip(*tr), color=col, lw=1.0, ls=ls, alpha=0.55, label=f"seed {seed} training (50-step mean)")
+                ax.plot(*zip(*tr), color=c_tr, lw=1.0, ls=ls, alpha=0.55, label=f"{lab} training (50-step mean)")
                 if va:
-                    ax.plot(*zip(*va), color=TEXT, lw=1.4, ls=ls, marker="o", ms=3, label=f"seed {seed} validation (EMA)")
+                    ax.plot(*zip(*va), color=c_va, lw=1.4, ls=ls, marker="o", ms=3, label=f"{lab} validation (EMA)")
             ax.set_xlabel("optimisation step")
             ax.set_ylabel("binary cross-entropy")
             ax.set_ylim(0, 0.2)
@@ -386,23 +395,65 @@ def training_curve():
             ax.legend(frameon=False, fontsize=6.5, ncol=2)
             name = "edge diffusion (loss averaged over noise levels)" if obj == "diffusion" else "one-shot supervised (ablation)"
             ax.set_title(f"{level.capitalize()} level, {name}", fontsize=9, loc="left")
-    fig.suptitle("Training curves of all 12 runs (High-quality routes only). Losses of the two objectives are not directly "
+    fig.suptitle("Training curves of the 12 main runs and the spec-budget run (High-quality routes only). Losses of the two "
+                 "objectives are not directly "
                  "comparable: the diffusion loss includes noisy inputs.", fontsize=8.5, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0, 1, 0.95))
     fig.savefig(os.path.join(FIG, "training_curves.png"), dpi=140)
     plt.close(fig)
 
 
+def ablation_scatter(split="fresh"):
+    """Per route: seed-averaged score of each diffusion model (y) against its one-shot supervised twin
+    (x), same network, data and decoder. Points above the diagonal: diffusion further from the driver."""
+    per_route, _ = load_results(split)
+    if per_route is None:
+        return
+    pairs = [("diffusion", "sup", "Stop level, greedy + 2-opt"), ("diffusion_greedy", "sup_greedy", "Stop level, greedy only"),
+             ("hier", "hier_sup", "Zone level + OR-Tools")]
+    pairs = [p for p in pairs if p[0] in per_route[0] and p[1] in per_route[0]]
+    if not pairs:
+        return
+
+    def avg(m):
+        keys = [k for k in [m, m + "@1", m + "@2"] if k in per_route[0]]
+        return np.mean([[r[k]["amazon_score"] for r in per_route] for k in keys], axis=0), len(keys)
+
+    fig, axes = plt.subplots(1, len(pairs), figsize=(4.6 * len(pairs), 4.7))
+    for ax, (d, s_, title) in zip(np.atleast_1d(axes), pairs):
+        y, nd = avg(d)
+        x, ns = avg(s_)
+        lim = [0, max(x.max(), y.max()) * 1.05]
+        ax.plot(lim, lim, color=TEXT2, lw=1, ls="--")
+        ax.scatter(x, y, s=12, color=SERIES_1, alpha=0.7, edgecolor=SURFACE, linewidths=0.4)
+        ax.set_xlim(lim)
+        ax.set_ylim(lim)
+        ax.set_aspect("equal")
+        ax.set_xlabel(f"one-shot supervised, mean of {ns} seeds")
+        ax.set_ylabel(f"diffusion, mean of {nd} seeds")
+        ax.set_title(f"{title}\nmean diff {np.mean(y - x):+.4f}; diffusion better on {np.mean(y < x) * 100:.0f}% of routes",
+                     fontsize=8.5, loc="left")
+        ax.grid(color=GRID, lw=0.6)
+        ax.set_axisbelow(True)
+    fig.suptitle(f"Diffusion vs. its one-shot supervised twin, per route ({split} split, {len(per_route)} routes; Amazon score, "
+                 "lower is better; points above the diagonal favour the supervised model)", fontsize=9, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0, 1, 0.93))
+    fig.savefig(os.path.join(FIG, "ablation_diffusion_vs_supervised.png"), dpi=140)
+    plt.close(fig)
+
+
 def main():
     os.makedirs(FIG, exist_ok=True)
     torch.set_num_threads(4)
+    split = "fresh" if os.path.exists(os.path.join(RES, "per_route_fresh.json")) else "test"
     training_curve()
     seed_spread()
-    route_maps("test")
-    heatmap_figure("test")
-    zone_order_figure("test")
-    distributions("test")
-    print("figures written to", FIG)
+    ablation_scatter(split)
+    route_maps(split)
+    heatmap_figure(split)
+    zone_order_figure(split)
+    distributions(split)
+    print(f"figures written to {FIG} (per-route figures from the {split} split)")
 
 
 if __name__ == "__main__":

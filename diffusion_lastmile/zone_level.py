@@ -28,7 +28,8 @@ Zone graph of one route (complete directed graph over station + zones):
 The same zone graphs are used by the one-shot supervised ablation (train.py --objective
 supervised --level zone), so the two zone models see identical inputs.
 
-    python zone_level.py build         # writes data/processed/zone_{train,val,heldout,test}.pkl
+    python zone_level.py build [split ...]   # writes data/processed/zone_{train,val,heldout,test,fresh}.pkl
+                                             # (default: all splits whose stop-level file exists)
 """
 from __future__ import annotations
 
@@ -178,10 +179,13 @@ def history_heatmap(zex: dict) -> np.ndarray:
     return zex["edge_feat"][:, 10].astype(np.float64)
 
 
-def build_all():
+def build_all(names=("train", "val", "heldout", "test", "fresh")):
     tr = data.load_split("train")
     hist = History(tr)
-    for name in ["train", "val", "heldout", "test"]:
+    for name in names:
+        if name != "train" and not os.path.exists(os.path.join(data.PROC_DIR, f"{name}.pkl")):
+            print(f"[zone] {name}.pkl not found, skipped")
+            continue
         exs = tr if name == "train" else data.load_split(name)
         out = [build_zone_example(ex, hist, leave_one_out=(name == "train")) for ex in exs]
         seen = np.mean([np.mean(z["edge_feat"][z["edge_y"] == 1, 10].astype(float) > 0) for z in out])
@@ -195,4 +199,4 @@ if __name__ == "__main__":
     import sys
 
     if len(sys.argv) > 1 and sys.argv[1] == "build":
-        build_all()
+        build_all(tuple(sys.argv[2:]) or ("train", "val", "heldout", "test", "fresh"))

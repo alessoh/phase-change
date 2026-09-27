@@ -36,10 +36,13 @@ NAMES = {
     "sup": "One-shot supervised GNN, greedy + 2-opt",
     "diffusion_greedy": "Stop-level diffusion, greedy",
     "diffusion": "Stop-level diffusion, greedy + 2-opt",
+    "diffusion_budget_greedy": "Stop-level diffusion, spec-budget model, greedy",
+    "diffusion_budget": "Stop-level diffusion, spec-budget model, greedy + 2-opt",
     "hier_sup": "One-shot supervised zone GNN + OR-Tools (5 s)",
     "hier": "Zone-level diffusion + OR-Tools (5 s)",
 }
-ORDER = ["hier", "hier_sup", "zonehist", "zone", "diffusion", "sup", "diffusion_greedy", "sup_greedy", "softdist",
+ORDER = ["hier_sup", "hier", "zonehist", "zone", "diffusion", "sup", "diffusion_greedy", "sup_greedy", "diffusion_budget",
+         "diffusion_budget_greedy", "softdist",
          "softdist_greedy", "ortools", "nn", "driver"]
 GAP_NAMES = {"hier - zonehist": "Zone diffusion minus history zone order",
              "hier - hier_sup": "Zone diffusion minus one-shot zone GNN",
@@ -49,7 +52,9 @@ GAP_NAMES = {"hier - zonehist": "Zone diffusion minus history zone order",
              "diffusion_greedy - sup_greedy": "Stop diffusion minus one-shot GNN (greedy only)",
              "diffusion - softdist": "Stop diffusion minus SoftDist (both + 2-opt)",
              "sup - softdist": "One-shot GNN minus SoftDist (both + 2-opt)",
-             "diffusion - zone": "Stop diffusion + 2-opt minus zone-change heuristic"}
+             "diffusion - zone": "Stop diffusion + 2-opt minus zone-change heuristic",
+             "hier_sup - zone": "One-shot zone GNN minus zone-change heuristic",
+             "diffusion_budget - diffusion": "Spec-budget stop diffusion minus full stop diffusion (both + 2-opt)"}
 
 
 # ---------------------------------------------------------------------------------------------
@@ -121,7 +126,7 @@ def results_table(doc, summ):
                      f"{d['zone_order_tau']['mean']:.2f}", f"{rt['median']:.2f} ({rt['q25']:.2f} to {rt['q75']:.2f})"])
     table(doc, ["Method", "Amazon score, mean (95% CI)", "Score median", "Travel time mean, h", "Travel time median, h",
                 "Driver moves reproduced", "Zone-order tau", "Runtime median (IQR), s"],
-          rows, [4.3, 3.0, 1.4, 1.5, 1.5, 1.6, 1.3, 2.4], bold_rows=[methods.index("hier")] if "hier" in methods else [])
+          rows, [4.3, 3.0, 1.4, 1.5, 1.5, 1.6, 1.3, 2.4], bold_rows=[])
 
 
 def seed_table(doc, ss):
@@ -169,13 +174,13 @@ def size_word(diff, base):
 def main():
     R = json.load(open(os.path.join(RES, "results.json")))
     tuning = R["tuning_on_val"]
-    r1 = R.get("tuning_round1_on_val")
     diag = R.get("diagnostics")
+    tc = R.get("training_compute")
     stats = json.load(open(os.path.join(RES, "data_stats.json")))
-    TE = R["splits"]["test"]
-    te, te_ss, te_b = TE["summary"], TE.get("seed_summary"), TE.get("budget_sensitivity")
-    HO = R["splits"].get("heldout", {})
-    ho, ho_ss = HO.get("summary"), HO.get("seed_summary")
+    prim = "fresh" if "fresh" in R["splits"] else "test"
+    FR = R["splits"][prim]
+    fr, fr_ss, fr_b = FR["summary"], FR.get("seed_summary"), FR.get("budget_sensitivity")
+    reused = [s for s in ["test", "heldout"] if s in R["splits"] and s != prim]
 
     def M(s, m, k="amazon_score", f="mean"):
         return s["methods"][m][k][f]
@@ -183,8 +188,8 @@ def main():
     def P(s, ref, other, k="amazon_score"):
         return s["paired"][ref][other][k]
 
-    def gap(ss, g):
-        return ss["gaps"][g]
+    def SA(ss, g):
+        return ss["gaps"][g]["seed_averaged"]
 
     def ci_txt(ci, nd=4):
         return f"{ci[0]:+.{nd}f} to {ci[1]:+.{nd}f}"
@@ -204,285 +209,252 @@ def main():
 
     # ------------------------------------------------------------------ short answer
     doc.add_heading("The short answer", level=1)
-    n_te = te["n_routes"]
+    n = fr["n_routes"]
     para(doc,
          "The idea under test is that a generative diffusion model trained only on delivery routes that drivers executed well "
-         "should produce a sensible sequence for a new route by itself, because it has absorbed what good routes in that "
-         "business look like. We built that model on the public Amazon Last Mile Routing Research Challenge data, trained it "
-         f"only on the {stats['n_high']:,} routes Amazon rated High quality, and compared it on {n_te} unseen routes of the "
-         "separate official evaluation dataset with a nearest-neighbour rule, Google OR-Tools, a zone-aware OR-Tools heuristic, "
-         "a non-learned heat-map control and, as an ablation, the identical neural network trained as an ordinary one-shot "
-         "supervised classifier. Every stop, zone, travel time and driver sequence is real.")
-    d_vs_z = P(te, "diffusion", "zone")["ci95"]
-    d_vs_sd = P(te, "diffusion", "softdist")["ci95"]
+         "should produce a sensible sequence for a new route, because it has absorbed what good routes look like. We built "
+         "that model on the public Amazon Last Mile Routing Research Challenge data, trained it only on the "
+         f"{stats['n_high']:,} routes Amazon rated High quality, and compared it on {n} unseen routes of the separate official "
+         "evaluation dataset with nearest neighbour, Google OR-Tools, a zone-aware OR-Tools heuristic, a non-learned heat-map "
+         "control and, as an ablation, the identical neural network trained as an ordinary one-shot supervised classifier. "
+         "Every stop, zone, travel time and driver sequence is real. The final numbers come from a set of routes that was "
+         "first evaluated only after every setting of every method had been frozen.")
     para(doc,
-         "The answer is mostly no for the model as specified, and a qualified yes for a hybrid designed afterwards. The "
-         "specified stop-level diffusion model, which generates stop-to-stop connections and is decoded greedily with 2-opt, "
-         f"scored {M(te, 'diffusion'):.4f} on the official challenge metric (lower is closer to the driver). That is "
-         f"{verdict(d_vs_sd)} the non-learned SoftDist control built from travel times alone ({M(te, 'softdist'):.4f}) but "
-         f"{verdict(d_vs_z)} a simple zone-aware OR-Tools heuristic ({M(te, 'zone'):.4f}). Its learned heat-map adds little "
-         "over distance, and it does not beat a rule that one line of domain knowledge produces.")
-    if te_ss and "diffusion - sup" in te_ss["gaps"]:
-        g = gap(te_ss, "diffusion - sup")
+         "The answer is no: the experiment gives no evidence that the diffusion process helps. The specified stop-level "
+         f"diffusion model scored {M(fr, 'diffusion'):.4f} on the official challenge metric (lower is closer to the driver), "
+         f"{verdict(P(fr, 'diffusion', 'softdist')['ci95'])} the non-learned SoftDist control ({M(fr, 'softdist'):.4f}) but "
+         f"{verdict(P(fr, 'diffusion', 'zone')['ci95'])} a simple zone-aware OR-Tools heuristic ({M(fr, 'zone'):.4f}).",
+         bold=False)
+    if fr_ss and all(g in fr_ss["gaps"] for g in ["diffusion - sup", "diffusion_greedy - sup_greedy", "hier - hier_sup"]):
+        g1, g2, g3 = SA(fr_ss, "diffusion - sup"), SA(fr_ss, "diffusion_greedy - sup_greedy"), SA(fr_ss, "hier - hier_sup")
         para(doc,
-             "The ablation asks whether the diffusion process itself contributes anything. Trained on the same data, with the "
-             "same features, network, number of steps and decoder, the one-shot supervised version of the stop-level model "
-             f"scored {te_ss['methods']['sup']['across_seeds']['mean']:.4f} averaged over three training seeds, against "
-             f"{te_ss['methods']['diffusion']['across_seeds']['mean']:.4f} for diffusion. Averaged over seeds, diffusion minus "
-             f"supervised is {g['seed_averaged']['mean_diff']:+.4f} (95% interval {ci_txt(g['seed_averaged']['ci95'])}), so the "
-             f"diffusion model is {verdict(g['seed_averaged']['ci95'])} its supervised twin at stop level.")
-    if te_ss and "hier - zonehist" in te_ss["gaps"]:
-        gh, gs = gap(te_ss, "hier - zonehist"), gap(te_ss, "hier - hier_sup")
-        others = [m for m in te["methods"] if m not in ("driver", "hier")]
-        best_other = min(others, key=lambda m: M(te, m))
-        best_clause = (", the lowest mean of every method in the seed-0 table" if M(te, "hier") < M(te, best_other)
-                       else f", behind {NAMES[best_other].lower()} ({M(te, best_other):.4f})")
+             "The decisive comparison is the ablation. The same network, trained on the same data with the same features, "
+             "optimiser, schedule, number of steps and decoder, but as a plain one-shot supervised classifier instead of a "
+             "diffusion model, was closer to the drivers at both levels. Averaged over three training seeds, diffusion minus "
+             f"supervised is {g1['mean_diff']:+.4f} (95% interval {ci_txt(g1['ci95'])}) at stop level with 2-opt, "
+             f"{g2['mean_diff']:+.4f} ({ci_txt(g2['ci95'])}) without 2-opt, and {g3['mean_diff']:+.4f} "
+             f"({ci_txt(g3['ci95'])}) at zone level; positive means diffusion is worse. The diffusion model is "
+             f"{verdict(g1['ci95'])}, {verdict(g2['ci95'])} and {verdict(g3['ci95'])} its supervised twin in these three "
+             "comparisons, and it is also slower. The diffusion process adds no measurable benefit over a single supervised "
+             "forward pass of the same network.")
+    if fr_ss and "hier_sup - zonehist" in fr_ss["gaps"]:
+        others = [m for m in fr["methods"] if m != "driver"]
+        best = min(others, key=lambda m: M(fr, m))
+        gz = SA(fr_ss, "hier_sup - zonehist")
         para(doc,
-             "The positive result is a post-hoc hybrid. After a diagnosis on validation routes, the same diffusion machinery "
-             "was moved one level up to generate only the order in which a route's delivery zones are served, with historical "
-             "zone-transition counts from the training routes as input features, and OR-Tools then sequences the stops inside "
-             f"that order. This method reached {M(te, 'hier'):.4f} (median {M(te, 'hier', f='median'):.4f}) with the seed-0 model "
-             f"and {te_ss['methods']['hier']['across_seeds']['mean']:.4f} averaged over three seeds{best_clause}. "
-             "Its margin over a pure history lookup that decodes the same transition counts without any model is "
-             f"{size_word(gh['seed_averaged']['mean_diff'], M(te, 'zonehist'))}: "
-             f"{gh['seed_averaged']['mean_diff']:+.4f} averaged over seeds (95% interval {ci_txt(gh['seed_averaged']['ci95'])}), "
-             f"with per-seed gaps between {gh['across_seeds']['min']:+.4f} and {gh['across_seeds']['max']:+.4f}. Against the "
-             "one-shot supervised zone model, which sees exactly the same inputs, the zone diffusion model is "
-             f"{verdict(gs['seed_averaged']['ci95'])} it (seed-averaged difference {gs['seed_averaged']['mean_diff']:+.4f}, "
-             f"interval {ci_txt(gs['seed_averaged']['ci95'])}).")
+             f"The most driver-like method overall was {NAMES[best].lower()} ({M(fr, best):.4f} with the seed-0 model). That "
+             "is a hybrid designed after a diagnosis on validation routes, and most of its advantage does not come from "
+             "generative sequence modelling. A learned model only orders the roughly 20 zones of a route, using historical "
+             "zone-transition counts from the training routes as input, and OR-Tools with guided local search then sequences "
+             "every stop inside that order. A pure history lookup that decodes the same counts without any network, followed by "
+             f"the same OR-Tools step, scored {M(fr, 'zonehist'):.4f}; the one-shot zone network beats it by "
+             f"{-gz['mean_diff']:.4f} averaged over seeds (interval {ci_txt(gz['ci95'])}), and the zone diffusion model "
+             f"scored {M(fr, 'hier'):.4f}. Plain OR-Tools scored {M(fr, 'ortools'):.4f}.")
     para(doc,
-         "Even the best method remains far from challenge-level performance. The winning team of the 2021 challenge (Cook, "
-         "Held and Helsgaun; arXiv 2112.15192, Transportation Science 2024) is reported to have scored about 0.025 on the full "
-         "evaluation set. We saw that figure in search results but could not open the paper from this environment to verify "
-         f"it, and our {n_te}-route subset is not a leaderboard submission, so the comparison is indicative only. No "
-         "challenge-winning method or published learned sequencing model was reproduced here.")
+         "Even the best method is far from challenge-level performance. The winning team of the 2021 challenge (Cook, Held and "
+         "Helsgaun; arXiv 2112.15192) is reported to have scored about 0.025 on the full evaluation set; we could not open the "
+         f"paper from this environment to verify it, and our {n}-route sample is not a leaderboard submission.")
+
+    # ------------------------------------------------------------------ test sets
+    doc.add_heading("Which routes the results come from", level=1)
+    para(doc,
+         f"Final test set: {n} routes drawn at random from the {stats.get('n_eval_not_in_test', 0):,} routes of the official "
+         "evaluation dataset that had not been used before, and evaluated once, after all settings were frozen. Nothing in the "
+         "study was decided with it.")
+    para(doc,
+         "Two further sets are reported but are no longer untouched: 300 other evaluation-dataset routes and 150 held-out "
+         "High-quality training-dataset routes. Both were evaluated in an earlier round of this study. After seeing those "
+         "results the models were retrained, the supervised ablations and two more training seeds were added, the tuning grids "
+         "were widened and the tuned setting of the zone heuristic changed. No setting was chosen by a test score, but the "
+         "design was revised after test results had been seen, so these two sets serve as development results only. "
+         "Their conclusions agree with the final set (see results/summary.md).")
 
     # ------------------------------------------------------------------ data
-    doc.add_heading("The data and the test", level=1)
+    doc.add_heading("The data and the measures", level=1)
     para(doc,
          "The Amazon Last Mile Routing Research Challenge dataset (Merchan and colleagues, Transportation Science, 2024) is "
          "published on the AWS Open Data registry under a Creative Commons Attribution-NonCommercial licence, which this "
-         f"research use respects. The training part contains {stats['n_train_total']:,} routes from 17 depots in five US "
+         f"research use respects. The training part has {stats['n_train_total']:,} routes from 17 depots in five US "
          "metropolitan areas, each with stop coordinates, zone identifiers, a full matrix of real travel times and the "
          f"sequence the driver actually drove. Only the {stats['n_high']:,} routes rated High were used for learning: "
-         f"{stats['split_sizes']['train']:,} for training, {stats['split_sizes']['val']} for choosing every setting of every "
-         f"method, and {stats['split_sizes']['heldout']} kept aside as a second test set that no model saw during training "
-         "or tuning.")
+         f"{stats['split_sizes']['train']:,} for training and {stats['split_sizes']['val']} for choosing every setting of every "
+         "method. The evaluation dataset carries no route-quality label, so the quality of the test executions is unknown.")
     para(doc,
-         f"The main test set is {stats['split_sizes']['test']} routes drawn at random from the {stats['n_eval_total']:,} routes "
-         "of the separate official evaluation dataset. Those files carry no route-quality label, so the quality of these "
-         "executions is unknown. The challenge scoring may itself have used only High-quality routes; we could not verify "
-         "this, and we make no assumption about it. The held-out High routes are therefore reported as well, because their "
-         "quality is known and matches the training data.")
-    para(doc,
-         "Two measures are reported for every route. The first is the total travel time of the closed tour from the depot and "
-         "back on the real travel-time matrix. The second is the official challenge score, which measures how far a proposed "
-         "sequence is from the driver's: a sequence-deviation term multiplied by an edit distance on normalised travel times. "
-         "Lower is better and the driver scores exactly zero. The scoring code was re-implemented from the organisers' "
-         "published script and is tested to give bit-for-bit identical values on real routes.")
+         "Two measures are reported for every route: the total travel time of the closed tour on the real travel-time matrix, "
+         "and the official challenge score, a sequence-deviation term multiplied by an edit distance on normalised travel "
+         "times, measured against the driver's sequence. Lower is better and the driver scores exactly zero. The score is "
+         "re-implemented from the organisers' published script and tested to give identical values on real routes.")
 
     # ------------------------------------------------------------------ method
     doc.add_heading("How the models work", level=1)
     para(doc,
-         "A route is treated as a graph. The diffusion model learns to produce the set of directed connections a driver would "
-         "use, one yes-or-no value per candidate connection. During training the true connections of a driver's route are "
-         "progressively scrambled by random bit flips, and a graph neural network learns to undo the scrambling while looking "
-         "at the real travel times, the stop locations and the zone labels. At use time the model starts from pure noise on a "
-         f"new route and denoises it in {tuning['diff_steps']} steps; {tuning['diff_samples']} such samples are averaged into a "
-         "map of how likely each connection is. This is the DIFUSCO approach (Sun and Yang, NeurIPS 2023), here trained to "
-         "imitate drivers instead of minimising distance. A greedy procedure turns the map into one valid tour, optionally "
-         "polished by 2-opt.")
+         "A route is a graph. The diffusion model learns the set of directed connections a driver uses, one yes-or-no value per "
+         "candidate connection on a 16-nearest-neighbour graph. During training the driver's connections are scrambled by "
+         "random bit flips and a gated graph neural network learns to undo the scrambling, looking at real travel times, stop "
+         f"locations and zone labels. At use time the model denoises from pure noise in {tuning['diff_steps']} steps; "
+         f"{tuning['diff_samples']} samples are averaged into a map of connection probabilities, which a greedy procedure "
+         "turns into one valid tour, optionally polished by 2-opt. This is the DIFUSCO approach (Sun and Yang, NeurIPS 2023), "
+         "trained to imitate drivers rather than to minimise distance.")
     para(doc,
-         "The supervised ablation uses the identical network, features, training routes, batch size, learning-rate schedule "
-         "and number of optimisation steps, but receives no noisy input: it predicts every connection in one forward pass, and "
-         "its map is decoded in exactly the same way. Any difference between the two is therefore due to the diffusion "
-         "process, not to the network or the data. Both objectives were trained at both levels with three seeds each, twelve "
-         "models in all.")
+         "The supervised ablation uses the identical network, features, training routes, batch size, learning-rate schedule and "
+         "number of optimisation steps, but receives no noisy input and predicts every connection in one forward pass; its map "
+         "is decoded in exactly the same way. Any difference between the two is due to the diffusion process. Both objectives "
+         "were trained at both levels with three seeds each.")
     para(doc,
-         "The zone-level models use the same code on a much smaller graph whose nodes are the route's zones. Besides geography "
-         "and zone labels they see how often drivers from the same depot moved between each pair of zones in the training "
-         "routes, computed so that a training route never sees its own transitions. The generated zone order is handed to "
-         "OR-Tools, which fills in the stops with a penalty on every move that leaves that order. The history control decodes "
-         "the same transition counts directly, with no model, through the same zone decoders and the same OR-Tools step.")
+         "The zone-level models apply the same code to a graph whose nodes are the route's zones. Besides geography and zone "
+         "labels they see how often drivers from the same depot moved between each pair of zones in the training routes "
+         "(leave-one-out for training routes). The generated zone order is handed to OR-Tools, which fills in the stops with a "
+         "penalty on every move that leaves that order.")
     if diag:
         ss, zs = diag["stop_successor"], diag["zone_structure"]["val"]
         dif = [v["top1"] for k, v in ss.items() if k.startswith("diffusion_seed")]
         sup = [v["top1"] for k, v in ss.items() if k.startswith("supervised_seed")]
         para(doc,
-             "The diagnosis that motivated the zone level is reproduced by the script diagnostics.py. On the "
-             f"{diag['n_routes']} validation routes the stop-level diffusion model's single most likely next stop was the "
-             f"driver's actual next stop {min(dif) * 100:.1f}% to {max(dif) * 100:.1f}% of the time across seeds, the one-shot "
-             f"supervised model's {min(sup) * 100:.1f}% to {max(sup) * 100:.1f}%, against {ss['nearest_stop']['top1'] * 100:.1f}% "
-             f"for simply choosing the nearest stop. Meanwhile {zs['same_zone_move_share'] * 100:.1f}% of a driver's consecutive "
-             f"moves stay within one zone and {zs['contiguous_zone_share'] * 100:.1f}% of zones are served in one continuous "
-             "block. The part of a driver's plan that carries knowledge beyond distance is mainly the order of the zones.")
+             f"Diagnosis on the {diag['n_routes']} validation routes (diagnostics.py, which reads no test data): the stop-level "
+             f"diffusion model's most likely next stop was the driver's actual next stop {min(dif) * 100:.1f}% to "
+             f"{max(dif) * 100:.1f}% of the time across seeds, the supervised model's {min(sup) * 100:.1f}% to "
+             f"{max(sup) * 100:.1f}%, and simply choosing the nearest stop {ss['nearest_stop']['top1'] * 100:.1f}%. Meanwhile "
+             f"{zs['same_zone_move_share'] * 100:.1f}% of a driver's consecutive moves stay within one zone and "
+             f"{zs['contiguous_zone_share'] * 100:.1f}% of zones are served in one block, which is why the zone level was added.")
 
     # ------------------------------------------------------------------ results
-    doc.add_heading(f"Results on {n_te} routes from the official evaluation dataset", level=1)
+    doc.add_heading(f"Results on the final test set ({n} routes)", level=1)
     para(doc,
-         "The table shows seed-0 models. Scores are means with bootstrap 95% confidence intervals over routes, followed by "
-         "medians. Driver moves reproduced is the share of the driver's stop-to-stop moves that a method also makes, and "
-         "zone-order tau is the rank correlation between the method's zone order and the driver's (1 means identical order). "
-         "Runtime is the median wall-clock time per route with its interquartile range, measured with no other jobs on the "
-         "machine; it includes the 5 seconds given to OR-Tools where it is used.")
-    results_table(doc, te)
-    para(doc,
-         "Route by route, the zone diffusion method was closer to the driver than the zone-change heuristic on "
-         f"{P(te, 'hier', 'zone')['ref_better_rate'] * 100:.0f}% of routes (mean difference "
-         f"{P(te, 'hier', 'zone')['mean_diff_ref_minus_other']:+.4f}, interval {ci_txt(P(te, 'hier', 'zone')['ci95'])}) and "
-         f"closer than plain OR-Tools on {P(te, 'hier', 'ortools')['ref_better_rate'] * 100:.0f}%. Against the history control "
-         f"it was better on {P(te, 'hier', 'zonehist')['ref_better_rate'] * 100:.0f}% of routes and returned an identical "
-         f"sequence on {P(te, 'hier', 'zonehist')['tie_rate'] * 100:.0f}%.")
+         "Seed-0 models. Scores are means with bootstrap 95% confidence intervals over routes, then medians. Driver moves "
+         "reproduced is the share of the driver's stop-to-stop moves a method also makes; zone-order tau is the rank "
+         "correlation between the method's zone order and the driver's. Runtime is the median wall-clock time per route; it "
+         "includes the 5 seconds given to OR-Tools where used.")
+    results_table(doc, fr)
     para(doc,
          "The cost of looking like a driver is travel time. OR-Tools, which only minimises travel time, produced tours "
-         f"{-P(te, 'hier', 'ortools', 'travel_time_s')['mean_diff_ref_minus_other'] / 60:.1f} minutes shorter on average than "
-         "the zone diffusion method, yet those tours scored far worse against what drivers did. Drivers respond to "
-         "considerations the travel-time matrix does not contain; the data does not say which, and a lower score means "
+         f"{-P(fr, 'hier_sup', 'ortools', 'travel_time_s')['mean_diff_ref_minus_other'] / 60:.1f} minutes shorter on average "
+         "than the one-shot zone GNN hybrid, yet those tours scored much worse against what drivers did. A lower score means "
          "similarity to the driver, not a better route.")
+    figure(doc, os.path.join(FIG, "ablation_diffusion_vs_supervised.png"),
+           "Figure 1. Per-route score of each diffusion model against its one-shot supervised twin (both averaged over three "
+           "seeds). Points above the diagonal are routes where the supervised model is closer to the driver.", width_cm=17.0)
     figure(doc, os.path.join(FIG, "score_distributions.png"),
-           f"Figure 1. Per-route challenge score and travel time for every method on the {n_te} evaluation-dataset routes "
-           "(seed-0 models). Boxes show quartiles, diamonds show means, and the dashed line is the drivers' median travel time.")
-
-    # ------------------------------------------------------------------ ablation and seeds
-    if te_ss:
-        doc.add_heading("Does the diffusion process matter, and how stable is it across seeds?", level=1)
+           f"Figure 2. Per-route challenge score and travel time for every method on the {n} final-test routes (seed-0 "
+           "models). Boxes show quartiles, diamonds means; the dashed line is the drivers' median travel time.")
+    if fr_ss:
+        doc.add_heading("Seeds and paired gaps", level=2)
         para(doc,
-             "Each learned model was trained three times with different seeds, which changes the initial weights, the order of "
-             "the training data and the noise. The first table gives each model's mean score on the evaluation routes for each "
-             "seed. The second gives paired differences on the same routes, seed by seed, with 95% bootstrap intervals; the "
-             "last column first averages each method's per-route score over the three seeds. Negative values favour the first "
-             "method named.")
-        seed_table(doc, te_ss)
-        gap_table(doc, te_ss)
-        lines = []
-        for g in ["hier - zonehist", "hier - hier_sup", "diffusion - sup", "hier_sup - zonehist"]:
-            if g not in te_ss["gaps"]:
-                continue
-            d = te_ss["gaps"][g]
-            n_neg = sum(v["ci95"][1] < 0 for v in d["per_seed"].values())
-            n_pos = sum(v["ci95"][0] > 0 for v in d["per_seed"].values())
-            lines.append(f"for {GAP_NAMES[g].lower()} the per-seed mean gap ranges from {d['across_seeds']['min']:+.4f} to "
-                         f"{d['across_seeds']['max']:+.4f} (standard deviation {d['across_seeds']['sd']:.4f}), with the interval "
-                         f"entirely below zero for {n_neg} of 3 seeds and entirely above zero for {n_pos}")
-        para(doc, "Reading the seed tables: " + "; ".join(lines) + ".")
+             "Each learned model was trained with three seeds. The first table gives each model's mean score per seed; the "
+             "second gives paired differences on the same routes, seed by seed, with 95% bootstrap intervals, and in the last "
+             "column after averaging each method's per-route score over the seeds. Negative values favour the first method.")
+        seed_table(doc, fr_ss)
+        gap_table(doc, fr_ss)
         figure(doc, os.path.join(FIG, "seed_spread.png"),
-               "Figure 2. Mean score of every learned model for each training seed (blue circles: diffusion; orange squares: "
-               "one-shot supervised ablation) beside the non-learned control of the same row (gray bar) and the zone-change "
-               "heuristic (dashed line).", width_cm=16.5)
-
-    if ho:
-        doc.add_heading(f"Results on {ho['n_routes']} held-out High-quality routes", level=1)
+               "Figure 3. Mean score of every learned model for each seed (blue circles: diffusion; orange squares: one-shot "
+               "supervised) beside the non-learned control of the same row (gray bar) and the zone heuristic (dashed line), "
+               "on the final set and the two reused sets.", width_cm=17.0)
+    if "diffusion_budget" in fr["methods"]:
         para(doc,
-             "These routes come from the same distribution as the training data and are known to be good executions, but were "
-             "never used for training or tuning. The table again shows seed-0 models.")
-        results_table(doc, ho)
-        txt = (f"Here the zone diffusion method scored {M(ho, 'hier'):.4f} (median {M(ho, 'hier', f='median'):.4f}), "
-               f"{verdict(P(ho, 'hier', 'zone')['ci95'])} the zone-change heuristic ({M(ho, 'zone'):.4f}) and "
-               f"{verdict(P(ho, 'hier', 'zonehist')['ci95'])} the history control ({M(ho, 'zonehist'):.4f}), with which it "
-               f"returned identical sequences on {P(ho, 'hier', 'zonehist')['tie_rate'] * 100:.0f}% of routes. The stop-level "
-               f"diffusion model scored {M(ho, 'diffusion'):.4f}, {verdict(P(ho, 'diffusion', 'zone')['ci95'])} the zone-change "
-               "heuristic.")
-        if ho_ss and "hier - zonehist" in ho_ss["gaps"]:
-            g = ho_ss["gaps"]["hier - zonehist"]
-            txt += (f" Across the three seeds the zone diffusion minus history gap on these routes ranges from "
-                    f"{g['across_seeds']['min']:+.4f} to {g['across_seeds']['max']:+.4f}, and the seed-averaged gap is "
-                    f"{g['seed_averaged']['mean_diff']:+.4f} (interval {ci_txt(g['seed_averaged']['ci95'])}).")
-        para(doc, txt)
-        if ho_ss:
-            seed_table(doc, ho_ss)
-            gap_table(doc, ho_ss)
+             "A stop-level diffusion model retrained within the specification's training budget (3,000 instead of 7,000 steps) "
+             f"scored {M(fr, 'diffusion_budget'):.4f} with 2-opt, against {M(fr, 'diffusion'):.4f} for the full model "
+             f"(paired difference {P(fr, 'diffusion', 'diffusion_budget')['mean_diff_ref_minus_other']:+.4f}, full minus "
+             f"budget, interval {ci_txt(P(fr, 'diffusion', 'diffusion_budget')['ci95'])}).")
+
+    for s in reused:
+        S = R["splits"][s]
+        sm, sss = S["summary"], S.get("seed_summary")
+        doc.add_heading(f"Reused set: {'300 evaluation-dataset routes' if s == 'test' else '150 held-out High routes'}", level=1)
+        para(doc, "Development results only (evaluated in an earlier round, see above). Seed-0 models.")
+        results_table(doc, sm)
+        if sss:
+            parts = []
+            for g in ["diffusion - sup", "hier - hier_sup"]:
+                if g in sss["gaps"]:
+                    x = SA(sss, g)
+                    parts.append(f"{GAP_NAMES[g].lower()} {x['mean_diff']:+.4f} (interval {ci_txt(x['ci95'])})")
+            para(doc, "Seed-averaged ablation gaps on this set: " + "; ".join(parts) + ".")
 
     # ------------------------------------------------------------------ fairness
     doc.add_heading("How fair is the comparison?", level=1)
-    gs = tuning.get("grid_sizes", {})
-    bnd = tuning.get("boundary", {})
+    gs, bnd = tuning.get("grid_sizes", {}), tuning.get("boundary", {})
     para(doc,
-         "Every setting was chosen on the 60 validation routes and then frozen; nothing was tuned on either test set. The "
-         "three zone-order methods (zone diffusion, the one-shot zone model and the history control) each received the same "
-         f"grid of {gs.get('hier')} settings, {len(ZONE_DECODERS)} zone decoders times {len(ZONE_ORDER_LAMS)} order-penalty "
-         f"weights from {ZONE_ORDER_LAMS[0]:g} to {ZONE_ORDER_LAMS[-1]:g} times the median travel time, and the zone-change "
-         f"heuristic received {gs.get('zone')} penalty weights spanning 1/16 to {ZONE_LAMS[-1]:g}. A first pass with 12 "
-         "settings each put two optima on the upper edge, so every grid was widened by three settings. The chosen penalty "
-         "lies at the "
-         f"{bnd.get('zone', 'n/a')} end of its grid for the zone heuristic, at the {bnd.get('zonehist', 'n/a')} end for the history "
-         f"control, at the {bnd.get('hier_sup', 'n/a')} end for the one-shot zone model and at the {bnd.get('hier', 'n/a')} end "
-         "for zone diffusion (\"interior\" means not on a boundary). Learned-model settings were tuned with the seed-0 models "
-         "and applied unchanged to seeds 1 and 2. The complete tuning record of this round is in results/tuning.json.")
-    if r1:
-        c = r1["counts"]
-        para(doc,
-             "An earlier round of this study, with models since retrained, tried "
-             f"{c.get('hier', 0)} settings for zone diffusion, {c.get('zonehist', 0)} for the history control and "
-             f"{c.get('zone', 0)} for the zone heuristic on the same validation routes. Its published tuning file had omitted "
-             "the greedy plus 2-opt zone-decoder runs; the complete record, rebuilt from the cached solutions, is in "
-             "results/tuning_round1.json. That earlier, unequal tuning is why this round uses equal grids.")
-    orm = [m for m in ["ortools", "zone", "zonehist", "hier_sup", "hier"] if "ortools_cpu_over_wall" in te["methods"].get(m, {})]
+         "Every setting was chosen on the 60 validation routes and then frozen. The three zone-order methods (zone diffusion, "
+         f"the one-shot zone model and the history control) each received the same grid of {gs.get('hier')} settings: "
+         f"{len(ZONE_DECODERS)} zone decoders times {len(ZONE_ORDER_LAMS)} order-penalty weights from {ZONE_ORDER_LAMS[0]:g} "
+         f"to {ZONE_ORDER_LAMS[-1]:g} times the median travel time; the zone heuristic received {gs.get('zone')} weights from "
+         f"1/16 to {ZONE_LAMS[-1]:g}. The chosen weight lies at the {bnd.get('zone', 'n/a')} of its grid for the zone "
+         f"heuristic, {bnd.get('zonehist', 'n/a')} for the history control, {bnd.get('hier_sup', 'n/a')} for the one-shot zone "
+         f"model and {bnd.get('hier', 'n/a')} for zone diffusion (interior means not on an edge). Grids were widened twice "
+         "because optima landed on the upper edge; from about 16 upward the penalty is saturated (the solutions no longer "
+         "leave the zone order), so differences between the largest weights are search noise. Learned-model settings were "
+         "tuned with the seed-0 models and applied unchanged to seeds 1 and 2.")
+    orm = [m for m in ["ortools", "zone", "zonehist", "hier_sup", "hier"] if "ortools_cpu_over_wall" in fr["methods"].get(m, {})]
     if orm:
-        ratios = [te["methods"][m]["ortools_cpu_over_wall"]["median"] for m in orm]
-        mins = [te["methods"][m]["ortools_cpu_over_wall"]["min"] for m in orm]
+        ratios = [fr["methods"][m]["ortools_cpu_over_wall"]["median"] for m in orm]
+        mins = [fr["methods"][m]["ortools_cpu_over_wall"]["min"] for m in orm]
         para(doc,
-             "OR-Tools ran in four single-threaded worker processes on the four-core machine with no other jobs running. The "
-             "solver's CPU time divided by its wall-clock time had a median between "
-             f"{min(ratios):.2f} and {max(ratios):.2f} across the OR-Tools methods on the evaluation routes (lowest single "
-             f"route {min(mins):.2f}), so each solve effectively had a full core for its 5 second limit.")
-    if te_b:
-        hr = te["methods"]["hier"]["runtime_s"]
+             "OR-Tools ran in four single-threaded worker processes on the four-core machine with no other jobs running. CPU "
+             f"time divided by wall-clock time had a median between {min(ratios):.2f} and {max(ratios):.2f} across the OR-Tools "
+             f"methods on the final set (lowest single route {min(mins):.2f}).")
+    if fr_b and fr_b["methods"]:
         parts = []
-        for m, d in te_b["methods"].items():
-            parts.append(f"{NAMES[m].split(' (')[0].lower()} moved from {d['mean_5s']:.4f} to {d['mean_long']:.4f} "
-                         f"and the zone diffusion method stays {verdict(d['hier5s_minus_long']['ci95'])} it")
+        for m, d in fr_b["methods"].items():
+            x = d.get("hier_sup5s_minus_long")
+            parts.append(f"{NAMES[m].split(' (')[0].lower()} moved from {d['mean_5s']:.4f} to {d['mean_long']:.4f}"
+                         + (f" and the one-shot zone hybrid stays {verdict(x['ci95'])} it" if x else ""))
         para(doc,
-             "The zone-level learned methods spend time on sampling and zone decoding before their 5 second search (median "
-             f"total {hr['median']:.1f} seconds per route for zone diffusion), so the OR-Tools baselines were also re-run with a "
-             f"{te_b['limit_s']:g} second limit on the evaluation routes. With the longer limit, " + "; ".join(parts) + ".")
+             "The zone-level hybrids spend time on the network and zone decoding before their 5 second search, so the OR-Tools "
+             f"baselines were re-run with {fr_b['limit_s']:g} seconds on the final set: " + "; ".join(parts) + ".")
+
+    # ------------------------------------------------------------------ compute
+    if tc:
+        doc.add_heading("Training compute", level=1)
+        tot = tc["totals_cpu_minutes"]
+        para(doc,
+             f"The specification asked for about {tc['spec_budget_cpu_minutes'][0]} to {tc['spec_budget_cpu_minutes'][1]} "
+             f"CPU-minutes of training. The study used about {tc['total_cpu_minutes']:,.0f} CPU-minutes ("
+             + "; ".join(f"{k}: {v:,.0f}" for k, v in tot.items()) + "), far above that. The excess pays for the controls "
+             "that make the conclusions checkable: three seeds per model and the supervised twin of every diffusion model. "
+             "Earlier runs did not record CPU time; for them it is estimated from wall-clock time and the share of a core each "
+             "run received, and cross-checked against a measured single-thread cost per step. A spec-budget pipeline, "
+             f"{' and '.join(tc['spec_budget_pipeline']['runs'])}, uses {tc['spec_budget_pipeline']['cpu_minutes']:.0f} "
+             "CPU-minutes. Per-run figures are in results/summary.md.")
 
     # ------------------------------------------------------------------ figures
     doc.add_heading("What the routes look like", level=1)
     para(doc,
-         "The route maps show one evaluation route solved by every method, chosen at the median of the zone diffusion score so "
-         "that it is neither a showcase nor a failure. The line shade runs from light at the first stop to dark at the last. "
-         "The blind panels show six sequences for the same route with anonymous labels in random order; the key is stored "
-         "separately in blind_key.json so a reader can judge which one looks like the driver before checking.")
+         "The route maps show one final-test route solved by every method, chosen at the median of the zone diffusion score so "
+         "that it is neither a showcase nor a failure. Line shade runs from light at the first stop to dark at the last. The "
+         "blind panels show six sequences for the same route with anonymous labels; the key is in blind_key.json.")
     maps = sorted(f for f in os.listdir(FIG) if f.startswith("route_2_")) if os.path.isdir(FIG) else []
     if maps:
         figure(doc, os.path.join(FIG, maps[0]),
-               "Figure 3. The same real route sequenced by each method (seed-0 models), with its challenge score, travel time "
-               "and share of the driver's moves reproduced.", width_cm=17.0)
+               "Figure 4. The same real route sequenced by each method (seed-0 models), with score, travel time and share "
+               "of the driver's moves reproduced.", width_cm=17.0)
     zfig = sorted(f for f in os.listdir(FIG) if f.startswith("zone_orders_")) if os.path.isdir(FIG) else []
     if zfig:
         figure(doc, os.path.join(FIG, zfig[0]),
-               "Figure 4. Zone tours for the same route: the driver's, the one generated by the zone diffusion model, the one "
-               "from the one-shot supervised zone model, and the one decoded from historical frequencies alone.", width_cm=17.0)
-    figure(doc, os.path.join(FIG, "blind_2.png"),
-           "Figure 5. Blind comparison. Six sequences for the same route, labels shuffled. The answer is in "
-           "results/figures/blind_key.json.", width_cm=15.0)
+               "Figure 5. Zone tours for the same route: the driver's, zone diffusion, the one-shot zone GNN and the history "
+               "lookup.", width_cm=17.0)
 
     # ------------------------------------------------------------------ limits
     doc.add_heading("What this does and does not show", level=1)
     para(doc,
-         "The experiment does not support the strong form of the idea. A diffusion model trained only on successful routes, "
-         "applied to stop-to-stop connections as specified, mostly rediscovered distance-based behaviour and lost to a simple "
-         "zone rule. What a model can add over distance lives mainly at the level of which area to serve next, and even there "
-         "the solution does not appear on its own: the best method is a hybrid in which OR-Tools still orders the stops inside "
-         "each zone, it was designed after looking at validation results, and most of its advantage over plain OR-Tools is "
-         "already captured by a history lookup that uses no model at all.")
+         "The experiment does not support the idea that the diffusion process is what makes a model learn from past "
+         "successes. At stop level the diffusion model mostly rediscovered distance-based behaviour and lost to a simple zone "
+         "rule; at both levels it lost to a one-shot supervised version of itself. The best results come from a hybrid in "
+         "which a learned model (best without diffusion) orders zones using historical transition counts and OR-Tools orders "
+         "the stops, designed after looking at validation results.")
     para(doc,
-         "Several further limits matter. The comparison uses a random subset of the evaluation data, not the full set, and the "
-         "quality of those routes is unknown. The models are small (about 0.3 million parameters at stop level and 1.2 "
-         "million at zone level) and were trained on four CPU cores for a few thousand steps; larger models, package time "
-         "windows and longer training were not tried. No challenge-winning method or published learned sequencing model was "
-         "reproduced, and the reported winning score of about 0.025 could not be verified here.")
+         "Further limits: the final set is a random 300-route sample of the evaluation data with unknown execution quality; "
+         "the two other sets were reused across rounds; the models are small (about 0.3 and 1.2 million parameters) and were "
+         "trained on CPUs; package time windows were not used; no challenge-winning method was reproduced.")
 
     doc.add_heading("Reproducing the study", level=1)
     para(doc,
-         "All code is in the diffusion_lastmile folder. data.py downloads and prepares the data, zone_level.py builds the zone "
-         "graphs, run_training.sh trains the twelve models in resumable chunks through train.py, run_evaluation.sh tunes, "
-         "evaluates, runs the diagnostics and writes the report, figures and this document. The README gives the exact "
-         "commands, and every number in this document is read from results/results.json.")
+         "All code is in the diffusion_lastmile folder: data.py prepares the data, zone_level.py builds the zone graphs, "
+         "run_training.sh trains the models in resumable chunks, run_evaluation.sh tunes, evaluates, runs the diagnostics and "
+         "writes the report, figures and this document. The README gives the exact commands; every number here is read from "
+         "results/results.json.")
 
     zoom = doc.settings.element.find(qn("w:zoom"))
     if zoom is not None and zoom.get(qn("w:percent")) is None:
-        zoom.set(qn("w:percent"), "100")  # the python-docx default template omits this required attribute
+        zoom.set(qn("w:percent"), "100")
     out = os.path.join(RES, "summary.docx")
     doc.save(out)
     print("wrote", out)

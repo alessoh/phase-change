@@ -240,6 +240,43 @@ def test_train_resume_keeps_schedule():
         assert torch.load(p1, weights_only=False)["cfg"]["total_steps"] == 7
 
 
+def test_splits_disjoint():
+    """No route is in two splits; the final (fresh) split, when drawn, is disjoint from the reused test
+    split and from every training-dataset route."""
+    sp = json.load(open(os.path.join(ROOT, "results", "splits.json")))
+    names = [k for k in ["train", "val", "heldout", "test", "fresh"] if k in sp]
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            assert not (set(sp[a]) & set(sp[b])), (a, b)
+    assert len(sp["test"]) >= 200
+    if "fresh" in sp:
+        assert len(sp["fresh"]) >= 200
+
+
+def test_cpu_time_recorded_and_round1_optional():
+    """New training runs record process CPU time; the optional round1 stage skips cleanly when the
+    round-1 archive is absent (clean checkout)."""
+    import argparse
+    import tempfile
+
+    import evaluate
+    import train
+
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, "c.pt")
+        train.main(["--level", "zone", "--objective", "diffusion", "--limit-train", "8", "--hidden", "8", "--layers", "1",
+                    "--batch", "4", "--warmup", "1", "--threads", "1", "--ckpt", p, "--total-steps", "3",
+                    "--max-minutes", "1"])
+        c = torch.load(p, weights_only=False)
+        assert c["step"] == 3 and c["train_cpu_seconds"] is not None and c["train_cpu_seconds"] > 0
+        old = evaluate.CACHE_R1
+        try:
+            evaluate.CACHE_R1 = os.path.join(d, "no_such_archive")
+            evaluate.round1(argparse.Namespace())  # must return without error
+        finally:
+            evaluate.CACHE_R1 = old
+
+
 def main():
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     t0 = time.time()

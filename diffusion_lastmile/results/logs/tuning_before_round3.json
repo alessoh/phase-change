@@ -5,12 +5,12 @@
  "note": "All settings chosen by the mean Amazon score on the validation routes; learned-model settings were tuned with the seed-0 checkpoints and applied unchanged to seeds 1 and 2.",
  "grid_sizes": {
   "softdist": 6,
-  "zone": 21,
+  "zone": 15,
   "diffusion_sampling": 4,
   "sup": 0,
-  "zonehist": 21,
-  "hier": 21,
-  "hier_sup": 21
+  "zonehist": 15,
+  "hier": 15,
+  "hier_sup": 15
  },
  "softdist": {
   "0.02": {
@@ -114,43 +114,13 @@
    "lam": 1024.0,
    "amazon_score": 0.05491001487184037,
    "travel_time_s": 11300.114957682292
-  },
-  "2048": {
-   "lam": 2048.0,
-   "amazon_score": 0.05455383748015659,
-   "travel_time_s": 11312.891634114583
-  },
-  "4096": {
-   "lam": 4096.0,
-   "amazon_score": 0.055498817598498916,
-   "travel_time_s": 11317.85342610677
-  },
-  "8192": {
-   "lam": 8192.0,
-   "amazon_score": 0.056765689341140874,
-   "travel_time_s": 11322.531656901041
-  },
-  "16384": {
-   "lam": 16384.0,
-   "amazon_score": 0.05688888570342311,
-   "travel_time_s": 11337.496695963542
-  },
-  "32768": {
-   "lam": 32768.0,
-   "amazon_score": 0.054296197321867794,
-   "travel_time_s": 11300.023307291667
-  },
-  "65536": {
-   "lam": 65536.0,
-   "amazon_score": 0.05531626265830189,
-   "travel_time_s": 11314.788305664062
   }
  },
  "zone_lam": 4.0,
  "boundary": {
   "zone": "interior",
   "zonehist": "interior",
-  "hier": "interior",
+  "hier": "upper",
   "hier_sup": "interior"
  },
  "diffusion": {
@@ -225,20 +195,6 @@
    "amazon_score": 0.04615432051643176,
    "travel_time_s": 11794.101708984375
   },
-  "lam1024_greedy": {
-   "lam": 1024.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.4954240780938473,
-   "amazon_score": 0.046315660383689845,
-   "travel_time_s": 11799.445068359375
-  },
-  "lam4096_greedy": {
-   "lam": 4096.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.4954240780938473,
-   "amazon_score": 0.04648345188215393,
-   "travel_time_s": 11797.768416341145
-  },
   "lam1_ml": {
    "lam": 1.0,
    "decode": "ml",
@@ -274,20 +230,6 @@
    "amazon_score": 0.061408654214163555,
    "travel_time_s": 12325.455021158854
   },
-  "lam1024_ml": {
-   "lam": 1024.0,
-   "decode": "ml",
-   "zone_order_tau": 0.3212507663663341,
-   "amazon_score": 0.06152542538976487,
-   "travel_time_s": 12340.233317057291
-  },
-  "lam4096_ml": {
-   "lam": 4096.0,
-   "decode": "ml",
-   "zone_order_tau": 0.3212507663663341,
-   "amazon_score": 0.061427250713608036,
-   "travel_time_s": 12315.423364257813
-  },
   "lam1_greedy2opt": {
    "lam": 1.0,
    "decode": "greedy2opt",
@@ -322,20 +264,6 @@
    "zone_order_tau": 0.06025439310741114,
    "amazon_score": 0.05040418129811189,
    "travel_time_s": 11471.196630859375
-  },
-  "lam1024_greedy2opt": {
-   "lam": 1024.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.06025439310741114,
-   "amazon_score": 0.05051718346662035,
-   "travel_time_s": 11472.258317057293
-  },
-  "lam4096_greedy2opt": {
-   "lam": 4096.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.06025439310741114,
-   "amazon_score": 0.05004438170446136,
-   "travel_time_s": 11466.781608072917
   }
  },
  "zonehist_lam": 4.0,
@@ -376,20 +304,6 @@
    "amazon_score": 0.047058520491172824,
    "travel_time_s": 11863.259969075521
   },
-  "lam1024_greedy": {
-   "lam": 1024.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.5285316072440613,
-   "amazon_score": 0.047175986839325695,
-   "travel_time_s": 11875.069921875
-  },
-  "lam4096_greedy": {
-   "lam": 4096.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.5285316072440613,
-   "amazon_score": 0.046586998699620845,
-   "travel_time_s": 11854.044970703126
-  },
   "lam1_ml": {
    "lam": 1.0,
    "decode": "ml",
@@ -425,20 +339,6 @@
    "amazon_score": 0.043356800262584184,
    "travel_time_s": 11760.028361002604
   },
-  "lam1024_ml": {
-   "lam": 1024.0,
-   "decode": "ml",
-   "zone_order_tau": 0.5552951582711203,
-   "amazon_score": 0.04364838740376206,
-   "travel_time_s": 11768.621728515625
-  },
-  "lam4096_ml": {
-   "lam": 4096.0,
-   "decode": "ml",
-   "zone_order_tau": 0.5552951582711203,
-   "amazon_score": 0.04356924410284398,
-   "travel_time_s": 11774.973356119792
-  },
   "lam1_greedy2opt": {
    "lam": 1.0,
    "decode": "greedy2opt",
@@ -473,20 +373,6 @@
    "zone_order_tau": 0.10458071154151528,
    "amazon_score": 0.05035461558574728,
    "travel_time_s": 11458.788338216145
-  },
-  "lam1024_greedy2opt": {
-   "lam": 1024.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.10458071154151528,
-   "amazon_score": 0.05062072165130347,
-   "travel_time_s": 11467.60996907552
-  },
-  "lam4096_greedy2opt": {
-   "lam": 4096.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.10458071154151528,
-   "amazon_score": 0.049902880827127016,
-   "travel_time_s": 11468.026619466145
   }
  },
  "hier_lam": 256.0,
@@ -527,20 +413,6 @@
    "amazon_score": 0.04553833221651914,
    "travel_time_s": 11772.648372395834
   },
-  "lam1024_greedy": {
-   "lam": 1024.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.6120071163153448,
-   "amazon_score": 0.04568575106326247,
-   "travel_time_s": 11780.163354492188
-  },
-  "lam4096_greedy": {
-   "lam": 4096.0,
-   "decode": "greedy",
-   "zone_order_tau": 0.6120071163153448,
-   "amazon_score": 0.04562927727373929,
-   "travel_time_s": 11772.139998372395
-  },
   "lam1_ml": {
    "lam": 1.0,
    "decode": "ml",
@@ -576,20 +448,6 @@
    "amazon_score": 0.033805966574344225,
    "travel_time_s": 11601.741739908854
   },
-  "lam1024_ml": {
-   "lam": 1024.0,
-   "decode": "ml",
-   "zone_order_tau": 0.6858344324061011,
-   "amazon_score": 0.03432860679717193,
-   "travel_time_s": 11607.661751302083
-  },
-  "lam4096_ml": {
-   "lam": 4096.0,
-   "decode": "ml",
-   "zone_order_tau": 0.6858344324061011,
-   "amazon_score": 0.03387734537419145,
-   "travel_time_s": 11605.40341796875
-  },
   "lam1_greedy2opt": {
    "lam": 1.0,
    "decode": "greedy2opt",
@@ -624,20 +482,6 @@
    "zone_order_tau": 0.12042707272169346,
    "amazon_score": 0.04955531469113412,
    "travel_time_s": 11425.40166015625
-  },
-  "lam1024_greedy2opt": {
-   "lam": 1024.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.12042707272169346,
-   "amazon_score": 0.04956311264949767,
-   "travel_time_s": 11428.969954427082
-  },
-  "lam4096_greedy2opt": {
-   "lam": 4096.0,
-   "decode": "greedy2opt",
-   "zone_order_tau": 0.12042707272169346,
-   "amazon_score": 0.04933833466543321,
-   "travel_time_s": 11434.358317057291
   }
  },
  "hier_sup_lam": 64.0,

@@ -1,0 +1,25 @@
+{
+ "note": "process CPU seconds per step of train.py --threads 1, measured on an idle machine over a 1.5-minute throw-away run (includes batching and augmentation, excludes loading)",
+ "per_step_cpu_s": {
+  "stop_diffusion": {
+   "cpu_s_per_step": 1.0971593676202527,
+   "steps_measured": 79,
+   "wall_s_per_step": 1.10875811456125
+  },
+  "stop_supervised": {
+   "cpu_s_per_step": 1.051822250481928,
+   "steps_measured": 83,
+   "wall_s_per_step": 1.061922225607447
+  },
+  "zone_diffusion": {
+   "cpu_s_per_step": 0.7962949493272728,
+   "steps_measured": 110,
+   "wall_s_per_step": 0.8056723551316695
+  },
+  "zone_supervised": {
+   "cpu_s_per_step": 0.7072065357096777,
+   "steps_measured": 124,
+   "wall_s_per_step": 0.7148067912747783
+  }
+ }
+}
